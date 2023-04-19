@@ -17,8 +17,8 @@
 ## System Architecture
 ## Getting Started
 
-- 1. update the config.env for mongo DB
-- 2. Run the npm
+- (1) update the config.env for mongo DB
+- (2) Run the npm
 
 ```
 // development
@@ -31,7 +31,7 @@ npm run prod
 npm run swagger
 
 ```
-- 3. [swagger-doc](http://localhost:3000/api-doc/)
+- (3) [swagger-doc](http://localhost:3000/api-doc/)
 ## Deploy on Production
 
 

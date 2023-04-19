@@ -18,8 +18,8 @@
 
 
 ## 快速開始
-- 1. 於 config.env 設定 mongo DB 參數
-- 2. 執行 npm 
+- (1) 於 config.env 設定 mongo DB 參數
+- (2) 執行 npm 
 ```
 //開發環境
 npm run dev
@@ -31,6 +31,7 @@ npm run prod
 npm run swagger
 
 ```
+- (3) [swagger-doc](http://localhost:3000/api-doc/)
 
 ## 部署正式環境
 
