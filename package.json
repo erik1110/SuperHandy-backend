@@ -1,0 +1,22 @@
+{
+  "name": "mission5",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "start:dev": "NODE_ENV=dev nodemon ./bin/www",
+    "start:prod": "NODE_ENV=prod nodemon ./bin/www",
+    "swagger": "node ./swagger.js"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
+    "express": "~4.16.1",
+    "mongoose": "^7.0.3",
+    "morgan": "~1.9.1",
+    "swagger-autogen": "^2.23.1",
+    "swagger-ui-express": "^4.6.2"
+  }
+}
