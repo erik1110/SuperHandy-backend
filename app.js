@@ -23,8 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile))
 
