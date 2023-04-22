@@ -1,27 +1,34 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-const bodyParser = require('body-parser');
-const handleErrorAsync = require('../service/handleErrorAsync');
-const PostsController = require('../controllers/posts');
+const bodyParser = require("body-parser");
+const handleErrorAsync = require("../service/handleErrorAsync");
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: false }));
 
-router.get('/', handleErrorAsync(async (req, res, next) => {
-    const posts = await PostsController.getPosts(req, res, next);
-    res.json(posts);
-}));
-router.post('/', handleErrorAsync(async (req, res, next) => {
-    const posts = await PostsController.createPosts(req, res, next);
-    res.json(posts);
-}));
-router.delete('/:id', handleErrorAsync(async (req, res, next) => {
-    const posts = await PostsController.deleteOnePosts(req, res, next);
-    res.json(posts);
-}));
-router.put('/:id', handleErrorAsync(async (req, res, next) => {
-    const posts = await PostsController.updateOnePosts(req, res, next);
-    res.json(posts);
-}));
+router.get(
+  "/profile",
+  handleErrorAsync(async (req, res, next) => {
+    res.send("respond your request [get]/account/profile  ");
+  })
+);
+router.patch(
+  "/profile",
+  handleErrorAsync(async (req, res, next) => {
+    res.send("respond your request [patch]/account/profile  ");
+  })
+);
+router.get(
+  "/info-form",
+  handleErrorAsync(async (req, res, next) => {
+    res.send("respond your request [get]/account/info-form  ");
+  })
+);
+router.patch(
+  "/info-form",
+  handleErrorAsync(async (req, res, next) => {
+    res.send("respond your request [patch]/account/info-form  ");
+  })
+);
 
 module.exports = router;
