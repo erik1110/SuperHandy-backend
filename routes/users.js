@@ -4,7 +4,7 @@ var router = express.Router();
 /* 登入 */
 router.post('/sign-in', function(req, res, next) {
     /**
-      * #swagger.tags = ['Login']
+      * #swagger.tags = ['Sign-in']
       * #swagger.summary = '登入'
     */
     /**
