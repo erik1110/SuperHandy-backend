@@ -26,7 +26,7 @@ app.use('/', usersRouter);
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile))
 
 // 錯誤管理
-require("./service/process");
+require("./utils/process");
 app.use(notFound);
 app.use(resError);
 
