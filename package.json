@@ -23,6 +23,8 @@
     "validator": "^13.9.0"
   },
   "devDependencies": {
-    "eslint": "^8.39.0"
+    "eslint": "^8.39.0",
+    "prettier": "^2.8.8",
+    "prettier-eslint": "^15.0.1"
   }
 }
