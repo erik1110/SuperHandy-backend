@@ -41,7 +41,7 @@ router.post('/sign-up', function(req, res, next) {
       schema: { $ref: '#/definitions/Error500' }
     }
   */
-  const posts = UserController.signUp(req, res, next);
+  UserController.signUp(req, res, next);
 });
 
 module.exports = router;
