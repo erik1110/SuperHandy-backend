@@ -2,32 +2,33 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
     email: {
       type: String,
-      required: [true, '請填寫 email'],
+      required: [true, 'Please enter your email.'],
       unique: true,
       lowercase: true,
-      select: false,
+      select: true,
       trim: true
     },
     password: {
       type: String,
-      required: [true, '請填寫密碼'],
+      required: [true, 'Please enter your password.'],
       minlength: 8,
       select: false,
       trim: true
     },
     firstName: {
       type: String,
-      required: [true, '請填寫名字'],
+      required: [true, 'Please enter your first name.'],
       trim: true
     },
     lastName: {
       type: String,
-      required: [true, '請填寫姓氏'],
+      required: [true, 'Please enter your last name.'],
       trim: true
     },
     phone: {
       type: String,
-      required: [true, '請填寫電話'],
+      required: [true, 'Please enter your phone.'],
+      unique: true,
       trim: true
     },
     avatarPath: {

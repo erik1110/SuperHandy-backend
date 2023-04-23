@@ -17,11 +17,7 @@ router.get('/profile', async function (req, res, next) {
         "email": "abc123@gmail.com",
         "avatarPath": "http://"
       }
-    }
-    #swagger.responses[401] = {
-      description: '尚未登入',
-      schema: { $ref: '#/definitions/Error' }
-    }
+    }    
     */
   try {
     const user = await User.findOne({ _id: req.user }).select('name email avatarPath')

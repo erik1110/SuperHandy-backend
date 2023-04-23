@@ -26,7 +26,8 @@ const users = {
           });
         } catch (error) {
           if (error.code === 11000) {
-            return next(appError(400, "40011", "已註冊此用戶"));
+            const field = Object.keys(error.keyPattern)[0];
+            return next(appError(400, "40011", `此 ${field} 已被註冊`));
           } else if (error.message.includes('ValidationError')){
             return next(appError(400, "40001", "格式錯誤"));
           }
@@ -45,6 +46,35 @@ const users = {
           data
         }));
       }),
+  signIn: handleErrorAsync(async (req, res, next) => {
+      const validatorResult = Validator.signIn(req.body);
+      if (!validatorResult.status) {
+        return next(appError(400, "40001", validatorResult.msg));
+      }
+      const { email, password } = req.body;
+      // const user = await User.findOne({email}).select("+password");
+      const user = await User.findOne({email});
+      console.log(user)
+      if (!user) {
+        return next(appError(400, "40010", "尚未註冊"));
+      }
+      const auth = await bcrypt.compare(password, user.password);
+      if (!auth) {
+        return next(appError(400, "40002", "您的密碼不正確"));
+      }
+      const { _id } = user;
+      const token = await generateJwtToken(_id);
+      if (token.length === 0) {
+        return next(appError(400, "40003", "token 建立失敗"));
+      }
+      const data = {
+        token,
+        "id": _id
+      };
+      res.status(200).json(getHttpResponse({
+        data
+      }));
+    }),
 }
 
 module.exports = users;

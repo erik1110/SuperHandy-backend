@@ -3,8 +3,8 @@ const definitions = require('./swagger-defintion')
 
 const doc = {
   info: {
-    title: '超人幫手 API文件 | 北3組',
-    description: '注意事項：登入成功後請點「Authorize」輸入 Token'
+    title: 'SuperHandy 超人幫手',
+    description: 'This is the final project for a Node.js course.\n注意事項：登入成功後請點「Authorize」輸入 Token'
   },
   host: 'localhost:3000',
   schemes: ['http', 'https'],

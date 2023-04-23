@@ -70,22 +70,30 @@ module.exports = class Validator {
         msg: "密碼少於8位數!",
       };
     }
+    if (!validator.isMobilePhone(phone, 'zh-TW')) {
+      return {
+        status: false,
+        msg: "電話號碼不正確!",
+      };
+    }
     return {
       status: true,
       msg: "success",
     };
   }
-  static signIn({ email, password }) {
-    if (!email || !password) {
+  static signIn({ account, password }) {
+    if (!account || !password) {
       return {
         status: false,
         msg: "帳號密碼不可為空!",
       };
     }
-    if (!validator.isEmail(email)) {
+    let isEmail = validator.isEmail(account);
+    let isPhone = validator.isMobilePhone(account, 'zh-TW');
+    if (!isEmail && !isPhone) {
       return {
         status: false,
-        msg: "Email 格式不正確!",
+        msg: "帳號格式不正確!",
       };
     }
     if (!validator.isLength(password, { min: 8 })) {

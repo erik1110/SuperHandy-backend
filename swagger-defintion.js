@@ -10,11 +10,19 @@ const page = {
   const Success = {
     message: "成功訊息"
   };
-  
-  const Error = {
+
+  const Error400 = {
     message: "錯誤訊息"
   };
+
+  const Error404 = {
+    message: "外太空也找不到這個頁面"
+  };
   
+  const Error500 = {
+    message: "系統錯誤，請稍後再試"
+  };
+
   const Sign = {
     token: "abcde",
     _id: "123456789"
@@ -66,21 +74,7 @@ const page = {
     page: page,
     Success
   };
-  
-  const follow = {
-    _id: "123456789",
-    follow: "123456789",
-    following: [user],
-    createdAt: "2022-06-01T09:04:47.512Z",
-    updatedAt: "2022-06-01T09:04:47.512Z"
-  };
-  
-  const Follows = {
-    list: [follow],
-    page: page,
-    Success
-  };
-  
+
   const Comment = {
     _id: "123456789",
     user,
@@ -99,28 +93,6 @@ const page = {
     updatedAt: "2022-06-01T08:32:14.125Z"
   };
   
-  const Like = {
-    ...like,
-    Success
-  };
-  
-  const getLike = {
-    _id: "123456789",
-    user,
-    content: "來新增一筆資料吧",
-    image: ["https://i.imgur.com/xxx.png"],
-    likes: [User],
-    comments: [Comment],
-    createdAt: "2022-06-01T08:32:14.125Z",
-    updatedAt: "2022-06-01T08:32:14.125Z"
-  };
-  
-  const getLikes = {
-    list: [getLike],
-    page: page,
-    Success
-  };
-  
   const File = {
     upload: "https://i.imgur.com/xxx.png"
   };
@@ -133,6 +105,8 @@ const page = {
     Comment,
     File,
     Success,
-    Error,
+    Error400,
+    Error404,
+    Error500,
     Sign
   };
