@@ -18,5 +18,8 @@
     "morgan": "~1.9.1",
     "swagger-autogen": "^2.23.1",
     "swagger-ui-express": "^4.6.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.39.0"
   }
 }
