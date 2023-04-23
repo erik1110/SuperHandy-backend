@@ -6,6 +6,7 @@
  * @param {String} errMessage
  */
 const appError = (statusCode, errName, errMessage) => {
+    console.log('appError')
     const error = new Error(errMessage);
     error.name = errName;
     error.statusCode = statusCode;
@@ -21,10 +22,11 @@ const appError = (statusCode, errName, errMessage) => {
    * @return {Next} - 回傳express Next
    */
   const handleErrorAsync = function (func) {
+    console.log('handleErrorAsync')
     return function (req, res, next) {
       func(req, res, next).catch(
         function (error) {
-          return next(error);
+            next(error);
         }
       );
     };

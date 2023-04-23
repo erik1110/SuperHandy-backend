@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const UserController = require('../controller/userController');
 
 /* 登入 */
 router.post('/sign-in', function(req, res, next) {
@@ -14,11 +15,11 @@ router.post('/sign-in', function(req, res, next) {
       schema: {
         $email: 'test@gmail.com',
         $phone: '0912345678',
-        $first_name: '王',
-        $last_name: '小明',
-        "nick_name": "Wang",
+        $firstName: '王',
+        $lastName: '小明',
+        "nickName": "Wang",
         $password: 'a1234567',
-        "confirm_password": "a1234567"
+        "confirmPassword": "a1234567"
       }
     }
     */
@@ -40,7 +41,7 @@ router.post('/sign-in', function(req, res, next) {
       schema: { $ref: '#/definitions/Error' }
     }
   */
-  res.send('respond with a resource');
+  const posts = UserController.signUp(req, res, next);
 });
 
 module.exports = router;

@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
       type: String,
+      required: [true, '請填寫電話'],
       trim: true
     },
     avatarPath: {
@@ -79,11 +80,7 @@ const userSchema = new mongoose.Schema({
       type: Date,
       default: Date.now,
     },
-  },
-  {
-    versionKey: false
-  }
-  );
+  });
 
 const User = mongoose.model('User', userSchema);
 

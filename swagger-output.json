@@ -89,15 +89,15 @@
                   "type": "string",
                   "example": "0912345678"
                 },
-                "first_name": {
+                "firstName": {
                   "type": "string",
                   "example": "王"
                 },
-                "last_name": {
+                "lastName": {
                   "type": "string",
                   "example": "小明"
                 },
-                "nick_name": {
+                "nickName": {
                   "type": "string",
                   "example": "Wang"
                 },
@@ -105,7 +105,7 @@
                   "type": "string",
                   "example": "a1234567"
                 },
-                "confirm_password": {
+                "confirmPassword": {
                   "type": "string",
                   "example": "a1234567"
                 }
@@ -113,17 +113,14 @@
               "required": [
                 "email",
                 "phone",
-                "first_name",
-                "last_name",
+                "firstName",
+                "lastName",
                 "password"
               ]
             }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
-          },
           "201": {
             "description": "登入成功",
             "schema": {

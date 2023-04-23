@@ -44,8 +44,8 @@ module.exports = class Validator {
    * @param {Next} next
    * @returns {status,msg}
    */
-  static signUp({ firstName, lastName, email, password, confirmPassword }) {
-    if (!firstName || ! lastName || !email || !password || !confirmPassword) {
+  static signUp({ firstName, lastName, email, phone, password, confirmPassword }) {
+    if (!firstName || !lastName || !email || !phone || !password || !confirmPassword) {
       return {
         status: false,
         msg: "欄位未填寫正確!",
