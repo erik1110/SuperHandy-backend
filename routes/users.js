@@ -6,20 +6,20 @@ const UserController = require('../controller/userController');
 router.post('/sign-up', function(req, res, next) {
     /**
       * #swagger.tags = ['Sign-in']
-      * #swagger.summary = '註冊會員'
+      * #swagger.summary = 'Register an Account'
     */
     /**
     #swagger.parameters['parameter_name'] = {
       in: 'body',
-      description: 'nickName不是必填，其他都是必填',
+      description: 'nickName is optional, while all the others are required.',
       schema: {
         $email: 'test@gmail.com',
         $phone: '0912345678',
-        $firstName: '王',
-        $lastName: '小明',
-        "nickName": "Wang",
+        $firstName: 'Ho',
+        $lastName: 'Erik',
+        'nickName': 'Erik',
         $password: 'a1234567',
-        "confirmPassword": "a1234567"
+        'confirmPassword': "a1234567"
       }
     }
     */

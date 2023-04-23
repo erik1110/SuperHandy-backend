@@ -71,13 +71,13 @@
         "tags": [
           "Sign-in"
         ],
-        "summary": "註冊會員",
+        "summary": "Register an Account",
         "description": "",
         "parameters": [
           {
             "name": "parameter_name",
             "in": "body",
-            "description": "nickName不是必填，其他都是必填",
+            "description": "nickName is optional, while all the others are required.",
             "schema": {
               "type": "object",
               "properties": {
@@ -91,15 +91,15 @@
                 },
                 "firstName": {
                   "type": "string",
-                  "example": "王"
+                  "example": "Ho"
                 },
                 "lastName": {
                   "type": "string",
-                  "example": "小明"
+                  "example": "Erik"
                 },
                 "nickName": {
                   "type": "string",
-                  "example": "Wang"
+                  "example": "Erik"
                 },
                 "password": {
                   "type": "string",
