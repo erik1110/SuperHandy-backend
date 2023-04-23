@@ -70,6 +70,12 @@ module.exports = class Validator {
         msg: "密碼少於8位數!",
       };
     }
+    if (!/^\d{10}$/.test(phone)) {
+      return {
+        status: false,
+        msg: "電話號碼不正確!",
+      };
+    }
     return {
       status: true,
       msg: "success",
