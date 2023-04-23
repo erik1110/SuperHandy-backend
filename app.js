@@ -9,6 +9,7 @@ const swaggerUI = require('swagger-ui-express')
 const swaggerFile = require('./swagger-output.json')
 
 var usersRouter = require('./routes/users')
+var accountRouter = require('./routes/account')
 
 var app = express()
 
@@ -22,6 +23,7 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', usersRouter)
+app.use('/account', accountRouter)
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile))
 
 // 錯誤管理
