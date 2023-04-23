@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "第五週作業",
-    "description": "示範",
+    "title": "SuperHandy 超人幫手",
+    "description": "This is the final project for a Node.js course.",
     "version": "1.0.0"
   },
   "host": "localhost:3000",

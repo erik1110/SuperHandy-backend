@@ -3,8 +3,8 @@ const definitions = require("./swagger-defintion");
 
 const doc = {
     info: {
-        title: '第五週作業',
-        description: '示範'
+        title: 'SuperHandy 超人幫手',
+        description: 'This is the final project for a Node.js course.'
     },
     host: 'localhost:3000',
     schemes: ['http', 'https'],
