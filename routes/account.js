@@ -1,14 +1,28 @@
 var express = require('express')
 var router = express.Router()
 const User = require('../models/userModel')
-// const bodyParser = require("body-parser");
-// const handleErrorAsync = require('../service/handleErrorAsync')
-
-// router.use(bodyParser.json());
-// router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/profile', async function (req, res, next) {
-  req.user = '6444b5a30dc68dc4fd63a1ea'
+  /**
+   * #swagger.tags = ['Account']
+   * #swagger.summary = '取得使用者資料概要'
+   */
+  /**
+    #swagger.security=[{"jwt": []}],
+    #swagger.responses[200] = {
+      description: 'OK',
+      schema: { 
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "abc123@gmail.com",
+        "avatarPath": "http://"
+      }
+    }
+    #swagger.responses[401] = {
+      description: '尚未登入',
+      schema: { $ref: '#/definitions/Error' }
+    }
+    */
   try {
     const user = await User.findOne({ _id: req.user }).select('name email avatarPath')
     if (!user) {
