@@ -5,6 +5,7 @@
  * @param {String} errName
  * @param {String} errMessage
  */
+console.log(process.env.NODE_ENV)
 const appError = (statusCode, errName, errMessage) => {
     console.log('appError')
     const error = new Error(errMessage);
@@ -22,7 +23,6 @@ const appError = (statusCode, errName, errMessage) => {
    * @return {Next} - 回傳express Next
    */
   const handleErrorAsync = function (func) {
-    console.log('handleErrorAsync')
     return function (req, res, next) {
       func(req, res, next).catch(
         function (error) {
