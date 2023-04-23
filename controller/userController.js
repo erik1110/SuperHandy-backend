@@ -26,7 +26,8 @@ const users = {
           });
         } catch (error) {
           if (error.code === 11000) {
-            return next(appError(400, "40011", "已註冊此用戶"));
+            const field = Object.keys(error.keyPattern)[0];
+            return next(appError(400, "40011", `此 ${field} 已被註冊`));
           } else if (error.message.includes('ValidationError')){
             return next(appError(400, "40001", "格式錯誤"));
           }
@@ -44,6 +45,9 @@ const users = {
         res.status(200).json(getHttpResponse({
           data
         }));
+      }),
+  signIn: handleErrorAsync(async (req, res, next) => {
+
       }),
 }
 

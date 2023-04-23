@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema({
     phone: {
       type: String,
       required: [true, 'Please enter your phone.'],
+      unique: true,
       trim: true
     },
     avatarPath: {

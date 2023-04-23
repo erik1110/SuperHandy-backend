@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const UserController = require('../controller/userController');
 
-/* 登入 */
+/* 註冊 */
 router.post('/sign-up', function(req, res, next) {
     /**
       * #swagger.tags = ['Sign-in']
