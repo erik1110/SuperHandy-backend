@@ -66,18 +66,18 @@
     }
   },
   "paths": {
-    "/sign-in": {
+    "/sign-up": {
       "post": {
         "tags": [
           "Sign-in"
         ],
-        "summary": "登入",
+        "summary": "註冊會員",
         "description": "",
         "parameters": [
           {
             "name": "parameter_name",
             "in": "body",
-            "description": "登入資料",
+            "description": "nickName不是必填，其他都是必填",
             "schema": {
               "type": "object",
               "properties": {
@@ -121,7 +121,7 @@
           }
         ],
         "responses": {
-          "201": {
+          "200": {
             "description": "登入成功",
             "schema": {
               "$ref": "#/definitions/Sign"
@@ -130,19 +130,19 @@
           "400": {
             "description": "登入失敗",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "#/definitions/Error400"
             }
           },
           "404": {
             "description": "無此路由",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "#/definitions/Error404"
             }
           },
           "500": {
             "description": "系統錯誤",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "#/definitions/Error500"
             }
           }
         }
@@ -609,12 +609,30 @@
         }
       }
     },
-    "Error": {
+    "Error400": {
       "type": "object",
       "properties": {
         "message": {
           "type": "string",
           "example": "錯誤訊息"
+        }
+      }
+    },
+    "Error404": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "外太空也找不到這個頁面"
+        }
+      }
+    },
+    "Error500": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "系統錯誤，請稍後再試"
         }
       }
     },
