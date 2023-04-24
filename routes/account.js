@@ -1,9 +1,10 @@
 var express = require('express')
 var router = express.Router()
 const User = require('../models/userModel')
+const accounts = require('../controller/accountController')
 
 router.get('/profile', async function (req, res, next) {
-  req.user = '6444b5a30dc68dc4fd63a1ea'
+  req.user = '6444b5a30dc68dc4fd63a1ea' //'6444b5a30dc68dc4fd63a1ea'
   /**
    * #swagger.tags = ['Account']
    * #swagger.summary = '取得使用者資料概要'
@@ -20,26 +21,10 @@ router.get('/profile', async function (req, res, next) {
       }
     }    
     */
-  try {
-    const user = await User.findOne({ _id: req.user }).select('name email avatarPath')
-    if (!user) {
-      return res.status(404).json({
-        message: '查不到啦'
-      })
-    }
-    res.status(200).json({
-      user
-    })
-  } catch (err) {
-    next(err)
-  }
+  accounts.getProfile(req, res, next)
 })
-
-// router.patch('/profile', function (req, res, next) {
-//   res.send('respond your request [patch]/account/profile  ')
-// })
 router.get('/info-form', async function (req, res, next) {
-  req.user = '6444bb5daf3a79c2f4b31ce8'
+  req.user = '6444bb5daf3a79c2f4b31ce81'
   /**
    * #swagger.tags = ['Account']
    * #swagger.summary = '取得使用者表單資料'
@@ -56,19 +41,7 @@ router.get('/info-form', async function (req, res, next) {
       }
     }    
     */
-  try {
-    const userInfoForm = await User.findOne({ _id: req.user }).select('nickName email posterIntro helperIntro')
-    if (!userInfoForm) {
-      return res.status(404).json({
-        message: '查不到啦'
-      })
-    }
-    res.status(200).json({
-      userInfoForm
-    })
-  } catch (err) {
-    next(err)
-  }
+  accounts.getInfoForm(req, res, next)
 })
 router.patch('/info-form', async function (req, res, next) {
   /**
@@ -102,31 +75,7 @@ router.patch('/info-form', async function (req, res, next) {
     }    
     */
   req.user = '6444bb5daf3a79c2f4b31ce8'
-  const updateFields = {}
-  const acceptedFields = ['nickName', 'phone', 'address', 'posterIntro', 'helperIntro']
-  console.log('check point req.body: ', req.body)
-  const checkField = (field) => {
-    if (req.body.hasOwnProperty(field)) {
-      updateFields[field] = req.body[field]
-    }
-  }
-  updateFields.updatedAt = new Date()
-  acceptedFields.forEach(checkField)
-  try {
-    acceptedFields.push('-email updatedAt')
-    const userInfoForm = await User.findOneAndUpdate({ _id: req.user }, updateFields, {
-      new: true, // 返回更新後的 user 物件
-      select: acceptedFields.join(' ') //'nickName phone address posterIntro helperIntro -email'
-    })
-    if (!userInfoForm) {
-      return res.status(404).json({
-        message: '查不到啦'
-      })
-    }
-    res.json(userInfoForm)
-  } catch (err) {
-    next(err)
-  }
+  accounts.updateInfoForm(req, res, next)
 })
 
 router.post('/testSignup', async function (req, res, next) {
