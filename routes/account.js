@@ -4,13 +4,20 @@ const User = require('../models/userModel')
 const accounts = require('../controller/accountController')
 
 router.get('/profile', async function (req, res, next) {
-  req.user = '6444b5a30dc68dc4fd63a1ea' //'6444b5a30dc68dc4fd63a1ea'
+  req.user = req.user || req.query.uid || '64469189880b866621b40eeb' //'6444b5a30dc68dc4fd63a1ea'
   /**
    * #swagger.tags = ['Account']
    * #swagger.summary = '取得使用者資料概要'
    */
   /**
     #swagger.security=[{"jwt": []}],
+    #swagger.parameters['uid'] = {
+      in: 'query',
+      description: '[dev]如果沒有token，可以用uid取得資料',
+      schema: {
+        'uid': '64469189880b866621b40eeb'
+      }
+    },
     #swagger.responses[200] = {
       description: 'OK',
       schema: { 
@@ -24,13 +31,20 @@ router.get('/profile', async function (req, res, next) {
   accounts.getProfile(req, res, next)
 })
 router.get('/info-form', async function (req, res, next) {
-  req.user = '6444bb5daf3a79c2f4b31ce81'
+  req.user = req.user || req.query.uid || '64469189880b866621b40eeb' //'6444b5a30dc68dc4fd63a1ea'
   /**
    * #swagger.tags = ['Account']
    * #swagger.summary = '取得使用者表單資料'
    */
   /**
     #swagger.security=[{"jwt": []}],
+    #swagger.parameters['uid'] = {
+      in: 'query',
+      description: '[dev]如果沒有token，可以用uid取得資料',
+      schema: {
+        'uid': '64469189880b866621b40eeb'
+      }
+    },
     #swagger.responses[200] = {
       description: 'OK',
       schema: { 
@@ -44,12 +58,20 @@ router.get('/info-form', async function (req, res, next) {
   accounts.getInfoForm(req, res, next)
 })
 router.patch('/info-form', async function (req, res, next) {
+  req.user = req.user || req.query.uid || '64469189880b866621b40eeb' //'6444b5a30dc68dc4fd63a1ea'
   /**
    * #swagger.tags = ['Account']
    * #swagger.summary = '更新使用者表單資料'
    */
   /**
     #swagger.security=[{"jwt": []}],
+    #swagger.parameters['uid'] = {
+      in: 'query',
+      description: '[dev]如果沒有token，可以用uid取得資料',
+      schema: {
+        'uid': '64469189880b866621b40eeb'
+      }
+    },
     #swagger.parameters['parameter_name'] = {
       in: 'body',
       description: '可僅更新部分欄位',
@@ -66,6 +88,7 @@ router.patch('/info-form', async function (req, res, next) {
       schema: {
         '_id':'uhf8vufbv88fv8hf8v',
         'nickName': 'Erik',
+        'email': 'erik@gmail.com'
         'phone': '0912345678',
         'address': '台北市',
         'posterIntro': '我是海報人',
@@ -74,7 +97,6 @@ router.patch('/info-form', async function (req, res, next) {
       }
     }    
     */
-  req.user = '6444bb5daf3a79c2f4b31ce8'
   accounts.updateInfoForm(req, res, next)
 })
 
@@ -118,7 +140,7 @@ router.get('/testFindAllUser', async function (req, res, next) {
    */
   console.log('check point req.body', req.body)
   try {
-    const allUser = await User.find({}, '_id, name, email, password')
+    const allUser = await User.find({}, '_id, lastName,firstName, email, password')
     res.status(200).json({
       allUser
     })

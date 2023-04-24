@@ -16,7 +16,7 @@ const accounts = {
     })
   }),
   getInfoForm: handleErrorAsync(async (req, res, next) => {
-    const userInfoForm = await User.findOne({ _id: req.user }).select('nickName email posterIntro helperIntro')
+    const userInfoForm = await User.findOne({ _id: req.user }).select('firstName lastName nickName email posterIntro helperIntro avatarPath')
     if (!userInfoForm) {
       return res.status(404).json({
         message: '查不到啦'
