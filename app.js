@@ -24,7 +24,7 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', usersRouter)
-app.use('/account', isAuth, accountRouter)
+app.use('/account', accountRouter)
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile))
 
 // 錯誤管理
