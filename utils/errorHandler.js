@@ -6,7 +6,6 @@
  * @param {String} errMessage
  */
 const appError = (statusCode, errName, errMessage) => {
-    console.log('appError')
     const error = new Error(errMessage);
     error.name = errName;
     error.statusCode = statusCode;

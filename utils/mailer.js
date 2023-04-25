@@ -39,7 +39,7 @@ const mailer = (res, next, user) => {
 
   transporter.sendMail(options, function(error, info) {
     if(!error) {
-      res.status(201).json(getHttpResponse({ 
+      res.status(200).json(getHttpResponse({ 
         message: "請至 Email 查收信件"
       }));
     } else {
