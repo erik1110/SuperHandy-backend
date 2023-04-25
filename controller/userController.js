@@ -35,24 +35,19 @@ const users = {
           }
           return next(appError(400, "40005", "不明錯誤"));
         }
-        const { _id } = newUser;
-        const token = await generateJwtToken(_id);
-        if (token.length === 0) {
-          return next(appError(400, "40003", "token 建立失敗"));
-        }
-        const data = {
-          token,
-          "id": _id
-        };
-        res.status(200).json(getHttpResponse({
-          data
-        }));
-        // const { verification } = await Verification.create({
-        //   userId: user._id,
-        //   verification: (Math.floor(Math.random() * 90000) + 10000).toString()
-        // });
-        // user.email = 'oceanuheart@gmail.com'
-        // mailer(res, next, user, verification);
+        // const { _id } = newUser;
+        // const token = await generateJwtToken(_id);
+        // if (token.length === 0) {
+        //   return next(appError(400, "40003", "token 建立失敗"));
+        // }
+        // const data = {
+        //   token,
+        //   "id": _id
+        // };
+        // res.status(200).json(getHttpResponse({
+        //   data
+        // }));
+        mailer(res, next, newUser);
 
       }),
   signIn: handleErrorAsync(async (req, res, next) => {

@@ -2,14 +2,18 @@ const nodemailer = require('nodemailer');
 const getHttpResponse = require('./successHandler');
 const { appError } = require('./errorHandler');
 
-const mailer = (res, next, user, randomNum) => {
+const mailer = (res, next, user) => {
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
-      user: process.env.MAILER_USER,
-      pass: process.env.MAILER_SECRET
+      type: "OAuth2",
+      user: process.env.ACCOUNT,
+      clientId: process.env.clientId,
+      clientSecret: process.env.clientSecret,
+      refreshToken: process.env.refreshToken,
+      accessToken: process.env.accessToken
     },
     tls: {
       rejectUnauthorized: false
@@ -17,16 +21,17 @@ const mailer = (res, next, user, randomNum) => {
   });
 
   const options = {
-    from: process.env.MAILER_USER,
+    from: process.env.ACCOUNT,
     to: user.email,
-    subject: 'SuperHandy - 用戶信箱確認',
+    subject: 'SuperHandy - 驗證用戶信箱',
     html: `
-    <h2>用戶信箱確認</h2> 
+    <h2>驗證用戶信箱</h2>
     <p> ${user.nickName}，您好: <br />
-       感謝您註冊 [網站/應用程式名稱]！為了確保您的帳戶安全，請使用以下驗證碼完成驗證流程：<br />
-       驗證碼：[輸入驗證碼]<br />
-       如果您沒有註冊此帳戶，請忽略此郵件。請注意，此驗證碼將在收到此電子郵件後 [一小時/一天] 後失效。<br />
-       謝謝您的配合！<br />
+       感謝您註冊 SuperHandy！為了確保您的帳戶安全，請使用以下連結並完成驗證流程：<br />
+       驗證成功後，即可設定您的新密碼 <br />
+        <a href="http://127.0.0.1:3000/users/verification/${user._id.toString()}">驗證連結</a><br />
+       驗證連結於一個小時後逾期<br />
+       如果你並未要求註冊該網站，你可以略過這則訊息。<br />
     </p>
     <p style=color:gray>本郵件請勿直接回覆。</p>
     `
