@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const jwt = require("jsonwebtoken");
 const { appError, handleErrorAsync} = require('../utils/errorHandler');
 const getHttpResponse = require("../utils/successHandler");
 const bcrypt = require("bcryptjs");
@@ -26,7 +27,48 @@ const users = {
       data
     }));
   }),
+  validateEmail: handleErrorAsync(async (req, res, next) => {
+    try {
+      const token = req.query.token;
+      // 檢查 token 是否存在
+      if (!token) {
+        return res.status(401).send('信箱驗證失敗');
+      }
+      const decoded = await new Promise((resolve, reject) => {
+        jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
+          err ? next(appError(400, "40003", err)) : resolve(payload);
+        });
+      });
+      const currentUser = await User.findById(decoded.id);
+      if (!currentUser) {
+        return next(appError(400, "40010", "信箱驗證失敗"));
+      } else if (currentUser.isVerifiedEmail) {
+        return next(appError(400, "40011", "本封信件失效"));
+      } else {
+        // 在這裡執行用戶驗證的邏輯，將用戶的 isVerifiedEmail 屬性設置為 true
+        await User.updateOne(
+          { _id: decoded.id },
+          { $set: { isVerifiedEmail: true } }
+        );
+      }
 
+      // 返回 HTML 頁面，顯示驗證成功的信息
+      return res.send(`
+        <html>
+          <head>
+            <title>驗證成功</title>
+          </head>
+          <body>
+            <h1>恭喜！您的帳戶已經成功驗證。</h1>
+            <p>您現在可以 <a href="/login">登入</a> 您的帳戶。</p>
+          </body>
+        </html>
+      `);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send('伺服器忙碌中，請稍後再試試');
+    }
+    }), 
   signUpEmail: handleErrorAsync(async (req, res, next) => {
     const validatorResult = Validator.signUp(req.body);
     if (!validatorResult.status) {
@@ -55,17 +97,23 @@ const users = {
     }
       const { _id } = newUser;
       const token = await generateJwtTokenForEmail(_id);
-      await User.updateOne(
-        { _id: newUser._id },
-        { $set: { token: token } }
-      );
       if (token.length === 0) {
         return next(appError(400, "40003", "token 建立失敗"));
       }
-      const data = {
-        token,
-        "id": _id
-      };
+
+      const decoded = await new Promise((resolve, reject) => {
+        jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
+          if (err) {
+              console.log("Token expired at:", new Date(payload.exp * 1000));
+              console.log("Current time is:", new Date());
+            return next(appError(400, "40003", err));
+          } else {
+            resolve(payload);
+          }
+        });
+      });
+      console.log(_id);
+      console.log(decoded.id);
       mailer(res, next, newUser, token);
     }),
   signUp: handleErrorAsync(async (req, res, next) => {
@@ -142,10 +190,6 @@ const users = {
         token,
         "id": _id
       };
-      await User.updateOne(
-        { _id: user._id },
-        { $inc: { loginCounts: 1 }, $set: { lastLoginAt: new Date() } }
-      );
       res.status(200).json(getHttpResponse({
         data
       }));

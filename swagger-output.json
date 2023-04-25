@@ -230,6 +230,49 @@
         }
       }
     },
+    "/verify-email": {
+      "get": {
+        "tags": [
+          "Sign-in"
+        ],
+        "summary": "Verify the registration email",
+        "description": "",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "註冊成功",
+            "schema": {
+              "$ref": "#/definitions/Sign"
+            }
+          },
+          "400": {
+            "description": "註冊失敗",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
     "/sign-in": {
       "post": {
         "tags": [

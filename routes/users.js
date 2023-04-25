@@ -86,6 +86,40 @@ router.post('/sign-up-send-email', function(req, res, next) {
   UserController.signUpEmail(req, res, next);
 });
 
+/* 驗證註冊信 */
+router.get('/verify-email', function(req, res, next) {
+  /**
+    * #swagger.tags = ['Sign-in']
+    * #swagger.summary = 'Verify the registration email'
+  */
+  /**
+    #swagger.parameters['token'] = {
+      in: 'query',
+      description: 'token',
+      type: 'string',
+    }
+  */
+/**
+  #swagger.responses[200] = {
+    description: '註冊成功',
+    schema: { $ref: '#/definitions/Sign' }
+  }
+  #swagger.responses[400] = {
+    description: '註冊失敗',
+    schema: { $ref: '#/definitions/Error400' }
+  }
+  #swagger.responses[404] = {
+    description: '無此路由',
+    schema: { $ref: '#/definitions/Error404' }
+  }
+  #swagger.responses[500] = {
+    description: '系統錯誤',
+    schema: { $ref: '#/definitions/Error500' }
+  }
+*/
+  UserController.validateEmail(req, res, next);
+});
+
 /* 登入 */
 router.post('/sign-in', function(req, res, next) {
   /**

@@ -29,7 +29,7 @@ const mailer = (res, next, user, token) => {
     <p> ${user.nickName}，您好: <br />
        感謝您註冊 SuperHandy！為了確保您的帳戶安全，請使用以下連結並完成驗證流程：<br />
        驗證成功後，即可登入您的帳戶 <br />
-        <a href="http://127.0.0.1:3000/users/verification/${user._id.toString()}?token=${token}">驗證連結</a><br />
+        <a href="http://127.0.0.1:3000/verify-email?token=${token}">驗證連結</a><br />
        驗證連結於一個小時後逾期<br />
        如果你並未要求註冊該網站，你可以略過這則訊息。<br />
     </p>
