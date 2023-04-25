@@ -3,7 +3,7 @@ var router = express.Router();
 const UserController = require('../controller/userController');
 
 /* 註冊 */
-router.post('/sign-up', function(req, res, next) {
+router.post('/sign-up-dev', function(req, res, next) {
     /**
       * #swagger.tags = ['Sign-in']
       * #swagger.summary = 'Register an Account'
@@ -45,7 +45,7 @@ router.post('/sign-up', function(req, res, next) {
 });
 
 /* 註冊+寄信 */
-router.post('/sign-up-send-email', function(req, res, next) {
+router.post('/sign-up', function(req, res, next) {
   /**
     * #swagger.tags = ['Sign-in']
     * #swagger.summary = 'Register an Account and send a verification email'
