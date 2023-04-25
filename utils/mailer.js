@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 const getHttpResponse = require('./successHandler');
 const { appError } = require('./errorHandler');
 
-const mailer = (res, next, user) => {
+const mailer = (res, next, user, token) => {
   const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -28,8 +28,8 @@ const mailer = (res, next, user) => {
     <h2>驗證用戶信箱</h2>
     <p> ${user.nickName}，您好: <br />
        感謝您註冊 SuperHandy！為了確保您的帳戶安全，請使用以下連結並完成驗證流程：<br />
-       驗證成功後，即可設定您的新密碼 <br />
-        <a href="http://127.0.0.1:3000/users/verification/${user._id.toString()}">驗證連結</a><br />
+       驗證成功後，即可登入您的帳戶 <br />
+        <a href="http://127.0.0.1:3000/users/verification/${user._id.toString()}?token=${token}">驗證連結</a><br />
        驗證連結於一個小時後逾期<br />
        如果你並未要求註冊該網站，你可以略過這則訊息。<br />
     </p>

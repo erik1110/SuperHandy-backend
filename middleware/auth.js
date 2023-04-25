@@ -12,6 +12,16 @@ const generateJwtToken = async function (userId = "") {
   return token;
 };
 
+const generateJwtTokenForEmail = async function (userId = "") {
+  let token = "";
+  if (userId) {
+    token = jwt.sign({ id: userId }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EMAIL_EXPIRES
+    });
+  }
+  return token;
+};
+
 const isAuth = handleErrorAsync(async (req, res, next) => {
   let token = "";
 
@@ -40,5 +50,6 @@ const isAuth = handleErrorAsync(async (req, res, next) => {
 
 module.exports = {
   isAuth,
-  generateJwtToken
+  generateJwtToken,
+  generateJwtTokenForEmail
 };

@@ -3,12 +3,30 @@ const { appError, handleErrorAsync} = require('../utils/errorHandler');
 const getHttpResponse = require("../utils/successHandler");
 const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
-const { generateJwtToken } = require("../middleware/auth");
+const { generateJwtToken, generateJwtTokenForEmail } = require("../middleware/auth");
 const Validator = require("../service/validator");
 const validator = require("validator");
 const mailer = require('../utils/mailer');
 
 const users = {
+  sendEmail: handleErrorAsync(async (req, res, next) => {
+    const validatorResult = Validator.emailCheck(req.body);
+    if (!validatorResult.status) {
+      return next(appError(400, "40001", validatorResult.msg));
+    }
+    const { email } = req.body;
+
+
+
+    await User.updateOne(
+      { _id: user._id },
+      { $inc: { loginCounts: 1 }, $set: { lastLoginAt: new Date() } }
+    );
+    res.status(200).json(getHttpResponse({
+      data
+    }));
+  }),
+
   signUpEmail: handleErrorAsync(async (req, res, next) => {
     const validatorResult = Validator.signUp(req.body);
     if (!validatorResult.status) {
@@ -26,7 +44,6 @@ const users = {
         phone,
         nickName
       });
-      mailer(res, next, newUser);
     } catch (error) {
       if (error.code === 11000) {
         const field = Object.keys(error.keyPattern)[0];
@@ -36,6 +53,20 @@ const users = {
       }
       return next(appError(400, "40005", "不明錯誤"));
     }
+      const { _id } = newUser;
+      const token = await generateJwtTokenForEmail(_id);
+      await User.updateOne(
+        { _id: newUser._id },
+        { $set: { token: token } }
+      );
+      if (token.length === 0) {
+        return next(appError(400, "40003", "token 建立失敗"));
+      }
+      const data = {
+        token,
+        "id": _id
+      };
+      mailer(res, next, newUser, token);
     }),
   signUp: handleErrorAsync(async (req, res, next) => {
       const validatorResult = Validator.signUp(req.body);

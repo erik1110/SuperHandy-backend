@@ -59,6 +59,9 @@ const userSchema = new mongoose.Schema({
       type: String,
       enum: ['facebook', 'google', 'line'],
     },
+    token: {
+      type: String
+    },
     isVerifiedEmail: {
       type: Boolean,
       default: false,
