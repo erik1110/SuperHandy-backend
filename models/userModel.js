@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
       required: [true, 'Please enter your email.'],
       unique: true,
       lowercase: true,
-      select: true,
+      select: false,
       trim: true
     },
     password: {
@@ -41,7 +41,8 @@ const userSchema = new mongoose.Schema({
     },
     address: {
       type: String,
-      trim: true
+      trim: true,
+      default: '',
     },
     posterIntro: {
       type: String,

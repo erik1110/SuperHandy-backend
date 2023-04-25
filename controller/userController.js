@@ -5,6 +5,8 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 const { generateJwtToken } = require("../middleware/auth");
 const Validator = require("../service/validator");
+const validator = require("validator");
+const mailer = require('../utils/mailer');
 
 const users = {
     signUp: handleErrorAsync(async (req, res, next) => {
@@ -45,18 +47,32 @@ const users = {
         res.status(200).json(getHttpResponse({
           data
         }));
+        // const { verification } = await Verification.create({
+        //   userId: user._id,
+        //   verification: (Math.floor(Math.random() * 90000) + 10000).toString()
+        // });
+        // user.email = 'oceanuheart@gmail.com'
+        // mailer(res, next, user, verification);
+
       }),
   signIn: handleErrorAsync(async (req, res, next) => {
       const validatorResult = Validator.signIn(req.body);
       if (!validatorResult.status) {
         return next(appError(400, "40001", validatorResult.msg));
       }
-      const { email, password } = req.body;
-      // const user = await User.findOne({email}).select("+password");
-      const user = await User.findOne({email});
-      console.log(user)
+      const { account, password } = req.body;
+      let isEmail = validator.isEmail(account);
+      let user
+      if (isEmail) {
+        user = await User.findOne({'email': account}).select("+password");
+      } else {
+        user = await User.findOne({'phone': account}).select("+password");;
+      }
       if (!user) {
         return next(appError(400, "40010", "尚未註冊"));
+      }
+      if (!user.isVerifiedEmail) {
+        return next(appError(400, "40010", "尚未進行 email 驗證"));
       }
       const auth = await bcrypt.compare(password, user.password);
       if (!auth) {
@@ -71,6 +87,10 @@ const users = {
         token,
         "id": _id
       };
+      await User.updateOne(
+        { _id: user._id },
+        { $inc: { loginCounts: 1 }, $set: { lastLoginAt: new Date() } }
+      );
       res.status(200).json(getHttpResponse({
         data
       }));

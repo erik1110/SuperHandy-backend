@@ -5,7 +5,6 @@
  * @param {String} errName
  * @param {String} errMessage
  */
-console.log(process.env.NODE_ENV)
 const appError = (statusCode, errName, errMessage) => {
     console.log('appError')
     const error = new Error(errMessage);
