@@ -260,5 +260,5 @@ router.patch('/forgot-reset-password', isAuth, (req, res, next) =>
 */
   userController.forgotResetPassword(req, res, next)
 );
-// 
+
 module.exports = router;
