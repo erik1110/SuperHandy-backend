@@ -425,7 +425,7 @@
         }
       }
     },
-    "/forget-reset-password": {
+    "/forgot-reset-password": {
       "patch": {
         "tags": [
           "Sign-in"

@@ -227,7 +227,7 @@ router.post('/forgot-password', function(req, res, next) {
 
 
 /* 變更密碼 */
-router.patch('/forget-reset-password', isAuth, (req, res, next) => 
+router.patch('/forgot-reset-password', isAuth, (req, res, next) => 
   /**
     * #swagger.tags = ['Sign-in']
     * #swagger.summary = 'forget password and reset the password from email'
