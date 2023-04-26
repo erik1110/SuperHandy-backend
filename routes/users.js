@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const UserController = require('../controller/userController');
+const { isAuth } = require("../middleware/auth");
 
 /* 註冊 */
 router.post('/sign-up-dev', function(req, res, next) {
@@ -223,5 +224,41 @@ router.post('/forgot-password', function(req, res, next) {
 */
   UserController.forgotPassword(req, res, next);
 });
+
+
+/* 變更密碼 */
+router.patch('/forget-reset-password', isAuth, (req, res, next) => 
+  /**
+    * #swagger.tags = ['Sign-in']
+    * #swagger.summary = 'forget password and reset the password from email'
+  */
+  /**
+  #swagger.parameters['parameter_name'] = {
+    in: 'body',
+    description: '',
+    schema: {
+      $password: 'a1234567',
+      $confirmPassword: 'a1234567'
+    }
+  }
+  */
+/**
+  #swagger.responses[200] = {
+    description: '更改成功',
+  }
+  #swagger.responses[400] = {
+    description: '更改失敗',
+  }
+  #swagger.responses[404] = {
+    description: '無此路由',
+    schema: { $ref: '#/definitions/Error404' }
+  }
+  #swagger.responses[500] = {
+    description: '系統錯誤',
+    schema: { $ref: '#/definitions/Error500' }
+  }
+*/
+  userController.forgotResetPassword(req, res, next)
+);
 
 module.exports = router;
