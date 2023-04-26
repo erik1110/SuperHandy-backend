@@ -10,22 +10,24 @@ const validator = require("validator");
 const mailer = require('../utils/mailer');
 
 const users = {
-  sendEmail: handleErrorAsync(async (req, res, next) => {
+  resendEmail: handleErrorAsync(async (req, res, next) => {
     const validatorResult = Validator.emailCheck(req.body);
     if (!validatorResult.status) {
       return next(appError(400, "40001", validatorResult.msg));
     }
-    const { email } = req.body;
-
-
-
-    await User.updateOne(
-      { _id: user._id },
-      { $inc: { loginCounts: 1 }, $set: { lastLoginAt: new Date() } }
-    );
-    res.status(200).json(getHttpResponse({
-      data
-    }));
+    const user = await User.findOne({ email: req.body.email }).select("+email");
+    if (!user) {
+      return next(appError(404, "40010", "信件已寄出"));
+    } else if (user.isVerifiedEmail) {
+      return next(appError(404, "40002", "已經驗證過了"));
+    }
+  
+    const { _id } = user;
+    const token = await generateJwtTokenForEmail(_id);
+    if (token.length === 0) {
+      return next(appError(400, "40003", "信件已寄出"));
+    }
+    mailer(res, next, user, token, "verify");
   }),
   validateEmail: handleErrorAsync(async (req, res, next) => {
     try {
@@ -66,7 +68,7 @@ const users = {
       `);
     } catch (err) {
       console.error(err);
-      return res.status(500).send('伺服器忙碌中，請稍後再試試');
+      return res.status(500).send('系統錯誤，請稍後再試');
     }
     }), 
   signUpEmail: handleErrorAsync(async (req, res, next) => {
@@ -100,7 +102,7 @@ const users = {
       if (token.length === 0) {
         return next(appError(400, "40003", "token 建立失敗"));
       }
-      mailer(res, next, newUser, token);
+      mailer(res, next, newUser, token, "verify");
     }),
   signUp: handleErrorAsync(async (req, res, next) => {
       const validatorResult = Validator.signUp(req.body);

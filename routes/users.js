@@ -101,12 +101,11 @@ router.get('/verify-email', function(req, res, next) {
   */
 /**
   #swagger.responses[200] = {
-    description: '註冊成功',
-    schema: { $ref: '#/definitions/Sign' }
+    description: '驗證成功',
   }
   #swagger.responses[400] = {
-    description: '註冊失敗',
-    schema: { $ref: '#/definitions/Error400' }
+    description: '驗證失敗',
+    schema: { $ref: '#/definitions/ValidateEmailError' }
   }
   #swagger.responses[404] = {
     description: '無此路由',
@@ -118,6 +117,40 @@ router.get('/verify-email', function(req, res, next) {
   }
 */
   UserController.validateEmail(req, res, next);
+});
+
+/* 重寄驗證信 */
+router.post('/resend-verification', function(req, res, next) {
+    /**
+      * #swagger.tags = ['Sign-in']
+      * #swagger.summary = 'Resend an Email for verification'
+    */
+    /**
+    #swagger.parameters['parameter_name'] = {
+      in: 'body',
+      description: 'No matter what email is received, a reply will be sent indicating that the email has been sent.',
+      schema: {
+        $email: 'test@gmail.com',
+      }
+    }
+    */
+  /**
+    #swagger.responses[200] = {
+      description: '信箱已寄出',
+    }
+    #swagger.responses[400] = {
+      description: '信箱已寄出',
+    }
+    #swagger.responses[404] = {
+      description: '無此路由',
+      schema: { $ref: '#/definitions/Error404' }
+    }
+    #swagger.responses[500] = {
+      description: '系統錯誤',
+      schema: { $ref: '#/definitions/Error500' }
+    }
+  */
+  UserController.resendEmail(req, res, next);
 });
 
 /* 登入 */

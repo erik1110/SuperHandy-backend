@@ -36,6 +36,10 @@ const page = {
   const RegisterEmailError = {
     message: "請稍後重試或聯絡管理員",
   };
+
+  const ValidateEmailError = {
+    message: "信箱驗證失敗",
+  };
   
   const user = { // Schema 定義為 editor
     _id: "123456789",
@@ -119,5 +123,6 @@ const page = {
     Error500,
     Sign,
     RegisterEmailSuccess,
-    RegisterEmailError
+    RegisterEmailError,
+    ValidateEmailError
   };
