@@ -47,11 +47,15 @@ router.get('/info-form', async function (req, res, next) {
     },
     #swagger.responses[200] = {
       description: 'OK',
-      schema: { 
-        "firstName": "John",
-        "lastName": "Doe",
-        "email": "abc123@gmail.com",
-        "avatarPath": "http://"
+      schema: {
+        '_id':'uhf8vufbv88fv8hf8v',
+        'nickName': 'Erik',
+        'email': 'erik@gmail.com'
+        'phone': '0912345678',
+        'address': '台北市',
+        'posterIntro': '我是海報人',
+        'helperIntro': '我是幫手人',
+        'updatedAt': '2021-05-20T08:00:00.000Z'
       }
     }    
     */
