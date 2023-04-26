@@ -182,6 +182,23 @@ const users = {
         data
       }));
     }),
+  forgotPassword: handleErrorAsync(async (req, res, next) => {
+      const validatorResult = Validator.emailCheck(req.body);
+      if (!validatorResult.status) {
+        return next(appError(400, "40001", validatorResult.msg));
+      }
+      const user = await User.findOne({ email: req.body.email }).select("+email");
+      if (!user) {
+        return next(appError(404, "40010", "信件已寄出"));
+      } 
+
+      const { _id } = user;
+      const token = await generateJwtTokenForEmail(_id);
+      if (token.length === 0) {
+        return next(appError(400, "40003", "信件已寄出"));
+      }
+      mailer(res, next, user, token, "forget");
+    }),
 }
 
 module.exports = users;

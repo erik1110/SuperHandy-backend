@@ -136,10 +136,10 @@ router.post('/resend-verification', function(req, res, next) {
     */
   /**
     #swagger.responses[200] = {
-      description: '信箱已寄出',
+      description: '信件已寄出',
     }
     #swagger.responses[400] = {
-      description: '信箱已寄出',
+      description: '信件已寄出',
     }
     #swagger.responses[404] = {
       description: '無此路由',
@@ -188,6 +188,40 @@ router.post('/sign-in', function(req, res, next) {
   }
 */
   UserController.signIn(req, res, next);
+});
+
+/* 重寄驗證信 */
+router.post('/forgot-password', function(req, res, next) {
+  /**
+    * #swagger.tags = ['Sign-in']
+    * #swagger.summary = 'forgot password and send an Email for verification'
+  */
+  /**
+  #swagger.parameters['parameter_name'] = {
+    in: 'body',
+    description: 'No matter what email is received, a reply will be sent indicating that the email has been sent.',
+    schema: {
+      $email: 'test@gmail.com',
+    }
+  }
+  */
+/**
+  #swagger.responses[200] = {
+    description: '信件已寄出',
+  }
+  #swagger.responses[400] = {
+    description: '信件已寄出',
+  }
+  #swagger.responses[404] = {
+    description: '無此路由',
+    schema: { $ref: '#/definitions/Error404' }
+  }
+  #swagger.responses[500] = {
+    description: '系統錯誤',
+    schema: { $ref: '#/definitions/Error500' }
+  }
+*/
+  UserController.forgotPassword(req, res, next);
 });
 
 module.exports = router;
