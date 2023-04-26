@@ -40,6 +40,30 @@ module.exports = class Validator {
   }
   /**
    *
+   * @param {Object} param0 { email } 要驗證資料項目
+   * @param {Next} next
+   * @returns {status,msg}
+   */
+  static emailCheck({ email }) {
+    if (!email) {
+      return {
+        status: false,
+        msg: "欄位未填寫正確!",
+      };
+    }
+    if (!validator.isEmail(email)) {
+      return {
+        status: false,
+        msg: "Email 格式不正確!",
+      };
+    }
+    return {
+      status: true,
+      msg: "success",
+    };
+  }
+  /**
+   *
    * @param {Object} param0
    * @param {Next} next
    * @returns {status,msg}
