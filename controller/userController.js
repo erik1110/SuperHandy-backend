@@ -112,8 +112,6 @@ const users = {
           }
         });
       });
-      console.log(_id);
-      console.log(decoded.id);
       mailer(res, next, newUser, token);
     }),
   signUp: handleErrorAsync(async (req, res, next) => {
