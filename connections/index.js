@@ -9,4 +9,5 @@ const DB = process.env.DATABASE.replace(
 
 mongoose
   .connect(DB)
-  .then(() => console.log('資料庫連接成功'));
+  .then(() => console.log('資料庫連接成功'))
+  .catch(err => console.error('資料庫連接失敗', err));

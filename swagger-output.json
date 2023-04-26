@@ -1,12 +1,58 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "第五週作業",
-    "description": "示範",
+    "title": "SuperHandy 超人幫手",
+    "description": "This is the final project for a Node.js course.",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
   "basePath": "/",
+  "tags": [
+    {
+      "name": "Home",
+      "description": "首頁"
+    },
+    {
+      "name": "Find-tasks",
+      "description": "找任務"
+    },
+    {
+      "name": "Posts",
+      "description": "刊登任務"
+    },
+    {
+      "name": "Account",
+      "description": "我的帳號"
+    },
+    {
+      "name": "Sign-in",
+      "description": "登入相關"
+    },
+    {
+      "name": "Tasks",
+      "description": "任務管理"
+    },
+    {
+      "name": "Notifications",
+      "description": "系統通知"
+    },
+    {
+      "name": "Chat",
+      "description": "聊天室"
+    },
+    {
+      "name": "Money",
+      "description": "金流相關"
+    },
+    {
+      "name": "General",
+      "description": "通用"
+    },
+    {
+      "name": "NotFound",
+      "description": "頁面路由相關"
+    }
+  ],
   "schemes": [
     "http",
     "https"
@@ -20,250 +66,952 @@
     }
   },
   "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/users/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/posts/": {
-      "get": {
-        "tags": [
-          "Get - 貼文"
-        ],
-        "description": "取得全部貼文 API ",
-        "parameters": [
-          {
-            "name": "timeSortNew",
-            "description": "排序最新貼文",
-            "type": "string",
-            "default": "new",
-            "in": "query"
-          },
-          {
-            "name": "q",
-            "description": "關鍵字搜尋",
-            "type": "string",
-            "default": "羽球",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "貼文資訊",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "boolean",
-                  "example": true
-                },
-                "data": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "_id": {
-                        "type": "string",
-                        "example": "64319a9a4df771952c73d411"
-                      },
-                      "content": {
-                        "type": "string",
-                        "example": "今天天氣真好，一起去打羽球"
-                      },
-                      "image": {
-                        "type": "string",
-                        "example": "https://imgur.com/kuYyH1O"
-                      },
-                      "user": {
-                        "type": "object",
-                        "properties": {
-                          "_id": {
-                            "type": "string",
-                            "example": "64319450e15991751968e7c5"
-                          },
-                          "name": {
-                            "type": "string",
-                            "example": "John"
-                          },
-                          "photo": {
-                            "type": "string",
-                            "example": "https://thumb.fakeface.rest/thumb_male_10_8c02e4e9bdc0e103530691acfca605f18caf1766.jpg"
-                          }
-                        }
-                      },
-                      "likes": {
-                        "type": "number",
-                        "example": 1000
-                      },
-                      "__v": {
-                        "type": "number",
-                        "example": 0
-                      }
-                    }
-                  }
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          }
-        }
-      },
+    "/sign-up-dev": {
       "post": {
         "tags": [
-          "Posts - 貼文"
+          "Sign-in"
         ],
-        "description": "新增一筆貼文",
+        "summary": "Register an Account",
+        "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "parameter_name",
             "in": "body",
-            "description": "資料格式",
-            "required": true,
+            "description": "nickName is optional, while all the others are required.",
             "schema": {
               "type": "object",
               "properties": {
-                "user": {
+                "email": {
                   "type": "string",
-                  "example": "64319450e15991751968e7c5"
+                  "example": "test@gmail.com"
                 },
-                "content": {
+                "phone": {
                   "type": "string",
-                  "example": "今天天氣真好，一起去打羽球"
+                  "example": "0912345678"
                 },
-                "image": {
+                "firstName": {
                   "type": "string",
-                  "example": "https://imgur.com/kuYyH1O"
+                  "example": "Ho"
                 },
-                "likes": {
-                  "type": "number",
-                  "example": 123
+                "lastName": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "nickName": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "a1234567"
+                },
+                "confirmPassword": {
+                  "type": "string",
+                  "example": "a1234567"
                 }
               },
               "required": [
-                "user",
-                "content"
+                "email",
+                "phone",
+                "firstName",
+                "lastName",
+                "password"
               ]
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "貼文資訊",
+            "description": "註冊成功",
+            "schema": {
+              "$ref": "#/definitions/Sign"
+            }
+          },
+          "400": {
+            "description": "註冊失敗",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/sign-up": {
+      "post": {
+        "tags": [
+          "Sign-in"
+        ],
+        "summary": "Register an Account and send a verification email",
+        "description": "",
+        "parameters": [
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "nickName is optional, while all the others are required.",
             "schema": {
               "type": "object",
               "properties": {
-                "status": {
-                  "type": "boolean",
-                  "example": true
+                "email": {
+                  "type": "string",
+                  "example": "test@gmail.com"
                 },
-                "data": {
-                  "type": "object",
-                  "properties": {
-                    "content": {
-                      "type": "string",
-                      "example": "今天天氣真好，一起去打羽球"
-                    },
-                    "image": {
-                      "type": "string",
-                      "example": "https://imgur.com/kuYyH1O"
-                    },
-                    "createdAt": {
-                      "type": "string",
-                      "example": "2023-04-08T16:47:15.920Z"
-                    },
-                    "user": {
-                      "type": "string",
-                      "example": "64319450e15991751968e7c5"
-                    },
-                    "likes": {
-                      "type": "number",
-                      "example": 0
-                    },
-                    "_id": {
-                      "type": "string",
-                      "example": "64319a9a4df771952c73d411"
-                    },
-                    "__v": {
-                      "type": "number",
-                      "example": 0
-                    }
+                "phone": {
+                  "type": "string",
+                  "example": "0912345678"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "Ho"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "nickName": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "a1234567"
+                },
+                "confirmPassword": {
+                  "type": "string",
+                  "example": "a1234567"
+                }
+              },
+              "required": [
+                "email",
+                "phone",
+                "firstName",
+                "lastName",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "註冊成功",
+            "schema": {
+              "$ref": "#/definitions/RegisterEmailSuccess"
+            }
+          },
+          "400": {
+            "description": "註冊失敗",
+            "schema": {
+              "$ref": "#/definitions/RegisterEmailError"
+            }
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/verify-email": {
+      "get": {
+        "tags": [
+          "Sign-in"
+        ],
+        "summary": "Verify the registration email",
+        "description": "",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "description": "token",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "驗證成功"
+          },
+          "400": {
+            "description": "驗證失敗",
+            "schema": {
+              "$ref": "#/definitions/ValidateEmailError"
+            }
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/resend-verification": {
+      "post": {
+        "tags": [
+          "Sign-in"
+        ],
+        "summary": "Resend an Email for verification",
+        "description": "",
+        "parameters": [
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "No matter what email is received, a reply will be sent indicating that the email has been sent.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "test@gmail.com"
+                }
+              },
+              "required": [
+                "email"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "信件已寄出"
+          },
+          "400": {
+            "description": "信件已寄出"
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/sign-in": {
+      "post": {
+        "tags": [
+          "Sign-in"
+        ],
+        "summary": "Login an Account",
+        "description": "",
+        "parameters": [
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "nickName is optional, while all the others are required.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "account": {
+                  "type": "string",
+                  "example": "test@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "a1234567"
+                }
+              },
+              "required": [
+                "account",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "登入成功",
+            "schema": {
+              "$ref": "#/definitions/Sign"
+            }
+          },
+          "400": {
+            "description": "登入失敗",
+            "schema": {
+              "$ref": "#/definitions/Error400"
+            }
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/forgot-password": {
+      "post": {
+        "tags": [
+          "Sign-in"
+        ],
+        "summary": "forgot password and send an Email for verification",
+        "description": "",
+        "parameters": [
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "No matter what email is received, a reply will be sent indicating that the email has been sent.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "test@gmail.com"
+                }
+              },
+              "required": [
+                "email"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "信件已寄出"
+          },
+          "400": {
+            "description": "信件已寄出"
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/forgot-reset-password": {
+      "patch": {
+        "tags": [
+          "Sign-in"
+        ],
+        "summary": "forget password and reset the password from email",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "example": "a1234567"
+                },
+                "confirmPassword": {
+                  "type": "string",
+                  "example": "a1234567"
+                }
+              },
+              "required": [
+                "password",
+                "confirmPassword"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "更改成功"
+          },
+          "400": {
+            "description": "更改失敗"
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "123456789"
+        },
+        "nickName": {
+          "type": "string",
+          "example": "會員暱稱"
+        },
+        "avatar": {
+          "type": "string",
+          "example": "https://i.imgur.com/xxx.png"
+        },
+        "gender": {
+          "type": "number",
+          "example": 1
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2022-05-31T14:21:36.129Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2022-05-31T14:21:36.129Z"
+        }
+      }
+    },
+    "Post": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "123456789"
+        },
+        "user": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "123456789"
+            },
+            "nickName": {
+              "type": "string",
+              "example": "會員暱稱"
+            },
+            "avatar": {
+              "type": "string",
+              "example": "https://i.imgur.com/xxx.png"
+            }
+          }
+        },
+        "content": {
+          "type": "string",
+          "example": "來新增一筆資料吧"
+        },
+        "image": {
+          "type": "array",
+          "example": [
+            "https://i.imgur.com/xxx.png"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "likes": {
+          "type": "array",
+          "example": [
+            "123456789"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "comments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "123456789"
+              },
+              "user": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "example": "123456789"
+                  },
+                  "nickName": {
+                    "type": "string",
+                    "example": "會員暱稱"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "example": "https://i.imgur.com/xxx.png"
                   }
                 }
               },
-              "xml": {
-                "name": "main"
+              "comment": {
+                "type": "string",
+                "example": "夏日大作戰?!"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2022-05-24T14:44:48.358Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2022-05-24T14:44:48.358Z"
               }
             }
           }
         },
-        "security": [
-          {
-            "apiKeyAuth": []
-          }
-        ]
+        "createdAt": {
+          "type": "string",
+          "example": "2022-06-01T08:32:14.125Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2022-06-01T08:32:14.125Z"
+        }
       }
     },
-    "/posts/{id}": {
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "content": {
-                  "example": "any"
-                },
-                "name": {
-                  "example": "any"
+    "Posts": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "123456789"
+              },
+              "user": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "example": "123456789"
+                  },
+                  "nickName": {
+                    "type": "string",
+                    "example": "會員暱稱"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "example": "https://i.imgur.com/xxx.png"
+                  }
                 }
+              },
+              "content": {
+                "type": "string",
+                "example": "來新增一筆資料吧"
+              },
+              "image": {
+                "type": "array",
+                "example": [
+                  "https://i.imgur.com/xxx.png"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              },
+              "likes": {
+                "type": "array",
+                "example": [
+                  "123456789"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              },
+              "comments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "123456789"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "123456789"
+                        },
+                        "nickName": {
+                          "type": "string",
+                          "example": "會員暱稱"
+                        },
+                        "avatar": {
+                          "type": "string",
+                          "example": "https://i.imgur.com/xxx.png"
+                        }
+                      }
+                    },
+                    "comment": {
+                      "type": "string",
+                      "example": "夏日大作戰?!"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-05-24T14:44:48.358Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2022-05-24T14:44:48.358Z"
+                    }
+                  }
+                }
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2022-06-01T08:32:14.125Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2022-06-01T08:32:14.125Z"
               }
             }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
+        },
+        "page": {
+          "type": "object",
+          "properties": {
+            "totalPages": {
+              "type": "number",
+              "example": 1
+            },
+            "currentPage": {
+              "type": "number",
+              "example": 1
+            },
+            "perPage": {
+              "type": "number",
+              "example": 10
+            },
+            "totalDatas": {
+              "type": "number",
+              "example": 1
+            },
+            "has_pre": {
+              "type": "boolean",
+              "example": false
+            },
+            "has_next": {
+              "type": "boolean",
+              "example": false
+            }
           }
+        }
+      }
+    },
+    "GetPosts": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "123456789"
+              },
+              "user": {
+                "type": "object",
+                "properties": {
+                  "_id": {
+                    "type": "string",
+                    "example": "123456789"
+                  },
+                  "nickName": {
+                    "type": "string",
+                    "example": "會員暱稱"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "example": "https://i.imgur.com/xxx.png"
+                  }
+                }
+              },
+              "content": {
+                "type": "string",
+                "example": "來新增一筆資料吧"
+              },
+              "image": {
+                "type": "array",
+                "example": [
+                  "https://i.imgur.com/xxx.png"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              },
+              "likes": {
+                "type": "array",
+                "example": [
+                  "123456789"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              },
+              "comments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "123456789"
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "123456789"
+                        },
+                        "nickName": {
+                          "type": "string",
+                          "example": "會員暱稱"
+                        },
+                        "avatar": {
+                          "type": "string",
+                          "example": "https://i.imgur.com/xxx.png"
+                        }
+                      }
+                    },
+                    "comment": {
+                      "type": "string",
+                      "example": "夏日大作戰?!"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2022-05-24T14:44:48.358Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2022-05-24T14:44:48.358Z"
+                    }
+                  }
+                }
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2022-06-01T08:32:14.125Z"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2022-06-01T08:32:14.125Z"
+              }
+            }
+          }
+        },
+        "page": {
+          "type": "object",
+          "properties": {
+            "totalPages": {
+              "type": "number",
+              "example": 1
+            },
+            "currentPage": {
+              "type": "number",
+              "example": 1
+            },
+            "perPage": {
+              "type": "number",
+              "example": 10
+            },
+            "totalDatas": {
+              "type": "number",
+              "example": 1
+            },
+            "has_pre": {
+              "type": "boolean",
+              "example": false
+            },
+            "has_next": {
+              "type": "boolean",
+              "example": false
+            }
+          }
+        },
+        "Success": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "example": "成功訊息"
+            }
+          }
+        }
+      }
+    },
+    "Comment": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "123456789"
+        },
+        "user": {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "type": "string",
+              "example": "123456789"
+            },
+            "nickName": {
+              "type": "string",
+              "example": "會員暱稱"
+            },
+            "avatar": {
+              "type": "string",
+              "example": "https://i.imgur.com/xxx.png"
+            }
+          }
+        },
+        "comment": {
+          "type": "string",
+          "example": "大家來回應"
+        },
+        "createdAt": {
+          "type": "string",
+          "example": "2022-06-01T08:41:23.254Z"
+        },
+        "updatedAt": {
+          "type": "string",
+          "example": "2022-06-01T08:41:23.254Z"
+        }
+      }
+    },
+    "File": {
+      "type": "object",
+      "properties": {
+        "upload": {
+          "type": "string",
+          "example": "https://i.imgur.com/xxx.png"
+        }
+      }
+    },
+    "Success": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "成功訊息"
+        }
+      }
+    },
+    "Error400": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "錯誤訊息"
+        }
+      }
+    },
+    "Error404": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "外太空也找不到這個頁面"
+        }
+      }
+    },
+    "Error500": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "系統錯誤，請稍後再試"
+        }
+      }
+    },
+    "Sign": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "example": "abcde"
+        },
+        "_id": {
+          "type": "string",
+          "example": "123456789"
+        }
+      }
+    },
+    "RegisterEmailSuccess": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "message": {
+          "type": "string",
+          "example": "請至 Email 查收信件"
+        }
+      }
+    },
+    "RegisterEmailError": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "請稍後重試或聯絡管理員"
+        }
+      }
+    },
+    "ValidateEmailError": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "信箱驗證失敗"
         }
       }
     }
