@@ -70,7 +70,7 @@ const users = {
       console.error(err);
       return res.status(500).send('系統錯誤，請稍後再試');
     }
-    }), 
+  }), 
   signUpEmail: handleErrorAsync(async (req, res, next) => {
     const validatorResult = Validator.signUp(req.body);
     if (!validatorResult.status) {
@@ -103,7 +103,7 @@ const users = {
         return next(appError(400, "40003", "token 建立失敗"));
       }
       mailer(res, next, newUser, token, "verify");
-    }),
+  }),
   signUp: handleErrorAsync(async (req, res, next) => {
       const validatorResult = Validator.signUp(req.body);
       if (!validatorResult.status) {
@@ -145,7 +145,7 @@ const users = {
         data
       }));
 
-    }),
+  }),
   signIn: handleErrorAsync(async (req, res, next) => {
       const validatorResult = Validator.signIn(req.body);
       if (!validatorResult.status) {
@@ -181,7 +181,7 @@ const users = {
       res.status(200).json(getHttpResponse({
         data
       }));
-    }),
+  }),
   forgotPassword: handleErrorAsync(async (req, res, next) => {
       const validatorResult = Validator.emailCheck(req.body);
       if (!validatorResult.status) {
@@ -198,7 +198,7 @@ const users = {
         return next(appError(400, "40003", "信件已寄出"));
       }
       mailer(res, next, user, token, "forget");
-    }),
+  }),
 }
 
 module.exports = users;
