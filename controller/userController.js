@@ -100,18 +100,6 @@ const users = {
       if (token.length === 0) {
         return next(appError(400, "40003", "token 建立失敗"));
       }
-
-      const decoded = await new Promise((resolve, reject) => {
-        jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
-          if (err) {
-              console.log("Token expired at:", new Date(payload.exp * 1000));
-              console.log("Current time is:", new Date());
-            return next(appError(400, "40003", err));
-          } else {
-            resolve(payload);
-          }
-        });
-      });
       mailer(res, next, newUser, token);
     }),
   signUp: handleErrorAsync(async (req, res, next) => {
