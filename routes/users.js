@@ -191,7 +191,7 @@ router.post('/sign-in', function(req, res, next) {
   UserController.signIn(req, res, next);
 });
 
-/* 重寄驗證信 */
+/* 忘記密碼 */
 router.post('/forgot-password', function(req, res, next) {
   /**
     * #swagger.tags = ['Sign-in']
