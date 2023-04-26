@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "SuperHandy 超人幫手",
-    "description": "This is the final project for a Node.js course.",
+    "description": "This is the final project for a Node.js course.\n注意事項：登入成功後請點「Authorize」輸入 Token",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
@@ -60,9 +60,9 @@
   "securityDefinitions": {
     "apiKeyAuth": {
       "type": "apiKey",
-      "in": "header",
-      "name": "X-API-KEY",
-      "description": "any description..."
+      "in": "headers",
+      "name": "authorization",
+      "description": "請輸入您登入後取得的 token。"
     }
   },
   "paths": {
