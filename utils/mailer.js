@@ -31,7 +31,7 @@ const mailer = (res, next, user, token, method) => {
         <a href="http://127.0.0.1:3000/verify-email?token=${token}">驗證連結</a><br />
        驗證連結於一個小時後逾期<br />
        如果你並未要求註冊該網站，你可以略過這則訊息。<br />
-       如果你有任何問題，請聯繫我們：<a href="mailto:supersuperhandy@gmail.com">supersuperhandy@gmail.com</a><br />
+       如果你有任何問題，請聯繫我們：<a href="mailto:${process.env.ACCOUNT}">${process.env.ACCOUNT}</a><br />
     </p>
     <p style=color:gray>本郵件請勿直接回覆。</p>
     `
@@ -49,7 +49,7 @@ const mailer = (res, next, user, token, method) => {
         <a href="http://127.0.0.1:3000/reset-password?token=${token}">重設密碼連結</a><br />
        驗證連結於一個小時後逾期<br />
        如果你並未提出該請求，請您略過這則訊息。<br />
-       如果你有任何問題，請聯繫我們：<a href="mailto:supersuperhandy@gmail.com">supersuperhandy@gmail.com</a><br />
+       如果你有任何問題，請聯繫我們：<a href="mailto:${process.env.ACCOUNT}">${process.env.ACCOUNT}</a><br />
     </p>
     <p style=color:gray>本郵件請勿直接回覆。</p>
     `
