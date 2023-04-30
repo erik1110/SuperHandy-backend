@@ -1,5 +1,5 @@
 const userRouter = require("./users");
-var accountRouter = require('./routes/account')
+const accountRouter = require('./account')
 const { isAuth } = require("../middleware/auth");
 const getHttpResponse = require("../utils/successHandler");
 /** 生成 Swagger 套件 */
