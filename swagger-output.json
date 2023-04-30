@@ -230,7 +230,7 @@
         }
       }
     },
-    "/verify-email": {
+    "/verify-email/{token}": {
       "get": {
         "tags": [
           "Sign-in"
@@ -240,8 +240,8 @@
         "parameters": [
           {
             "name": "token",
-            "in": "query",
-            "description": "token",
+            "in": "path",
+            "required": true,
             "type": "string"
           }
         ],

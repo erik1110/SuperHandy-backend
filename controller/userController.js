@@ -31,14 +31,14 @@ const users = {
   }),
   validateEmail: handleErrorAsync(async (req, res, next) => {
     try {
-      const token = req.query.token;
+      const token = req.params.token;
       // 檢查 token 是否存在
       if (!token) {
         return res.status(401).send('信箱驗證失敗');
       }
       const decoded = await new Promise((resolve, reject) => {
         jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
-          err ? next(appError(400, "40003", "信箱驗證失敗")) : resolve(payload);
+          err ? next(appError(400, "40003", err)) : resolve(payload);
         });
       });
       const currentUser = await User.findById(decoded.id);
@@ -55,17 +55,9 @@ const users = {
       }
 
       // 返回 HTML 頁面，顯示驗證成功的信息
-      return res.send(`
-        <html>
-          <head>
-            <title>驗證成功</title>
-          </head>
-          <body>
-            <h1>恭喜！您的帳戶已經成功驗證。</h1>
-            <p>您現在可以 <a href="/login">登入</a> 您的帳戶。</p>
-          </body>
-        </html>
-      `);
+      res.status(201).json(getHttpResponse({
+        message: "信箱驗證成功"
+      }));
     } catch (err) {
       console.error(err);
       return res.status(500).send('系統錯誤，請稍後再試');
