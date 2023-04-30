@@ -60,7 +60,7 @@
   "securityDefinitions": {
     "Bearer": {
       "type": "apiKey",
-      "in": "headers",
+      "in": "header",
       "name": "Authorization",
       "description": "JWT Token"
     }
