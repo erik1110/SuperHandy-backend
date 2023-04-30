@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "SuperHandy 超人幫手",
-    "description": "This is the final project for a Node.js course.\n注意事項：登入成功後請點「Authorize」輸入 Token",
+    "description": "This is the final project for a Node.js course.",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
@@ -66,7 +66,7 @@
     }
   },
   "paths": {
-    "/users/sign-up": {
+    "/sign-up": {
       "post": {
         "tags": [
           "Sign-in"
@@ -148,7 +148,7 @@
         }
       }
     },
-    "/users/verify-email/{token}": {
+    "/verify-email/{token}": {
       "get": {
         "tags": [
           "Sign-in"
@@ -188,7 +188,7 @@
         }
       }
     },
-    "/users/resend-verification": {
+    "/resend-verification": {
       "post": {
         "tags": [
           "Sign-in"
@@ -236,7 +236,7 @@
         }
       }
     },
-    "/users/sign-in": {
+    "/sign-in": {
       "post": {
         "tags": [
           "Sign-in"
@@ -295,7 +295,7 @@
         }
       }
     },
-    "/users/forgot-password": {
+    "/forgot-password": {
       "post": {
         "tags": [
           "Sign-in"
@@ -343,7 +343,7 @@
         }
       }
     },
-    "/users/forgot-reset-password": {
+    "/forgot-reset-password": {
       "patch": {
         "tags": [
           "Sign-in"
@@ -397,155 +397,6 @@
         "security": [
           {
             "Bearer": []
-          }
-        ]
-      }
-    },
-    "/account/profile": {
-      "get": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "取得使用者資料概要",
-        "description": "",
-        "parameters": [
-          {
-            "name": "uid",
-            "in": "query",
-            "description": "[dev]如果沒有token，可以用uid取得資料",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "uid": {
-                  "type": "string",
-                  "example": "64469189880b866621b40eeb"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "type": "string",
-                  "example": "John"
-                },
-                "lastName": {
-                  "type": "string",
-                  "example": "Doe"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "abc123@gmail.com"
-                },
-                "avatarPath": {
-                  "type": "string",
-                  "example": "http://"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "jwt": []
-          }
-        ]
-      }
-    },
-    "/account/info-form": {
-      "get": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "取得使用者表單資料",
-        "description": "",
-        "parameters": [
-          {
-            "name": "uid",
-            "in": "query",
-            "description": "[dev]如果沒有token，可以用uid取得資料",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "uid": {
-                  "type": "string",
-                  "example": "64469189880b866621b40eeb"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {},
-        "security": [
-          {
-            "jwt": []
-          }
-        ]
-      },
-      "patch": {
-        "tags": [
-          "Account"
-        ],
-        "summary": "更新使用者表單資料",
-        "description": "",
-        "parameters": [
-          {
-            "name": "uid",
-            "in": "query",
-            "description": "[dev]如果沒有token，可以用uid取得資料",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "uid": {
-                  "type": "string",
-                  "example": "64469189880b866621b40eeb"
-                }
-              }
-            }
-          },
-          {
-            "name": "parameter_name",
-            "in": "body",
-            "description": "可僅更新部分欄位",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "nickName": {
-                  "type": "string",
-                  "example": "Erik"
-                },
-                "phone": {
-                  "type": "string",
-                  "example": "0912345678"
-                },
-                "address": {
-                  "type": "string",
-                  "example": "台北市"
-                },
-                "posterIntro": {
-                  "type": "string",
-                  "example": "我是海報人"
-                },
-                "helperIntro": {
-                  "type": "string",
-                  "example": "我是幫手人"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {},
-        "security": [
-          {
-            "jwt": []
           }
         ]
       }

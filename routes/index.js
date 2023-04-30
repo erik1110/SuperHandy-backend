@@ -6,6 +6,6 @@ const swaggerUI = require("swagger-ui-express");
 const swaggerFile = require("../swagger-output.json");
 
 module.exports = (app) => {
+  app.use("/", userRouter)
   app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerFile));
-  app.use("/users", userRouter)
 };

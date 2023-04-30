@@ -36,8 +36,4 @@ const doc = {
 const outputFile = './swagger-output.json'
 const endpointsFiles = ["./routes/index.js"]; // 進入點/注入點，分析 router 和自動生成
 
-<<<<<<< HEAD
 swaggerAutogen(outputFile, endpointsFiles, doc);
-=======
-swaggerAutogen(outputFile, endpoiontsFiles, doc)
->>>>>>> develop
