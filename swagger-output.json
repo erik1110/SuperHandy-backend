@@ -58,15 +58,15 @@
     "https"
   ],
   "securityDefinitions": {
-    "apiKeyAuth": {
+    "Bearer": {
       "type": "apiKey",
       "in": "header",
-      "name": "X-API-KEY",
-      "description": "any description..."
+      "name": "Authorization",
+      "description": "JWT Token"
     }
   },
   "paths": {
-    "/sign-up": {
+    "/users/sign-up": {
       "post": {
         "tags": [
           "Sign-in"
@@ -148,7 +148,7 @@
         }
       }
     },
-    "/verify-email/{token}": {
+    "/users/verify-email/{token}": {
       "get": {
         "tags": [
           "Sign-in"
@@ -188,7 +188,7 @@
         }
       }
     },
-    "/resend-verification": {
+    "/users/resend-verification": {
       "post": {
         "tags": [
           "Sign-in"
@@ -236,7 +236,7 @@
         }
       }
     },
-    "/sign-in": {
+    "/users/sign-in": {
       "post": {
         "tags": [
           "Sign-in"
@@ -295,7 +295,7 @@
         }
       }
     },
-    "/forgot-password": {
+    "/users/forgot-password": {
       "post": {
         "tags": [
           "Sign-in"
@@ -343,7 +343,7 @@
         }
       }
     },
-    "/forgot-reset-password": {
+    "/users/forgot-reset-password": {
       "patch": {
         "tags": [
           "Sign-in"
@@ -351,11 +351,6 @@
         "summary": "forget password and reset the password from email",
         "description": "",
         "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
           {
             "name": "parameter_name",
             "in": "body",
@@ -381,10 +376,10 @@
         ],
         "responses": {
           "200": {
-            "description": "更改成功"
+            "description": "重設成功"
           },
           "400": {
-            "description": "更改失敗"
+            "description": "重設失敗"
           },
           "404": {
             "description": "無此路由",
@@ -398,7 +393,12 @@
               "$ref": "#/definitions/Error500"
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     }
   },

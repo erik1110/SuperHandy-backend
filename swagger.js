@@ -26,7 +26,7 @@ const doc = {
         // Token
         Bearer:{
             type: "apiKey",
-            in: "headers",       // can be "header", "query" or "cookie"
+            in: "header",       // can be "header", "query" or "cookie"
             name: "Authorization",  // name of the header, query parameter or cookie
             description: "JWT Token"
         }
@@ -34,6 +34,6 @@ const doc = {
 }
 
 const outputFile = './swagger-output.json'
-const endpoiontsFiles = ['./app.js']
+const endpointsFiles = ["./routes/index.js"]; // 進入點/注入點，分析 router 和自動生成
 
-swaggerAutogen(outputFile, endpoiontsFiles, doc);
+swaggerAutogen(outputFile, endpointsFiles, doc);
