@@ -1,35 +1,27 @@
-var express = require('express')
-var path = require('path')
-var cookieParser = require('cookie-parser')
-var logger = require('morgan')
-const cors = require('cors')
-const notFound = require('./middleware/notFound')
-const resError = require('./middleware/resError')
-const swaggerUI = require('swagger-ui-express')
-const swaggerFile = require('./swagger-output.json')
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const express = require('express');
+const logger = require('morgan');
+const path = require("path");
+const { appError, errorHandlerMainProcess } = require("./utils/errorHandler");
 
-var usersRouter = require('./routes/users')
-var accountRouter = require('./routes/account')
-const { isAuth } = require('./middleware/auth')
+const app = express();
 
-var app = express()
+app.use(cors());
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-require('./connections')
-
-app.use(cors())
-app.use(logger('dev'))
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
-app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
-
-app.use('/', usersRouter)
-app.use('/account', accountRouter)
-app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile))
+require('./connections');
+require("./routes")(app);
 
 // 錯誤管理
-require('./utils/process')
-app.use(notFound)
-app.use(resError)
+app.use(errorHandlerMainProcess);
+app.use((req, res, next) => {
+    next(appError(404, "40401", "無此路由資訊"));
+});
+require("./utils/process");
 
-module.exports = app
+module.exports = app;
