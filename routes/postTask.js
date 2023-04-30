@@ -6,8 +6,7 @@ const accounts = require('../controller/accountController')
 const tasks = require('../controller/postTaskController')
 
 router.get('/check-location', async function (req, res, next) {
-  req.user = req.user || req.query.uid || '64469189880b866621b40eeb' //'6444b5a30dc68dc4fd63a1ea'
-  console.log(req.query)
+  req.user = req.user || req.query.uid || '64469189880b866621b40eeb'
   /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '檢查地址(取得經緯度)'
