@@ -35,17 +35,7 @@ const users = {
   }),
   validateEmail: handleErrorAsync(async (req, res, next) => {
     try {
-      const token = req.params.token;
-      // 檢查 token 是否存在
-      if (!token) {
-        return res.status(401).send('信箱驗證失敗');
-      }
-      const decoded = await new Promise((resolve, reject) => {
-        jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
-          err ? next(appError(400, "40003", err)) : resolve(payload);
-        });
-      });
-      const currentUser = await User.findById(decoded.id);
+      const currentUser = req.user;
       if (!currentUser) {
         return next(appError(400, "40010", "信箱驗證失敗"));
       } else if (currentUser.isVerifiedEmail) {
@@ -53,7 +43,7 @@ const users = {
       } else {
         // 在這裡執行用戶驗證的邏輯，將用戶的 isVerifiedEmail 屬性設置為 true
         await User.updateOne(
-          { _id: decoded.id },
+          { _id: currentUser },
           { $set: { isVerifiedEmail: true } }
         );
       }

@@ -60,7 +60,7 @@
   "securityDefinitions": {
     "Bearer": {
       "type": "apiKey",
-      "in": "header",
+      "in": "headers",
       "name": "Authorization",
       "description": "JWT Token"
     }
@@ -148,7 +148,7 @@
         }
       }
     },
-    "/verify-email/{token}": {
+    "/verify-email": {
       "get": {
         "tags": [
           "Sign-in"
@@ -157,9 +157,8 @@
         "description": "",
         "parameters": [
           {
-            "name": "token",
-            "in": "path",
-            "required": true,
+            "name": "authorization",
+            "in": "header",
             "type": "string"
           }
         ],
@@ -185,7 +184,12 @@
               "$ref": "#/definitions/Error500"
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/resend-verification": {
@@ -351,6 +355,11 @@
         "summary": "forget password and reset the password from email",
         "description": "",
         "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
           {
             "name": "parameter_name",
             "in": "body",

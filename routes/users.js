@@ -46,10 +46,13 @@ router.post('/sign-up', function(req, res, next) {
 });
 
 /* 驗證註冊信 */
-router.get('/verify-email/:token', function(req, res, next) {
+router.get('/verify-email', isAuth, function(req, res, next) {
   /**
     * #swagger.tags = ['Sign-in']
     * #swagger.summary = 'Verify the registration email'
+    * #swagger.security = [{
+        "Bearer": []
+      }]
   */
 /**
   #swagger.responses[200] = {
