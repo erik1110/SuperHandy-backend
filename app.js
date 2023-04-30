@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', usersRouter)
 app.use('/account', accountRouter)
-app.use('/post-task', isAuth, postTaskRouter)
+app.use('/post-task', postTaskRouter)
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile))
 
 // 錯誤管理
