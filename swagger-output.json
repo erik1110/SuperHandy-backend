@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "SuperHandy 超人幫手",
-    "description": "This is the final project for a Node.js course.\n注意事項：登入成功後請點「Authorize」輸入 Token",
+    "description": "This is the final project for a Node.js course.",
     "version": "1.0.0"
   },
   "host": "localhost:3000",
@@ -58,96 +58,14 @@
     "https"
   ],
   "securityDefinitions": {
-    "apiKeyAuth": {
+    "Bearer": {
       "type": "apiKey",
-      "in": "headers",
-      "name": "authorization",
-      "description": "請輸入您登入後取得的 token。"
+      "in": "header",
+      "name": "Authorization",
+      "description": "JWT Token"
     }
   },
   "paths": {
-    "/sign-up-dev": {
-      "post": {
-        "tags": [
-          "Sign-in"
-        ],
-        "summary": "Register an Account",
-        "description": "",
-        "parameters": [
-          {
-            "name": "parameter_name",
-            "in": "body",
-            "description": "nickName is optional, while all the others are required.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "example": "test@gmail.com"
-                },
-                "phone": {
-                  "type": "string",
-                  "example": "0912345678"
-                },
-                "firstName": {
-                  "type": "string",
-                  "example": "Ho"
-                },
-                "lastName": {
-                  "type": "string",
-                  "example": "Erik"
-                },
-                "nickName": {
-                  "type": "string",
-                  "example": "Erik"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "a1234567"
-                },
-                "confirmPassword": {
-                  "type": "string",
-                  "example": "a1234567"
-                }
-              },
-              "required": [
-                "email",
-                "phone",
-                "firstName",
-                "lastName",
-                "password"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "註冊成功",
-            "schema": {
-              "$ref": "#/definitions/Sign"
-            }
-          },
-          "400": {
-            "description": "註冊失敗",
-            "schema": {
-              "$ref": "#/definitions/Error400"
-            }
-          },
-          "404": {
-            "description": "無此路由",
-            "schema": {
-              "$ref": "#/definitions/Error404"
-            }
-          },
-          "500": {
-            "description": "系統錯誤",
-            "schema": {
-              "$ref": "#/definitions/Error500"
-            }
-          }
-        }
-      }
-    },
     "/sign-up": {
       "post": {
         "tags": [
@@ -239,9 +157,8 @@
         "description": "",
         "parameters": [
           {
-            "name": "token",
-            "in": "query",
-            "description": "token",
+            "name": "authorization",
+            "in": "header",
             "type": "string"
           }
         ],
@@ -267,7 +184,12 @@
               "$ref": "#/definitions/Error500"
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/resend-verification": {
@@ -329,7 +251,7 @@
           {
             "name": "parameter_name",
             "in": "body",
-            "description": "nickName is optional, while all the others are required.",
+            "description": "sign in an account",
             "schema": {
               "type": "object",
               "properties": {
@@ -388,7 +310,7 @@
           {
             "name": "parameter_name",
             "in": "body",
-            "description": "No matter what email is received, a reply will be sent indicating that the email has been sent.",
+            "description": "forgot password and send an Email for verification",
             "schema": {
               "type": "object",
               "properties": {
@@ -463,10 +385,10 @@
         ],
         "responses": {
           "200": {
-            "description": "更改成功"
+            "description": "重設成功"
           },
           "400": {
-            "description": "更改失敗"
+            "description": "重設失敗"
           },
           "404": {
             "description": "無此路由",
@@ -480,7 +402,12 @@
               "$ref": "#/definitions/Error500"
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/account/profile": {
@@ -630,6 +557,51 @@
             "jwt": []
           }
         ]
+      }
+    },
+    "/account/testSignup": {
+      "post": {
+        "tags": [
+          "Dev"
+        ],
+        "summary": "dev 註冊user帳號",
+        "description": "",
+        "parameters": [
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "nickName is optional, while all the others are required.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "account": {
+                  "type": "string",
+                  "example": "test@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "a1234567"
+                }
+              },
+              "required": [
+                "account",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/account/testFindAllUser": {
+      "get": {
+        "tags": [
+          "Dev"
+        ],
+        "summary": "dev 取得所有user帳號",
+        "description": "",
+        "parameters": [],
+        "responses": {}
       }
     }
   },
