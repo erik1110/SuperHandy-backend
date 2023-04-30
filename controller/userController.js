@@ -133,13 +133,17 @@ const users = {
       }
       const user = await User.findOne({ email: req.body.email }).select("+email");
       if (!user) {
-        return next(appError(404, "40010", "信件已寄出"));
+        return res.status(200).json(getHttpResponse({
+          message: "信件已寄出"
+        }));
       } 
 
       const { _id } = user;
       const token = await generateJwtTokenForEmail(_id);
       if (token.length === 0) {
-        return next(appError(400, "40003", "信件已寄出"));
+        return res.status(200).json(getHttpResponse({
+          message: "信件已寄出"
+        }));
       }
       mailer(res, next, user, token, "forget");
   }),

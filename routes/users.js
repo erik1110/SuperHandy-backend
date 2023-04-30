@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const UserController = require('../controller/userController');
+const userController = require('../controller/userController');
 const { isAuth } = require("../middleware/auth");
 
 /* 註冊+寄信 */
@@ -42,7 +42,7 @@ router.post('/sign-up', function(req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  UserController.signUp(req, res, next);
+  userController.signUp(req, res, next);
 });
 
 /* 驗證註冊信 */
@@ -71,7 +71,7 @@ router.get('/verify-email', isAuth, function(req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  UserController.validateEmail(req, res, next);
+  userController.validateEmail(req, res, next);
 });
 
 /* 重寄驗證信 */
@@ -105,7 +105,7 @@ router.post('/resend-verification', function(req, res, next) {
       schema: { $ref: '#/definitions/Error500' }
     }
   */
-  UserController.resendEmail(req, res, next);
+  userController.resendEmail(req, res, next);
 });
 
 /* 登入 */
@@ -142,7 +142,7 @@ router.post('/sign-in', function(req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  UserController.signIn(req, res, next);
+  userController.signIn(req, res, next);
 });
 
 /* 忘記密碼 */
@@ -176,7 +176,7 @@ router.post('/forgot-password', function(req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  UserController.forgotPassword(req, res, next);
+  userController.forgotPassword(req, res, next);
 });
 
 
