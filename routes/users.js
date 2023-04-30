@@ -114,7 +114,7 @@ router.post('/sign-in', function(req, res, next) {
   /**
   #swagger.parameters['parameter_name'] = {
     in: 'body',
-    description: 'nickName is optional, while all the others are required.',
+    description: 'sign in an account',
     schema: {
       $account: 'test@gmail.com',
       $password: 'a1234567'
@@ -151,7 +151,7 @@ router.post('/forgot-password', function(req, res, next) {
   /**
   #swagger.parameters['parameter_name'] = {
     in: 'body',
-    description: 'No matter what email is received, a reply will be sent indicating that the email has been sent.',
+    description: 'forgot password and send an Email for verification',
     schema: {
       $email: 'test@gmail.com',
     }
