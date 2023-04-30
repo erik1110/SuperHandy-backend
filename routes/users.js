@@ -177,11 +177,14 @@ router.post('/forgot-password', function(req, res, next) {
 });
 
 
-/* 變更密碼 */
+/* 忘記密碼並重設密碼 */
 router.patch('/forgot-reset-password', isAuth, (req, res, next) => 
   /**
     * #swagger.tags = ['Sign-in']
     * #swagger.summary = 'forget password and reset the password from email'
+    * #swagger.security = [{
+        "Bearer": []
+      }]
   */
   /**
   #swagger.parameters['parameter_name'] = {
@@ -195,10 +198,10 @@ router.patch('/forgot-reset-password', isAuth, (req, res, next) =>
   */
 /**
   #swagger.responses[200] = {
-    description: '更改成功',
+    description: '重設成功',
   }
   #swagger.responses[400] = {
-    description: '更改失敗',
+    description: '重設失敗',
   }
   #swagger.responses[404] = {
     description: '無此路由',

@@ -23,11 +23,12 @@ const doc = {
       ],
     definitions,
     securityDefinitions: {
-        apiKeyAuth:{
+        // Token
+        Bearer:{
             type: "apiKey",
-            in: "header",       // can be "header", "query" or "cookie"
-            name: "X-API-KEY",  // name of the header, query parameter or cookie
-            description: "any description..."
+            in: "headers",       // can be "header", "query" or "cookie"
+            name: "Authorization",  // name of the header, query parameter or cookie
+            description: "JWT Token"
         }
     },
 }

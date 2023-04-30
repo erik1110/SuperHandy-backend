@@ -12,8 +12,6 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-require('./connections');
-
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
@@ -21,8 +19,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', usersRouter);
-app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile))
+require('./connections');
+require("./routes")(app);
 
 // 錯誤管理
 require("./utils/process");
