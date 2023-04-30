@@ -2,23 +2,20 @@ const mongoose = require('mongoose')
 const taskSchema = new mongoose.Schema({
   userId: {
     type: String,
-    required: true,
-    default: ''
+    required: true
   },
   status: {
     type: String,
     required: true,
-    default: 'published'
+    default: 'draft'
   },
   title: {
     type: String,
-    required: true,
-    default: ''
+    required: [true, "Please enter your task's title.喔"]
   },
   category: {
     type: String,
-    required: true,
-    default: ''
+    required: true
   },
   description: {
     type: String,
@@ -27,224 +24,170 @@ const taskSchema = new mongoose.Schema({
   },
   salary: {
     type: Number,
-    required: true,
-    default: 500
+    required: false,
+    default: 0
   },
   exposurePlan: {
     type: String,
-    required: true,
-    default: '2'
+    required: false,
+    default: '0'
   },
   imgUrls: {
     type: [String],
-    required: true,
+    required: false,
     default: []
   },
   contactInfo: {
     name: {
       type: String,
-      required: true,
+      required: false,
       default: ''
     },
     phone: {
       type: String,
-      required: true,
+      required: false,
       default: ''
     },
     email: {
       type: String,
-      required: true,
+      required: false,
       default: ''
     }
   },
   location: {
     city: {
       type: String,
-      required: true,
+      required: false,
       default: ''
     },
     dist: {
       type: String,
-      required: true,
+      required: false,
       default: ''
     },
     address: {
       type: String,
-      required: true,
+      required: false,
       default: ''
     },
     landmark: {
       type: String,
-      required: true,
+      required: false,
       default: ''
     },
     longitude經度: {
-      type: Number,
-      required: true,
-      default: 0
+      type: Number || null,
+      required: false,
+      default: null
     },
     latitude緯度: {
-      type: Number,
-      required: true,
-      default: 0
+      type: Number || null,
+      required: false,
+      default: null
     }
   },
   viewers: {
     type: [String],
-    required: true,
     default: []
   },
   viewerCount: {
     type: Number,
-    required: true,
     default: 0
   },
   isUrgent: {
     type: Boolean,
-    required: true,
-    default: true
+    default: false
   },
   helpers: {
     type: [
       {
         helperId: {
-          type: String,
-          required: true,
-          default: ''
+          type: String
         },
         status: {
-          type: String,
-          required: true,
-          default: ''
+          type: String
         }
       }
     ],
-    required: true,
     default: []
   },
   time: {
     createAt: {
-      type: Date,
-      required: true,
-      default: Date.now
+      type: Date
     },
     updateAt: {
-      type: Date,
-      required: true,
-      default: Date.now
+      type: Date
     },
     publishedAt: {
-      type: Date || null,
-      required: true,
-      default: Date.now
+      type: Date
     },
     unpublishedAt: {
-      type: Date || null,
-      required: true,
-      default: Date.now
+      type: Date
     },
     deletedAt: {
-      type: Date || null,
-      required: true,
-      default: Date.now
+      type: Date
     },
     inProgressAt: {
-      type: Date || null,
-      required: true,
-      default: Date.now
+      type: Date
     },
     submittedAt: {
-      type: Date || null,
-      required: true,
-      default: Date.now
+      type: Date
     },
     confirmedAt: {
-      type: Date || null,
-      required: true,
-      default: Date.now
+      type: Date
     },
     completedAt: {
-      type: Date || null,
-      required: true,
-      default: Date.now
+      type: Date
     },
     expiredAt: {
-      type: Date || null,
-      required: true,
-      default: Date.now
+      type: Date
     }
   },
   review: {
     helper: {
       userID: {
-        type: String,
-        required: true,
-        default: ''
+        type: String
       },
       status: {
-        type: String,
-        required: true,
-        default: ''
+        type: String
       },
       score: {
-        type: Number,
-        required: true,
-        default: 0
+        type: Number
       },
       comment: {
-        type: String,
-        required: true,
-        default: ''
+        type: String
       },
       createAt: {
-        type: Date,
-        required: true,
-        default: Date.now
+        type: Date
       }
     },
     poster: {
       userID: {
-        type: String,
-        required: true,
-        default: ''
+        type: String
       },
       status: {
-        type: String,
-        required: true,
-        default: ''
+        type: String
       },
       score: {
-        type: Number,
-        required: true,
-        default: 0
+        type: Number
       },
       comment: {
-        type: String,
-        required: true,
-        default: ''
+        type: String
       },
       createAt: {
-        type: Date,
-        required: true,
-        default: Date.now
+        type: Date
       }
     }
   },
   submmitInfo: {
     imgUrls: {
-      type: [String],
-      required: true,
-      default: []
+      type: [String]
     },
     comment: {
-      type: String,
-      required: true,
-      default: ''
+      type: String
     },
     createAt: {
-      type: Date,
-      required: true,
-      default: Date.now
+      type: Date
     }
   }
 })
