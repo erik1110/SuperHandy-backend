@@ -60,7 +60,7 @@ const mailer = (res, next, user, token, method) => {
     console.log(error)
     if(!error) {
       res.status(200).json(getHttpResponse({ 
-        message: "請至 Email 查收信件"
+        message: "信件已寄出"
       }));
     } else {
       return next(appError(401, 40101, '請稍後重試或聯絡管理員'));
