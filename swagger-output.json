@@ -618,18 +618,6 @@
             "schema": {
               "$ref": "#/definitions/getCompletedCasesSuccess"
             }
-          },
-          "404": {
-            "description": "無此路由",
-            "schema": {
-              "$ref": "#/definitions/Error404"
-            }
-          },
-          "500": {
-            "description": "系統錯誤",
-            "schema": {
-              "$ref": "#/definitions/Error500"
-            }
           }
         }
       }
@@ -647,18 +635,6 @@
             "description": "取得成功",
             "schema": {
               "$ref": "#/definitions/getSuperhandyReviewSuccess"
-            }
-          },
-          "404": {
-            "description": "無此路由",
-            "schema": {
-              "$ref": "#/definitions/Error404"
-            }
-          },
-          "500": {
-            "description": "系統錯誤",
-            "schema": {
-              "$ref": "#/definitions/Error500"
             }
           }
         }
