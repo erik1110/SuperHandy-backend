@@ -28,7 +28,7 @@ router.get('/completed-cases', function(req, res, next) {
 router.get('/completed-reviews', function(req, res, next) {
   /**
     * #swagger.tags = ['Home']
-    * #swagger.summary = 'Get Completed Cases'
+    * #swagger.summary = 'Get Completed Reviews'
   */
 /**
   #swagger.responses[200] = {

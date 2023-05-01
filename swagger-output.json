@@ -639,7 +639,7 @@
         "tags": [
           "Home"
         ],
-        "summary": "Get Completed Cases",
+        "summary": "Get Completed Reviews",
         "description": "",
         "parameters": [],
         "responses": {
