@@ -48,8 +48,9 @@ router.get('/info-form', async function (req, res, next) {
     #swagger.responses[200] = {
       description: 'OK',
       schema: {
-        '_id':'uhf8vufbv88fv8hf8v',
         'nickName': 'Erik',
+        'firstName': 'Erik',
+        'lastName': 'Chen',
         'email': 'erik@gmail.com'
         'phone': '0912345678',
         'address': '台北市',
@@ -81,10 +82,14 @@ router.patch('/info-form', async function (req, res, next) {
       description: '可僅更新部分欄位',
       schema: {
         'nickName': 'Erik',
+        'firstName': 'Erik',
+        'lastName': 'Chen',
+        'email': 'erik@gmail.com'
         'phone': '0912345678',
         'address': '台北市',
         'posterIntro': '我是海報人',
-        'helperIntro': '我是幫手人'
+        'helperIntro': '我是幫手人',
+        'updatedAt': '2021-05-20T08:00:00.000Z'
       }
     }
     #swagger.responses[200] = {
