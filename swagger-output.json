@@ -604,6 +604,66 @@
         "responses": {}
       }
     },
+    "/home/categories": {
+      "get": {
+        "tags": [
+          "Home"
+        ],
+        "summary": "Get Service Category (including task description template)",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/getCategorySuccess"
+            }
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/home/exposure-plan": {
+      "get": {
+        "tags": [
+          "Home"
+        ],
+        "summary": "Get Exposure Plan",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/getPlanSuccess"
+            }
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
     "/general/categories": {
       "get": {
         "tags": [

@@ -57,7 +57,7 @@ const userSchema = new mongoose.Schema({
     },
     thirdPartyType: {
       type: String,
-      enum: ['facebook', 'google', 'line'],
+      enum: ['facebook', 'google', 'line', ''],
     },
     isVerifiedEmail: {
       type: Boolean,
