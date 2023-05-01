@@ -663,6 +663,234 @@
           }
         }
       }
+    },
+    "/post-task/check-location": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "檢查地址(取得經緯度)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "description": "完整地址",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "address": {
+                  "type": "string",
+                  "example": "台北市信義區市府路45號"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "formatted_address": {
+                  "type": "string",
+                  "example": "No. 45, City Hall Rd, Xinyi District, Taipei City, Taiwan 110"
+                },
+                "location": {
+                  "type": "object",
+                  "properties": {
+                    "lat": {
+                      "type": "number",
+                      "example": 25.0341222
+                    },
+                    "lng": {
+                      "type": "number",
+                      "example": 121.5640212
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "查無地址"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
+    },
+    "/post-task/save-draft": {
+      "post": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "儲存新草稿",
+        "description": "",
+        "parameters": [
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "任務資料",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "任務標題"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "draft"
+                },
+                "category": {
+                  "type": "string",
+                  "example": "家事"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "任務描述"
+                },
+                "salary": {
+                  "type": "number",
+                  "example": 1000
+                },
+                "exposurePlan": {
+                  "type": "string",
+                  "example": "2"
+                },
+                "imagesUrl": {
+                  "type": "array",
+                  "example": [
+                    "https://example.com/image1.jpg",
+                    "https://example.com/mage2.jpg"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "contactInfo": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "王小明"
+                    },
+                    "phone": {
+                      "type": "string",
+                      "example": "0912345678"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "ming@gmail.com"
+                    }
+                  }
+                },
+                "location": {
+                  "type": "object",
+                  "properties": {
+                    "city": {
+                      "type": "string",
+                      "example": "台北市"
+                    },
+                    "dist": {
+                      "type": "string",
+                      "example": "信義區"
+                    },
+                    "address": {
+                      "type": "string",
+                      "example": "台北市信義區市府路45號"
+                    },
+                    "landmark": {
+                      "type": "string",
+                      "example": "台北101"
+                    },
+                    "lng": {
+                      "type": "number",
+                      "example": 121.5337064
+                    },
+                    "lat": {
+                      "type": "number",
+                      "example": 25.0296587
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "儲存成功"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "儲存失敗"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "伺服器錯誤"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "jwt": []
+          }
+        ]
+      }
     }
   },
   "definitions": {
