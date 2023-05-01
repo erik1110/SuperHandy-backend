@@ -13,14 +13,6 @@ router.get('/completed-cases', function(req, res, next) {
       description: '取得成功',
       schema: { $ref: '#/definitions/getCompletedCasesSuccess' }
     }
-    #swagger.responses[404] = {
-      description: '無此路由',
-      schema: { $ref: '#/definitions/Error404' }
-    }
-    #swagger.responses[500] = {
-      description: '系統錯誤',
-      schema: { $ref: '#/definitions/Error500' }
-    }
   */
     homeController.getCompeletedCases(req, res, next);
 });
@@ -34,14 +26,6 @@ router.get('/completed-reviews', function(req, res, next) {
   #swagger.responses[200] = {
     description: '取得成功',
     schema: { $ref: '#/definitions/getSuperhandyReviewSuccess' }
-  }
-  #swagger.responses[404] = {
-    description: '無此路由',
-    schema: { $ref: '#/definitions/Error404' }
-  }
-  #swagger.responses[500] = {
-    description: '系統錯誤',
-    schema: { $ref: '#/definitions/Error500' }
   }
 */
   homeController.getCompeletedReviews(req, res, next);
