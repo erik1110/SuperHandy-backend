@@ -33,7 +33,7 @@ router.get('/completed-reviews', function(req, res, next) {
 /**
   #swagger.responses[200] = {
     description: '取得成功',
-    schema: { $ref: '#/definitions/getCompletedCasesSuccess' }
+    schema: { $ref: '#/definitions/getSuperhandyReviewSuccess' }
   }
   #swagger.responses[404] = {
     description: '無此路由',
@@ -44,7 +44,7 @@ router.get('/completed-reviews', function(req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  homeController.getCategories(req, res, next);
+  homeController.getCompeletedReviews(req, res, next);
 });
 
 module.exports = router;

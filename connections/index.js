@@ -6,6 +6,7 @@ const initPlans = require('../service/initPlans');
 const initTasks = require('../service/initTasks');
 const initReviews = require('../service/initReviews');
 const initUsers = require('../service/initUsers');
+const initSuperhandyReviews = require('../service/initSuperhandyReviews');
 
 const DB = process.env.DATABASE.replace(
   '<password>',
@@ -21,5 +22,6 @@ mongoose
     await initUsers();
     await initTasks();
     await initReviews();
+    await initSuperhandyReviews();
   })
   .catch(err => console.error('資料庫連接失敗', err));

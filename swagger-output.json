@@ -634,6 +634,36 @@
         }
       }
     },
+    "/home/completed-reviews": {
+      "get": {
+        "tags": [
+          "Home"
+        ],
+        "summary": "Get Completed Cases",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/getSuperhandyReviewSuccess"
+            }
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
     "/general/categories": {
       "get": {
         "tags": [
@@ -1587,6 +1617,39 @@
               "completedAt": {
                 "type": "string",
                 "example": "2022-02-23T00:19:50.000Z"
+              }
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
+        }
+      }
+    },
+    "getSuperhandyReviewSuccess": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "type": "string",
+                "example": "644fdf6b56c25a7e04b77197"
+              },
+              "comment": {
+                "type": "string",
+                "example": "個人物品多 之前透過此平台搜尋到 此清潔整理員工作時都會注意細節 每次需要時依舊還是會想要主動聯繫此清潔整理員"
+              },
+              "name": {
+                "type": "string",
+                "example": "翁"
               }
             }
           }
