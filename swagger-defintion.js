@@ -51,6 +51,23 @@ const page = {
     ],
     message: "取得成功"
   }
+
+  const getPlanSuccess = {
+    status: "success",
+    data: [
+      {
+        "title": "一般方案",
+        "price": "20",
+        "items": [
+          "無理由修改",
+          "極速退點",
+          "刊登時間30天"
+        ]
+      },
+    ],
+    message: "取得成功"
+  }
+
   const user = { // Schema 定義為 editor
     _id: "123456789",
     nickName: "會員暱稱",
@@ -135,5 +152,6 @@ const page = {
     RegisterEmailSuccess,
     RegisterEmailError,
     ValidateEmailError,
-    getCategorySuccess
+    getCategorySuccess,
+    getPlanSuccess
   };
