@@ -16,7 +16,7 @@ const accounts = {
     })
   }),
   getInfoForm: handleErrorAsync(async (req, res, next) => {
-    const userInfoForm = await User.findOne({ _id: req.user }).select('firstName lastName nickName email posterIntro helperIntro avatarPath')
+    const userInfoForm = await User.findOne({ _id: req.user }).select('firstName lastName nickName email posterIntro helperIntro avatarPath address phone -_id')
     if (!userInfoForm) {
       return res.status(404).json({
         message: '查不到啦'
@@ -28,7 +28,7 @@ const accounts = {
   }),
   updateInfoForm: handleErrorAsync(async (req, res, next) => {
     const updateFields = {}
-    const acceptedFields = ['nickName', 'phone', 'address', 'posterIntro', 'helperIntro']
+    const acceptedFields = ['firstName', 'lastName', 'nickName', 'address', 'posterIntro', 'helperIntro']
     console.log('check point req.body: ', req.body)
     const checkField = (field) => {
       if (req.body.hasOwnProperty(field)) {
@@ -37,7 +37,7 @@ const accounts = {
     }
     updateFields.updatedAt = new Date()
     acceptedFields.forEach(checkField)
-    acceptedFields.push('-email updatedAt')
+    acceptedFields.push('email updatedAt phone -_id')
     const userInfoForm = await User.findOneAndUpdate({ _id: req.user }, updateFields, {
       new: true, // 返回更新後的 user 物件
       select: acceptedFields.join(' ') //'nickName phone address posterIntro helperIntro -email'
