@@ -41,6 +41,16 @@ const page = {
     message: "信箱驗證失敗",
   };
   
+  const getCategorySuccess = {
+    status: "success",
+    data: [
+      {
+        "name": "到府驅蟲",
+        "template": "請填寫以下資訊：\n1. 蟲種：\n2. 家居面積：\n3. 服務時間："
+      },
+    ],
+    message: "取得成功"
+  }
   const user = { // Schema 定義為 editor
     _id: "123456789",
     nickName: "會員暱稱",
@@ -124,5 +134,6 @@ const page = {
     Sign,
     RegisterEmailSuccess,
     RegisterEmailError,
-    ValidateEmailError
+    ValidateEmailError,
+    getCategorySuccess
   };

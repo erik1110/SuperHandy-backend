@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config({path: './config.env'});
+const initCategories = require('../service/initCategories');
 
 const DB = process.env.DATABASE.replace(
   '<password>',
@@ -9,5 +10,8 @@ const DB = process.env.DATABASE.replace(
 
 mongoose
   .connect(DB)
-  .then(() => console.log('資料庫連接成功'))
+  .then(async () => {
+    console.log('資料庫連接成功');
+    await initCategories(); // 呼叫初始化類別的函式
+  })
   .catch(err => console.error('資料庫連接失敗', err));
