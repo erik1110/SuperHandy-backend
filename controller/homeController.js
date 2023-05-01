@@ -4,7 +4,7 @@ const getHttpResponse = require("../utils/successHandler");
 const Task = require("../models/taskModel");
 
 const home = { 
-  getCategories: handleErrorAsync(async (req, res, next) => {
+  getCompeletedCases: handleErrorAsync(async (req, res, next) => {
     const tasks = await Task.find({}, {
         title: 1,
         status: 1,
