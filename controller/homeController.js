@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 const { appError, handleErrorAsync} = require('../utils/errorHandler');
 const getHttpResponse = require("../utils/successHandler");
 const Task = require("../models/taskModel");
@@ -44,6 +45,52 @@ const home = {
     }));
     res.status(200).json(getHttpResponse({
       data: formattedReviews,
+      message: "取得成功"
+    }));
+  }),
+  getTaskStats: handleErrorAsync(async (req, res, next) => {
+    const firstDayOfMonth = moment().startOf('month');
+    const lastDayOfMonth = moment().endOf('month');
+
+    const publishedFilter = {
+      $and: [
+        { 'time.publishedAt': { $gte: firstDayOfMonth.toDate() } },
+        { 'time.publishedAt': { $lte: lastDayOfMonth.toDate() } },
+      ],
+    };
+
+    const completedFilter = {
+      $and: [
+        { 'time.completedAt': { $gte: firstDayOfMonth.toDate() } },
+        { 'time.completedAt': { $lte: lastDayOfMonth.toDate() } },
+      ],
+    };
+
+    const publishedPipeline = [
+      { $match: publishedFilter },
+      { $group: { _id: null, count: { $sum: 1 } } },
+    ];
+
+    const completedPipeline = [
+      { $match: completedFilter },
+      { $group: { _id: null, count: { $sum: 1 } } },
+    ];
+
+    const [publishedResult, completedResult] = await Promise.all([
+      Task.aggregate(publishedPipeline),
+      Task.aggregate(completedPipeline),
+    ]);
+
+    const totalPublished = publishedResult.length ? publishedResult[0].count : 0;
+    const totalCompleted = completedResult.length ? completedResult[0].count : 0;
+
+    const output = {
+      totalPublished,
+      totalCompleted,
+    };
+
+    res.status(200).json(getHttpResponse({
+      data: output,
       message: "取得成功"
     }));
   }),

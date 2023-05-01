@@ -618,6 +618,12 @@
             "schema": {
               "$ref": "#/definitions/getCompletedCasesSuccess"
             }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
           }
         }
       }
@@ -635,6 +641,36 @@
             "description": "取得成功",
             "schema": {
               "$ref": "#/definitions/getSuperhandyReviewSuccess"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/home/task-stats": {
+      "get": {
+        "tags": [
+          "Home"
+        ],
+        "summary": "Get task statistics count",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/getTaskStatsSuccess"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
             }
           }
         }
@@ -1627,6 +1663,32 @@
                 "type": "string",
                 "example": "翁"
               }
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
+        }
+      }
+    },
+    "getTaskStatsSuccess": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "totalPublished": {
+              "type": "number",
+              "example": 3
+            },
+            "totalCompleted": {
+              "type": "number",
+              "example": 2
             }
           }
         },

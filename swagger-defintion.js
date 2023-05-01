@@ -103,6 +103,15 @@ const page = {
     message: "取得成功"
   }
 
+  const getTaskStatsSuccess = {
+    status: "success",
+    data: {
+      "totalPublished": 3,
+      "totalCompleted": 2
+    },
+    message: "取得成功"
+  }
+
   const user = { // Schema 定義為 editor
     _id: "123456789",
     nickName: "會員暱稱",
@@ -190,5 +199,6 @@ const page = {
     getCategorySuccess,
     getPlanSuccess,
     getCompletedCasesSuccess,
-    getSuperhandyReviewSuccess
+    getSuperhandyReviewSuccess,
+    getTaskStatsSuccess
   };
