@@ -68,6 +68,29 @@ const page = {
     message: "取得成功"
   }
 
+  const getCompletedCasesSuccess = {
+    status: "success",
+    data: [
+      {
+        "location": {
+          "city": "台北市",
+          "dist": "松山區",
+          "address": "復興北路15號",
+          "landmark": "歌唱大樓",
+          "longitude": 121.53868,
+          "latitude": 25.02697
+        },
+        "_id": "644fc95562a7112b1c72bcfd",
+        "status": "completed",
+        "title": "陪我家狗玩",
+        "salary": 300,
+        "createAt": "2023-01-30T04:34:56.000Z",
+        "completedAt": "2022-02-23T00:19:50.000Z"
+      },
+    ],
+    message: "取得成功"
+  }
+
   const user = { // Schema 定義為 editor
     _id: "123456789",
     nickName: "會員暱稱",
@@ -153,5 +176,6 @@ const page = {
     RegisterEmailError,
     ValidateEmailError,
     getCategorySuccess,
-    getPlanSuccess
+    getPlanSuccess,
+    getCompletedCasesSuccess
   };

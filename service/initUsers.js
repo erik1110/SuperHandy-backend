@@ -40,8 +40,8 @@ const users = [
   {
     email: 'user3@example.com',
     password: '12345678',
-    firstName: '王',
-    lastName: '五',
+    firstName: '家鏡',
+    lastName: '陳',
     phone: '0934567895',
     avatarPath: '',
     nickName: '',

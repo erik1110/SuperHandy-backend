@@ -604,49 +604,19 @@
         "responses": {}
       }
     },
-    "/home/categories": {
+    "/home/completed-cases": {
       "get": {
         "tags": [
           "Home"
         ],
-        "summary": "Get Service Category (including task description template)",
+        "summary": "Get Completed Cases",
         "description": "",
         "parameters": [],
         "responses": {
           "200": {
             "description": "取得成功",
             "schema": {
-              "$ref": "#/definitions/getCategorySuccess"
-            }
-          },
-          "404": {
-            "description": "無此路由",
-            "schema": {
-              "$ref": "#/definitions/Error404"
-            }
-          },
-          "500": {
-            "description": "系統錯誤",
-            "schema": {
-              "$ref": "#/definitions/Error500"
-            }
-          }
-        }
-      }
-    },
-    "/home/exposure-plan": {
-      "get": {
-        "tags": [
-          "Home"
-        ],
-        "summary": "Get Exposure Plan",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "取得成功",
-            "schema": {
-              "$ref": "#/definitions/getPlanSuccess"
+              "$ref": "#/definitions/getCompletedCasesSuccess"
             }
           },
           "404": {
@@ -1543,6 +1513,80 @@
                 "items": {
                   "type": "string"
                 }
+              }
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
+        }
+      }
+    },
+    "getCompletedCasesSuccess": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "location": {
+                "type": "object",
+                "properties": {
+                  "city": {
+                    "type": "string",
+                    "example": "台北市"
+                  },
+                  "dist": {
+                    "type": "string",
+                    "example": "松山區"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "復興北路15號"
+                  },
+                  "landmark": {
+                    "type": "string",
+                    "example": "歌唱大樓"
+                  },
+                  "longitude": {
+                    "type": "number",
+                    "example": 121.53868
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "example": 25.02697
+                  }
+                }
+              },
+              "_id": {
+                "type": "string",
+                "example": "644fc95562a7112b1c72bcfd"
+              },
+              "status": {
+                "type": "string",
+                "example": "completed"
+              },
+              "title": {
+                "type": "string",
+                "example": "陪我家狗玩"
+              },
+              "salary": {
+                "type": "number",
+                "example": 300
+              },
+              "createAt": {
+                "type": "string",
+                "example": "2023-01-30T04:34:56.000Z"
+              },
+              "completedAt": {
+                "type": "string",
+                "example": "2022-02-23T00:19:50.000Z"
               }
             }
           }

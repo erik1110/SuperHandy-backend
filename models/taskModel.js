@@ -114,10 +114,10 @@ const taskSchema = new mongoose.Schema({
     default: []
   },
   time: {
-    createAt: {
+    createdAt: {
       type: Date
     },
-    updateAt: {
+    updatedAt: {
       type: Date
     },
     publishedAt: {
