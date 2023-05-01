@@ -5,6 +5,7 @@ const getHttpResponse = require("../utils/successHandler");
 const Task = require("../models/taskModel");
 const Review = require("../models/reviewModel");
 const SuperhandyReview = require("../models/superhandyReviewModel");
+const fakeExcellentHelperData = require("../service/fakeExcellentHelpers");
 
 const home = { 
   getCompeletedCases: handleErrorAsync(async (req, res, next) => {
@@ -91,6 +92,13 @@ const home = {
 
     res.status(200).json(getHttpResponse({
       data: output,
+      message: "取得成功"
+    }));
+  }),
+  getExcellentHelpers: handleErrorAsync(async (req, res, next) => {
+
+    res.status(200).json(getHttpResponse({
+      data: fakeExcellentHelperData,
       message: "取得成功"
     }));
   }),

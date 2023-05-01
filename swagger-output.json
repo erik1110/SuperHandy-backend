@@ -676,6 +676,30 @@
         }
       }
     },
+    "/home/excellent-helpers": {
+      "get": {
+        "tags": [
+          "Home"
+        ],
+        "summary": "Get excellent helpers",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/getExcellentHelpersSuccess"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
     "/general/categories": {
       "get": {
         "tags": [
@@ -966,456 +990,6 @@
     }
   },
   "definitions": {
-    "User": {
-      "type": "object",
-      "properties": {
-        "_id": {
-          "type": "string",
-          "example": "123456789"
-        },
-        "nickName": {
-          "type": "string",
-          "example": "會員暱稱"
-        },
-        "avatar": {
-          "type": "string",
-          "example": "https://i.imgur.com/xxx.png"
-        },
-        "gender": {
-          "type": "number",
-          "example": 1
-        },
-        "createdAt": {
-          "type": "string",
-          "example": "2022-05-31T14:21:36.129Z"
-        },
-        "updatedAt": {
-          "type": "string",
-          "example": "2022-05-31T14:21:36.129Z"
-        }
-      }
-    },
-    "Post": {
-      "type": "object",
-      "properties": {
-        "_id": {
-          "type": "string",
-          "example": "123456789"
-        },
-        "user": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string",
-              "example": "123456789"
-            },
-            "nickName": {
-              "type": "string",
-              "example": "會員暱稱"
-            },
-            "avatar": {
-              "type": "string",
-              "example": "https://i.imgur.com/xxx.png"
-            }
-          }
-        },
-        "content": {
-          "type": "string",
-          "example": "來新增一筆資料吧"
-        },
-        "image": {
-          "type": "array",
-          "example": [
-            "https://i.imgur.com/xxx.png"
-          ],
-          "items": {
-            "type": "string"
-          }
-        },
-        "likes": {
-          "type": "array",
-          "example": [
-            "123456789"
-          ],
-          "items": {
-            "type": "string"
-          }
-        },
-        "comments": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "_id": {
-                "type": "string",
-                "example": "123456789"
-              },
-              "user": {
-                "type": "object",
-                "properties": {
-                  "_id": {
-                    "type": "string",
-                    "example": "123456789"
-                  },
-                  "nickName": {
-                    "type": "string",
-                    "example": "會員暱稱"
-                  },
-                  "avatar": {
-                    "type": "string",
-                    "example": "https://i.imgur.com/xxx.png"
-                  }
-                }
-              },
-              "comment": {
-                "type": "string",
-                "example": "夏日大作戰?!"
-              },
-              "createdAt": {
-                "type": "string",
-                "example": "2022-05-24T14:44:48.358Z"
-              },
-              "updatedAt": {
-                "type": "string",
-                "example": "2022-05-24T14:44:48.358Z"
-              }
-            }
-          }
-        },
-        "createdAt": {
-          "type": "string",
-          "example": "2022-06-01T08:32:14.125Z"
-        },
-        "updatedAt": {
-          "type": "string",
-          "example": "2022-06-01T08:32:14.125Z"
-        }
-      }
-    },
-    "Posts": {
-      "type": "object",
-      "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "_id": {
-                "type": "string",
-                "example": "123456789"
-              },
-              "user": {
-                "type": "object",
-                "properties": {
-                  "_id": {
-                    "type": "string",
-                    "example": "123456789"
-                  },
-                  "nickName": {
-                    "type": "string",
-                    "example": "會員暱稱"
-                  },
-                  "avatar": {
-                    "type": "string",
-                    "example": "https://i.imgur.com/xxx.png"
-                  }
-                }
-              },
-              "content": {
-                "type": "string",
-                "example": "來新增一筆資料吧"
-              },
-              "image": {
-                "type": "array",
-                "example": [
-                  "https://i.imgur.com/xxx.png"
-                ],
-                "items": {
-                  "type": "string"
-                }
-              },
-              "likes": {
-                "type": "array",
-                "example": [
-                  "123456789"
-                ],
-                "items": {
-                  "type": "string"
-                }
-              },
-              "comments": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string",
-                      "example": "123456789"
-                    },
-                    "user": {
-                      "type": "object",
-                      "properties": {
-                        "_id": {
-                          "type": "string",
-                          "example": "123456789"
-                        },
-                        "nickName": {
-                          "type": "string",
-                          "example": "會員暱稱"
-                        },
-                        "avatar": {
-                          "type": "string",
-                          "example": "https://i.imgur.com/xxx.png"
-                        }
-                      }
-                    },
-                    "comment": {
-                      "type": "string",
-                      "example": "夏日大作戰?!"
-                    },
-                    "createdAt": {
-                      "type": "string",
-                      "example": "2022-05-24T14:44:48.358Z"
-                    },
-                    "updatedAt": {
-                      "type": "string",
-                      "example": "2022-05-24T14:44:48.358Z"
-                    }
-                  }
-                }
-              },
-              "createdAt": {
-                "type": "string",
-                "example": "2022-06-01T08:32:14.125Z"
-              },
-              "updatedAt": {
-                "type": "string",
-                "example": "2022-06-01T08:32:14.125Z"
-              }
-            }
-          }
-        },
-        "page": {
-          "type": "object",
-          "properties": {
-            "totalPages": {
-              "type": "number",
-              "example": 1
-            },
-            "currentPage": {
-              "type": "number",
-              "example": 1
-            },
-            "perPage": {
-              "type": "number",
-              "example": 10
-            },
-            "totalDatas": {
-              "type": "number",
-              "example": 1
-            },
-            "has_pre": {
-              "type": "boolean",
-              "example": false
-            },
-            "has_next": {
-              "type": "boolean",
-              "example": false
-            }
-          }
-        }
-      }
-    },
-    "GetPosts": {
-      "type": "object",
-      "properties": {
-        "list": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "_id": {
-                "type": "string",
-                "example": "123456789"
-              },
-              "user": {
-                "type": "object",
-                "properties": {
-                  "_id": {
-                    "type": "string",
-                    "example": "123456789"
-                  },
-                  "nickName": {
-                    "type": "string",
-                    "example": "會員暱稱"
-                  },
-                  "avatar": {
-                    "type": "string",
-                    "example": "https://i.imgur.com/xxx.png"
-                  }
-                }
-              },
-              "content": {
-                "type": "string",
-                "example": "來新增一筆資料吧"
-              },
-              "image": {
-                "type": "array",
-                "example": [
-                  "https://i.imgur.com/xxx.png"
-                ],
-                "items": {
-                  "type": "string"
-                }
-              },
-              "likes": {
-                "type": "array",
-                "example": [
-                  "123456789"
-                ],
-                "items": {
-                  "type": "string"
-                }
-              },
-              "comments": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "_id": {
-                      "type": "string",
-                      "example": "123456789"
-                    },
-                    "user": {
-                      "type": "object",
-                      "properties": {
-                        "_id": {
-                          "type": "string",
-                          "example": "123456789"
-                        },
-                        "nickName": {
-                          "type": "string",
-                          "example": "會員暱稱"
-                        },
-                        "avatar": {
-                          "type": "string",
-                          "example": "https://i.imgur.com/xxx.png"
-                        }
-                      }
-                    },
-                    "comment": {
-                      "type": "string",
-                      "example": "夏日大作戰?!"
-                    },
-                    "createdAt": {
-                      "type": "string",
-                      "example": "2022-05-24T14:44:48.358Z"
-                    },
-                    "updatedAt": {
-                      "type": "string",
-                      "example": "2022-05-24T14:44:48.358Z"
-                    }
-                  }
-                }
-              },
-              "createdAt": {
-                "type": "string",
-                "example": "2022-06-01T08:32:14.125Z"
-              },
-              "updatedAt": {
-                "type": "string",
-                "example": "2022-06-01T08:32:14.125Z"
-              }
-            }
-          }
-        },
-        "page": {
-          "type": "object",
-          "properties": {
-            "totalPages": {
-              "type": "number",
-              "example": 1
-            },
-            "currentPage": {
-              "type": "number",
-              "example": 1
-            },
-            "perPage": {
-              "type": "number",
-              "example": 10
-            },
-            "totalDatas": {
-              "type": "number",
-              "example": 1
-            },
-            "has_pre": {
-              "type": "boolean",
-              "example": false
-            },
-            "has_next": {
-              "type": "boolean",
-              "example": false
-            }
-          }
-        },
-        "Success": {
-          "type": "object",
-          "properties": {
-            "message": {
-              "type": "string",
-              "example": "成功訊息"
-            }
-          }
-        }
-      }
-    },
-    "Comment": {
-      "type": "object",
-      "properties": {
-        "_id": {
-          "type": "string",
-          "example": "123456789"
-        },
-        "user": {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "type": "string",
-              "example": "123456789"
-            },
-            "nickName": {
-              "type": "string",
-              "example": "會員暱稱"
-            },
-            "avatar": {
-              "type": "string",
-              "example": "https://i.imgur.com/xxx.png"
-            }
-          }
-        },
-        "comment": {
-          "type": "string",
-          "example": "大家來回應"
-        },
-        "createdAt": {
-          "type": "string",
-          "example": "2022-06-01T08:41:23.254Z"
-        },
-        "updatedAt": {
-          "type": "string",
-          "example": "2022-06-01T08:41:23.254Z"
-        }
-      }
-    },
-    "File": {
-      "type": "object",
-      "properties": {
-        "upload": {
-          "type": "string",
-          "example": "https://i.imgur.com/xxx.png"
-        }
-      }
-    },
     "Success": {
       "type": "object",
       "properties": {
@@ -1689,6 +1263,72 @@
             "totalCompleted": {
               "type": "number",
               "example": 2
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
+        }
+      }
+    },
+    "getExcellentHelpersSuccess": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "example": "王"
+              },
+              "avatar": {
+                "type": "string",
+                "example": "https://i.imgur.com/1234567.jpg"
+              },
+              "completedTasks": {
+                "type": "number",
+                "example": 130
+              },
+              "completionRate": {
+                "type": "number",
+                "example": 90
+              },
+              "rating": {
+                "type": "object",
+                "properties": {
+                  "overall": {
+                    "type": "number",
+                    "example": 4.8
+                  },
+                  "categories": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "排隊代購"
+                        },
+                        "star": {
+                          "type": "number",
+                          "example": 4.5
+                        },
+                        "totalReviews": {
+                          "type": "number",
+                          "example": 30
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         },
