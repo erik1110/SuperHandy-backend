@@ -39,7 +39,7 @@ const users = {
       if (!currentUser) {
         return next(appError(400, "40010", "信箱驗證失敗"));
       } else if (currentUser.isVerifiedEmail) {
-        return next(appError(400, "40011", "信箱驗證失敗"));
+        return next(appError(400, "40002", "已經驗證過了"));
       } else {
         // 在這裡執行用戶驗證的邏輯，將用戶的 isVerifiedEmail 屬性設置為 true
         await User.updateOne(
