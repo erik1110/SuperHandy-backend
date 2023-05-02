@@ -1,13 +1,15 @@
 const mongoose = require('mongoose')
 const taskSchema = new mongoose.Schema({
   userId: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   },
   status: {
     type: String,
     required: true,
-    default: 'draft'
+    default: 'draft',
+    enum: ['draft', 'published', 'unpublished','deleted', 'inProgress', 'submitted', 'confirmed', 'completed', 'expired'],
   },
   title: {
     type: String,
@@ -30,7 +32,7 @@ const taskSchema = new mongoose.Schema({
   exposurePlan: {
     type: String,
     required: false,
-    default: '0'
+    default: ['一般方案', '限時方案', '黃金曝光', '限時黃金曝光']
   },
   imgUrls: {
     type: [String],
@@ -75,12 +77,12 @@ const taskSchema = new mongoose.Schema({
       required: false,
       default: ''
     },
-    longitude經度: {
+    longitude: {
       type: Number || null,
       required: false,
       default: null
     },
-    latitude緯度: {
+    latitude: {
       type: Number || null,
       required: false,
       default: null
@@ -112,10 +114,10 @@ const taskSchema = new mongoose.Schema({
     default: []
   },
   time: {
-    createAt: {
+    createdAt: {
       type: Date
     },
-    updateAt: {
+    updatedAt: {
       type: Date
     },
     publishedAt: {
@@ -143,42 +145,10 @@ const taskSchema = new mongoose.Schema({
       type: Date
     }
   },
-  review: {
-    helper: {
-      userID: {
-        type: String
-      },
-      status: {
-        type: String
-      },
-      score: {
-        type: Number
-      },
-      comment: {
-        type: String
-      },
-      createAt: {
-        type: Date
-      }
-    },
-    poster: {
-      userID: {
-        type: String
-      },
-      status: {
-        type: String
-      },
-      score: {
-        type: Number
-      },
-      comment: {
-        type: String
-      },
-      createAt: {
-        type: Date
-      }
-    }
-  },
+  reviews: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Review'
+  }],
   submmitInfo: {
     imgUrls: {
       type: [String]
