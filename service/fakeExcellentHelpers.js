@@ -3,15 +3,25 @@ const fakeExcellentHelperData = [
     {
       "name": "王",
       "avatar": "https://i.imgur.com/1234567.jpg",
-      "completedTasks": 130,
+      "completedTasks": 108,
       "completionRate": 90,
       "rating": {
         "overall": 4.8,
         "categories": [
           {
-	          "name": "到府驅蟲",
+	          "name": "活動支援",
 	          "star": 4.9,
-	          "totalReviews": 50
+	          "totalReviews": 13
+          },
+          {
+	          "name": "家教陪讀",
+	          "star": 4.7,
+	          "totalReviews": 21
+	        },
+          {
+	          "name": "排隊代購",
+	          "star": 4.5,
+	          "totalReviews": 12
           }
 		]
       },
