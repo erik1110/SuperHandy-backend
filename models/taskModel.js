@@ -32,7 +32,7 @@ const taskSchema = new mongoose.Schema({
   exposurePlan: {
     type: String,
     required: false,
-    default: ['一般方案', '限時方案', '黃金曝光', '限時黃金曝光']
+    enum: ['一般方案', '限時方案', '黃金曝光', '限時黃金曝光']
   },
   imgUrls: {
     type: [String],
