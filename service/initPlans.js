@@ -2,12 +2,12 @@ const Plan = require('../models/planModel');
 
 const plans = [
     {
-      "title": "一般方案",
+      "title": "一般曝光",
       "price": 20,
       "items": ["無理由修改", "極速退點", "刊登時間30天"]
     },
     {
-      "title": "限時方案",
+      "title": "限時曝光",
       "price": 30,
       "items": ["無理由修改", "極速退點", "刊登時間7天", "手機端優先排序", "電腦端優先排序", "具有醒目急件標示"]
     },

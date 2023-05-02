@@ -47,7 +47,7 @@ const getPlanSuccess = {
   status: "success",
   data: [
     {
-      "title": "一般方案",
+      "title": "一般曝光",
       "price": "20",
       "items": [
         "無理由修改",

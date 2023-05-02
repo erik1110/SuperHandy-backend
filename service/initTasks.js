@@ -103,7 +103,7 @@ const initTasks = async () => {
       category: '清潔外包',
       description: '需要一位勤快且細心的人來協助居家清潔，家裡有一些難以清潔的區域需要特別注意。',
       salary: 666,
-      exposurePlan: '一般方案',
+      exposurePlan: '一般曝光',
       imgUrls: ['https://example.com/project123123124.png'],
       contactInfo: {
         name: `${userCase3.lastName}${userCase3.firstName}`,
@@ -148,7 +148,7 @@ const initTasks = async () => {
       category: '其他內容',
       description: '我最近剛考到駕照，但還不太有經驗，需要一位有開車經驗的人來陪我練習開車，希望能有耐心且細心的教練。',
       salary: 567,
-      exposurePlan: '限時方案',
+      exposurePlan: '限時曝光',
       imgUrls: ['https://example.com/projectCar.png'],
       contactInfo: {
         name: `${userCase4.lastName}${userCase4.firstName}`,
@@ -193,7 +193,7 @@ const initTasks = async () => {
       category: '電腦教學',
       description: '需要一位有經驗的人來教我如何使用 Notion 管理自己的筆記和待辦事項。',
       salary: 999,
-      exposurePlan: '限時黃金方案',
+      exposurePlan: '限時黃金曝光',
       imgUrls: ['https://example.com/projectNotion.png'],
       contactInfo: {
         name: `${userCase5.lastName}${userCase5.firstName}`,
