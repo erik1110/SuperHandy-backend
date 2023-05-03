@@ -235,7 +235,7 @@ const initTasks = async () => {
 
   try {
     // 刪除現有的所有類別
-    await Task.deleteMany();
+    await Task.deleteMany({ title: { $in: ['陪我家狗玩', '幫忙做畢業專題', '協助居家清潔', '陪我練習開車', 'Notion 教學'] } });
 
     // 插入新的類別
     await Task.insertMany(tasks);
