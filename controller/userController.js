@@ -171,27 +171,41 @@ const users = {
       message: "更新密碼成功"
     }));
   }),
-  resetPassword: handleErrorAsync(async (req, res, next) => {
-    const { password, confirmPassword } = req.body;
-
-    if (!password || !confirmPassword) {
-      return next(appError(400, "40001", "欄位未填寫"));
+  updatePassword: handleErrorAsync(async (req, res, next) => {
+    const {
+      user,
+      body: {
+        password,
+        confirmPassword,
+        oldPassword
+      },
+    } = req;
+    const validatorResult = Validator.updatePw({
+      password,
+      confirmPassword,
+      oldPassword
+    });
+    if (!validatorResult.status) {
+      return next(appError(400, "40001", validatorResult.msg, next));
+    }
+    const users = await User.findOne({
+      _id: user._id
+    }).select("+password");
+    const compare = await bcrypt.compare(oldPassword, users.password);
+    if (!compare) {
+      return next(appError(400, "40002", "您的舊密碼不正確!"));
     }
 
-    if (password !== confirmPassword) {
-      return next(appError(400, "40001", "密碼不一致"));
-    }
-
-    if (!validator.isStrongPassword(password, {
-      minLength: 8
-    })) {
-      return next(appError(400, "40001", "密碼至少 8 個字元以上"));
-    }
-
-    const newPassword = await bcrypt.hash(password, 12);
-    await User.findByIdAndUpdate(req.user.id, { password: newPassword });
-
-    res.status(201).json(getHttpResponse({
+    users.password = null;
+    const newPassword = await bcrypt.hash(req.body.password, 12);
+    await User.updateOne(
+      {
+        _id: user._id
+      },
+      {
+        password: newPassword
+      });
+    res.status(200).json(getHttpResponse({
       message: "更新密碼成功"
     }));
   }),

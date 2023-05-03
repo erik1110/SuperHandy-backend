@@ -410,12 +410,12 @@
         ]
       }
     },
-    "/reset-password": {
+    "/update-password": {
       "patch": {
         "tags": [
           "Sign-in"
         ],
-        "summary": "reset password after sign in",
+        "summary": "update password after sign in",
         "description": "",
         "parameters": [
           {
@@ -432,16 +432,21 @@
               "properties": {
                 "password": {
                   "type": "string",
-                  "example": "a1234567"
+                  "example": "a12345678"
                 },
                 "confirmPassword": {
+                  "type": "string",
+                  "example": "a12345678"
+                },
+                "oldPassword": {
                   "type": "string",
                   "example": "a1234567"
                 }
               },
               "required": [
                 "password",
-                "confirmPassword"
+                "confirmPassword",
+                "oldPassword"
               ]
             }
           }

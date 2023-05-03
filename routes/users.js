@@ -218,11 +218,11 @@ router.patch('/forgot-reset-password', isAuth, (req, res, next) =>
   userController.forgotResetPassword(req, res, next)
 );
 
-/* 重設密碼 */
-router.patch('/reset-password', isAuth, (req, res, next) => 
+/* 更新密碼 */
+router.patch('/update-password', isAuth, (req, res, next) => 
   /**
     * #swagger.tags = ['Sign-in']
-    * #swagger.summary = 'reset password after sign in'
+    * #swagger.summary = 'update password after sign in'
     * #swagger.security = [{
         "Bearer": []
       }]
@@ -232,8 +232,9 @@ router.patch('/reset-password', isAuth, (req, res, next) =>
     in: 'body',
     description: '',
     schema: {
-      $password: 'a1234567',
-      $confirmPassword: 'a1234567'
+      $password: 'a12345678',
+      $confirmPassword: 'a12345678',
+      $oldPassword: 'a1234567'
     }
   }
   */
@@ -253,7 +254,7 @@ router.patch('/reset-password', isAuth, (req, res, next) =>
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  userController.resetPassword(req, res, next)
+  userController.updatePassword(req, res, next)
 );
 
 
