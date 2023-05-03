@@ -145,6 +145,7 @@ const users = {
           message: "信件已寄出"
         }));
       }
+      await User.findByIdAndUpdate(user._id, { isForgotPassword: true });
       mailer(res, next, user, token, "forget");
   }),
   forgotResetPassword: handleErrorAsync(async (req, res, next) => {
@@ -166,14 +167,15 @@ const users = {
     const users = await User.findOne({
       _id: user._id
     }).select("+password");
-    console.log(password);
-    console.log(users.password);
+    if (!users.isForgotPassword){
+      return next(appError(400, "40002", "無效的請求"));
+    }
     const compare = await bcrypt.compare(password, users.password);
     if (compare) {
       return next(appError(400, "40002", "不可使用舊密碼"));
     }
     const newPassword = await bcrypt.hash(req.body.password, 12);
-    await User.findByIdAndUpdate(req.user.id, { password: newPassword });
+    await User.findByIdAndUpdate(user.id, { password: newPassword, isForgotPassword: false });
 
     res.status(200).json(getHttpResponse({
       message: "更新密碼成功"

@@ -65,6 +65,10 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
+  isForgotPassword: {
+    type: Boolean,
+    default: false
+  },
   status: {
     type: Boolean,
     default: true
