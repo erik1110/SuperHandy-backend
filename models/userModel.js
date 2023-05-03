@@ -54,6 +54,10 @@ const userSchema = new mongoose.Schema({
     trim: true,
     default: ''
   },
+  helprSpecialties: {
+    type: [string],
+    default: []
+  },
   thirdPartyId: {
     type: String
   },
