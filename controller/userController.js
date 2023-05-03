@@ -170,7 +170,31 @@ const users = {
     res.status(201).json(getHttpResponse({
       message: "更新密碼成功"
     }));
-}),
+  }),
+  resetPassword: handleErrorAsync(async (req, res, next) => {
+  const { password, confirmPassword } = req.body;
+
+  if (!password || !confirmPassword) {
+    return next(appError(400, "40001", "欄位未填寫"));
+  }
+
+  if (password !== confirmPassword) {
+    return next(appError(400, "40001", "密碼不一致"));
+  }
+
+  if (!validator.isStrongPassword(password, {
+    minLength: 8
+  })) {
+    return next(appError(400, "40001", "密碼至少 8 個字元以上"));
+  }
+
+  const newPassword = await bcrypt.hash(password, 12);
+  await User.findByIdAndUpdate(req.user.id, { password: newPassword });
+
+  res.status(201).json(getHttpResponse({
+    message: "更新密碼成功"
+  }));
+  }),
 }
 
 module.exports = users;
