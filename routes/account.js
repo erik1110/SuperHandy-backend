@@ -56,6 +56,7 @@ router.get('/info-form', async function (req, res, next) {
         'address': '台北市',
         'posterIntro': '我是海報人',
         'helperIntro': '我是幫手人',
+        'helprSpecialties':['人力派遣','市場調查'],
         'updatedAt': '2021-05-20T08:00:00.000Z'
       }
     }    
@@ -89,6 +90,7 @@ router.patch('/info-form', async function (req, res, next) {
         'address': '台北市',
         'posterIntro': '我是海報人',
         'helperIntro': '我是幫手人',
+        'helprSpecialties':['人力派遣','市場調查'],
         'updatedAt': '2021-05-20T08:00:00.000Z'
       }
     }
