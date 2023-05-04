@@ -55,7 +55,7 @@ const userSchema = new mongoose.Schema({
     default: ''
   },
   helprSpecialties: {
-    type: [string],
+    type: [String],
     default: []
   },
   thirdPartyId: {
