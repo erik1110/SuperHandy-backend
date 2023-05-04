@@ -117,7 +117,7 @@ const users = [
 const initUsers = async () => {
   try {
     // 刪除現有的所有類別
-    await User.deleteMany();
+    await User.deleteMany({ email: { $in: ['user1@example.com', 'user2@example.com', 'user3@example.com', 'chiayu@example.com', 'yunshan@example.com', 'weiyu@example.com'] } });
 
     // 插入新的類別
     await User.insertMany(users);

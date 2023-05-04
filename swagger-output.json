@@ -410,6 +410,74 @@
         ]
       }
     },
+    "/update-password": {
+      "patch": {
+        "tags": [
+          "Sign-in"
+        ],
+        "summary": "update password after sign in",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "example": "a12345678"
+                },
+                "confirmPassword": {
+                  "type": "string",
+                  "example": "a12345678"
+                },
+                "oldPassword": {
+                  "type": "string",
+                  "example": "a1234567"
+                }
+              },
+              "required": [
+                "password",
+                "confirmPassword",
+                "oldPassword"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "重設成功"
+          },
+          "400": {
+            "description": "重設失敗"
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/account/profile": {
       "get": {
         "tags": [
@@ -516,36 +584,6 @@
                 "uid": {
                   "type": "string",
                   "example": "64469189880b866621b40eeb"
-                }
-              }
-            }
-          },
-          {
-            "name": "parameter_name",
-            "in": "body",
-            "description": "可僅更新部分欄位",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "nickName": {
-                  "type": "string",
-                  "example": "Erik"
-                },
-                "phone": {
-                  "type": "string",
-                  "example": "0912345678"
-                },
-                "address": {
-                  "type": "string",
-                  "example": "台北市"
-                },
-                "posterIntro": {
-                  "type": "string",
-                  "example": "我是海報人"
-                },
-                "helperIntro": {
-                  "type": "string",
-                  "example": "我是幫手人"
                 }
               }
             }
@@ -1113,7 +1151,7 @@
             "properties": {
               "title": {
                 "type": "string",
-                "example": "一般方案"
+                "example": "一般曝光"
               },
               "price": {
                 "type": "string",

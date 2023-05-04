@@ -218,4 +218,44 @@ router.patch('/forgot-reset-password', isAuth, (req, res, next) =>
   userController.forgotResetPassword(req, res, next)
 );
 
+/* 更新密碼 */
+router.patch('/update-password', isAuth, (req, res, next) => 
+  /**
+    * #swagger.tags = ['Sign-in']
+    * #swagger.summary = 'update password after sign in'
+    * #swagger.security = [{
+        "Bearer": []
+      }]
+  */
+  /**
+  #swagger.parameters['parameter_name'] = {
+    in: 'body',
+    description: '',
+    schema: {
+      $password: 'a12345678',
+      $confirmPassword: 'a12345678',
+      $oldPassword: 'a1234567'
+    }
+  }
+  */
+/**
+  #swagger.responses[200] = {
+    description: '重設成功',
+  }
+  #swagger.responses[400] = {
+    description: '重設失敗',
+  }
+  #swagger.responses[404] = {
+    description: '無此路由',
+    schema: { $ref: '#/definitions/Error404' }
+  }
+  #swagger.responses[500] = {
+    description: '系統錯誤',
+    schema: { $ref: '#/definitions/Error500' }
+  }
+*/
+  userController.updatePassword(req, res, next)
+);
+
+
 module.exports = router;
