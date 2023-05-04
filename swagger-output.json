@@ -560,7 +560,65 @@
             }
           }
         ],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nickName": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Chen"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "erik@gmail.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "0912345678"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "台北市"
+                },
+                "posterIntro": {
+                  "type": "string",
+                  "example": "我是海報人"
+                },
+                "helperIntro": {
+                  "type": "string",
+                  "example": "我是幫手人"
+                },
+                "helperSkills": {
+                  "type": "array",
+                  "example": [
+                    "人力派遣",
+                    "市場調查"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2021-05-20T08:00:00.000Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
         "security": [
           {
             "jwt": []

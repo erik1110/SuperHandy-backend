@@ -51,7 +51,7 @@ router.get('/info-form', async function (req, res, next) {
         'nickName': 'Erik',
         'firstName': 'Erik',
         'lastName': 'Chen',
-        'email': 'erik@gmail.com'
+        'email': 'erik@gmail.com',
         'phone': '0912345678',
         'address': '台北市',
         'posterIntro': '我是海報人',
