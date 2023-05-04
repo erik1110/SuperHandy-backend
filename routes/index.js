@@ -4,6 +4,7 @@ const homeRouter = require('./home')
 const generalRouter = require('./general')
 const postTaskRouter = require('./postTask')
 const { isAuth } = require('../middleware/auth')
+const { devAuth } = require('../middleware/devAuth')
 const getHttpResponse = require('../utils/successHandler')
 /** 生成 Swagger 套件 */
 const swaggerUI = require('swagger-ui-express')
@@ -14,6 +15,6 @@ module.exports = (app) => {
   app.use('/account', accountRouter)
   app.use('/home', homeRouter)
   app.use('/general', generalRouter)
-  app.use('/post-task', postTaskRouter)
+  app.use('/post-task', devAuth, postTaskRouter)
   app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile))
 }
