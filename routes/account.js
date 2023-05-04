@@ -129,7 +129,7 @@ router.get('/testFindAllUser', async function (req, res, next) {
    */
   console.log('check point req.body', req.body)
   try {
-    const allUser = await User.find({}, '_id, lastName,firstName, email, password')
+    const allUser = await User.find({}, '_id lastName firstName nickName email password')
     res.status(200).json({
       allUser
     })
