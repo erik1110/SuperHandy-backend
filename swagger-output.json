@@ -587,48 +587,147 @@
                 }
               }
             }
+          },
+          {
+            "name": "parameter",
+            "in": "body",
+            "description": "可更新部分欄位",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nickName": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Chen"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "erik@gmail.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "0912345678"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "台北市"
+                },
+                "posterIntro": {
+                  "type": "string",
+                  "example": "我是海報人"
+                },
+                "helperIntro": {
+                  "type": "string",
+                  "example": "我是幫手人"
+                },
+                "helperSkills": {
+                  "type": "array",
+                  "example": [
+                    "人力派遣",
+                    "市場調查"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2021-05-20T08:00:00.000Z"
+                }
+              }
+            }
           }
         ],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "uhf8vufbv88fv8hf8v"
+                },
+                "nickName": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Chen"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "erik@gmail.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "0912345678"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "台北市"
+                },
+                "posterIntro": {
+                  "type": "string",
+                  "example": "我是海報人"
+                },
+                "helperIntro": {
+                  "type": "string",
+                  "example": "我是幫手人"
+                },
+                "helperSkills": {
+                  "type": "array",
+                  "example": [
+                    "人力派遣",
+                    "市場調查"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2021-05-20T08:00:00.000Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "查不到啦"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
         "security": [
           {
             "jwt": []
           }
         ]
-      }
-    },
-    "/account/testSignup": {
-      "post": {
-        "tags": [
-          "Dev"
-        ],
-        "summary": "dev 註冊user帳號",
-        "description": "",
-        "parameters": [
-          {
-            "name": "parameter_name",
-            "in": "body",
-            "description": "nickName is optional, while all the others are required.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "account": {
-                  "type": "string",
-                  "example": "test@gmail.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "a1234567"
-                }
-              },
-              "required": [
-                "account",
-                "password"
-              ]
-            }
-          }
-        ],
-        "responses": {}
       }
     },
     "/account/testFindAllUser": {
