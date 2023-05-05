@@ -10,7 +10,7 @@ router.get('/profile', async function (req, res, next) {
    * #swagger.summary = '取得使用者資料概要'
    */
   /**
-    #swagger.security=[{"jwt": []}],
+    #swagger.security=[{"Bearer": []}],
     #swagger.parameters['uid'] = {
       in: 'query',
       description: '[dev]如果沒有token，可以用uid取得資料',
@@ -37,7 +37,7 @@ router.get('/info-form', async function (req, res, next) {
    * #swagger.summary = '取得使用者表單資料'
    */
   /**
-    #swagger.security=[{"jwt": []}],
+    #swagger.security=[{"Bearer": []}],
     #swagger.parameters['uid'] = {
       in: 'query',
       description: '[dev]如果沒有token，可以用uid取得資料',
@@ -70,7 +70,7 @@ router.patch('/info-form', async function (req, res, next) {
    * #swagger.summary = '更新使用者表單資料'
    */
   /**
-    #swagger.security=[{"jwt": []}],
+    #swagger.security=[{"Bearer": []}],
     #swagger.parameters['uid'] = {
      in: 'query',
       description: '[dev]如果沒有token，可以用uid取得資料',
