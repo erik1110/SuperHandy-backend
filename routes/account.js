@@ -51,12 +51,12 @@ router.get('/info-form', async function (req, res, next) {
         'nickName': 'Erik',
         'firstName': 'Erik',
         'lastName': 'Chen',
-        'email': 'erik@gmail.com'
+        'email': 'erik@gmail.com',
         'phone': '0912345678',
         'address': '台北市',
         'posterIntro': '我是海報人',
         'helperIntro': '我是幫手人',
-        'helprSpecialties':['人力派遣','市場調查'],
+        'helperSkills':['人力派遣','市場調查'],
         'updatedAt': '2021-05-20T08:00:00.000Z'
       }
     }    
@@ -72,78 +72,56 @@ router.patch('/info-form', async function (req, res, next) {
   /**
     #swagger.security=[{"jwt": []}],
     #swagger.parameters['uid'] = {
-      in: 'query',
+     in: 'query',
       description: '[dev]如果沒有token，可以用uid取得資料',
       schema: {
         'uid': '64469189880b866621b40eeb'
       }
-    },
-    #swagger.parameters['parameter_name'] = {
+    }
+    */
+  /**
+    #swagger.parameters['parameter'] = {
       in: 'body',
-      description: '可僅更新部分欄位',
+      description: '可更新部分欄位',
       schema: {
         'nickName': 'Erik',
         'firstName': 'Erik',
         'lastName': 'Chen',
-        'email': 'erik@gmail.com'
+        'email': 'erik@gmail.com',
         'phone': '0912345678',
         'address': '台北市',
         'posterIntro': '我是海報人',
         'helperIntro': '我是幫手人',
-        'helprSpecialties':['人力派遣','市場調查'],
+        'helperSkills':['人力派遣','市場調查'],
         'updatedAt': '2021-05-20T08:00:00.000Z'
       }
     }
     #swagger.responses[200] = {
       description: 'OK',
-      schema: {
+      schema: {        
         '_id':'uhf8vufbv88fv8hf8v',
         'nickName': 'Erik',
-        'email': 'erik@gmail.com'
+        'firstName': 'Erik',
+        'lastName': 'Chen',
+        'email': 'erik@gmail.com',
         'phone': '0912345678',
         'address': '台北市',
         'posterIntro': '我是海報人',
         'helperIntro': '我是幫手人',
+        'helperSkills':['人力派遣','市場調查'],
         'updatedAt': '2021-05-20T08:00:00.000Z'
       }
-    }    
-    */
+    }
+    #swagger.responses[404] = {
+      description: 'Not Found',
+      schema: {        
+        'message':'查不到啦'
+      }
+    }
+  */
   accounts.updateInfoForm(req, res, next)
 })
 
-router.post('/testSignup', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Dev']
-   * #swagger.summary = 'dev 註冊user帳號'
-   */
-  /**
-  #swagger.parameters['parameter_name'] = {
-    in: 'body',
-    description: 'nickName is optional, while all the others are required.',
-    schema: {
-      $account: 'test@gmail.com',
-      $password: 'a1234567'
-    }
-  }
-  */
-  try {
-    const newUser = await User.create(req.body)
-    res.status(200).json({
-      newUser
-    })
-  } catch (err) {
-    if (err.name === 'ValidationError') {
-      const errorObj = {}
-      const { errors } = err
-      Object.keys(errors).forEach((col) => (errorObj[col] = errors[col].message))
-      return res.status(400).json({
-        message: 'Validation Error',
-        errorObj
-      })
-    }
-    next(err)
-  }
-})
 router.get('/testFindAllUser', async function (req, res, next) {
   /**
    * #swagger.tags = ['Dev']
@@ -151,7 +129,7 @@ router.get('/testFindAllUser', async function (req, res, next) {
    */
   console.log('check point req.body', req.body)
   try {
-    const allUser = await User.find({}, '_id, lastName,firstName, email, password')
+    const allUser = await User.find({}, '_id lastName firstName nickName email password')
     res.status(200).json({
       allUser
     })

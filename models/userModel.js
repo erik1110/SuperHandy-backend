@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema({
     trim: true,
     default: ''
   },
-  helprSpecialties: {
+  helperSkills: {
     type: [String],
     default: []
   },

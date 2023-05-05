@@ -17,7 +17,7 @@ const accounts = {
   }),
   getInfoForm: handleErrorAsync(async (req, res, next) => {
     const userInfoForm = await User.findOne({ _id: req.user }).select(
-      'firstName lastName nickName email posterIntro helperIntro avatarPath address phone helprSpecialties -_id'
+      'firstName lastName nickName email posterIntro helperIntro avatarPath address phone helperSkills -_id'
     )
     if (!userInfoForm) {
       return res.status(404).json({
@@ -30,7 +30,7 @@ const accounts = {
   }),
   updateInfoForm: handleErrorAsync(async (req, res, next) => {
     const updateFields = {}
-    const acceptedFields = ['firstName', 'lastName', 'nickName', 'address', 'posterIntro', 'helperIntro', 'helprSpecialties']
+    const acceptedFields = ['firstName', 'lastName', 'nickName', 'address', 'posterIntro', 'helperIntro', 'helperSkills']
     const checkField = (field) => {
       if (req.body.hasOwnProperty(field)) {
         updateFields[field] = req.body[field]
