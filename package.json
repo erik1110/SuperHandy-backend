@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "start:dev": "NODE_ENV=dev nodemon ./bin/www",
-    "start:prod": "NODE_ENV=prod nodemon ./bin/www",
     "dev": "cross-env NODE_ENV=dev nodemon ./bin/www",
     "prod": "cross-env NODE_ENV=prod nodemon ./bin/www",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint --fix .",
     "swagger": "node ./swagger.js"
   },
   "dependencies": {
@@ -30,6 +32,7 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "eslint": "^8.39.0",
+    "eslint-config-prettier": "^8.8.0",
     "prettier": "^2.8.8",
     "prettier-eslint": "^15.0.1"
   }
