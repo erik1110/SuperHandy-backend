@@ -3,12 +3,12 @@ var router = express.Router();
 const homeController = require('../controller/homeController');
 
 /* 取得已完成之案例 */
-router.get('/completed-cases', function(req, res, next) {
+router.get('/completed-cases', function (req, res, next) {
     /**
-      * #swagger.tags = ['Home']
-      * #swagger.summary = 'Get Completed Cases'
-    */
-  /**
+     * #swagger.tags = ['Home']
+     * #swagger.summary = 'Get Completed Cases'
+     */
+    /**
     #swagger.responses[200] = {
       description: '取得成功',
       schema: { $ref: '#/definitions/getCompletedCasesSuccess' }
@@ -21,12 +21,12 @@ router.get('/completed-cases', function(req, res, next) {
     homeController.getCompeletedCases(req, res, next);
 });
 /* 取得真實心得評價 */
-router.get('/completed-reviews', function(req, res, next) {
-  /**
-    * #swagger.tags = ['Home']
-    * #swagger.summary = 'Get Completed Reviews'
-  */
-/**
+router.get('/completed-reviews', function (req, res, next) {
+    /**
+     * #swagger.tags = ['Home']
+     * #swagger.summary = 'Get Completed Reviews'
+     */
+    /**
   #swagger.responses[200] = {
     description: '取得成功',
     schema: { $ref: '#/definitions/getSuperhandyReviewSuccess' }
@@ -36,16 +36,16 @@ router.get('/completed-reviews', function(req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  homeController.getCompeletedReviews(req, res, next);
+    homeController.getCompeletedReviews(req, res, next);
 });
 
 /* 取得任務統計數量 */
-router.get('/task-stats', function(req, res, next) {
-  /**
-    * #swagger.tags = ['Home']
-    * #swagger.summary = 'Get task statistics count'
-  */
-/**
+router.get('/task-stats', function (req, res, next) {
+    /**
+     * #swagger.tags = ['Home']
+     * #swagger.summary = 'Get task statistics count'
+     */
+    /**
   #swagger.responses[200] = {
     description: '取得成功',
     schema: { $ref: '#/definitions/getTaskStatsSuccess' }
@@ -55,16 +55,16 @@ router.get('/task-stats', function(req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  homeController.getTaskStats(req, res, next);
+    homeController.getTaskStats(req, res, next);
 });
 
 /* 取得優秀幫手資料 */
-router.get('/excellent-helpers', function(req, res, next) {
-  /**
-    * #swagger.tags = ['Home']
-    * #swagger.summary = 'Get excellent helpers'
-  */
-/**
+router.get('/excellent-helpers', function (req, res, next) {
+    /**
+     * #swagger.tags = ['Home']
+     * #swagger.summary = 'Get excellent helpers'
+     */
+    /**
   #swagger.responses[200] = {
     description: '取得成功',
     schema: { $ref: '#/definitions/getExcellentHelpersSuccess' }
@@ -74,7 +74,7 @@ router.get('/excellent-helpers', function(req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  homeController.getExcellentHelpers(req, res, next);
+    homeController.getExcellentHelpers(req, res, next);
 });
 
 module.exports = router;

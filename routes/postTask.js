@@ -1,16 +1,16 @@
-var express = require('express')
-var router = express.Router()
-const User = require('../models/userModel')
-const Task = require('../models/taskModel')
-const accounts = require('../controller/accountController')
-const tasks = require('../controller/taskController')
+var express = require('express');
+var router = express.Router();
+const User = require('../models/userModel');
+const Task = require('../models/taskModel');
+const accounts = require('../controller/accountController');
+const tasks = require('../controller/taskController');
 
 router.get('/check-location', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '檢查地址(取得經緯度)'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '檢查地址(取得經緯度)'
+     */
+    /**
     #swagger.security=[{"jwt": []}],
     #swagger.parameters['address'] = {
       in: 'query',
@@ -36,14 +36,14 @@ router.get('/check-location', async function (req, res, next) {
       }
     } 
     */
-  tasks.checkGeocoding(req, res, next)
-})
+    tasks.checkGeocoding(req, res, next);
+});
 router.post('/save-draft', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '儲存新草稿'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '儲存新草稿'
+     */
+    /**
    #swagger.security=[{"jwt": []}]
    #swagger.parameters['parameter_name'] = {
     in: 'body',
@@ -90,7 +90,7 @@ router.post('/save-draft', async function (req, res, next) {
       }
     }
    */
-  tasks.saveDraft(req, res, next)
-})
+    tasks.saveDraft(req, res, next);
+});
 
-module.exports = router
+module.exports = router;
