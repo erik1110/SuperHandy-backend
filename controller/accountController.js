@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { appError, handleErrorAsync } = require('../utils/errorHandler');
 const User = require('../models/userModel');
 const Validator = require('../service/validator');
+const getHttpResponse = require('../utils/successHandler');
 
 const accounts = {
     getProfile: handleErrorAsync(async (req, res, next) => {
@@ -63,6 +64,18 @@ const accounts = {
             });
         }
         res.json(userInfoForm);
+    }),
+    getPoints: handleErrorAsync(async (req, res, next) => {
+        const user = await User.findOne({ _id: req.user._id });
+        res.status(200).json(
+            getHttpResponse({
+                message: '取得成功',
+                data: {
+                    superCoin: user.superCoin,
+                    helperCoin: user.helperCoin,
+                },
+            }),
+        );
     }),
 };
 

@@ -73,6 +73,14 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    superCoin: {
+        type: Number,
+        default: 0,
+    },
+    helperCoin: {
+        type: Number,
+        default: 0,
+    },
     status: {
         type: Boolean,
         default: true,
