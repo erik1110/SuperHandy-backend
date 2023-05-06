@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const User = require('../models/userModel');
-const accounts = require('../controller/accountController');
+const accountController = require('../controller/accountController');
+const { isAuth } = require('../middleware/auth');
 
 router.get('/profile', async function (req, res, next) {
     req.user = req.user || req.query.uid || '64469189880b866621b40eeb'; //'6444b5a30dc68dc4fd63a1ea'
@@ -28,7 +29,7 @@ router.get('/profile', async function (req, res, next) {
       }
     }    
     */
-    accounts.getProfile(req, res, next);
+    accountController.getProfile(req, res, next);
 });
 router.get('/info-form', async function (req, res, next) {
     req.user = req.user || req.query.uid || '64469189880b866621b40eeb'; //'6444b5a30dc68dc4fd63a1ea'
@@ -61,7 +62,7 @@ router.get('/info-form', async function (req, res, next) {
       }
     }    
     */
-    accounts.getInfoForm(req, res, next);
+    accountController.getInfoForm(req, res, next);
 });
 router.patch('/info-form', async function (req, res, next) {
     req.user = req.user || req.query.uid || '64469189880b866621b40eeb'; //'6444b5a30dc68dc4fd63a1ea'
@@ -119,7 +120,37 @@ router.patch('/info-form', async function (req, res, next) {
       }
     }
   */
-    accounts.updateInfoForm(req, res, next);
+    accountController.updateInfoForm(req, res, next);
+});
+
+/* 取得目前超人幣、幫手幣的餘額 */
+router.get('/points', isAuth, function (req, res, next) {
+    /**
+  * #swagger.tags = ['Account']
+  * #swagger.summary = 'Get the current balance of Super Coins and Helper Coins'
+  * #swagger.security = [{
+      "Bearer": []
+    }]
+  */
+    /**
+  #swagger.responses[200] = {
+    description: '取得成功',
+    schema: { $ref: '#/definitions/getPoints' }
+  }
+  #swagger.responses[400] = {
+    description: 'Token 失敗',
+    schema: { $ref: '#/definitions/ErrorToken' }
+  }
+  #swagger.responses[404] = {
+    description: '無此路由',
+    schema: { $ref: '#/definitions/Error404' }
+  }
+  #swagger.responses[500] = {
+    description: '系統錯誤',
+    schema: { $ref: '#/definitions/Error500' }
+  }
+  */
+    accountController.getPoints(req, res, next);
 });
 
 router.get('/testFindAllUser', async function (req, res, next) {
