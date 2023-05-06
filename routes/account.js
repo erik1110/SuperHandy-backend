@@ -1,15 +1,15 @@
-var express = require('express')
-var router = express.Router()
-const User = require('../models/userModel')
-const accounts = require('../controller/accountController')
+var express = require('express');
+var router = express.Router();
+const User = require('../models/userModel');
+const accounts = require('../controller/accountController');
 
 router.get('/profile', async function (req, res, next) {
-  req.user = req.user || req.query.uid || '64469189880b866621b40eeb' //'6444b5a30dc68dc4fd63a1ea'
-  /**
-   * #swagger.tags = ['Account']
-   * #swagger.summary = '取得使用者資料概要'
-   */
-  /**
+    req.user = req.user || req.query.uid || '64469189880b866621b40eeb'; //'6444b5a30dc68dc4fd63a1ea'
+    /**
+     * #swagger.tags = ['Account']
+     * #swagger.summary = '取得使用者資料概要'
+     */
+    /**
     #swagger.security=[{"Bearer": []}],
     #swagger.parameters['uid'] = {
       in: 'query',
@@ -28,15 +28,15 @@ router.get('/profile', async function (req, res, next) {
       }
     }    
     */
-  accounts.getProfile(req, res, next)
-})
+    accounts.getProfile(req, res, next);
+});
 router.get('/info-form', async function (req, res, next) {
-  req.user = req.user || req.query.uid || '64469189880b866621b40eeb' //'6444b5a30dc68dc4fd63a1ea'
-  /**
-   * #swagger.tags = ['Account']
-   * #swagger.summary = '取得使用者表單資料'
-   */
-  /**
+    req.user = req.user || req.query.uid || '64469189880b866621b40eeb'; //'6444b5a30dc68dc4fd63a1ea'
+    /**
+     * #swagger.tags = ['Account']
+     * #swagger.summary = '取得使用者表單資料'
+     */
+    /**
     #swagger.security=[{"Bearer": []}],
     #swagger.parameters['uid'] = {
       in: 'query',
@@ -61,15 +61,15 @@ router.get('/info-form', async function (req, res, next) {
       }
     }    
     */
-  accounts.getInfoForm(req, res, next)
-})
+    accounts.getInfoForm(req, res, next);
+});
 router.patch('/info-form', async function (req, res, next) {
-  req.user = req.user || req.query.uid || '64469189880b866621b40eeb' //'6444b5a30dc68dc4fd63a1ea'
-  /**
-   * #swagger.tags = ['Account']
-   * #swagger.summary = '更新使用者表單資料'
-   */
-  /**
+    req.user = req.user || req.query.uid || '64469189880b866621b40eeb'; //'6444b5a30dc68dc4fd63a1ea'
+    /**
+     * #swagger.tags = ['Account']
+     * #swagger.summary = '更新使用者表單資料'
+     */
+    /**
     #swagger.security=[{"Bearer": []}],
     #swagger.parameters['uid'] = {
      in: 'query',
@@ -79,7 +79,7 @@ router.patch('/info-form', async function (req, res, next) {
       }
     }
     */
-  /**
+    /**
     #swagger.parameters['parameter'] = {
       in: 'body',
       description: '可更新部分欄位',
@@ -119,32 +119,37 @@ router.patch('/info-form', async function (req, res, next) {
       }
     }
   */
-  accounts.updateInfoForm(req, res, next)
-})
+    accounts.updateInfoForm(req, res, next);
+});
 
 router.get('/testFindAllUser', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Dev']
-   * #swagger.summary = 'dev 取得所有user帳號'
-   */
-  console.log('check point req.body', req.body)
-  try {
-    const allUser = await User.find({}, '_id lastName firstName nickName email password')
-    res.status(200).json({
-      allUser
-    })
-  } catch (err) {
-    if (err.name === 'ValidationError') {
-      const errorObj = {}
-      const { errors } = err
-      Object.keys(errors).forEach((col) => (errorObj[col] = errors[col].message))
-      return res.status(400).json({
-        message: 'Validation Error',
-        errorObj
-      })
+    /**
+     * #swagger.tags = ['Dev']
+     * #swagger.summary = 'dev 取得所有user帳號'
+     */
+    console.log('check point req.body', req.body);
+    try {
+        const allUser = await User.find(
+            {},
+            '_id lastName firstName nickName email password',
+        );
+        res.status(200).json({
+            allUser,
+        });
+    } catch (err) {
+        if (err.name === 'ValidationError') {
+            const errorObj = {};
+            const { errors } = err;
+            Object.keys(errors).forEach(
+                (col) => (errorObj[col] = errors[col].message),
+            );
+            return res.status(400).json({
+                message: 'Validation Error',
+                errorObj,
+            });
+        }
+        next(err);
     }
-    next(err)
-  }
-})
+});
 
-module.exports = router
+module.exports = router;

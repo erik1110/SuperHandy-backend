@@ -3,12 +3,12 @@ var router = express.Router();
 const generalController = require('../controller/generalController');
 
 /* 取得服務類別(包含任務說明的template) */
-router.get('/categories', function(req, res, next) {
+router.get('/categories', function (req, res, next) {
     /**
-      * #swagger.tags = ['General']
-      * #swagger.summary = 'Get Service Category (including task description template)'
-    */
-  /**
+     * #swagger.tags = ['General']
+     * #swagger.summary = 'Get Service Category (including task description template)'
+     */
+    /**
     #swagger.responses[200] = {
       description: '取得成功',
       schema: { $ref: '#/definitions/getCategorySuccess' }
@@ -23,15 +23,15 @@ router.get('/categories', function(req, res, next) {
     }
   */
     generalController.getCategories(req, res, next);
-  });
+});
 
 /* 取得曝光方案 */
-router.get('/exposure-plan', function(req, res, next) {
+router.get('/exposure-plan', function (req, res, next) {
     /**
-      * #swagger.tags = ['General']
-      * #swagger.summary = 'Get Exposure Plan'
-    */
-  /**
+     * #swagger.tags = ['General']
+     * #swagger.summary = 'Get Exposure Plan'
+     */
+    /**
     #swagger.responses[200] = {
       description: '取得成功',
       schema: { $ref: '#/definitions/getPlanSuccess' }
@@ -46,6 +46,6 @@ router.get('/exposure-plan', function(req, res, next) {
     }
   */
     generalController.getPlans(req, res, next);
-  });
+});
 
 module.exports = router;

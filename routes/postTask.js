@@ -1,17 +1,17 @@
-var express = require('express')
-var router = express.Router()
-const User = require('../models/userModel')
-const Task = require('../models/taskModel')
-const accounts = require('../controller/accountController')
-const tasks = require('../controller/taskController')
+var express = require('express');
+var router = express.Router();
+const User = require('../models/userModel');
+const Task = require('../models/taskModel');
+const accounts = require('../controller/accountController');
+const tasks = require('../controller/taskController');
 
 router.get('/check-location', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '檢查地址(取得經緯度)'
-   * #swagger.description = '用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '檢查地址(取得經緯度)'
+     * #swagger.description = '用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態'
+     */
+    /**
     #swagger.security=[{"Bearer": []}],
     #swagger.parameters['uid'] = {
       in: 'query',
@@ -44,15 +44,15 @@ router.get('/check-location', async function (req, res, next) {
       }
     } 
     */
-  tasks.checkGeocoding(req, res, next)
-})
+    tasks.checkGeocoding(req, res, next);
+});
 router.post('/save-draft', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '儲存新草稿'
-   * #swagger.description = '用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '儲存新草稿'
+     * #swagger.description = '用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態'
+     */
+    /**
    #swagger.security=[{"Bearer": []}]
    #swagger.parameters['uid'] = {
       in: 'query',
@@ -108,15 +108,15 @@ router.post('/save-draft', async function (req, res, next) {
       }
     }
    */
-  tasks.saveDraft(req, res, next)
-})
+    tasks.saveDraft(req, res, next);
+});
 router.post('/apply', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '發布任務'
-   * #swagger.description = '用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '發布任務'
+     * #swagger.description = '用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態'
+     */
+    /**
    #swagger.security=[{"Bearer": []}]
    #swagger.parameters['uid'] = {
       in: 'query',
@@ -172,15 +172,15 @@ router.post('/apply', async function (req, res, next) {
       }
     }
    */
-  tasks.publishTask(req, res, next)
-})
+    tasks.publishTask(req, res, next);
+});
 router.get('/:taskId', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '取得草稿'
-   * #swagger.description = '用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '取得草稿'
+     * #swagger.description = '用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態'
+     */
+    /**
    #swagger.security=[{"Bearer": []}]
    #swagger.parameters['uid'] = {
       in: 'query',
@@ -236,7 +236,7 @@ router.get('/:taskId', async function (req, res, next) {
       }
     }
    */
-  tasks.getDraft(req, res, next)
-})
+    tasks.getDraft(req, res, next);
+});
 
-module.exports = router
+module.exports = router;

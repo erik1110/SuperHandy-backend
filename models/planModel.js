@@ -1,24 +1,24 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const planSchema = new mongoose.Schema({
     title: {
-      type: String,
+        type: String,
     },
     price: {
-      type: Number,
+        type: Number,
     },
     items: {
-      type: Array,
-    },    
+        type: Array,
+    },
     createdAt: {
-      type: Date,
-      default: Date.now,
+        type: Date,
+        default: Date.now,
     },
     updatedAt: {
-      type: Date,
-      default: Date.now,
+        type: Date,
+        default: Date.now,
     },
 });
 
-const Plan = mongoose.model('Plan', planSchema)
+const Plan = mongoose.model('Plan', planSchema);
 
-module.exports = Plan
+module.exports = Plan;
