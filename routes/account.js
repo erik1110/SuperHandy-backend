@@ -188,7 +188,6 @@ router.get('/testFindAllUser', async function (req, res, next) {
      * #swagger.tags = ['Dev']
      * #swagger.summary = 'dev 取得所有user帳號'
      */
-    console.log('check point req.body', req.body);
     try {
         const allUser = await User.find({}, '_id lastName firstName nickename email password');
         res.status(200).json({

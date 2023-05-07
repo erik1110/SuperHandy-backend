@@ -36,29 +36,22 @@ const tasks = {
     createDraft: handleErrorAsync(async (req, res, next) => {
         const { title, status, category, description, salary, exposurePlan, imagesUrl, contactInfo, location } = req.body;
         const userId = req.user._id;
-        try {
-            draftModel = await Task.create({
-                userId: userId,
-                title,
-                status,
-                category,
-                description,
-                salary,
-                exposurePlan,
-                imagesUrl,
-                contactInfo,
-                location,
-                time: {
-                    createdAt: Date.now(),
-                    updatedAt: Date.now(),
-                },
-            });
-        } catch (err) {
-            return res.status(404).json({
-                message: '40404儲存失敗',
-                error: err.errors,
-            });
-        }
+        draftModel = await Task.create({
+            userId: userId,
+            title,
+            status,
+            category,
+            description,
+            salary,
+            exposurePlan,
+            imagesUrl,
+            contactInfo,
+            location,
+            time: {
+                createdAt: Date.now(),
+                updatedAt: Date.now(),
+            },
+        });
         if (!draftModel) {
             return res.status(404).json({
                 message: '儲存失敗.',
@@ -79,46 +72,11 @@ const tasks = {
                 error: err.errors,
             });
         }
-        try {
-            checkTaskModel = await Task.findOne({ _id: _id, userId: userId });
-        } catch (err) {
-            return res.status(404).json({
-                message: '40404找不到任務',
-                error: err.errors,
-            });
-        }
+        checkTaskModel = await Task.findOne({ _id: _id, userId: userId });
         if (checkTaskModel) {
-            try {
-                oldTaskModel = await Task.updateOne(
-                    { _id: _id, userId: userId },
-                    {
-                        title,
-                        status,
-                        category,
-                        description,
-                        salary,
-                        exposurePlan,
-                        imagesUrl,
-                        contactInfo,
-                        location,
-                        'time.publishedAt': Date.now(),
-                        'time.updatedAt': Date.now(),
-                    },
-                );
-                return res.status(200).json({
-                    message: '發佈任務成功',
-                    data: oldTaskModel,
-                });
-            } catch (err) {
-                return res.status(404).json({
-                    message: '40404找不到任務',
-                    error: err.errors,
-                });
-            }
-        } else {
-            try {
-                newTaskModel = await Task.create({
-                    userId: userId,
+            oldTaskModel = await Task.updateOne(
+                { _id: _id, userId: userId },
+                {
                     title,
                     status,
                     category,
@@ -128,18 +86,32 @@ const tasks = {
                     imagesUrl,
                     contactInfo,
                     location,
-                    time: {
-                        createdAt: Date.now(),
-                        publishedAt: Date.now(),
-                        updatedAt: Date.now(),
-                    },
-                });
-            } catch (err) {
-                return res.status(404).json({
-                    message: '40404儲存失敗',
-                    error: err.errors,
-                });
-            }
+                    'time.publishedAt': Date.now(),
+                    'time.updatedAt': Date.now(),
+                },
+            );
+            return res.status(200).json({
+                message: '發佈任務成功',
+                data: oldTaskModel,
+            });
+        } else {
+            newTaskModel = await Task.create({
+                userId: userId,
+                title,
+                status,
+                category,
+                description,
+                salary,
+                exposurePlan,
+                imagesUrl,
+                contactInfo,
+                location,
+                time: {
+                    createdAt: Date.now(),
+                    publishedAt: Date.now(),
+                    updatedAt: Date.now(),
+                },
+            });
         }
         if (!newTaskModel) {
             return res.status(404).json({ message: '儲存失敗' });
@@ -153,18 +125,11 @@ const tasks = {
     getDraft: handleErrorAsync(async (req, res, next) => {
         const taskId = req.params.taskId;
         const userId = req.user._id;
-        console.log('check point userId:', userId);
         if (!taskId) return res.status(404).json({ message: '請傳入taskId' });
         //find task by taskId
-        try {
-            taskModel = await Task.findOne({ _id: taskId, userId: userId });
-            console.log('check point taskModel:', taskModel);
-        } catch (err) {
-            return res.status(404).json({
-                message: '找不到任務',
-                error: err.errors,
-            });
-        }
+
+        taskModel = await Task.findOne({ _id: taskId, userId: userId });
+
         if (!taskModel) return res.status(404).json({ message: '找不到任務' });
         //check if the task is draft
         if (taskModel.status !== 'draft') return res.status(404).json({ message: '此任務之狀態不可編輯' });
@@ -181,28 +146,21 @@ const tasks = {
         const { title, status, category, description, salary, exposurePlan, imagesUrl, contactInfo, location } = req.body;
         if (!taskId) return res.status(404).json({ message: '請傳入taskId' });
         //find task by taskId
-        try {
-            draftModel = await Task.updateOne(
-                { _id: taskId, userId: userId },
-                {
-                    title,
-                    status,
-                    category,
-                    description,
-                    salary,
-                    exposurePlan,
-                    imagesUrl,
-                    contactInfo,
-                    location,
-                    'time.updatedAt': Date.now(),
-                },
-            );
-        } catch (err) {
-            return res.status(404).json({
-                message: '40404找不到任務',
-                error: err.errors,
-            });
-        }
+        draftModel = await Task.updateOne(
+            { _id: taskId, userId: userId },
+            {
+                title,
+                status,
+                category,
+                description,
+                salary,
+                exposurePlan,
+                imagesUrl,
+                contactInfo,
+                location,
+                'time.updatedAt': Date.now(),
+            },
+        );
         if (!draftModel) return res.status(404).json({ message: '找不到任務' });
         //return task
         return res.status(200).json({
@@ -216,17 +174,7 @@ const tasks = {
         const userId = req.user._id;
         if (!taskId) return res.status(404).json({ message: '請傳入taskId' });
         //find task by taskId
-        try {
-            taskModel = await Task.updateOne(
-                { _id: taskId, userId: userId },
-                { status: 'deleted', 'time.deletedAt': Date.now(), 'time.updatedAt': Date.now() },
-            );
-        } catch (err) {
-            return res.status(404).json({
-                message: '找不到任務',
-                error: err.errors,
-            });
-        }
+        taskModel = await Task.updateOne({ _id: taskId, userId: userId }, { status: 'deleted', 'time.deletedAt': Date.now(), 'time.updatedAt': Date.now() });
         if (!taskModel) return res.status(404).json({ message: '找不到任務' });
         //return task
         return res.status(200).json({
@@ -240,22 +188,15 @@ const tasks = {
         const nextStatus = req.body.status;
         if (!taskId) return res.status(404).json({ message: '請傳入taskId' });
         //find task by taskId
-        try {
-            checkModel = await Task.findOne({ _id: taskId, userId: userId });
-            if (!checkModel) return res.status(404).json({ message: '找不到任務' });
-            //use isStatusFlowValid to check if the status flow is valid
-            if (!isStatusFlowValid(checkModel.status, nextStatus)) return res.status(400).json({ message: '狀態流程不合法' });
-            taskModel = await Task.updateOne({ _id: taskId, userId: userId }, { status: nextStatus, time: { updatedAt: Date.now() } });
-            res.status(200).json({
-                message: '修改成功',
-                data: taskModel,
-            });
-        } catch (err) {
-            return res.status(404).json({
-                message: '找不到任務',
-                error: err.errors,
-            });
-        }
+        checkModel = await Task.findOne({ _id: taskId, userId: userId });
+        if (!checkModel) return res.status(404).json({ message: '找不到任務' });
+        //use isStatusFlowValid to check if the status flow is valid
+        if (!isStatusFlowValid(checkModel.status, nextStatus)) return res.status(400).json({ message: '狀態流程不合法' });
+        taskModel = await Task.updateOne({ _id: taskId, userId: userId }, { status: nextStatus, time: { updatedAt: Date.now() } });
+        res.status(200).json({
+            message: '修改成功',
+            data: taskModel,
+        });
         if (!taskModel) return res.status(404).json({ message: '找不到任務' });
     }),
 };
