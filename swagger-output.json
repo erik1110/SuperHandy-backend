@@ -105,13 +105,7 @@
                                     "example": "12345678"
                                 }
                             },
-                            "required": [
-                                "email",
-                                "phone",
-                                "firstName",
-                                "lastName",
-                                "password"
-                            ]
+                            "required": ["email", "phone", "firstName", "lastName", "password"]
                         }
                     }
                 ],
@@ -416,11 +410,7 @@
                                     "example": "22345678"
                                 }
                             },
-                            "required": [
-                                "password",
-                                "confirmPassword",
-                                "oldPassword"
-                            ]
+                            "required": ["password", "confirmPassword", "oldPassword"]
                         }
                     }
                 ],
@@ -1130,10 +1120,7 @@
                                 },
                                 "imagesUrl": {
                                     "type": "array",
-                                    "example": [
-                                        "https://example.com/image1.jpg",
-                                        "https://example.com/mage2.jpg"
-                                    ],
+                                    "example": ["https://example.com/image1.jpg", "https://example.com/mage2.jpg"],
                                     "items": {
                                         "type": "string"
                                     }
@@ -1299,10 +1286,7 @@
                                 },
                                 "imagesUrl": {
                                     "type": "array",
-                                    "example": [
-                                        "https://example.com/image1.jpg",
-                                        "https://example.com/mage2.jpg"
-                                    ],
+                                    "example": ["https://example.com/image1.jpg", "https://example.com/mage2.jpg"],
                                     "items": {
                                         "type": "string"
                                     }
@@ -1482,10 +1466,7 @@
                                         },
                                         "imagesUrl": {
                                             "type": "array",
-                                            "example": [
-                                                "https://example.com/image1.jpg",
-                                                "https://example.com/mage2.jpg"
-                                            ],
+                                            "example": ["https://example.com/image1.jpg", "https://example.com/mage2.jpg"],
                                             "items": {
                                                 "type": "string"
                                             }
@@ -1737,11 +1718,7 @@
                             },
                             "items": {
                                 "type": "array",
-                                "example": [
-                                    "無理由修改",
-                                    "極速退點",
-                                    "刊登時間30天"
-                                ],
+                                "example": ["無理由修改", "極速退點", "刊登時間30天"],
                                 "items": {
                                     "type": "string"
                                 }

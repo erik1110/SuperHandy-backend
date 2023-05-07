@@ -24,10 +24,7 @@ const generateJwtTokenForEmail = async function (userId = '') {
 
 const isAuth = handleErrorAsync(async (req, res, next) => {
     let token = '';
-    if (
-        req.headers.authorization &&
-        req.headers.authorization.startsWith('Bearer')
-    ) {
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1];
     }
 
@@ -37,9 +34,7 @@ const isAuth = handleErrorAsync(async (req, res, next) => {
 
     const decoded = await new Promise((resolve, reject) => {
         jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
-            err
-                ? next(appError(400, '40003', 'Token 驗證錯誤'))
-                : resolve(payload);
+            err ? next(appError(400, '40003', 'Token 驗證錯誤')) : resolve(payload);
         });
     });
 

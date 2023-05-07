@@ -9,17 +9,7 @@ const taskSchema = new mongoose.Schema({
         type: String,
         required: true,
         default: 'draft',
-        enum: [
-            'draft',
-            'published',
-            'unpublished',
-            'deleted',
-            'inProgress',
-            'submitted',
-            'confirmed',
-            'completed',
-            'expired',
-        ],
+        enum: ['draft', 'published', 'unpublished', 'deleted', 'inProgress', 'submitted', 'confirmed', 'completed', 'expired'],
     },
     title: {
         type: String,

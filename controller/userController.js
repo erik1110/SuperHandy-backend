@@ -4,10 +4,7 @@ const { appError, handleErrorAsync } = require('../utils/errorHandler');
 const getHttpResponse = require('../utils/successHandler');
 const bcrypt = require('bcryptjs');
 const User = require('../models/userModel');
-const {
-    generateJwtToken,
-    generateJwtTokenForEmail,
-} = require('../middleware/auth');
+const { generateJwtToken, generateJwtTokenForEmail } = require('../middleware/auth');
 const Validator = require('../service/validator');
 const validator = require('validator');
 const mailer = require('../utils/mailer');
@@ -18,9 +15,7 @@ const users = {
         if (!validatorResult.status) {
             return next(appError(400, '40001', validatorResult.msg));
         }
-        const user = await User.findOne({ email: req.body.email }).select(
-            '+email',
-        );
+        const user = await User.findOne({ email: req.body.email }).select('+email');
         if (!user) {
             return res.status(200).json(
                 getHttpResponse({
@@ -51,10 +46,7 @@ const users = {
                 return next(appError(400, '40002', '已經驗證過了'));
             } else {
                 // 在這裡執行用戶驗證的邏輯，將用戶的 isVerifiedEmail 屬性設置為 true
-                await User.updateOne(
-                    { _id: currentUser },
-                    { $set: { isVerifiedEmail: true } },
-                );
+                await User.updateOne({ _id: currentUser }, { $set: { isVerifiedEmail: true } });
             }
 
             // 返回 HTML 頁面，顯示驗證成功的信息
@@ -144,9 +136,7 @@ const users = {
         if (!validatorResult.status) {
             return next(appError(400, '40001', validatorResult.msg));
         }
-        const user = await User.findOne({ email: req.body.email }).select(
-            '+email',
-        );
+        const user = await User.findOne({ email: req.body.email }).select('+email');
         if (!user) {
             return res.status(200).json(
                 getHttpResponse({

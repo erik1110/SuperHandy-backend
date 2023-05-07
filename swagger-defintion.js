@@ -45,8 +45,7 @@ const getCategorySuccess = {
     data: [
         {
             name: '到府驅蟲',
-            template:
-                '請填寫以下資訊：\n1. 蟲種：\n2. 家居面積：\n3. 服務時間：',
+            template: '請填寫以下資訊：\n1. 蟲種：\n2. 家居面積：\n3. 服務時間：',
         },
     ],
     message: '取得成功',
@@ -92,8 +91,7 @@ const getSuperhandyReviewSuccess = {
     data: [
         {
             _id: '644fdf6b56c25a7e04b77197',
-            comment:
-                '個人物品多 之前透過此平台搜尋到 此清潔整理員工作時都會注意細節 每次需要時依舊還是會想要主動聯繫此清潔整理員',
+            comment: '個人物品多 之前透過此平台搜尋到 此清潔整理員工作時都會注意細節 每次需要時依舊還是會想要主動聯繫此清潔整理員',
             name: '翁',
         },
     ],

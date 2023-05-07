@@ -4,19 +4,14 @@ const validator = require('validator');
 
 const devAuth = handleErrorAsync(async (req, res, next) => {
     let token = '';
-    if (
-        req.headers.authorization &&
-        req.headers.authorization.startsWith('Bearer')
-    ) {
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1];
     }
     if (token) {
         // return next(appError(400, "40003", "你尚未登入"));
         const decoded = await new Promise((resolve, reject) => {
             jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
-                err
-                    ? next(appError(400, '40003', 'Token 驗證錯誤'))
-                    : resolve(payload);
+                err ? next(appError(400, '40003', 'Token 驗證錯誤')) : resolve(payload);
             });
         });
 
@@ -41,13 +36,9 @@ const devAuth = handleErrorAsync(async (req, res, next) => {
         }
         let isEmail = validator.isEmail(accountId);
         if (isEmail) {
-            req.user = await User.findOne({ email: accountId }).select(
-                '+password',
-            );
+            req.user = await User.findOne({ email: accountId }).select('+password');
         } else {
-            req.user = await User.findOne({ phone: accountId }).select(
-                '+password',
-            );
+            req.user = await User.findOne({ phone: accountId }).select('+password');
         }
         if (req.user) {
             return next();

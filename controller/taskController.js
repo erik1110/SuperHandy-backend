@@ -16,17 +16,7 @@ const tasks = {
         }
     }),
     saveDraft: handleErrorAsync(async (req, res, next) => {
-        const {
-            title,
-            status,
-            category,
-            description,
-            salary,
-            exposurePlan,
-            imagesUrl,
-            contactInfo,
-            location,
-        } = req.body;
+        const { title, status, category, description, salary, exposurePlan, imagesUrl, contactInfo, location } = req.body;
         const { _id } = req.user || '55665566';
         try {
             draftModel = await Task.create({
@@ -74,8 +64,7 @@ const tasks = {
         }
         if (!taskModel) return res.status(404).json({ message: '找不到任務' });
         //check if the task is draft
-        if (taskModel.status !== 'draft')
-            return res.status(404).json({ message: '此任務之狀態不可編輯' });
+        if (taskModel.status !== 'draft') return res.status(404).json({ message: '此任務之狀態不可編輯' });
         //return task
         res.status(200).json({
             message: '找到任務',
@@ -95,17 +84,7 @@ const tasks = {
         }
     }),
     publishTask: handleErrorAsync(async (req, res, next) => {
-        const {
-            title,
-            status,
-            category,
-            description,
-            salary,
-            exposurePlan,
-            imagesUrl,
-            contactInfo,
-            location,
-        } = req.body;
+        const { title, status, category, description, salary, exposurePlan, imagesUrl, contactInfo, location } = req.body;
         const { _id } = req.user || '55665566';
         try {
             newTask = await Task.create({

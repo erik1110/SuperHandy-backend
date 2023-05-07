@@ -7,9 +7,7 @@ const getHttpResponse = require('../utils/successHandler');
 
 const accounts = {
     getProfile: handleErrorAsync(async (req, res, next) => {
-        const user = await User.findOne({ _id: req.user }).select(
-            'firstName lastName nickename email avatarPath',
-        );
+        const user = await User.findOne({ _id: req.user }).select('firstName lastName nickename email avatarPath');
         if (!user) {
             return res.status(404).json({
                 message: '查不到啦',
@@ -34,15 +32,7 @@ const accounts = {
     }),
     updateInfoForm: handleErrorAsync(async (req, res, next) => {
         const updateFields = {};
-        const acceptedFields = [
-            'firstName',
-            'lastName',
-            'nickename',
-            'address',
-            'posterIntro',
-            'helperIntro',
-            'helperSkills',
-        ];
+        const acceptedFields = ['firstName', 'lastName', 'nickename', 'address', 'posterIntro', 'helperIntro', 'helperSkills'];
         const checkField = (field) => {
             if (req.body.hasOwnProperty(field)) {
                 updateFields[field] = req.body[field];
@@ -51,14 +41,10 @@ const accounts = {
         updateFields.updatedAt = new Date();
         acceptedFields.forEach(checkField);
         acceptedFields.push('email updatedAt phone -_id');
-        const userInfoForm = await User.findOneAndUpdate(
-            { _id: req.user },
-            updateFields,
-            {
-                new: true, // 返回更新後的 user 物件
-                select: acceptedFields.join(' '), //'nickename phone address posterIntro helperIntro -email'
-            },
-        );
+        const userInfoForm = await User.findOneAndUpdate({ _id: req.user }, updateFields, {
+            new: true, // 返回更新後的 user 物件
+            select: acceptedFields.join(' '), //'nickename phone address posterIntro helperIntro -email'
+        });
         if (!userInfoForm) {
             return res.status(404).json({
                 message: '查不到啦',
@@ -93,17 +79,8 @@ const accounts = {
             path: 'reviews',
             select: 'helper.star',
         });
-        const posterScore = posterData.flatMap((task) =>
-            task.reviews.map((review) => review.helper.star),
-        );
-        const ratingPoster = posterScore.length
-            ? Number(
-                  (
-                      posterScore.reduce((acc, val) => acc + val) /
-                      posterScore.length
-                  ).toFixed(2),
-              )
-            : null;
+        const posterScore = posterData.flatMap((task) => task.reviews.map((review) => review.helper.star));
+        const ratingPoster = posterScore.length ? Number((posterScore.reduce((acc, val) => acc + val) / posterScore.length).toFixed(2)) : null;
         const helperData = await Task.find({
             helpers: {
                 $elemMatch: { helperId: req.user._id, status: 'paired' },
@@ -113,17 +90,8 @@ const accounts = {
             path: 'reviews',
             select: 'poster.star',
         });
-        const helperScore = helperData.flatMap((task) =>
-            task.reviews.map((review) => review.poster.star),
-        );
-        const ratingHelper = helperScore.length
-            ? Number(
-                  (
-                      helperScore.reduce((acc, val) => acc + val) /
-                      helperScore.length
-                  ).toFixed(2),
-              )
-            : null;
+        const helperScore = helperData.flatMap((task) => task.reviews.map((review) => review.poster.star));
+        const ratingHelper = helperScore.length ? Number((helperScore.reduce((acc, val) => acc + val) / helperScore.length).toFixed(2)) : null;
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',

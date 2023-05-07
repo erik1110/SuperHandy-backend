@@ -6,14 +6,7 @@ const initUsers = async () => {
         // 刪除現有的所有類別
         await User.deleteMany({
             email: {
-                $in: [
-                    'user1@example.com',
-                    'user2@example.com',
-                    'user3@example.com',
-                    'chiayu@example.com',
-                    'yunshan@example.com',
-                    'weiyu@example.com',
-                ],
+                $in: ['user1@example.com', 'user2@example.com', 'user3@example.com', 'chiayu@example.com', 'yunshan@example.com', 'weiyu@example.com'],
             },
         });
         const password = await bcrypt.hash('12345678', 12);
