@@ -13,7 +13,7 @@ const taskSchema = new mongoose.Schema({
     },
     title: {
         type: String,
-        required: [true, "Please enter your task's title.喔"],
+        required: [true, "Please enter your task's title."],
     },
     category: {
         type: String,
