@@ -162,6 +162,29 @@ const getProfileStats = {
     message: '取得成功',
 };
 
+const taskDetail = {
+    title: '任務標題',
+    status: 'draft',
+    category: '寵物陪伴',
+    description: '任務描述',
+    salary: 1000,
+    exposurePlan: '一般曝光',
+    imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
+    contactInfo: {
+        name: '王小明',
+        phone: '0912345678',
+        email: 'ming@gmail.com',
+    },
+    location: {
+        city: '台北市',
+        dist: '信義區',
+        address: '台北市信義區市府路45號',
+        landmark: '台北101',
+        lng: 121.5337064,
+        lat: 25.0296587,
+    },
+};
+
 module.exports = {
     Success,
     Error400,
@@ -180,4 +203,5 @@ module.exports = {
     getExcellentHelpersSuccess,
     getPoints,
     getProfileStats,
+    taskDetail,
 };
