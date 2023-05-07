@@ -159,11 +159,10 @@ const getProfileStats = {
         numOfPostTasks: 1,
         numOfCompletedTasks: 3,
         ratingPoster: 5,
-        ratingHelper: 4.67
+        ratingHelper: 4.67,
     },
     message: '取得成功',
 };
-
 
 module.exports = {
     Success,
@@ -182,5 +181,5 @@ module.exports = {
     getTaskStatsSuccess,
     getExcellentHelpersSuccess,
     getPoints,
-    getProfileStats
+    getProfileStats,
 };

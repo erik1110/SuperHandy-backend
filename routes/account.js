@@ -162,7 +162,7 @@ router.get('/profile-stats', isAuth, function (req, res, next) {
         "Bearer": []
       }]
     */
-      /**
+    /**
     #swagger.responses[200] = {
       description: '取得成功',
       schema: { $ref: '#/definitions/getProfileStats' }

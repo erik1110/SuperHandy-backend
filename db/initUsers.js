@@ -16,7 +16,7 @@ const initUsers = async () => {
                 ],
             },
         });
-        const password = await bcrypt.hash('12345678', 12)
+        const password = await bcrypt.hash('12345678', 12);
         const users = [
             {
                 email: 'user1@example.com',

@@ -45,15 +45,15 @@ const initTasks = async () => {
             helpers: [
                 {
                     helperId: userCase5._id,
-                    status: 'paired'
+                    status: 'paired',
                 },
                 {
                     helperId: userCase3._id,
-                    status: 'unpaired'
+                    status: 'unpaired',
                 },
                 {
                     helperId: userCase1._id,
-                    status: 'unpaired'
+                    status: 'unpaired',
                 },
             ],
             time: {
@@ -104,15 +104,15 @@ const initTasks = async () => {
             helpers: [
                 {
                     helperId: userCase1._id,
-                    status: 'paired'
+                    status: 'paired',
                 },
                 {
                     helperId: userCase3._id,
-                    status: 'unpaired'
+                    status: 'unpaired',
                 },
                 {
                     helperId: userCase5._id,
-                    status: 'unpaired'
+                    status: 'unpaired',
                 },
             ],
             time: {
@@ -163,15 +163,15 @@ const initTasks = async () => {
             helpers: [
                 {
                     helperId: userCase1._id,
-                    status: 'paired'
+                    status: 'paired',
                 },
                 {
                     helperId: userCase2._id,
-                    status: 'unpaired'
+                    status: 'unpaired',
                 },
                 {
                     helperId: userCase5._id,
-                    status: 'unpaired'
+                    status: 'unpaired',
                 },
             ],
             time: {
@@ -223,19 +223,19 @@ const initTasks = async () => {
             helpers: [
                 {
                     helperId: userCase1._id,
-                    status: 'paired'
+                    status: 'paired',
                 },
                 {
                     helperId: userCase2._id,
-                    status: 'unpaired'
+                    status: 'unpaired',
                 },
                 {
                     helperId: userCase5._id,
-                    status: 'unpaired'
+                    status: 'unpaired',
                 },
                 {
                     helperId: userCase3._id,
-                    status: 'unpaired'
+                    status: 'unpaired',
                 },
             ],
             time: {
@@ -287,19 +287,19 @@ const initTasks = async () => {
             helpers: [
                 {
                     helperId: userCase2._id,
-                    status: 'paired'
+                    status: 'paired',
                 },
                 {
                     helperId: userCase1._id,
-                    status: 'unpaired'
+                    status: 'unpaired',
                 },
                 {
                     helperId: userCase2._id,
-                    status: 'unpaired'
+                    status: 'unpaired',
                 },
                 {
                     helperId: userCase3._id,
-                    status: 'unpaired'
+                    status: 'unpaired',
                 },
             ],
             time: {
