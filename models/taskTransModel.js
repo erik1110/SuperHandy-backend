@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
-const transactionSchema = new mongoose.Schema({
-    tag: {
-        type: String,
-        enum: ['刊登任務', '系統儲值', '完成任務', '取出點數', '刪除任務']
-    },
+const taskTransSchema = new mongoose.Schema({
     taskId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Task',
-        required: false,
+        required: true,
+    },
+    tag: {
+        type: String,
+        enum: ['刊登任務', '完成任務', '刪除任務']
     },
     superCoin: {
         type: Number,
@@ -32,6 +32,6 @@ const transactionSchema = new mongoose.Schema({
     },
 });
 
-const Transaction = mongoose.model('Transaction', transactionSchema);
+const TaskTrans = mongoose.model('TaskTrans', taskTransSchema);
 
-module.exports = Transaction;
+module.exports = TaskTrans;

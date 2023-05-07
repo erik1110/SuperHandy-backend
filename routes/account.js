@@ -183,6 +183,36 @@ router.get('/profile-stats', isAuth, function (req, res, next) {
     accountController.getProfileStats(req, res, next);
 });
 
+/* 點數歷史紀錄 */
+router.get('/points/history', isAuth, function (req, res, next) {
+    /**
+    * #swagger.tags = ['Account']
+    * #swagger.summary = 'Get the history of points'
+    * #swagger.security = [{
+        "Bearer": []
+      }]
+    */
+    /**
+    #swagger.responses[200] = {
+      description: '取得成功',
+      schema: { $ref: '#/definitions/getProfileStats' }
+    }
+    #swagger.responses[400] = {
+      description: 'Token 失敗',
+      schema: { $ref: '#/definitions/ErrorToken' }
+    }
+    #swagger.responses[404] = {
+      description: '無此路由',
+      schema: { $ref: '#/definitions/Error404' }
+    }
+    #swagger.responses[500] = {
+      description: '系統錯誤',
+      schema: { $ref: '#/definitions/Error500' }
+    }
+    */
+    accountController.getProfileStats(req, res, next);
+});
+
 router.get('/testFindAllUser', async function (req, res, next) {
     /**
      * #swagger.tags = ['Dev']
