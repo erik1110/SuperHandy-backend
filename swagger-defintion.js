@@ -151,6 +151,20 @@ const getPoints = {
     message: '取得成功',
 };
 
+const getProfileStats = {
+    status: 'success',
+    data: {
+        superCoin: 0,
+        helperCoin: 0,
+        numOfPostTasks: 1,
+        numOfCompletedTasks: 3,
+        ratingPoster: 5,
+        ratingHelper: 4.67
+    },
+    message: '取得成功',
+};
+
+
 module.exports = {
     Success,
     Error400,
@@ -168,4 +182,5 @@ module.exports = {
     getTaskStatsSuccess,
     getExcellentHelpersSuccess,
     getPoints,
+    getProfileStats
 };

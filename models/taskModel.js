@@ -118,6 +118,7 @@ const taskSchema = new mongoose.Schema({
                 },
                 status: {
                     type: String,
+                    enum: ['waiting', 'dropped', 'unpaired', 'paired']
                 },
             },
         ],

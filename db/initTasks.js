@@ -42,6 +42,20 @@ const initTasks = async () => {
                 latitude: 25.02697,
             },
             isUrgent: true,
+            helpers: [
+                {
+                    helperId: userCase5._id,
+                    status: 'paired'
+                },
+                {
+                    helperId: userCase3._id,
+                    status: 'unpaired'
+                },
+                {
+                    helperId: userCase1._id,
+                    status: 'unpaired'
+                },
+            ],
             time: {
                 createdAt: new Date('2023-01-30T12:34:56'),
                 updatedAt: new Date('2022-02-23T08:19:50'),
@@ -87,6 +101,20 @@ const initTasks = async () => {
                 latitude: 25.017503,
             },
             isUrgent: true,
+            helpers: [
+                {
+                    helperId: userCase1._id,
+                    status: 'paired'
+                },
+                {
+                    helperId: userCase3._id,
+                    status: 'unpaired'
+                },
+                {
+                    helperId: userCase5._id,
+                    status: 'unpaired'
+                },
+            ],
             time: {
                 createdAt: new Date('2023-05-01T09:00:00'),
                 updatedAt: new Date('2023-05-16T09:00:00'),
@@ -132,6 +160,20 @@ const initTasks = async () => {
                 latitude: 25.012422,
             },
             isUrgent: false,
+            helpers: [
+                {
+                    helperId: userCase1._id,
+                    status: 'paired'
+                },
+                {
+                    helperId: userCase2._id,
+                    status: 'unpaired'
+                },
+                {
+                    helperId: userCase5._id,
+                    status: 'unpaired'
+                },
+            ],
             time: {
                 createdAt: new Date('2023-04-02T18:00:00'),
                 updatedAt: new Date('2023-04-17T09:00:00'),
@@ -178,6 +220,24 @@ const initTasks = async () => {
                 latitude: 24.178145,
             },
             isUrgent: false,
+            helpers: [
+                {
+                    helperId: userCase1._id,
+                    status: 'paired'
+                },
+                {
+                    helperId: userCase2._id,
+                    status: 'unpaired'
+                },
+                {
+                    helperId: userCase5._id,
+                    status: 'unpaired'
+                },
+                {
+                    helperId: userCase3._id,
+                    status: 'unpaired'
+                },
+            ],
             time: {
                 createdAt: new Date('2023-05-02T18:00:00'),
                 updatedAt: new Date('2023-05-17T09:00:00'),
@@ -224,6 +284,24 @@ const initTasks = async () => {
                 latitude: 25.033903,
             },
             isUrgent: false,
+            helpers: [
+                {
+                    helperId: userCase2._id,
+                    status: 'paired'
+                },
+                {
+                    helperId: userCase1._id,
+                    status: 'unpaired'
+                },
+                {
+                    helperId: userCase2._id,
+                    status: 'unpaired'
+                },
+                {
+                    helperId: userCase3._id,
+                    status: 'unpaired'
+                },
+            ],
             time: {
                 createdAt: new Date('2023-05-03T18:00:00'),
                 updatedAt: new Date('2023-06-01T10:00:00'),

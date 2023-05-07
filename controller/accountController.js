@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const { appError, handleErrorAsync } = require('../utils/errorHandler');
+const Task = require('../models/taskModel');
+const Review = require('../models/reviewModel');
 const User = require('../models/userModel');
-const Validator = require('../service/validator');
 const getHttpResponse = require('../utils/successHandler');
 
 const accounts = {
@@ -73,6 +74,45 @@ const accounts = {
                 data: {
                     superCoin: user.superCoin,
                     helperCoin: user.helperCoin,
+                },
+            }),
+        );
+    }),
+    getProfileStats: handleErrorAsync(async (req, res, next) => {
+        const user = await User.findOne({ _id: req.user._id });
+        const numOfPostTasks = await Task.countDocuments({ userId: req.user._id });
+        const numOfCompletedTasks = await Task.countDocuments({ helpers: { $elemMatch: { helperId: user._id, status: 'paired' } } });
+        const posterData = await Task.find(
+            { userId: req.user._id, status: 'completed' },
+          ).populate({
+            path: 'reviews',
+            select: 'helper.star'
+          });
+        const posterScore = posterData.flatMap(task => task.reviews.map(review => review.helper.star));
+        const ratingPoster = posterScore.length
+                            ? Number((posterScore.reduce(((acc, val) => acc + val)) / posterScore.length).toFixed(2))
+                            : null;
+        const helperData = await Task.find({
+            helpers: { $elemMatch: { helperId: req.user._id, status: 'paired' } },
+            status: 'completed',
+          }).populate({
+            path: 'reviews',
+            select: 'poster.star'
+          });
+        const helperScore = helperData.flatMap(task => task.reviews.map(review => review.poster.star));
+        const ratingHelper = helperScore.length
+                            ? Number((helperScore.reduce(((acc, val) => acc + val)) / helperScore.length).toFixed(2))
+                            : null;
+        res.status(200).json(
+            getHttpResponse({
+                message: '取得成功',
+                data: {
+                    superCoin: user.superCoin,
+                    helperCoin: user.helperCoin,
+                    numOfPostTasks: numOfPostTasks,
+                    numOfCompletedTasks: numOfCompletedTasks,
+                    ratingPoster: ratingPoster,
+                    ratingHelper: ratingHelper
                 },
             }),
         );
