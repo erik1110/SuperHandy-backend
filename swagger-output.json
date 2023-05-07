@@ -96,7 +96,7 @@
                   "type": "string",
                   "example": "Erik"
                 },
-                "nickename": {
+                "nickname": {
                   "type": "string",
                   "example": "Erik"
                 },
@@ -565,7 +565,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "nickename": {
+                "nickname": {
                   "type": "string",
                   "example": "Erik"
                 },
@@ -652,7 +652,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "nickename": {
+                "nickname": {
                   "type": "string",
                   "example": "Erik"
                 },
@@ -712,7 +712,7 @@
                   "type": "string",
                   "example": "uhf8vufbv88fv8hf8v"
                 },
-                "nickename": {
+                "nickname": {
                   "type": "string",
                   "example": "Erik"
                 },

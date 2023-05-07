@@ -18,7 +18,7 @@ router.post('/sign-up', function (req, res, next) {
       $phone: '0912345678',
       $firstName: 'Ho',
       $lastName: 'Erik',
-      'nickename': 'Erik',
+      'nickname': 'Erik',
       $password: '12345678',
       'confirmPassword': "12345678"
     }
