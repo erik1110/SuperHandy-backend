@@ -5,7 +5,6 @@
     "description": "This is the final project for a Node.js course.",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
   "basePath": "/",
   "tags": [
     {
@@ -73,7 +72,53 @@
         ],
         "summary": "Register an Account and send a verification email",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "nickname is optional, while all the others are required.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "test@gmail.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "0912345678"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "Ho"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "nickename": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "12345678"
+                },
+                "confirmPassword": {
+                  "type": "string",
+                  "example": "12345678"
+                }
+              },
+              "required": [
+                "email",
+                "phone",
+                "firstName",
+                "lastName",
+                "password"
+              ]
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "註冊成功",
