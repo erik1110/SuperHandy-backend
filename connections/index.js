@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config({ path: './config.env' });
-const initCategories = require('../service/initCategories');
-const initPlans = require('../service/initPlans');
-const initTasks = require('../service/initTasks');
-const initReviews = require('../service/initReviews');
-const initUsers = require('../service/initUsers');
-const initSuperhandyReviews = require('../service/initSuperhandyReviews');
+const initCategories = require('../db/initCategories');
+const initPlans = require('../db/initPlans');
+const initTasks = require('../db/initTasks');
+const initReviews = require('../db/initReviews');
+const initUsers = require('../db/initUsers');
+const initSuperhandyReviews = require('../db/initSuperhandyReviews');
 
 const DB = process.env.DATABASE.replace(
     '<password>',

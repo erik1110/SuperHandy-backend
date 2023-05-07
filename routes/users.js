@@ -19,8 +19,8 @@ router.post('/sign-up', function (req, res, next) {
       $firstName: 'Ho',
       $lastName: 'Erik',
       'nickName': 'Erik',
-      $password: 'a1234567',
-      'confirmPassword': "a1234567"
+      $password: '12345678',
+      'confirmPassword': "12345678"
     }
   }
   */
@@ -119,8 +119,8 @@ router.post('/sign-in', function (req, res, next) {
     in: 'body',
     description: 'sign in an account',
     schema: {
-      $account: 'test@gmail.com',
-      $password: 'a1234567'
+      $account: 'user1@example.com',
+      $password: '12345678'
     }
   }
   */
@@ -231,9 +231,9 @@ router.patch('/update-password', isAuth, (req, res, next) =>
     in: 'body',
     description: '',
     schema: {
-      $password: 'a12345678',
-      $confirmPassword: 'a12345678',
-      $oldPassword: 'a1234567'
+      $password: '12345678',
+      $confirmPassword: '12345678',
+      $oldPassword: '22345678'
     }
   }
   */

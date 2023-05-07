@@ -98,11 +98,11 @@
                                 },
                                 "password": {
                                     "type": "string",
-                                    "example": "a1234567"
+                                    "example": "12345678"
                                 },
                                 "confirmPassword": {
                                     "type": "string",
-                                    "example": "a1234567"
+                                    "example": "12345678"
                                 }
                             },
                             "required": [
@@ -244,11 +244,11 @@
                             "properties": {
                                 "account": {
                                     "type": "string",
-                                    "example": "test@gmail.com"
+                                    "example": "user1@example.com"
                                 },
                                 "password": {
                                     "type": "string",
-                                    "example": "a1234567"
+                                    "example": "12345678"
                                 }
                             },
                             "required": ["account", "password"]
@@ -405,15 +405,15 @@
                             "properties": {
                                 "password": {
                                     "type": "string",
-                                    "example": "a12345678"
+                                    "example": "12345678"
                                 },
                                 "confirmPassword": {
                                     "type": "string",
-                                    "example": "a12345678"
+                                    "example": "12345678"
                                 },
                                 "oldPassword": {
                                     "type": "string",
-                                    "example": "a1234567"
+                                    "example": "22345678"
                                 }
                             },
                             "required": [
@@ -763,6 +763,51 @@
                         "description": "取得成功",
                         "schema": {
                             "$ref": "#/definitions/getPoints"
+                        }
+                    },
+                    "400": {
+                        "description": "Token 失敗",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorToken"
+                        }
+                    },
+                    "404": {
+                        "description": "無此路由",
+                        "schema": {
+                            "$ref": "#/definitions/Error404"
+                        }
+                    },
+                    "500": {
+                        "description": "系統錯誤",
+                        "schema": {
+                            "$ref": "#/definitions/Error500"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/account/profile-stats": {
+            "get": {
+                "tags": ["Account"],
+                "summary": "Get user statistics figures",
+                "description": "",
+                "parameters": [
+                    {
+                        "name": "authorization",
+                        "in": "header",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "取得成功",
+                        "schema": {
+                            "$ref": "#/definitions/getProfileStats"
                         }
                     },
                     "400": {
@@ -1926,6 +1971,48 @@
                         "helperCoin": {
                             "type": "number",
                             "example": 0
+                        }
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "取得成功"
+                }
+            }
+        },
+        "getProfileStats": {
+            "type": "object",
+            "properties": {
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "superCoin": {
+                            "type": "number",
+                            "example": 0
+                        },
+                        "helperCoin": {
+                            "type": "number",
+                            "example": 0
+                        },
+                        "numOfPostTasks": {
+                            "type": "number",
+                            "example": 1
+                        },
+                        "numOfCompletedTasks": {
+                            "type": "number",
+                            "example": 3
+                        },
+                        "ratingPoster": {
+                            "type": "number",
+                            "example": 5
+                        },
+                        "ratingHelper": {
+                            "type": "number",
+                            "example": 4.67
                         }
                     }
                 },

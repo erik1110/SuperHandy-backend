@@ -5,7 +5,7 @@ const getHttpResponse = require('../utils/successHandler');
 const Task = require('../models/taskModel');
 const Review = require('../models/reviewModel');
 const SuperhandyReview = require('../models/superhandyReviewModel');
-const fakeExcellentHelperData = require('../service/fakeExcellentHelpers');
+const fakeExcellentHelperData = require('../db/fakeExcellentHelpers');
 
 const home = {
     getCompeletedCases: handleErrorAsync(async (req, res, next) => {
