@@ -15,6 +15,6 @@ module.exports = (app) => {
     app.use('/account', accountRouter);
     app.use('/home', homeRouter);
     app.use('/general', generalRouter);
-    app.use('/post-task', devAuth, postTaskRouter);
+    app.use('/post-task', isAuth, postTaskRouter);
     app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
 };

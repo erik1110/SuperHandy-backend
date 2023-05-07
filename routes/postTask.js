@@ -10,19 +10,9 @@ router.get('/check-location', async function (req, res, next) {
     /**
      * #swagger.tags = ['Posts']
      * #swagger.summary = '檢查地址(取得經緯度)'
-     * #swagger.description = '用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態'
      */
     /**
-    #swagger.security=[{"Bearer": []}],
-    #swagger.parameters['uid'] = {
-      in: 'query',
-      description: '[dev]使用者_id',
-    },
-    #swagger.parameters['accountId'] = {
-      in: 'query',
-      description: '[dev]使用者email或手機號碼',
-      default: '0912775678'
-    },
+    #swagger.security=[{"Bearer": []}],    
     #swagger.parameters['address'] = {
       in: 'query',
       description: '完整地址',
@@ -52,19 +42,9 @@ router.post('/save-draft', async function (req, res, next) {
     /**
      * #swagger.tags = ['Posts']
      * #swagger.summary = '儲存新草稿'
-     * #swagger.description = '用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態'
      */
     /**
    #swagger.security=[{"Bearer": []}]
-   #swagger.parameters['uid'] = {
-      in: 'query',
-      description: '[dev]使用者_id',
-    },
-    #swagger.parameters['accountId'] = {
-      in: 'query',
-      description: '[dev]使用者email或手機號碼',
-      default: '0912775678'
-    },
    #swagger.parameters['parameter_name'] = {
     in: 'body',
     description: '任務資料',
@@ -101,19 +81,9 @@ router.post('/apply', async function (req, res, next) {
     /**
      * #swagger.tags = ['Posts']
      * #swagger.summary = '發布任務'
-     * #swagger.description = '用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態'
      */
     /**
    #swagger.security=[{"Bearer": []}]
-   #swagger.parameters['uid'] = {
-      in: 'query',
-      description: '[dev]使用者_id',
-    },
-    #swagger.parameters['accountId'] = {
-      in: 'query',
-      description: '[dev]使用者email或手機號碼',
-      default: '0912775678'
-    },
    #swagger.parameters['parameter_name'] = {
     in: 'body',
     description: '任務資料',
@@ -166,19 +136,9 @@ router.get('/:taskId', async function (req, res, next) {
     /**
      * #swagger.tags = ['Posts']
      * #swagger.summary = '取得草稿'
-     * #swagger.description = '用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態'
      */
     /**
    #swagger.security=[{"Bearer": []}]
-   #swagger.parameters['uid'] = {
-      in: 'query',
-      description: '[dev]使用者_id',
-    },
-    #swagger.parameters['accountId'] = {
-      in: 'query',
-      description: '[dev]使用者email或手機號碼',
-      default: '0912775678'
-    },
     #swagger.parameters['taskId'] = {
       in: 'path',
       description: '任務ID',
@@ -231,19 +191,9 @@ router.put('/:taskId', async function (req, res, next) {
     /**
      * #swagger.tags = ['Posts']
      * #swagger.summary = '更新草稿'
-     * #swagger.description = '用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態'
      */
     /**
    #swagger.security=[{"Bearer": []}]
-   #swagger.parameters['uid'] = {
-      in: 'query',
-      description: '[dev]使用者_id',
-    },
-    #swagger.parameters['accountId'] = {
-      in: 'query',
-      description: '[dev]使用者email或手機號碼',
-      default: '0912775678'
-    },
     #swagger.parameters['taskId'] = {
       in: 'path',
       description: '任務ID',
@@ -322,19 +272,9 @@ router.delete('/:taskId', async function (req, res, next) {
     /**
      * #swagger.tags = ['Posts']
      * #swagger.summary = '更新草稿'
-     * #swagger.description = '用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態'
      */
     /**
    #swagger.security=[{"Bearer": []}]
-   #swagger.parameters['uid'] = {
-      in: 'query',
-      description: '[dev]使用者_id',
-    },
-    #swagger.parameters['accountId'] = {
-      in: 'query',
-      description: '[dev]使用者email或手機號碼',
-      default: '0912775678'
-    },
     #swagger.parameters['taskId'] = {
       in: 'path',
       description: '任務ID',
@@ -361,19 +301,9 @@ router.patch('/:taskId', async function (req, res, next) {
     /**
      * #swagger.tags = ['Posts']
      * #swagger.summary = '更新任務狀態'
-     * #swagger.description = '用token開發不方便，可暫時用_id或是email、手機號碼，來模擬登入狀態'
      */
     /**
    #swagger.security=[{"Bearer": []}]
-   #swagger.parameters['uid'] = {
-      in: 'query',
-      description: '[dev]使用者_id',
-    },
-    #swagger.parameters['accountId'] = {
-      in: 'query',
-      description: '[dev]使用者email或手機號碼',
-      default: '0912775678'
-    },
     #swagger.parameters['taskId'] = {
       in: 'path',
       description: '任務ID',
