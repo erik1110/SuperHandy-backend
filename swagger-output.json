@@ -5,7 +5,6 @@
     "description": "This is the final project for a Node.js course.",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
   "basePath": "/",
   "tags": [
     {
@@ -77,7 +76,7 @@
           {
             "name": "parameter_name",
             "in": "body",
-            "description": "nickename is optional, while all the others are required.",
+            "description": "nickname is optional, while all the others are required.",
             "schema": {
               "type": "object",
               "properties": {
