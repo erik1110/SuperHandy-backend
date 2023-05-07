@@ -72,7 +72,7 @@
                     {
                         "name": "parameter_name",
                         "in": "body",
-                        "description": "nickName is optional, while all the others are required.",
+                        "description": "nickename is optional, while all the others are required.",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -92,7 +92,7 @@
                                     "type": "string",
                                     "example": "Erik"
                                 },
-                                "nickName": {
+                                "nickename": {
                                     "type": "string",
                                     "example": "Erik"
                                 },
@@ -535,7 +535,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "nickName": {
+                                "nickename": {
                                     "type": "string",
                                     "example": "Erik"
                                 },
@@ -617,7 +617,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "nickName": {
+                                "nickename": {
                                     "type": "string",
                                     "example": "Erik"
                                 },
@@ -674,7 +674,7 @@
                                     "type": "string",
                                     "example": "uhf8vufbv88fv8hf8v"
                                 },
-                                "nickName": {
+                                "nickename": {
                                     "type": "string",
                                     "example": "Erik"
                                 },

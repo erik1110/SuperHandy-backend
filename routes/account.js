@@ -49,7 +49,7 @@ router.get('/info-form', async function (req, res, next) {
     #swagger.responses[200] = {
       description: 'OK',
       schema: {
-        'nickName': 'Erik',
+        'nickename': 'Erik',
         'firstName': 'Erik',
         'lastName': 'Chen',
         'email': 'erik@gmail.com',
@@ -85,7 +85,7 @@ router.patch('/info-form', async function (req, res, next) {
       in: 'body',
       description: '可更新部分欄位',
       schema: {
-        'nickName': 'Erik',
+        'nickename': 'Erik',
         'firstName': 'Erik',
         'lastName': 'Chen',
         'email': 'erik@gmail.com',
@@ -101,7 +101,7 @@ router.patch('/info-form', async function (req, res, next) {
       description: 'OK',
       schema: {        
         '_id':'uhf8vufbv88fv8hf8v',
-        'nickName': 'Erik',
+        'nickename': 'Erik',
         'firstName': 'Erik',
         'lastName': 'Chen',
         'email': 'erik@gmail.com',
@@ -192,7 +192,7 @@ router.get('/testFindAllUser', async function (req, res, next) {
     try {
         const allUser = await User.find(
             {},
-            '_id lastName firstName nickName email password',
+            '_id lastName firstName nickename email password',
         );
         res.status(200).json({
             allUser,

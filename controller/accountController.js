@@ -8,7 +8,7 @@ const getHttpResponse = require('../utils/successHandler');
 const accounts = {
     getProfile: handleErrorAsync(async (req, res, next) => {
         const user = await User.findOne({ _id: req.user }).select(
-            'firstName lastName nickName email avatarPath',
+            'firstName lastName nickename email avatarPath',
         );
         if (!user) {
             return res.status(404).json({
@@ -21,7 +21,7 @@ const accounts = {
     }),
     getInfoForm: handleErrorAsync(async (req, res, next) => {
         const userInfoForm = await User.findOne({ _id: req.user }).select(
-            'firstName lastName nickName email posterIntro helperIntro avatarPath address phone helperSkills -_id',
+            'firstName lastName nickename email posterIntro helperIntro avatarPath address phone helperSkills -_id',
         );
         if (!userInfoForm) {
             return res.status(404).json({
@@ -37,7 +37,7 @@ const accounts = {
         const acceptedFields = [
             'firstName',
             'lastName',
-            'nickName',
+            'nickename',
             'address',
             'posterIntro',
             'helperIntro',
@@ -56,7 +56,7 @@ const accounts = {
             updateFields,
             {
                 new: true, // 返回更新後的 user 物件
-                select: acceptedFields.join(' '), //'nickName phone address posterIntro helperIntro -email'
+                select: acceptedFields.join(' '), //'nickename phone address posterIntro helperIntro -email'
             },
         );
         if (!userInfoForm) {
