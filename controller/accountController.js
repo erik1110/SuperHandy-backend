@@ -7,7 +7,7 @@ const getHttpResponse = require('../utils/successHandler');
 
 const accounts = {
     getProfile: handleErrorAsync(async (req, res, next) => {
-        const user = await User.findOne({ _id: req.user }).select('firstName lastName nickename email avatarPath');
+        const user = await User.findOne({ _id: req.user }).select('firstName lastName nickname email avatarPath');
         if (!user) {
             return res.status(404).json({
                 message: '查不到啦',
@@ -19,7 +19,7 @@ const accounts = {
     }),
     getInfoForm: handleErrorAsync(async (req, res, next) => {
         const userInfoForm = await User.findOne({ _id: req.user }).select(
-            'firstName lastName nickename email posterIntro helperIntro avatarPath address phone helperSkills -_id',
+            'firstName lastName nickname email posterIntro helperIntro avatarPath address phone helperSkills -_id',
         );
         if (!userInfoForm) {
             return res.status(404).json({
@@ -32,7 +32,7 @@ const accounts = {
     }),
     updateInfoForm: handleErrorAsync(async (req, res, next) => {
         const updateFields = {};
-        const acceptedFields = ['firstName', 'lastName', 'nickename', 'address', 'posterIntro', 'helperIntro', 'helperSkills'];
+        const acceptedFields = ['firstName', 'lastName', 'nickname', 'address', 'posterIntro', 'helperIntro', 'helperSkills'];
         const checkField = (field) => {
             if (req.body.hasOwnProperty(field)) {
                 updateFields[field] = req.body[field];
@@ -43,7 +43,7 @@ const accounts = {
         acceptedFields.push('email updatedAt phone -_id');
         const userInfoForm = await User.findOneAndUpdate({ _id: req.user }, updateFields, {
             new: true, // 返回更新後的 user 物件
-            select: acceptedFields.join(' '), //'nickename phone address posterIntro helperIntro -email'
+            select: acceptedFields.join(' '), //'nickname phone address posterIntro helperIntro -email'
         });
         if (!userInfoForm) {
             return res.status(404).json({
