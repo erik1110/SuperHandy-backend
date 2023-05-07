@@ -12,13 +12,13 @@ router.post('/sign-up', function(req, res, next) {
   /**
   #swagger.parameters['parameter_name'] = {
     in: 'body',
-    description: 'nickName is optional, while all the others are required.',
+    description: 'nicknameis optional, while all the others are required.',
     schema: {
       $email: 'test@gmail.com',
       $phone: '0912345678',
       $firstName: 'Ho',
       $lastName: 'Erik',
-      'nickName': 'Erik',
+      'nickname: 'Erik',
       $password: 'a1234567',
       'confirmPassword': "a1234567"
     }

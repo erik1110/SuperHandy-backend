@@ -72,7 +72,7 @@
           "Sign-in"
         ],
         "summary": "Register an Account and send a verification email",
-        "description": "",
+        "description": "",nickname
         "parameters": [
           {
             "name": "parameter_name",
@@ -92,7 +92,7 @@
                 "firstName": {
                   "type": "string",
                   "example": "Ho"
-                },
+                },nickname
                 "lastName": {
                   "type": "string",
                   "example": "Erik"
@@ -525,7 +525,7 @@
                 }
               },
               "xml": {
-                "name": "main"
+                "name": "main"nickname
               }
             }
           }
@@ -607,7 +607,7 @@
         "parameters": [
           {
             "name": "parameter_name",
-            "in": "body",
+            "in": "body",nickname
             "description": "nickName is optional, while all the others are required.",
             "schema": {
               "type": "object",
@@ -664,7 +664,7 @@
             }
           }
         }
-      }
+      }nickname
     },
     "/home/completed-reviews": {
       "get": {
