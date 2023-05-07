@@ -9,8 +9,7 @@ const initReviews = async () => {
     const superhandyReviews = [
         {
             userId: userCase1._id,
-            comment:
-                '個人物品多 之前透過此平台搜尋到 此清潔整理員工作時都會注意細節 每次需要時依舊還是會想要主動聯繫此清潔整理員',
+            comment: '個人物品多 之前透過此平台搜尋到 此清潔整理員工作時都會注意細節 每次需要時依舊還是會想要主動聯繫此清潔整理員',
         },
         {
             userId: userCase2._id,
@@ -19,8 +18,7 @@ const initReviews = async () => {
         },
         {
             userId: userCase3._id,
-            comment:
-                '一直以來都是超人幫手的愛用者，最近嘗試在這邊找到幫忙搬家的助手，想不到才半天就找到了！超快！',
+            comment: '一直以來都是超人幫手的愛用者，最近嘗試在這邊找到幫忙搬家的助手，想不到才半天就找到了！超快！',
         },
     ];
 
