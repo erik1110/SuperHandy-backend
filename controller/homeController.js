@@ -60,40 +60,21 @@ const home = {
         const lastDayOfMonth = moment().endOf('month');
 
         const publishedFilter = {
-            $and: [
-                { 'time.publishedAt': { $gte: firstDayOfMonth.toDate() } },
-                { 'time.publishedAt': { $lte: lastDayOfMonth.toDate() } },
-            ],
+            $and: [{ 'time.publishedAt': { $gte: firstDayOfMonth.toDate() } }, { 'time.publishedAt': { $lte: lastDayOfMonth.toDate() } }],
         };
 
         const completedFilter = {
-            $and: [
-                { 'time.completedAt': { $gte: firstDayOfMonth.toDate() } },
-                { 'time.completedAt': { $lte: lastDayOfMonth.toDate() } },
-            ],
+            $and: [{ 'time.completedAt': { $gte: firstDayOfMonth.toDate() } }, { 'time.completedAt': { $lte: lastDayOfMonth.toDate() } }],
         };
 
-        const publishedPipeline = [
-            { $match: publishedFilter },
-            { $group: { _id: null, count: { $sum: 1 } } },
-        ];
+        const publishedPipeline = [{ $match: publishedFilter }, { $group: { _id: null, count: { $sum: 1 } } }];
 
-        const completedPipeline = [
-            { $match: completedFilter },
-            { $group: { _id: null, count: { $sum: 1 } } },
-        ];
+        const completedPipeline = [{ $match: completedFilter }, { $group: { _id: null, count: { $sum: 1 } } }];
 
-        const [publishedResult, completedResult] = await Promise.all([
-            Task.aggregate(publishedPipeline),
-            Task.aggregate(completedPipeline),
-        ]);
+        const [publishedResult, completedResult] = await Promise.all([Task.aggregate(publishedPipeline), Task.aggregate(completedPipeline)]);
 
-        const totalPublished = publishedResult.length
-            ? publishedResult[0].count
-            : 0;
-        const totalCompleted = completedResult.length
-            ? completedResult[0].count
-            : 0;
+        const totalPublished = publishedResult.length ? publishedResult[0].count : 0;
+        const totalCompleted = completedResult.length ? completedResult[0].count : 0;
 
         const output = {
             totalPublished,

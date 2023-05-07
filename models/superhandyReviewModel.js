@@ -19,9 +19,6 @@ const superhandyReviewSchema = new mongoose.Schema({
     },
 });
 
-const SuperhandyReview = mongoose.model(
-    'SuperhandyReview',
-    superhandyReviewSchema,
-);
+const SuperhandyReview = mongoose.model('SuperhandyReview', superhandyReviewSchema);
 
 module.exports = SuperhandyReview;

@@ -8,10 +8,7 @@ const initReviews = require('../db/initReviews');
 const initUsers = require('../db/initUsers');
 const initSuperhandyReviews = require('../db/initSuperhandyReviews');
 
-const DB = process.env.DATABASE.replace(
-    '<password>',
-    process.env.DATABASE_PASSWORD,
-);
+const DB = process.env.DATABASE.replace('<password>', process.env.DATABASE_PASSWORD);
 
 mongoose
     .connect(DB)
