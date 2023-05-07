@@ -1,30 +1,30 @@
 var express = require('express');
 var router = express.Router();
 const userController = require('../controller/userController');
-const { isAuth } = require("../middleware/auth");
+const { isAuth } = require('../middleware/auth');
 
 /* 註冊+寄信 */
-router.post('/sign-up', function(req, res, next) {
-  /**
-    * #swagger.tags = ['Sign-in']
-    * #swagger.summary = 'Register an Account and send a verification email'
-  */
-  /**
+router.post('/sign-up', function (req, res, next) {
+    /**
+     * #swagger.tags = ['Sign-in']
+     * #swagger.summary = 'Register an Account and send a verification email'
+     */
+    /**
   #swagger.parameters['parameter_name'] = {
     in: 'body',
-    description: 'nicknameis optional, while all the others are required.',
+    description: nickename is optional, while all the others are required.',
     schema: {
       $email: 'test@gmail.com',
       $phone: '0912345678',
       $firstName: 'Ho',
       $lastName: 'Erik',
-      'nickname: 'Erik',
-      $password: 'a1234567',
-      'confirmPassword': "a1234567"
+      'nickename': 'Erik',
+      $password: '12345678',
+      'confirmPassword': "12345678"
     }
   }
   */
-/**
+    /**
   #swagger.responses[200] = {
     description: '註冊成功',
     schema: { $ref: '#/definitions/RegisterEmailSuccess' }
@@ -42,19 +42,19 @@ router.post('/sign-up', function(req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  userController.signUp(req, res, next);
+    userController.signUp(req, res, next);
 });
 
 /* 驗證註冊信 */
-router.get('/verify-email', isAuth, function(req, res, next) {
-  /**
+router.get('/verify-email', isAuth, function (req, res, next) {
+    /**
     * #swagger.tags = ['Sign-in']
     * #swagger.summary = 'Verify the registration email'
     * #swagger.security = [{
         "Bearer": []
       }]
   */
-/**
+    /**
   #swagger.responses[200] = {
     description: '驗證成功',
   }
@@ -71,15 +71,15 @@ router.get('/verify-email', isAuth, function(req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  userController.validateEmail(req, res, next);
+    userController.validateEmail(req, res, next);
 });
 
 /* 重寄驗證信 */
-router.post('/resend-verification', function(req, res, next) {
+router.post('/resend-verification', function (req, res, next) {
     /**
-      * #swagger.tags = ['Sign-in']
-      * #swagger.summary = 'Resend an Email for verification'
-    */
+     * #swagger.tags = ['Sign-in']
+     * #swagger.summary = 'Resend an Email for verification'
+     */
     /**
     #swagger.parameters['parameter_name'] = {
       in: 'body',
@@ -89,7 +89,7 @@ router.post('/resend-verification', function(req, res, next) {
       }
     }
     */
-  /**
+    /**
     #swagger.responses[200] = {
       description: '信件已寄出',
     }
@@ -105,26 +105,26 @@ router.post('/resend-verification', function(req, res, next) {
       schema: { $ref: '#/definitions/Error500' }
     }
   */
-  userController.resendEmail(req, res, next);
+    userController.resendEmail(req, res, next);
 });
 
 /* 登入 */
-router.post('/sign-in', function(req, res, next) {
-  /**
-    * #swagger.tags = ['Sign-in']
-    * #swagger.summary = 'Login an Account'
-  */
-  /**
+router.post('/sign-in', function (req, res, next) {
+    /**
+     * #swagger.tags = ['Sign-in']
+     * #swagger.summary = 'Login an Account'
+     */
+    /**
   #swagger.parameters['parameter_name'] = {
     in: 'body',
     description: 'sign in an account',
     schema: {
-      $account: 'test@gmail.com',
-      $password: 'a1234567'
+      $account: 'user1@example.com',
+      $password: '12345678'
     }
   }
   */
-/**
+    /**
   #swagger.responses[200] = {
     description: '登入成功',
     schema: { $ref: '#/definitions/Sign' }
@@ -142,16 +142,16 @@ router.post('/sign-in', function(req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  userController.signIn(req, res, next);
+    userController.signIn(req, res, next);
 });
 
 /* 忘記密碼 */
-router.post('/forgot-password', function(req, res, next) {
-  /**
-    * #swagger.tags = ['Sign-in']
-    * #swagger.summary = 'forgot password and send an Email for verification'
-  */
-  /**
+router.post('/forgot-password', function (req, res, next) {
+    /**
+     * #swagger.tags = ['Sign-in']
+     * #swagger.summary = 'forgot password and send an Email for verification'
+     */
+    /**
   #swagger.parameters['parameter_name'] = {
     in: 'body',
     description: 'forgot password and send an Email for verification',
@@ -160,7 +160,7 @@ router.post('/forgot-password', function(req, res, next) {
     }
   }
   */
-/**
+    /**
   #swagger.responses[200] = {
     description: '信件已寄出',
   }
@@ -176,20 +176,19 @@ router.post('/forgot-password', function(req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  userController.forgotPassword(req, res, next);
+    userController.forgotPassword(req, res, next);
 });
 
-
 /* 忘記密碼並重設密碼 */
-router.patch('/forgot-reset-password', isAuth, (req, res, next) => 
-  /**
+router.patch('/forgot-reset-password', isAuth, (req, res, next) =>
+    /**
     * #swagger.tags = ['Sign-in']
     * #swagger.summary = 'forget password and reset the password from email'
     * #swagger.security = [{
         "Bearer": []
       }]
   */
-  /**
+    /**
   #swagger.parameters['parameter_name'] = {
     in: 'body',
     description: '',
@@ -199,7 +198,7 @@ router.patch('/forgot-reset-password', isAuth, (req, res, next) =>
     }
   }
   */
-/**
+    /**
   #swagger.responses[200] = {
     description: '重設成功',
   }
@@ -215,30 +214,30 @@ router.patch('/forgot-reset-password', isAuth, (req, res, next) =>
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  userController.forgotResetPassword(req, res, next)
+    userController.forgotResetPassword(req, res, next),
 );
 
 /* 更新密碼 */
-router.patch('/update-password', isAuth, (req, res, next) => 
-  /**
+router.patch('/update-password', isAuth, (req, res, next) =>
+    /**
     * #swagger.tags = ['Sign-in']
     * #swagger.summary = 'update password after sign in'
     * #swagger.security = [{
         "Bearer": []
       }]
   */
-  /**
+    /**
   #swagger.parameters['parameter_name'] = {
     in: 'body',
     description: '',
     schema: {
-      $password: 'a12345678',
-      $confirmPassword: 'a12345678',
-      $oldPassword: 'a1234567'
+      $password: '12345678',
+      $confirmPassword: '12345678',
+      $oldPassword: '22345678'
     }
   }
   */
-/**
+    /**
   #swagger.responses[200] = {
     description: '重設成功',
   }
@@ -254,8 +253,7 @@ router.patch('/update-password', isAuth, (req, res, next) =>
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  userController.updatePassword(req, res, next)
+    userController.updatePassword(req, res, next),
 );
-
 
 module.exports = router;

@@ -72,54 +72,8 @@
           "Sign-in"
         ],
         "summary": "Register an Account and send a verification email",
-        "description": "",nickname
-        "parameters": [
-          {
-            "name": "parameter_name",
-            "in": "body",
-            "description": "nickName is optional, while all the others are required.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "example": "test@gmail.com"
-                },
-                "phone": {
-                  "type": "string",
-                  "example": "0912345678"
-                },
-                "firstName": {
-                  "type": "string",
-                  "example": "Ho"
-                },nickname
-                "lastName": {
-                  "type": "string",
-                  "example": "Erik"
-                },
-                "nickName": {
-                  "type": "string",
-                  "example": "Erik"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "a1234567"
-                },
-                "confirmPassword": {
-                  "type": "string",
-                  "example": "a1234567"
-                }
-              },
-              "required": [
-                "email",
-                "phone",
-                "firstName",
-                "lastName",
-                "password"
-              ]
-            }
-          }
-        ],
+        "description": "",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "註冊成功",
@@ -257,11 +211,11 @@
               "properties": {
                 "account": {
                   "type": "string",
-                  "example": "test@gmail.com"
+                  "example": "user1@example.com"
                 },
                 "password": {
                   "type": "string",
-                  "example": "a1234567"
+                  "example": "12345678"
                 }
               },
               "required": [
@@ -432,15 +386,15 @@
               "properties": {
                 "password": {
                   "type": "string",
-                  "example": "a12345678"
+                  "example": "12345678"
                 },
                 "confirmPassword": {
                   "type": "string",
-                  "example": "a12345678"
+                  "example": "12345678"
                 },
                 "oldPassword": {
                   "type": "string",
-                  "example": "a1234567"
+                  "example": "22345678"
                 }
               },
               "required": [
@@ -525,14 +479,14 @@
                 }
               },
               "xml": {
-                "name": "main"nickname
+                "name": "main"
               }
             }
           }
         },
         "security": [
           {
-            "jwt": []
+            "Bearer": []
           }
         ]
       }
@@ -560,10 +514,68 @@
             }
           }
         ],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nickename": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Chen"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "erik@gmail.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "0912345678"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "台北市"
+                },
+                "posterIntro": {
+                  "type": "string",
+                  "example": "我是海報人"
+                },
+                "helperIntro": {
+                  "type": "string",
+                  "example": "我是幫手人"
+                },
+                "helperSkills": {
+                  "type": "array",
+                  "example": [
+                    "人力派遣",
+                    "市場調查"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2021-05-20T08:00:00.000Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
         "security": [
           {
-            "jwt": []
+            "Bearer": []
           }
         ]
       },
@@ -587,48 +599,241 @@
                 }
               }
             }
+          },
+          {
+            "name": "parameter",
+            "in": "body",
+            "description": "可更新部分欄位",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nickename": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Chen"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "erik@gmail.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "0912345678"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "台北市"
+                },
+                "posterIntro": {
+                  "type": "string",
+                  "example": "我是海報人"
+                },
+                "helperIntro": {
+                  "type": "string",
+                  "example": "我是幫手人"
+                },
+                "helperSkills": {
+                  "type": "array",
+                  "example": [
+                    "人力派遣",
+                    "市場調查"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2021-05-20T08:00:00.000Z"
+                }
+              }
+            }
           }
         ],
-        "responses": {},
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "uhf8vufbv88fv8hf8v"
+                },
+                "nickename": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "Erik"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "Chen"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "erik@gmail.com"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "0912345678"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "台北市"
+                },
+                "posterIntro": {
+                  "type": "string",
+                  "example": "我是海報人"
+                },
+                "helperIntro": {
+                  "type": "string",
+                  "example": "我是幫手人"
+                },
+                "helperSkills": {
+                  "type": "array",
+                  "example": [
+                    "人力派遣",
+                    "市場調查"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2021-05-20T08:00:00.000Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "查不到啦"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
         "security": [
           {
-            "jwt": []
+            "Bearer": []
           }
         ]
       }
     },
-    "/account/testSignup": {
-      "post": {
+    "/account/points": {
+      "get": {
         "tags": [
-          "Dev"
+          "Account"
         ],
-        "summary": "dev 註冊user帳號",
+        "summary": "Get the current balance of Super Coins and Helper Coins",
         "description": "",
         "parameters": [
           {
-            "name": "parameter_name",
-            "in": "body",nickname
-            "description": "nickName is optional, while all the others are required.",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "account": {
-                  "type": "string",
-                  "example": "test@gmail.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "a1234567"
-                }
-              },
-              "required": [
-                "account",
-                "password"
-              ]
-            }
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/getPoints"
+            }
+          },
+          "400": {
+            "description": "Token 失敗",
+            "schema": {
+              "$ref": "#/definitions/ErrorToken"
+            }
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/account/profile-stats": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Get user statistics figures",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/getProfileStats"
+            }
+          },
+          "400": {
+            "description": "Token 失敗",
+            "schema": {
+              "$ref": "#/definitions/ErrorToken"
+            }
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/account/testFindAllUser": {
@@ -664,7 +869,7 @@
             }
           }
         }
-      }nickname
+      }
     },
     "/home/completed-reviews": {
       "get": {
@@ -804,21 +1009,32 @@
           "Posts"
         ],
         "summary": "檢查地址(取得經緯度)",
-        "description": "",
+        "description": "用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態",
         "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "description": "[dev]使用者email或手機號碼",
+            "default": "0912775678",
+            "type": "string"
+          },
+          {
+            "name": "uid",
+            "in": "query",
+            "description": "[dev]使用者_id",
+            "type": "string"
+          },
           {
             "name": "address",
             "in": "query",
             "description": "完整地址",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "address": {
-                  "type": "string",
-                  "example": "台北市信義區市府路45號"
-                }
-              }
-            }
+            "default": "台北市信義區市府路45號",
+            "type": "string"
           }
         ],
         "responses": {
@@ -868,7 +1084,7 @@
         },
         "security": [
           {
-            "jwt": []
+            "Bearer": []
           }
         ]
       }
@@ -879,8 +1095,26 @@
           "Posts"
         ],
         "summary": "儲存新草稿",
-        "description": "",
+        "description": "用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態",
         "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "description": "[dev]使用者email或手機號碼",
+            "default": "0912775678",
+            "type": "string"
+          },
+          {
+            "name": "uid",
+            "in": "query",
+            "description": "[dev]使用者_id",
+            "type": "string"
+          },
           {
             "name": "parameter_name",
             "in": "body",
@@ -910,7 +1144,7 @@
                 },
                 "exposurePlan": {
                   "type": "string",
-                  "example": "2"
+                  "example": "一般曝光"
                 },
                 "imagesUrl": {
                   "type": "array",
@@ -1021,7 +1255,351 @@
         },
         "security": [
           {
-            "jwt": []
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/post-task/apply": {
+      "post": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "發布任務",
+        "description": "用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "description": "[dev]使用者email或手機號碼",
+            "default": "0912775678",
+            "type": "string"
+          },
+          {
+            "name": "uid",
+            "in": "query",
+            "description": "[dev]使用者_id",
+            "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "任務資料",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "example": "任務標題"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "published"
+                },
+                "category": {
+                  "type": "string",
+                  "example": "家事"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "任務描述"
+                },
+                "salary": {
+                  "type": "number",
+                  "example": 1000
+                },
+                "exposurePlan": {
+                  "type": "string",
+                  "example": "一般曝光"
+                },
+                "imagesUrl": {
+                  "type": "array",
+                  "example": [
+                    "https://example.com/image1.jpg",
+                    "https://example.com/mage2.jpg"
+                  ],
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "contactInfo": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "王小明"
+                    },
+                    "phone": {
+                      "type": "string",
+                      "example": "0912345678"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "ming@gmail.com"
+                    }
+                  }
+                },
+                "location": {
+                  "type": "object",
+                  "properties": {
+                    "city": {
+                      "type": "string",
+                      "example": "台北市"
+                    },
+                    "dist": {
+                      "type": "string",
+                      "example": "信義區"
+                    },
+                    "address": {
+                      "type": "string",
+                      "example": "台北市信義區市府路45號"
+                    },
+                    "landmark": {
+                      "type": "string",
+                      "example": "台北101"
+                    },
+                    "lng": {
+                      "type": "number",
+                      "example": 121.5337064
+                    },
+                    "lat": {
+                      "type": "number",
+                      "example": 25.0296587
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "儲存成功"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "儲存失敗"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "伺服器錯誤"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/post-task/{taskId}": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "取得草稿",
+        "description": "用token開發不方便，先暫時用_id或是email、手機號碼，來模擬登入狀態",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "任務ID"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "description": "[dev]使用者email或手機號碼",
+            "default": "0912775678",
+            "type": "string"
+          },
+          {
+            "name": "uid",
+            "in": "query",
+            "description": "[dev]使用者_id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "儲存成功"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "example": "任務標題"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "published"
+                    },
+                    "category": {
+                      "type": "string",
+                      "example": "家事"
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "任務描述"
+                    },
+                    "salary": {
+                      "type": "number",
+                      "example": 1000
+                    },
+                    "exposurePlan": {
+                      "type": "string",
+                      "example": "一般曝光"
+                    },
+                    "imagesUrl": {
+                      "type": "array",
+                      "example": [
+                        "https://example.com/image1.jpg",
+                        "https://example.com/mage2.jpg"
+                      ],
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "contactInfo": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "王小明"
+                        },
+                        "phone": {
+                          "type": "string",
+                          "example": "0912345678"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "ming@gmail.com"
+                        }
+                      }
+                    },
+                    "location": {
+                      "type": "object",
+                      "properties": {
+                        "city": {
+                          "type": "string",
+                          "example": "台北市"
+                        },
+                        "dist": {
+                          "type": "string",
+                          "example": "信義區"
+                        },
+                        "address": {
+                          "type": "string",
+                          "example": "台北市信義區市府路45號"
+                        },
+                        "landmark": {
+                          "type": "string",
+                          "example": "台北101"
+                        },
+                        "lng": {
+                          "type": "number",
+                          "example": 121.5337064
+                        },
+                        "lat": {
+                          "type": "number",
+                          "example": 25.0296587
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "儲存失敗"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "伺服器錯誤"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
           }
         ]
       }
@@ -1043,6 +1621,28 @@
         "message": {
           "type": "string",
           "example": "錯誤訊息"
+        }
+      }
+    },
+    "ErrorToken": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "false"
+        },
+        "message": {
+          "type": "string",
+          "example": "你尚未登入"
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "40003"
+            }
+          }
         }
       }
     },
@@ -1367,6 +1967,74 @@
                   }
                 }
               }
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
+        }
+      }
+    },
+    "getPoints": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "superCoin": {
+              "type": "number",
+              "example": 0
+            },
+            "helperCoin": {
+              "type": "number",
+              "example": 0
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
+        }
+      }
+    },
+    "getProfileStats": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "superCoin": {
+              "type": "number",
+              "example": 0
+            },
+            "helperCoin": {
+              "type": "number",
+              "example": 0
+            },
+            "numOfPostTasks": {
+              "type": "number",
+              "example": 1
+            },
+            "numOfCompletedTasks": {
+              "type": "number",
+              "example": 3
+            },
+            "ratingPoster": {
+              "type": "number",
+              "example": 5
+            },
+            "ratingHelper": {
+              "type": "number",
+              "example": 4.67
             }
           }
         },
