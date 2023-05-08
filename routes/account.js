@@ -27,7 +27,7 @@ router.get('/info-form', isAuth, async function (req, res, next) {
     #swagger.security=[{"Bearer": []}],
     #swagger.responses[200] = {
       description: 'OK',
-      schema: { $ref: '#/definitions/getPoints' }
+      schema: { $ref: '#/definitions/getInfoFormSuccess' }
     }    
     */
     accountController.getInfoForm(req, res, next);
@@ -58,7 +58,7 @@ router.patch('/info-form', isAuth, async function (req, res, next) {
     }
     #swagger.responses[200] = {
       description: 'OK',
-      schema: { $ref: '#/definitions/getPoints' }
+      schema: { $ref: '#/definitions/updateInfoForm' }
     }
     #swagger.responses[404] = {
       description: 'Not Found',
