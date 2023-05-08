@@ -66,7 +66,7 @@ const users = {
             return next(appError(400, '40001', validatorResult.msg));
         }
         password = await bcrypt.hash(req.body.password, 12);
-        const { email, firstName, lastName, phone, nickename } = req.body;
+        const { email, firstName, lastName, phone, nickname } = req.body;
         let newUser = {};
         try {
             newUser = await User.create({
@@ -75,7 +75,7 @@ const users = {
                 firstName,
                 lastName,
                 phone,
-                nickename,
+                nickname,
             });
         } catch (error) {
             if (error.code === 11000) {

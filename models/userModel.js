@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    nickename: {
+    nickname: {
         type: String,
         trim: true,
     },
