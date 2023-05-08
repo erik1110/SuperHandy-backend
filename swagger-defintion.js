@@ -162,27 +162,44 @@ const getProfileStats = {
     message: '取得成功',
 };
 
-const taskDetail = {
-    title: '任務標題',
-    status: 'draft',
-    category: '寵物陪伴',
-    description: '任務描述',
-    salary: 1000,
-    exposurePlan: '一般曝光',
-    imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
-    contactInfo: {
-        name: '王小明',
-        phone: '0912345678',
-        email: 'ming@gmail.com',
+const getProfileSuccess = {
+    status: 'success',
+    data: {
+        _id: '645905b344f899648941de61',
+        email: 'user1@example.com',
+        firstName: '文方',
+        lastName: '翁',
+        avatarPath: '',
+        nickname: '小文',
     },
-    location: {
-        city: '台北市',
-        dist: '信義區',
-        address: '台北市信義區市府路45號',
-        landmark: '台北101',
-        lng: 121.5337064,
-        lat: 25.0296587,
+    message: '查詢成功',
+};
+
+const getInfoFormSuccess = {
+    status: 'success',
+    data: {
+        email: 'user1@example.com',
+        firstName: '文方',
+        lastName: '翁',
+        phone: '0932345678',
+        avatarPath: '',
+        address: '',
+        posterIntro: '我是公正黨文宣部副主任兼黨部發言人。',
+        helperIntro: '',
+        helperSkills: [],
     },
+    message: '查詢成功',
+};
+const updateInfoForm = {
+    email: 'user1@example.com',
+    firstName: 'Erik',
+    lastName: 'Chen',
+    phone: '0932345678',
+    address: '台北市',
+    posterIntro: '我是海報人',
+    helperIntro: '我是幫手人',
+    helperSkills: ['人力派遣', '市場調查'],
+    updatedAt: '2023-05-08T14:37:43.829Z',
 };
 
 module.exports = {
@@ -203,5 +220,7 @@ module.exports = {
     getExcellentHelpersSuccess,
     getPoints,
     getProfileStats,
-    taskDetail,
+    getProfileSuccess,
+    getInfoFormSuccess,
+    updateInfoForm,
 };

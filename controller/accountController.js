@@ -7,28 +7,30 @@ const getHttpResponse = require('../utils/successHandler');
 
 const accounts = {
     getProfile: handleErrorAsync(async (req, res, next) => {
-        const user = await User.findOne({ _id: req.user }).select('firstName lastName nickname email avatarPath');
+        const user = await User.findOne({ _id: req.user._id }).select('firstName lastName nickname email avatarPath');
         if (!user) {
-            return res.status(404).json({
-                message: '查不到啦',
-            });
+            return next(appError(404, '40002', '查詢不到此用戶'));
         }
-        res.status(200).json({
-            user,
-        });
+        return res.status(200).json(
+            getHttpResponse({
+                message: '查詢成功',
+                data: user,
+            }),
+        );
     }),
     getInfoForm: handleErrorAsync(async (req, res, next) => {
-        const userInfoForm = await User.findOne({ _id: req.user }).select(
-            'firstName lastName nickname email posterIntro helperIntro avatarPath address phone helperSkills -_id',
+        const userInfoForm = await User.findOne({ _id: req.user._id }).select(
+            'firstName lastName nickename email posterIntro helperIntro avatarPath address phone helperSkills -_id',
         );
         if (!userInfoForm) {
-            return res.status(404).json({
-                message: '查不到啦',
-            });
+            return next(appError(404, '40002', '查詢不到此用戶'));
         }
-        res.status(200).json({
-            userInfoForm,
-        });
+        return res.status(200).json(
+            getHttpResponse({
+                message: '查詢成功',
+                data: userInfoForm,
+            }),
+        );
     }),
     updateInfoForm: handleErrorAsync(async (req, res, next) => {
         const updateFields = {};
@@ -41,14 +43,12 @@ const accounts = {
         updateFields.updatedAt = new Date();
         acceptedFields.forEach(checkField);
         acceptedFields.push('email updatedAt phone -_id');
-        const userInfoForm = await User.findOneAndUpdate({ _id: req.user }, updateFields, {
+        const userInfoForm = await User.findOneAndUpdate({ _id: req.user._id }, updateFields, {
             new: true, // 返回更新後的 user 物件
             select: acceptedFields.join(' '), //'nickname phone address posterIntro helperIntro -email'
         });
         if (!userInfoForm) {
-            return res.status(404).json({
-                message: '查不到啦',
-            });
+            return next(appError(404, '40002', '查詢不到此用戶'));
         }
         res.json(userInfoForm);
     }),
