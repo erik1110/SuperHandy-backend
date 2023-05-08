@@ -6,7 +6,7 @@ const doc = {
         title: 'SuperHandy 超人幫手',
         description: 'This is the final project for a Node.js course.',
     },
-    host: 'localhost:3000',
+    host: process.env.FRONTEND_URL,
     schemes: ['http', 'https'],
     tags: [
         { name: 'Home', description: '首頁' },
