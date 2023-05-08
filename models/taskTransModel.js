@@ -7,7 +7,7 @@ const taskTransSchema = new mongoose.Schema({
     },
     tag: {
         type: String,
-        enum: ['刊登任務', '完成任務', '刪除任務']
+        enum: ['刊登任務', '完成任務', '刪除任務'],
     },
     superCoin: {
         type: Number,
@@ -20,7 +20,7 @@ const taskTransSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['幫手', '案主', '系統']
+        enum: ['幫手', '案主', '系統'],
     },
     createdAt: {
         type: Date,

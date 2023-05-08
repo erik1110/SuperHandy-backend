@@ -7,7 +7,7 @@ const userTransSchema = new mongoose.Schema({
     },
     tag: {
         type: String,
-        enum: ['系統儲值', '取出點數']
+        enum: ['系統儲值', '取出點數'],
     },
     superCoin: {
         type: Number,
@@ -20,7 +20,7 @@ const userTransSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['系統']
+        enum: ['系統'],
     },
     createdAt: {
         type: Date,

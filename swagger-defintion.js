@@ -163,49 +163,45 @@ const getProfileStats = {
 };
 
 const getProfileSuccess = {
-    status: "success",
+    status: 'success',
     data: {
-      _id: "645905b344f899648941de61",
-      email: "user1@example.com",
-      firstName: "文方",
-      lastName: "翁",
-      avatarPath: "",
-      nickname: "小文"
+        _id: '645905b344f899648941de61',
+        email: 'user1@example.com',
+        firstName: '文方',
+        lastName: '翁',
+        avatarPath: '',
+        nickname: '小文',
     },
-    message: "查詢成功"
-}
+    message: '查詢成功',
+};
 
 const getInfoFormSuccess = {
-    status: "success",
+    status: 'success',
     data: {
-      email: "user1@example.com",
-      firstName: "文方",
-      lastName: "翁",
-      phone: "0932345678",
-      avatarPath: "",
-      address: "",
-      posterIntro: "我是公正黨文宣部副主任兼黨部發言人。",
-      helperIntro: "",
-      helperSkills: []
+        email: 'user1@example.com',
+        firstName: '文方',
+        lastName: '翁',
+        phone: '0932345678',
+        avatarPath: '',
+        address: '',
+        posterIntro: '我是公正黨文宣部副主任兼黨部發言人。',
+        helperIntro: '',
+        helperSkills: [],
     },
-    message: "查詢成功"
-}
+    message: '查詢成功',
+};
 const updateInfoForm = {
-    email: "user1@example.com",
-    firstName: "Erik",
-    lastName: "Chen",
-    phone: "0932345678",
-    address: "台北市",
-    posterIntro: "我是海報人",
-    helperIntro: "我是幫手人",
-    helperSkills: [
-      "人力派遣",
-      "市場調查"
-    ],
-    updatedAt: "2023-05-08T14:37:43.829Z"
-  }
-  
-  
+    email: 'user1@example.com',
+    firstName: 'Erik',
+    lastName: 'Chen',
+    phone: '0932345678',
+    address: '台北市',
+    posterIntro: '我是海報人',
+    helperIntro: '我是幫手人',
+    helperSkills: ['人力派遣', '市場調查'],
+    updatedAt: '2023-05-08T14:37:43.829Z',
+};
+
 module.exports = {
     Success,
     Error400,
@@ -226,5 +222,5 @@ module.exports = {
     getProfileStats,
     getProfileSuccess,
     getInfoFormSuccess,
-    updateInfoForm
+    updateInfoForm,
 };

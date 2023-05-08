@@ -14,7 +14,7 @@ const accounts = {
         return res.status(200).json(
             getHttpResponse({
                 message: '查詢成功',
-                data: user
+                data: user,
             }),
         );
     }),
@@ -28,7 +28,7 @@ const accounts = {
         return res.status(200).json(
             getHttpResponse({
                 message: '查詢成功',
-                data: userInfoForm
+                data: userInfoForm,
             }),
         );
     }),

@@ -19,12 +19,12 @@ const initTransactions = async () => {
         const taskCase5 = tasks.find((task) => task.userId._id.equals(userCase5._id));
         await TaskTrans.deleteMany({
             _id: {
-                $in: [ taskCase1._id,  taskCase2._id,  taskCase3._id,  taskCase4._id,  taskCase5._id],
+                $in: [taskCase1._id, taskCase2._id, taskCase3._id, taskCase4._id, taskCase5._id],
             },
         });
         await UserTrans.deleteMany({
             email: {
-                $in: [userCase1._id,  userCase2._id,  userCase3._id,  userCase4._id,  userCase5._id],
+                $in: [userCase1._id, userCase2._id, userCase3._id, userCase4._id, userCase5._id],
             },
         });
         const taskTransactions = [
@@ -34,7 +34,7 @@ const initTransactions = async () => {
                 superCoin: -230,
                 helperCoin: -100,
                 desc: ['預扣薪水', '黃金曝光'],
-                role: '案主'
+                role: '案主',
             },
             {
                 taskId: taskCase2._id,
@@ -42,7 +42,7 @@ const initTransactions = async () => {
                 superCoin: -900,
                 helperCoin: -530,
                 desc: ['預扣薪水', '限時黃金曝光'],
-                role: '案主'
+                role: '案主',
             },
             {
                 taskId: taskCase3._id,
@@ -50,7 +50,7 @@ const initTransactions = async () => {
                 superCoin: -733,
                 helperCoin: 0,
                 desc: ['預扣薪水', '一般曝光'],
-                role: '案主'
+                role: '案主',
             },
             {
                 taskId: taskCase4._id,
@@ -58,7 +58,7 @@ const initTransactions = async () => {
                 superCoin: -500,
                 helperCoin: -124,
                 desc: ['預扣薪水', '限時曝光'],
-                role: '案主'
+                role: '案主',
             },
             {
                 taskId: taskCase5._id,
@@ -66,7 +66,7 @@ const initTransactions = async () => {
                 superCoin: -1000,
                 helperCoin: -99,
                 desc: ['預扣薪水', '限時黃金曝光'],
-                role: '案主'
+                role: '案主',
             },
             {
                 taskId: taskCase1._id,
@@ -74,7 +74,7 @@ const initTransactions = async () => {
                 superCoin: 300,
                 helperCoin: 0,
                 desc: ['薪資'],
-                role: '幫手'
+                role: '幫手',
             },
             {
                 taskId: taskCase2._id,
@@ -82,7 +82,7 @@ const initTransactions = async () => {
                 superCoin: 1300,
                 helperCoin: 0,
                 desc: ['薪資'],
-                role: '案主'
+                role: '案主',
             },
             {
                 taskId: taskCase3._id,
@@ -90,7 +90,7 @@ const initTransactions = async () => {
                 superCoin: 666,
                 helperCoin: 0,
                 desc: ['薪資'],
-                role: '案主'
+                role: '案主',
             },
             {
                 taskId: taskCase4._id,
@@ -98,7 +98,7 @@ const initTransactions = async () => {
                 superCoin: 567,
                 helperCoin: -124,
                 desc: ['薪資'],
-                role: '案主'
+                role: '案主',
             },
             {
                 taskId: taskCase5._id,
@@ -106,8 +106,8 @@ const initTransactions = async () => {
                 superCoin: 999,
                 helperCoin: 0,
                 desc: ['薪資'],
-                role: '案主'
-            }
+                role: '案主',
+            },
         ];
         const userTransactions = [
             {
@@ -116,7 +116,7 @@ const initTransactions = async () => {
                 superCoin: 5000,
                 helperCoin: 1000,
                 desc: ['購買點數', '點數贈送'],
-                role: '系統'
+                role: '系統',
             },
             {
                 userId: userCase2._id,
@@ -124,7 +124,7 @@ const initTransactions = async () => {
                 superCoin: 1000,
                 helperCoin: 200,
                 desc: ['購買點數', '點數贈送'],
-                role: '系統'
+                role: '系統',
             },
             {
                 userId: userCase3._id,
@@ -132,7 +132,7 @@ const initTransactions = async () => {
                 superCoin: 100,
                 helperCoin: 0,
                 desc: ['購買點數'],
-                role: '系統'
+                role: '系統',
             },
             {
                 userId: userCase4._id,
@@ -140,7 +140,7 @@ const initTransactions = async () => {
                 superCoin: 300,
                 helperCoin: 0,
                 desc: ['購買點數'],
-                role: '系統'
+                role: '系統',
             },
             {
                 userId: userCase5._id,
@@ -148,9 +148,9 @@ const initTransactions = async () => {
                 superCoin: 500,
                 helperCoin: 50,
                 desc: ['購買點數', '點數贈送'],
-                role: '系統'
+                role: '系統',
             },
-        ]
+        ];
 
         // 插入新的類別
         await TaskTrans.insertMany(taskTransactions);
