@@ -71,7 +71,7 @@ router.patch('/info-form', isAuth, async function (req, res, next) {
 });
 
 /* 取得目前超人幣、幫手幣的餘額 */
-router.get('/points', isAuth, function (req, res, next) {
+router.get('/points', function (req, res, next) {
     /**
   * #swagger.tags = ['Account']
   * #swagger.summary = 'Get the current balance of Super Coins and Helper Coins'
@@ -101,7 +101,7 @@ router.get('/points', isAuth, function (req, res, next) {
 });
 
 /* 取得6組數字統計 */
-router.get('/profile-stats', isAuth, function (req, res, next) {
+router.get('/profile-stats', function (req, res, next) {
     /**
     * #swagger.tags = ['Account']
     * #swagger.summary = 'Get user statistics figures'
@@ -165,7 +165,6 @@ router.get('/testFindAllUser', async function (req, res, next) {
      * #swagger.tags = ['Dev']
      * #swagger.summary = 'dev 取得所有user帳號'
      */
-    console.log('check point req.body', req.body);
     try {
         const allUser = await User.find({}, '_id lastName firstName nickname email password');
         res.status(200).json({

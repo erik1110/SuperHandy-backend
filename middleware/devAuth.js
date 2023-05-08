@@ -1,6 +1,7 @@
 const { handleErrorAsync, appError } = require('../utils/errorHandler');
 const User = require('../models/userModel');
 const validator = require('validator');
+const jwt = require('jsonwebtoken');
 
 const devAuth = handleErrorAsync(async (req, res, next) => {
     let token = '';
@@ -18,7 +19,7 @@ const devAuth = handleErrorAsync(async (req, res, next) => {
         const currentUser = await User.findById(decoded.id);
         if (currentUser) {
             req.user = currentUser;
-            next();
+            return next();
         } else {
             return next(appError(400, '40010', '使用者不存在'));
         }

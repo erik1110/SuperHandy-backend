@@ -34,7 +34,7 @@ const accounts = {
     }),
     updateInfoForm: handleErrorAsync(async (req, res, next) => {
         const updateFields = {};
-        const acceptedFields = ['firstName', 'lastName', 'nickename', 'address', 'posterIntro', 'helperIntro', 'helperSkills'];
+        const acceptedFields = ['firstName', 'lastName', 'nickname', 'address', 'posterIntro', 'helperIntro', 'helperSkills'];
         const checkField = (field) => {
             if (req.body.hasOwnProperty(field)) {
                 updateFields[field] = req.body[field];
@@ -45,7 +45,7 @@ const accounts = {
         acceptedFields.push('email updatedAt phone -_id');
         const userInfoForm = await User.findOneAndUpdate({ _id: req.user._id }, updateFields, {
             new: true, // 返回更新後的 user 物件
-            select: acceptedFields.join(' '), //'nickename phone address posterIntro helperIntro -email'
+            select: acceptedFields.join(' '), //'nickname phone address posterIntro helperIntro -email'
         });
         if (!userInfoForm) {
             return next(appError(404, '40002', '查詢不到此用戶'));
