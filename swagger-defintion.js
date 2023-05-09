@@ -191,15 +191,19 @@ const getInfoFormSuccess = {
     message: '查詢成功',
 };
 const updateInfoForm = {
-    email: 'user1@example.com',
-    firstName: 'Erik',
-    lastName: 'Chen',
-    phone: '0932345678',
-    address: '台北市',
-    posterIntro: '我是海報人',
-    helperIntro: '我是幫手人',
-    helperSkills: ['人力派遣', '市場調查'],
-    updatedAt: '2023-05-08T14:37:43.829Z',
+    status: 'success',
+    data: {
+        email: 'user1@example.com',
+        firstName: 'Erik',
+        lastName: 'Chen',
+        nickname: '小文',
+        phone: '0932345678',
+        address: '台北市',
+        posterIntro: '我是海報人',
+        helperIntro: '我是幫手人',
+        helperSkills: ['人力派遣', '市場調查'],
+        updatedAt: '2023-05-08T14:37:43.829Z',
+    },
 };
 
 module.exports = {

@@ -50,7 +50,12 @@ const accounts = {
         if (!userInfoForm) {
             return next(appError(404, '40002', '查詢不到此用戶'));
         }
-        res.json(userInfoForm);
+        return res.status(200).json(
+            getHttpResponse({
+                message: '更新成功',
+                data: userInfoForm,
+            }),
+        );
     }),
     getPoints: handleErrorAsync(async (req, res, next) => {
         const user = await User.findOne({ _id: req.user._id });
