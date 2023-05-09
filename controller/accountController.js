@@ -20,7 +20,7 @@ const accounts = {
     }),
     getInfoForm: handleErrorAsync(async (req, res, next) => {
         const userInfoForm = await User.findOne({ _id: req.user._id }).select(
-            'firstName lastName nickename email posterIntro helperIntro avatarPath address phone helperSkills -_id',
+            'firstName lastName nickname email posterIntro helperIntro avatarPath address phone helperSkills -_id',
         );
         if (!userInfoForm) {
             return next(appError(404, '40002', '查詢不到此用戶'));
