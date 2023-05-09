@@ -2359,47 +2359,60 @@
     "updateInfoForm": {
       "type": "object",
       "properties": {
-        "email": {
+        "status": {
           "type": "string",
-          "example": "user1@example.com"
+          "example": "success"
         },
-        "firstName": {
-          "type": "string",
-          "example": "Erik"
-        },
-        "lastName": {
-          "type": "string",
-          "example": "Chen"
-        },
-        "phone": {
-          "type": "string",
-          "example": "0932345678"
-        },
-        "address": {
-          "type": "string",
-          "example": "台北市"
-        },
-        "posterIntro": {
-          "type": "string",
-          "example": "我是海報人"
-        },
-        "helperIntro": {
-          "type": "string",
-          "example": "我是幫手人"
-        },
-        "helperSkills": {
-          "type": "array",
-          "example": [
-            "人力派遣",
-            "市場調查"
-          ],
-          "items": {
-            "type": "string"
+        "data": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string",
+              "example": "user1@example.com"
+            },
+            "firstName": {
+              "type": "string",
+              "example": "Erik"
+            },
+            "lastName": {
+              "type": "string",
+              "example": "Chen"
+            },
+            "nickname": {
+              "type": "string",
+              "example": "小文"
+            },
+            "phone": {
+              "type": "string",
+              "example": "0932345678"
+            },
+            "address": {
+              "type": "string",
+              "example": "台北市"
+            },
+            "posterIntro": {
+              "type": "string",
+              "example": "我是海報人"
+            },
+            "helperIntro": {
+              "type": "string",
+              "example": "我是幫手人"
+            },
+            "helperSkills": {
+              "type": "array",
+              "example": [
+                "人力派遣",
+                "市場調查"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "updatedAt": {
+              "type": "string",
+              "example": "2023-05-08T14:37:43.829Z"
+            }
           }
-        },
-        "updatedAt": {
-          "type": "string",
-          "example": "2023-05-08T14:37:43.829Z"
         }
       }
     }
