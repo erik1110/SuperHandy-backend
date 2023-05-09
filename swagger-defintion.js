@@ -10,7 +10,7 @@ const ErrorToken = {
     status: 'false',
     message: '你尚未登入',
     error: {
-        name: '40003',
+        name: '40300',
     },
 };
 
