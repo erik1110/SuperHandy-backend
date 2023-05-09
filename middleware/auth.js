@@ -29,12 +29,12 @@ const isAuth = handleErrorAsync(async (req, res, next) => {
     }
 
     if (!token) {
-        return next(appError(400, '40003', '你尚未登入'));
+        return next(appError(400, '40301', '你尚未登入'));
     }
 
     const decoded = await new Promise((resolve, reject) => {
         jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
-            err ? next(appError(400, '40003', 'Token 驗證錯誤')) : resolve(payload);
+            err ? next(appError(400, '40300', 'Token 驗證錯誤')) : resolve(payload);
         });
     });
 
@@ -43,7 +43,7 @@ const isAuth = handleErrorAsync(async (req, res, next) => {
         req.user = currentUser;
         next();
     } else {
-        return next(appError(400, '40010', '使用者不存在'));
+        return next(appError(400, '40200', '查詢不到此用戶'));
     }
 });
 
