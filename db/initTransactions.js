@@ -110,7 +110,7 @@ const initTransactions = async () => {
                 superCoin: 1170,
                 helperCoin: 0,
                 desc: ['薪資'],
-                role: '案主',
+                role: '幫手',
             },
             {
                 taskId: taskCase3._id,
@@ -122,7 +122,7 @@ const initTransactions = async () => {
                 superCoin: 599,
                 helperCoin: 0,
                 desc: ['薪資'],
-                role: '案主',
+                role: '幫手',
             },
             {
                 taskId: taskCase4._id,
@@ -134,7 +134,7 @@ const initTransactions = async () => {
                 superCoin: 510,
                 helperCoin: 0,
                 desc: ['薪資'],
-                role: '案主',
+                role: '幫手',
             },
             {
                 taskId: taskCase5._id,
@@ -146,7 +146,7 @@ const initTransactions = async () => {
                 superCoin: 899,
                 helperCoin: 0,
                 desc: ['薪資'],
-                role: '案主',
+                role: '幫手',
             },
         ];
         const userTransactions = [
