@@ -11,7 +11,7 @@ const accounts = {
     getProfile: handleErrorAsync(async (req, res, next) => {
         const user = await User.findOne({ _id: req.user._id }).select('firstName lastName nickname email avatarPath');
         if (!user) {
-            return next(appError(404, '40002', '查詢不到此用戶'));
+            return next(appError(404, '40200', '查詢不到此用戶'));
         }
         return res.status(200).json(
             getHttpResponse({
@@ -22,10 +22,10 @@ const accounts = {
     }),
     getInfoForm: handleErrorAsync(async (req, res, next) => {
         const userInfoForm = await User.findOne({ _id: req.user._id }).select(
-            'firstName lastName nickename email posterIntro helperIntro avatarPath address phone helperSkills -_id',
+            'firstName lastName nickname email posterIntro helperIntro avatarPath address phone helperSkills -_id',
         );
         if (!userInfoForm) {
-            return next(appError(404, '40002', '查詢不到此用戶'));
+            return next(appError(404, '40200', '查詢不到此用戶'));
         }
         return res.status(200).json(
             getHttpResponse({
@@ -50,9 +50,14 @@ const accounts = {
             select: acceptedFields.join(' '), //'nickname phone address posterIntro helperIntro -email'
         });
         if (!userInfoForm) {
-            return next(appError(404, '40002', '查詢不到此用戶'));
+            return next(appError(404, '40200', '查詢不到此用戶'));
         }
-        res.json(userInfoForm);
+        return res.status(200).json(
+            getHttpResponse({
+                message: '更新成功',
+                data: userInfoForm,
+            }),
+        );
     }),
     getPoints: handleErrorAsync(async (req, res, next) => {
         const user = await User.findOne({ _id: req.user._id });

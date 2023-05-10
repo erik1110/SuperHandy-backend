@@ -9,10 +9,10 @@ const devAuth = handleErrorAsync(async (req, res, next) => {
         token = req.headers.authorization.split(' ')[1];
     }
     if (token) {
-        // return next(appError(400, "40003", "你尚未登入"));
+        // return next(appError(400, "40300", "你尚未登入"));
         const decoded = await new Promise((resolve, reject) => {
             jwt.verify(token, process.env.JWT_SECRET, (err, payload) => {
-                err ? next(appError(400, '40003', 'Token 驗證錯誤')) : resolve(payload);
+                err ? next(appError(400, '40300', 'Token 驗證錯誤')) : resolve(payload);
             });
         });
 
@@ -27,7 +27,7 @@ const devAuth = handleErrorAsync(async (req, res, next) => {
         const accountId = req.query.accountId;
         const uid = req.query.uid;
         if (!uid && !accountId) {
-            return next(appError(400, '40003', '查無此帳號'));
+            return next(appError(400, '40300', '查無此帳號'));
         }
         if (!!uid) {
             req.user = await User.findById(uid);
@@ -45,7 +45,7 @@ const devAuth = handleErrorAsync(async (req, res, next) => {
             return next();
         }
     }
-    return next(appError(400, '40003', '查無此帳號'));
+    return next(appError(400, '40300', '查無此帳號'));
 });
 
 module.exports = {
