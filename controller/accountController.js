@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const { appError, handleErrorAsync } = require('../utils/errorHandler');
 const Task = require('../models/taskModel');
+const TaskTrans = require('../models/taskTransModel');
 const Review = require('../models/reviewModel');
 const User = require('../models/userModel');
+const UserTrans = require('../models/userTransModel');
 const getHttpResponse = require('../utils/successHandler');
 
 const accounts = {
@@ -102,6 +104,20 @@ const accounts = {
                     numOfCompletedTasks: numOfCompletedTasks,
                     ratingPoster: ratingPoster,
                     ratingHelper: ratingHelper,
+                },
+            }),
+        );
+    }),
+    getPointsHistory: handleErrorAsync(async (req, res, next) => {
+        const userTrans = await UserTrans.findOne({ userId: req.user._id });
+        // const taskTrans = await TaskTrans.findOne({ taskid: req.user._id });
+        console.log(userTrans)
+        // console.log(taskTrans)
+        res.status(200).json(
+            getHttpResponse({
+                message: '取得成功',
+                data: {
+                    userTrans: userTrans
                 },
             }),
         );
