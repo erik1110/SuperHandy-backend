@@ -774,15 +774,145 @@
         ]
       }
     },
-    "/account/testFindAllUser": {
-      "get": {
+    "/account/points/purchase": {
+      "post": {
         "tags": [
-          "Dev"
+          "Account"
         ],
-        "summary": "dev 取得所有user帳號",
+        "summary": "Purchase the super coin",
         "description": "",
-        "parameters": [],
-        "responses": {}
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "money": {
+                  "type": "number",
+                  "example": 500
+                }
+              },
+              "required": [
+                "money"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "購買成功",
+            "schema": {
+              "$ref": "#/definitions/cashbackPoints"
+            }
+          },
+          "400": {
+            "description": "Token 失敗",
+            "schema": {
+              "$ref": "#/definitions/ErrorToken"
+            }
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/account/points/cashback": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Refund in cash",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "point": {
+                  "type": "number",
+                  "example": 300
+                },
+                "bank": {
+                  "type": "string",
+                  "example": "台新銀行"
+                },
+                "bankNo": {
+                  "type": "string",
+                  "example": "812"
+                },
+                "bankAcct": {
+                  "type": "string",
+                  "example": "19011485059700"
+                }
+              },
+              "required": [
+                "point",
+                "bank",
+                "bankNo",
+                "bankAcct"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返還成功",
+            "schema": {
+              "$ref": "#/definitions/cashbackPoints"
+            }
+          },
+          "400": {
+            "description": "Token 失敗",
+            "schema": {
+              "$ref": "#/definitions/ErrorToken"
+            }
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/home/completed-cases": {
@@ -792,7 +922,13 @@
         ],
         "summary": "Get Completed Cases",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "取得成功",
@@ -816,7 +952,13 @@
         ],
         "summary": "Get Completed Reviews",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "取得成功",
@@ -840,7 +982,13 @@
         ],
         "summary": "Get task statistics count",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "取得成功",
@@ -864,7 +1012,13 @@
         ],
         "summary": "Get excellent helpers",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "取得成功",
@@ -888,7 +1042,13 @@
         ],
         "summary": "Get Service Category (including task description template)",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "取得成功",
@@ -918,7 +1078,13 @@
         ],
         "summary": "Get Exposure Plan",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "取得成功",
@@ -2357,6 +2523,58 @@
               "example": 25.0296587
             }
           }
+        }
+      }
+    },
+    "purchasePoints": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "superCoin": {
+              "type": "number",
+              "example": 750
+            },
+            "helperCoin": {
+              "type": "number",
+              "example": 1050
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "購買成功"
+        }
+      }
+    },
+    "cashbackPoints": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "superCoin": {
+              "type": "number",
+              "example": 450
+            },
+            "helperCoin": {
+              "type": "number",
+              "example": 1050
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "返還成功"
         }
       }
     }
