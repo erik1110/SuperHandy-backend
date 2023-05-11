@@ -17,11 +17,12 @@ const taskSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        required: true,
+        required: false,
+        default: '',
     },
     description: {
         type: String,
-        required: true,
+        required: false,
         default: '',
     },
     salary: {

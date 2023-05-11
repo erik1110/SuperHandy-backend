@@ -1134,20 +1134,29 @@
             "schema": {
               "type": "object",
               "properties": {
-                "formatted_address": {
+                "status": {
                   "type": "string",
-                  "example": "No. 45, City Hall Rd, Xinyi District, Taipei City, Taiwan 110"
+                  "example": "success"
                 },
-                "location": {
+                "data": {
                   "type": "object",
                   "properties": {
-                    "lat": {
-                      "type": "number",
-                      "example": 25.0341222
+                    "formatted_address": {
+                      "type": "string",
+                      "example": "No. 45, City Hall Rd, Xinyi District, Taipei City, Taiwan 110"
                     },
-                    "lng": {
-                      "type": "number",
-                      "example": 121.5640212
+                    "location": {
+                      "type": "object",
+                      "properties": {
+                        "lat": {
+                          "type": "number",
+                          "example": 25.0341222
+                        },
+                        "lng": {
+                          "type": "number",
+                          "example": 121.5640212
+                        }
+                      }
                     }
                   }
                 }
@@ -1208,12 +1217,12 @@
             "schema": {
               "type": "object",
               "properties": {
-                "message": {
+                "status": {
                   "type": "string",
-                  "example": "儲存成功"
+                  "example": "success"
                 },
                 "data": {
-                  "$ref": "#/definitions/taskDetail"
+                  "$ref": "#/definitions/taskDetailWithId"
                 }
               },
               "xml": {
@@ -1221,14 +1230,14 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "非新的草稿",
             "schema": {
               "type": "object",
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "儲存失敗"
+                  "example": "打錯API了，儲存已存在的草稿請用put"
                 }
               },
               "xml": {
@@ -1237,13 +1246,13 @@
             }
           },
           "500": {
-            "description": "Server Error",
+            "description": "系統錯誤",
             "schema": {
               "type": "object",
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "伺服器錯誤"
+                  "example": "系統錯誤，請稍後再試"
                 }
               },
               "xml": {
@@ -1279,6 +1288,10 @@
             "schema": {
               "type": "object",
               "properties": {
+                "taskId": {
+                  "type": "string",
+                  "example": "645be336a6b4506a5506be10"
+                },
                 "title": {
                   "type": "string",
                   "example": "任務標題"
@@ -1369,9 +1382,12 @@
             "schema": {
               "type": "object",
               "properties": {
-                "message": {
+                "status": {
                   "type": "string",
-                  "example": "儲存成功"
+                  "example": "scuccess"
+                },
+                "data": {
+                  "$ref": "#/definitions/taskDetailWithId"
                 }
               },
               "xml": {
@@ -1444,94 +1460,12 @@
             "schema": {
               "type": "object",
               "properties": {
-                "message": {
+                "status": {
                   "type": "string",
-                  "example": "儲存成功"
+                  "example": "success"
                 },
                 "data": {
-                  "type": "object",
-                  "properties": {
-                    "title": {
-                      "type": "string",
-                      "example": "任務標題"
-                    },
-                    "status": {
-                      "type": "string",
-                      "example": "published"
-                    },
-                    "category": {
-                      "type": "string",
-                      "example": "家事"
-                    },
-                    "description": {
-                      "type": "string",
-                      "example": "任務描述"
-                    },
-                    "salary": {
-                      "type": "number",
-                      "example": 1000
-                    },
-                    "exposurePlan": {
-                      "type": "string",
-                      "example": "一般曝光"
-                    },
-                    "imagesUrl": {
-                      "type": "array",
-                      "example": [
-                        "https://example.com/image1.jpg",
-                        "https://example.com/mage2.jpg"
-                      ],
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "contactInfo": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string",
-                          "example": "王小明"
-                        },
-                        "phone": {
-                          "type": "string",
-                          "example": "0912345678"
-                        },
-                        "email": {
-                          "type": "string",
-                          "example": "ming@gmail.com"
-                        }
-                      }
-                    },
-                    "location": {
-                      "type": "object",
-                      "properties": {
-                        "city": {
-                          "type": "string",
-                          "example": "台北市"
-                        },
-                        "dist": {
-                          "type": "string",
-                          "example": "信義區"
-                        },
-                        "address": {
-                          "type": "string",
-                          "example": "台北市信義區市府路45號"
-                        },
-                        "landmark": {
-                          "type": "string",
-                          "example": "台北101"
-                        },
-                        "lng": {
-                          "type": "number",
-                          "example": 121.5337064
-                        },
-                        "lat": {
-                          "type": "number",
-                          "example": 25.0296587
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/definitions/taskDetailWithId"
                 }
               },
               "xml": {
@@ -1539,14 +1473,14 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "40103此任務之狀態不可編輯",
             "schema": {
               "type": "object",
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "儲存失敗"
+                  "example": "此任務之狀態不可編輯"
                 }
               },
               "xml": {
@@ -1555,13 +1489,13 @@
             }
           },
           "500": {
-            "description": "Server Error",
+            "description": "系統錯誤",
             "schema": {
               "type": "object",
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "伺服器錯誤"
+                  "example": "系統錯誤，請稍後再試"
                 }
               },
               "xml": {
@@ -1600,89 +1534,7 @@
             "in": "body",
             "description": "草稿內容",
             "schema": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "type": "string",
-                  "example": "任務標題"
-                },
-                "status": {
-                  "type": "string",
-                  "example": "draft"
-                },
-                "category": {
-                  "type": "string",
-                  "example": "家事"
-                },
-                "description": {
-                  "type": "string",
-                  "example": "任務描述"
-                },
-                "salary": {
-                  "type": "number",
-                  "example": 1000
-                },
-                "exposurePlan": {
-                  "type": "string",
-                  "example": "一般曝光"
-                },
-                "imagesUrl": {
-                  "type": "array",
-                  "example": [
-                    "https://example.com/image1.jpg",
-                    "https://example.com/mage2.jpg"
-                  ],
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "contactInfo": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string",
-                      "example": "王小明"
-                    },
-                    "phone": {
-                      "type": "string",
-                      "example": "0912345678"
-                    },
-                    "email": {
-                      "type": "string",
-                      "example": "ming@gmail.com"
-                    }
-                  }
-                },
-                "location": {
-                  "type": "object",
-                  "properties": {
-                    "city": {
-                      "type": "string",
-                      "example": "台北市"
-                    },
-                    "dist": {
-                      "type": "string",
-                      "example": "信義區"
-                    },
-                    "address": {
-                      "type": "string",
-                      "example": "台北市信義區市府路45號"
-                    },
-                    "landmark": {
-                      "type": "string",
-                      "example": "台北101"
-                    },
-                    "lng": {
-                      "type": "number",
-                      "example": 121.5337064
-                    },
-                    "lat": {
-                      "type": "number",
-                      "example": 25.0296587
-                    }
-                  }
-                }
-              }
+              "$ref": "#/definitions/taskDetail"
             }
           }
         ],
@@ -1692,94 +1544,12 @@
             "schema": {
               "type": "object",
               "properties": {
-                "message": {
+                "status": {
                   "type": "string",
-                  "example": "儲存成功"
+                  "example": "success"
                 },
                 "data": {
-                  "type": "object",
-                  "properties": {
-                    "title": {
-                      "type": "string",
-                      "example": "任務標題"
-                    },
-                    "status": {
-                      "type": "string",
-                      "example": "draft"
-                    },
-                    "category": {
-                      "type": "string",
-                      "example": "家事"
-                    },
-                    "description": {
-                      "type": "string",
-                      "example": "任務描述"
-                    },
-                    "salary": {
-                      "type": "number",
-                      "example": 1000
-                    },
-                    "exposurePlan": {
-                      "type": "string",
-                      "example": "一般曝光"
-                    },
-                    "imagesUrl": {
-                      "type": "array",
-                      "example": [
-                        "https://example.com/image1.jpg",
-                        "https://example.com/mage2.jpg"
-                      ],
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "contactInfo": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string",
-                          "example": "王小明"
-                        },
-                        "phone": {
-                          "type": "string",
-                          "example": "0912345678"
-                        },
-                        "email": {
-                          "type": "string",
-                          "example": "ming@gmail.com"
-                        }
-                      }
-                    },
-                    "location": {
-                      "type": "object",
-                      "properties": {
-                        "city": {
-                          "type": "string",
-                          "example": "台北市"
-                        },
-                        "dist": {
-                          "type": "string",
-                          "example": "信義區"
-                        },
-                        "address": {
-                          "type": "string",
-                          "example": "台北市信義區市府路45號"
-                        },
-                        "landmark": {
-                          "type": "string",
-                          "example": "台北101"
-                        },
-                        "lng": {
-                          "type": "number",
-                          "example": 121.5337064
-                        },
-                        "lat": {
-                          "type": "number",
-                          "example": 25.0296587
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/definitions/taskDetailWithId"
                 }
               },
               "xml": {
@@ -1787,14 +1557,14 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "40103此任務之狀態不可編輯",
             "schema": {
               "type": "object",
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "儲存失敗"
+                  "example": "此任務之狀態不可編輯"
                 }
               },
               "xml": {
@@ -1803,13 +1573,13 @@
             }
           },
           "500": {
-            "description": "Server Error",
+            "description": "系統錯誤",
             "schema": {
               "type": "object",
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "伺服器錯誤"
+                  "example": "系統錯誤，請稍後再試"
                 }
               },
               "xml": {
@@ -1828,7 +1598,7 @@
         "tags": [
           "Posts"
         ],
-        "summary": "更新草稿",
+        "summary": "刪除任務",
         "description": "",
         "parameters": [
           {
@@ -1925,7 +1695,7 @@
               "properties": {
                 "status": {
                   "type": "string",
-                  "example": "draft"
+                  "example": "unpublished"
                 }
               }
             }
@@ -1933,13 +1703,13 @@
         ],
         "responses": {
           "200": {
-            "description": "刪除任務成功",
+            "description": "更新成功",
             "schema": {
               "type": "object",
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "刪除任務成功"
+                  "example": "success"
                 }
               },
               "xml": {
@@ -1947,14 +1717,14 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "40103任務狀態錯誤",
             "schema": {
               "type": "object",
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "儲存失敗"
+                  "example": "任務狀態錯誤"
                 }
               },
               "xml": {
@@ -1963,13 +1733,13 @@
             }
           },
           "500": {
-            "description": "Server Error",
+            "description": "系統錯誤",
             "schema": {
               "type": "object",
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "伺服器錯誤"
+                  "example": "系統錯誤，請稍後再試"
                 }
               },
               "xml": {
@@ -2577,6 +2347,180 @@
             "updatedAt": {
               "type": "string",
               "example": "2023-05-08T14:37:43.829Z"
+            }
+          }
+        }
+      }
+    },
+    "taskDetail": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "任務標題"
+        },
+        "status": {
+          "type": "string",
+          "example": "published"
+        },
+        "category": {
+          "type": "string",
+          "example": "家事"
+        },
+        "description": {
+          "type": "string",
+          "example": "任務描述"
+        },
+        "salary": {
+          "type": "number",
+          "example": 1000
+        },
+        "exposurePlan": {
+          "type": "string",
+          "example": "一般曝光"
+        },
+        "imagesUrl": {
+          "type": "array",
+          "example": [
+            "https://example.com/image1.jpg",
+            "https://example.com/mage2.jpg"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "contactInfo": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "王小明"
+            },
+            "phone": {
+              "type": "string",
+              "example": "0912345678"
+            },
+            "email": {
+              "type": "string",
+              "example": "ming@gmail.com"
+            }
+          }
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "example": "台北市"
+            },
+            "dist": {
+              "type": "string",
+              "example": "信義區"
+            },
+            "address": {
+              "type": "string",
+              "example": "台北市信義區市府路45號"
+            },
+            "landmark": {
+              "type": "string",
+              "example": "台北101"
+            },
+            "lng": {
+              "type": "number",
+              "example": 121.5337064
+            },
+            "lat": {
+              "type": "number",
+              "example": 25.0296587
+            }
+          }
+        }
+      }
+    },
+    "taskDetailWithId": {
+      "type": "object",
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "example": "645be336a6b4506a5506be10"
+        },
+        "title": {
+          "type": "string",
+          "example": "任務標題"
+        },
+        "status": {
+          "type": "string",
+          "example": "published"
+        },
+        "category": {
+          "type": "string",
+          "example": "家事"
+        },
+        "description": {
+          "type": "string",
+          "example": "任務描述"
+        },
+        "salary": {
+          "type": "number",
+          "example": 1000
+        },
+        "exposurePlan": {
+          "type": "string",
+          "example": "一般曝光"
+        },
+        "imagesUrl": {
+          "type": "array",
+          "example": [
+            "https://example.com/image1.jpg",
+            "https://example.com/mage2.jpg"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "contactInfo": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "王小明"
+            },
+            "phone": {
+              "type": "string",
+              "example": "0912345678"
+            },
+            "email": {
+              "type": "string",
+              "example": "ming@gmail.com"
+            }
+          }
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "example": "台北市"
+            },
+            "dist": {
+              "type": "string",
+              "example": "信義區"
+            },
+            "address": {
+              "type": "string",
+              "example": "台北市信義區市府路45號"
+            },
+            "landmark": {
+              "type": "string",
+              "example": "台北101"
+            },
+            "lng": {
+              "type": "number",
+              "example": 121.5337064
+            },
+            "lat": {
+              "type": "number",
+              "example": 25.0296587
             }
           }
         }
