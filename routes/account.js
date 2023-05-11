@@ -159,4 +159,71 @@ router.get('/points/history', function (req, res, next) {
     accountController.getPointsHistory(req, res, next);
 });
 
+/* 購買點數 */
+router.post('/points/purchase', function (req, res, next) {
+  /**
+  * #swagger.tags = ['Account']
+  * #swagger.summary = 'Purchase the super coin'
+  * #swagger.security = [{
+      "Bearer": []
+    }]
+  */
+   /**
+    #swagger.parameters['parameter_name'] = {
+    in: 'body',
+    schema: {
+      $money: 500,
+    }
+  }
+  */
+  /**
+  #swagger.responses[200] = {
+    description: '購買成功',
+  }
+  #swagger.responses[400] = {
+    description: 'Token 失敗',
+    schema: { $ref: '#/definitions/ErrorToken' }
+  }
+  #swagger.responses[404] = {
+    description: '無此路由',
+    schema: { $ref: '#/definitions/Error404' }
+  }
+  #swagger.responses[500] = {
+    description: '系統錯誤',
+    schema: { $ref: '#/definitions/Error500' }
+  }
+  */
+  accountController.purchasePoints(req, res, next);
+});
+
+/* 返還現金 */
+router.post('/points/cashback', function (req, res, next) {
+  /**
+  * #swagger.tags = ['Account']
+  * #swagger.summary = 'Refund in cash'
+  * #swagger.security = [{
+      "Bearer": []
+    }]
+  */
+  /**
+  #swagger.responses[200] = {
+    description: '返還成功',
+    schema: { $ref: '#/definitions/getProfileStats' }
+  }
+  #swagger.responses[400] = {
+    description: 'Token 失敗',
+    schema: { $ref: '#/definitions/ErrorToken' }
+  }
+  #swagger.responses[404] = {
+    description: '無此路由',
+    schema: { $ref: '#/definitions/Error404' }
+  }
+  #swagger.responses[500] = {
+    description: '系統錯誤',
+    schema: { $ref: '#/definitions/Error500' }
+  }
+  */
+  accountController.cashbackPoints(req, res, next);
+});
+
 module.exports = router;

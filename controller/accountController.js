@@ -5,6 +5,7 @@ const TaskTrans = require('../models/taskTransModel');
 const Review = require('../models/reviewModel');
 const User = require('../models/userModel');
 const UserTrans = require('../models/userTransModel');
+const ValidatorMoney = require('../service/validatorMoney');
 const getHttpResponse = require('../utils/successHandler');
 
 const accounts = {
@@ -156,6 +157,49 @@ const accounts = {
             getHttpResponse({
                 message: '取得成功',
                 data: result,
+            }),
+        );
+    }),
+    purchasePoints: handleErrorAsync(async (req, res, next) => {
+        const validatorResult = ValidatorMoney.checkPurchasePlan(req.body);
+        if (!validatorResult.status) {
+            return next(appError(400, '40102', validatorResult.msg));
+        }
+        const user = await User.findOne({ _id: req.user._id });
+        const money = req.body.money
+        const purchasePlan = { 100: 0, 500: 50, 1000: 200}
+        let desc = ['購買點數'];
+        if (purchasePlan[money] > 0) {
+            desc.push('點數贈送');
+        }
+        // 更新使用者點數
+        user.superCoin += money + purchasePlan[money];
+        user.helperCoin += purchasePlan[money];
+        await user.save();
+        // 新增一筆交易資訊
+        await UserTrans.create({
+            userId: req.user._id,
+            tag: '系統儲值',
+            superCoin: money,
+            helperCoin: purchasePlan[money],
+            desc: desc,
+            role: '系統',
+        });
+        res.status(200).json(
+            getHttpResponse({
+                message: '購買成功'
+            }),
+        );
+    }),
+    cashbackPoints: handleErrorAsync(async (req, res, next) => {
+        const user = await User.findOne({ _id: req.user._id });
+        res.status(200).json(
+            getHttpResponse({
+                message: '取得成功',
+                data: {
+                    superCoin: user.superCoin,
+                    helperCoin: user.helperCoin,
+                },
             }),
         );
     }),

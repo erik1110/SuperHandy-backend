@@ -774,6 +774,113 @@
         ]
       }
     },
+    "/account/points/purchase": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Purchase the super coin",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "money": {
+                  "type": "number",
+                  "example": 500
+                }
+              },
+              "required": [
+                "money"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "購買成功"
+          },
+          "400": {
+            "description": "Token 失敗",
+            "schema": {
+              "$ref": "#/definitions/ErrorToken"
+            }
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/account/points/cashback": {
+      "post": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "Refund in cash",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "返還成功",
+            "schema": {
+              "$ref": "#/definitions/getProfileStats"
+            }
+          },
+          "400": {
+            "description": "Token 失敗",
+            "schema": {
+              "$ref": "#/definitions/ErrorToken"
+            }
+          },
+          "404": {
+            "description": "無此路由",
+            "schema": {
+              "$ref": "#/definitions/Error404"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/home/completed-cases": {
       "get": {
         "tags": [
