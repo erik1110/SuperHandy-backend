@@ -47,7 +47,7 @@ const tasks = {
     //P03 OK OK
     createDraft: handleErrorAsync(async (req, res, next) => {
         const { title, status, category, description, salary, exposurePlan, imagesUrl, contactInfo, location, taskId: _id } = req.body;
-        if (!!_id) return next(appError(400, '40102', '打錯API了，儲存已存在的草稿請用put'));
+        if (!!_id) return next(appError(405, '40500', '不允許使用該方法'));
         // use TaskValidator to validate title
         const taskValidator = TaskValidator.validateField(title);
         if (!taskValidator.isValid) return next(appError(400, '40101', taskValidator.msg));
