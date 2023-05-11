@@ -227,6 +227,10 @@ const taskDetail = {
         lat: 25.0296587,
     },
 };
+const taskDetailWithId = {
+    taskId: '645be336a6b4506a5506be10',
+    ...taskDetail,
+};
 
 module.exports = {
     Success,
@@ -250,4 +254,5 @@ module.exports = {
     getInfoFormSuccess,
     updateInfoForm,
     taskDetail,
+    taskDetailWithId,
 };

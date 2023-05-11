@@ -57,7 +57,7 @@ router.post('/save-draft', async function (req, res, next) {
       description: 'OK',
       schema: {
       'status': 'success',
-      'data': {$ref: "#/definitions/taskDetail"}
+      'data': {$ref: '#/definitions/taskDetailWithId'}
       }
     }
     #swagger.responses[400] = {
@@ -83,7 +83,7 @@ router.post('/apply', async function (req, res, next) {
     in: 'body',
     description: '任務資料',
     schema: {
-        '_id':'645be336a6b4506a5506be10',
+        'taskId':'645be336a6b4506a5506be10',
         'title': '任務標題',
         'status': 'published',
         'category': '家事',
@@ -110,7 +110,7 @@ router.post('/apply', async function (req, res, next) {
       description: 'OK',
       schema: {
       'status': 'scuccess',
-      'data': {$ref: "#/definitions/taskDetail"}
+      'data': {$ref: "#/definitions/taskDetailWithId"}
       }
     }
     #swagger.responses[404] = {
@@ -144,7 +144,7 @@ router.get('/:taskId', async function (req, res, next) {
       description: 'OK',
       schema: {
       'status': 'success',
-      'data': {$ref: "#/definitions/taskDetail"}
+      'data': {$ref: "#/definitions/taskDetailWithId"}
       }
     }
     #swagger.responses[400] = {
@@ -191,7 +191,7 @@ router.put('/:taskId', async function (req, res, next) {
     },  
     #swagger.responses[200] = {
       description: 'OK',
-      schema: {'status': 'success','data': {$ref: "#/definitions/taskDetail"}}
+      schema: {'status': 'success','data': {$ref: "#/definitions/taskDetailWithId"}}
     }
     #swagger.responses[400] = {
       description: '40102未填寫taskId',

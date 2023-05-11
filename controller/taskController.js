@@ -46,7 +46,7 @@ const tasks = {
     }),
     //P03 OK OK
     createDraft: handleErrorAsync(async (req, res, next) => {
-        const { title, status, category, description, salary, exposurePlan, imagesUrl, contactInfo, location, _id } = req.body;
+        const { title, status, category, description, salary, exposurePlan, imagesUrl, contactInfo, location, taskId: _id } = req.body;
         if (!!_id) return next(appError(400, '40102', '打錯API了，儲存已存在的草稿請用put'));
         // use TaskValidator to validate title
         const taskValidator = TaskValidator.validateField(title);
@@ -72,6 +72,7 @@ const tasks = {
         if (!draftModel) {
             return next(appError(400, '40205', '應該不會走到這裡(tasks.createDraft)'));
         }
+        draftModel.taskId = draftModel._id;
         res.status(200).json(
             getHttpResponse({
                 data: draftModel,
@@ -80,7 +81,7 @@ const tasks = {
     }),
     //P02 待補金流
     publishTask: handleErrorAsync(async (req, res, next) => {
-        const { title, status, category, description, salary, exposurePlan, imagesUrl, contactInfo, location, _id } = req.body;
+        const { title, status, category, description, salary, exposurePlan, imagesUrl, contactInfo, location, taskId: _id } = req.body;
         const userId = req.user._id;
         // use TaskValidator to validate
         const taskValidator = TaskValidator.validateTaskAllField({
@@ -110,6 +111,7 @@ const tasks = {
             taskModel.time.publishedAt = currentTime;
             taskModel.time.updatedAt = currentTime;
             await taskModel.save();
+            taskModel.taskId = taskModel._id;
             return res.status(200).json(getHttpResponse({ data: taskModel }));
         } else {
             // todo 20230511 待補: check if user has enough coin to pay salary
@@ -133,6 +135,7 @@ const tasks = {
             });
             if (!newTaskModel) return next(appError(400, '40005', '不明錯誤'));
             // todo 20230511 待補: deduct user's coin
+            newTaskModel.taskId = newTaskModel._id;
             return res.status(200).json(getHttpResponse({ data: newTaskModel }));
         }
     }),
@@ -148,6 +151,7 @@ const tasks = {
         //check if the task is draft
         if (taskModel.status !== 'draft' || taskModel.status !== 'unpublished') return next(appError(400, '40103', '此任務之狀態不可編輯'));
         //return task
+        taskModel.taskId = taskModel._id;
         res.status(200).json(getHttpResponse({ data: taskModel }));
     }),
     //P01-02 OK OK
@@ -178,6 +182,7 @@ const tasks = {
             //get newTaskModel
             let newTaskModel = await Task.findOne({ _id: taskId, userId: userId });
             //return task
+            newTaskModel.taskId = newTaskModel._id;
             return res.status(200).json(getHttpResponse({ data: newTaskModel }));
         } else {
             const taskValidator = TaskValidator.validateTaskAllFields({
@@ -196,6 +201,7 @@ const tasks = {
             taskModel.imagesUrl = imagesUrl;
             taskModel.time.updatedAt = Date.now();
             await taskModel.save();
+            taskModel.taskId = taskModel._id;
             return res.status(200).json(getHttpResponse({ data: taskModel }));
         }
     }),
@@ -213,7 +219,7 @@ const tasks = {
         taskModel.time.deletedAt = Date.now();
         taskModel.time.updatedAt = Date.now();
         await taskModel.save();
-
+        taskModel.taskId = taskModel._id;
         return res.status(200).json(getHttpResponse({ data: taskModel }));
     }),
     //P01-04 OK
@@ -238,6 +244,7 @@ const tasks = {
             // todo 20230511 待補: 發送通知給helpers
         }
         await taskModel.save();
+        taskModel.taskId = taskModel._id;
         return res.status(200).json(getHttpResponse({ data: taskModel }));
     }),
 };
