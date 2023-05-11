@@ -41,7 +41,7 @@ const tasks = {
         if (geocodingResult.status === 'OK') {
             return res.status(200).json(getHttpResponse({ data: geocodingResult }));
         } else {
-            return res.status(404).json(geocodingResult);
+            return res.status(404).json(appError(404, '40400', '找不到該地址'));
         }
     }),
     //P03 OK OK
