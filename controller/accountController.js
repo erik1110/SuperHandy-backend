@@ -187,15 +187,39 @@ const accounts = {
         });
         res.status(200).json(
             getHttpResponse({
-                message: '購買成功'
+                message: '購買成功',
+                data: {
+                    superCoin: user.superCoin,
+                    helperCoin: user.helperCoin,
+                },
             }),
         );
     }),
     cashbackPoints: handleErrorAsync(async (req, res, next) => {
+        const validatorResult = ValidatorMoney.checkCashback(req.body);
+        if (!validatorResult.status) {
+            return next(appError(400, '40102', validatorResult.msg));
+        }
         const user = await User.findOne({ _id: req.user._id });
+        const {point, bank, bankNo, bankAcct }= req.body
+        if (point >= user.superCoin) {
+            return next(appError(400, '40211', '點數異常'));
+        }
+        // 更新使用者點數
+        user.superCoin -= point ;
+        await user.save();
+        // 新增一筆交易資訊
+        await UserTrans.create({
+            userId: req.user._id,
+            tag: '取出點數',
+            superCoin: -point,
+            helperCoin: 0,
+            desc: [bank, bankNo, bankAcct.slice(-5)],
+            role: '系統',
+        });
         res.status(200).json(
             getHttpResponse({
-                message: '取得成功',
+                message: '返還成功',
                 data: {
                     superCoin: user.superCoin,
                     helperCoin: user.helperCoin,

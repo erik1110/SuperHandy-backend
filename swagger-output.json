@@ -806,7 +806,10 @@
         ],
         "responses": {
           "200": {
-            "description": "購買成功"
+            "description": "購買成功",
+            "schema": {
+              "$ref": "#/definitions/cashbackPoints"
+            }
           },
           "400": {
             "description": "Token 失敗",
@@ -846,13 +849,44 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "point": {
+                  "type": "number",
+                  "example": 300
+                },
+                "bank": {
+                  "type": "string",
+                  "example": "台新銀行"
+                },
+                "bankNo": {
+                  "type": "string",
+                  "example": "812"
+                },
+                "bankAcct": {
+                  "type": "string",
+                  "example": "19011485059700"
+                }
+              },
+              "required": [
+                "point",
+                "bank",
+                "bankNo",
+                "bankAcct"
+              ]
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "返還成功",
             "schema": {
-              "$ref": "#/definitions/getProfileStats"
+              "$ref": "#/definitions/cashbackPoints"
             }
           },
           "400": {
@@ -2545,6 +2579,58 @@
               "example": "2023-05-08T14:37:43.829Z"
             }
           }
+        }
+      }
+    },
+    "purchasePoints": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "superCoin": {
+              "type": "number",
+              "example": 750
+            },
+            "helperCoin": {
+              "type": "number",
+              "example": 1050
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "購買成功"
+        }
+      }
+    },
+    "cashbackPoints": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "superCoin": {
+              "type": "number",
+              "example": 450
+            },
+            "helperCoin": {
+              "type": "number",
+              "example": 1050
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "返還成功"
         }
       }
     }

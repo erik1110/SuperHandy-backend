@@ -179,6 +179,7 @@ router.post('/points/purchase', function (req, res, next) {
   /**
   #swagger.responses[200] = {
     description: '購買成功',
+    schema: { $ref: '#/definitions/cashbackPoints' }
   }
   #swagger.responses[400] = {
     description: 'Token 失敗',
@@ -206,9 +207,20 @@ router.post('/points/cashback', function (req, res, next) {
     }]
   */
   /**
+  #swagger.parameters['parameter_name'] = {
+    in: 'body',
+    schema: {
+      $point: 300,
+      $bank: '台新銀行',
+      $bankNo: '812',
+      $bankAcct: '19011485059700'
+    }
+  }
+  */
+  /**
   #swagger.responses[200] = {
     description: '返還成功',
-    schema: { $ref: '#/definitions/getProfileStats' }
+    schema: { $ref: '#/definitions/cashbackPoints' }
   }
   #swagger.responses[400] = {
     description: 'Token 失敗',

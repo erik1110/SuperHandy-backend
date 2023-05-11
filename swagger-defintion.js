@@ -206,6 +206,24 @@ const updateInfoForm = {
     },
 };
 
+const purchasePoints = {
+    status: 'success',
+    data: {
+        superCoin: 750,
+        helperCoin: 1050
+    },
+    message: '購買成功',
+};
+
+const cashbackPoints = {
+    status: 'success',
+    data: {
+        superCoin: 450,
+        helperCoin: 1050
+    },
+    message: '返還成功',
+};
+
 module.exports = {
     Success,
     Error400,
@@ -227,4 +245,6 @@ module.exports = {
     getProfileSuccess,
     getInfoFormSuccess,
     updateInfoForm,
+    purchasePoints,
+    cashbackPoints
 };
