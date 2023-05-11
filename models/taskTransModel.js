@@ -5,9 +5,23 @@ const taskTransSchema = new mongoose.Schema({
         ref: 'Task',
         required: true,
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
     tag: {
         type: String,
         enum: ['刊登任務', '完成任務', '刪除任務'],
+    },
+    salary: {
+        type: Number,
+    },
+    exposurePlan: {
+        type: Number,
+    },
+    platform: {
+        type: Number,
     },
     superCoin: {
         type: Number,

@@ -157,7 +157,7 @@ router.get('/points/history', isAuth, function (req, res, next) {
       schema: { $ref: '#/definitions/Error500' }
     }
     */
-    accountController.getProfileStats(req, res, next);
+    accountController.getPointsHistory(req, res, next);
 });
 
 router.get('/testFindAllUser', async function (req, res, next) {
