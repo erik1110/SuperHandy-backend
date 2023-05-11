@@ -205,6 +205,32 @@ const updateInfoForm = {
         updatedAt: '2023-05-08T14:37:43.829Z',
     },
 };
+const taskDetail = {
+    title: '任務標題',
+    status: 'published',
+    category: '家事',
+    description: '任務描述',
+    salary: 1000,
+    exposurePlan: '一般曝光',
+    imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
+    contactInfo: {
+        name: '王小明',
+        phone: '0912345678',
+        email: 'ming@gmail.com',
+    },
+    location: {
+        city: '台北市',
+        dist: '信義區',
+        address: '台北市信義區市府路45號',
+        landmark: '台北101',
+        lng: 121.5337064,
+        lat: 25.0296587,
+    },
+};
+const taskDetailWithId = {
+    taskId: '645be336a6b4506a5506be10',
+    ...taskDetail,
+};
 
 module.exports = {
     Success,
@@ -227,4 +253,6 @@ module.exports = {
     getProfileSuccess,
     getInfoFormSuccess,
     updateInfoForm,
+    taskDetail,
+    taskDetailWithId,
 };
