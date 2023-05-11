@@ -21,11 +21,14 @@ router.get('/check-location', async function (req, res, next) {
     #swagger.responses[200] = {
       description: 'OK',
       schema: {
+        'status': 'success',
+        'data': {
         'formatted_address': 'No. 45, City Hall Rd, Xinyi District, Taipei City, Taiwan 110',
         'location': {
             'lat': 25.0341222,
             'lng': 121.5640212
         }
+      }
       }
     },
     #swagger.responses[404] = {
@@ -49,7 +52,7 @@ router.post('/save-draft', async function (req, res, next) {
     in: 'body',
     description: '任務資料',
     schema: {$ref: "#/definitions/taskDetail"}
-    },   
+    }, 
     #swagger.responses[200] = {
       description: 'OK',
       schema: {
@@ -106,7 +109,8 @@ router.post('/apply', async function (req, res, next) {
     #swagger.responses[200] = {
       description: 'OK',
       schema: {
-      'message': '儲存成功'
+      'status': 'scuccess',
+      'data': {$ref: "#/definitions/taskDetail"}
       }
     }
     #swagger.responses[404] = {
