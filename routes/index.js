@@ -4,7 +4,6 @@ const homeRouter = require('./home');
 const generalRouter = require('./general');
 const postTaskRouter = require('./postTask');
 const { isAuth } = require('../middleware/auth');
-const { devAuth } = require('../middleware/devAuth');
 /** 生成 Swagger 套件 */
 const swaggerUI = require('swagger-ui-express');
 const swaggerFile = require('../swagger-output.json');
