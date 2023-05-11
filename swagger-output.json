@@ -774,17 +774,6 @@
         ]
       }
     },
-    "/account/testFindAllUser": {
-      "get": {
-        "tags": [
-          "Dev"
-        ],
-        "summary": "dev 取得所有user帳號",
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
     "/home/completed-cases": {
       "get": {
         "tags": [
@@ -792,7 +781,13 @@
         ],
         "summary": "Get Completed Cases",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "取得成功",
@@ -816,7 +811,13 @@
         ],
         "summary": "Get Completed Reviews",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "取得成功",
@@ -840,7 +841,13 @@
         ],
         "summary": "Get task statistics count",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "取得成功",
@@ -864,7 +871,13 @@
         ],
         "summary": "Get excellent helpers",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "取得成功",
@@ -888,7 +901,13 @@
         ],
         "summary": "Get Service Category (including task description template)",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "取得成功",
@@ -918,7 +937,13 @@
         ],
         "summary": "Get Exposure Plan",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "取得成功",
