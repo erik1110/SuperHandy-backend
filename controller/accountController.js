@@ -116,38 +116,38 @@ const accounts = {
     getPointsHistory: handleErrorAsync(async (req, res, next) => {
         const userTrans = await UserTrans.find({ userId: req.user._id });
         const taskTrans = await TaskTrans.find({ userId: req.user._id });
-        const formattedUserTrans = userTrans.map(trans => {
+        const formattedUserTrans = userTrans.map((trans) => {
             return {
-              tag: trans.tag,
-              taskId: trans.taskId || null,
-              taskName: trans.taskName || null,
-              money: {
-                salary: trans.salary || 0,
-                exposurePlan: trans.exposurePlan || 0,
-                platform: trans.platform || 0,
-                superCoin: trans.superCoin || 0,
-                helperCoin: trans.helperCoin || 0
-              },
-              desc: trans.desc || [],
-              role: trans.role,
-              createdAt: trans.createdAt
+                tag: trans.tag,
+                taskId: trans.taskId || null,
+                taskName: trans.taskName || null,
+                money: {
+                    salary: trans.salary || 0,
+                    exposurePlan: trans.exposurePlan || 0,
+                    platform: trans.platform || 0,
+                    superCoin: trans.superCoin || 0,
+                    helperCoin: trans.helperCoin || 0,
+                },
+                desc: trans.desc || [],
+                role: trans.role,
+                createdAt: trans.createdAt,
             };
         });
-        const formattedTaskTrans = taskTrans.map(trans => {
+        const formattedTaskTrans = taskTrans.map((trans) => {
             return {
-              tag: trans.tag,
-              taskId: trans.taskId,
-              taskName: trans.taskName,
-              money: {
-                salary: trans.salary || 0,
-                exposurePlan: trans.exposurePlan || 0,
-                platform: trans.platform || 0,
-                superCoin: trans.superCoin || 0,
-                helperCoin: trans.helperCoin || 0
-              },
-              desc: trans.desc || [],
-              role: trans.role,
-              createdAt: trans.createdAt
+                tag: trans.tag,
+                taskId: trans.taskId,
+                taskName: trans.taskName,
+                money: {
+                    salary: trans.salary || 0,
+                    exposurePlan: trans.exposurePlan || 0,
+                    platform: trans.platform || 0,
+                    superCoin: trans.superCoin || 0,
+                    helperCoin: trans.helperCoin || 0,
+                },
+                desc: trans.desc || [],
+                role: trans.role,
+                createdAt: trans.createdAt,
             };
         });
         const result = formattedUserTrans.concat(formattedTaskTrans);
