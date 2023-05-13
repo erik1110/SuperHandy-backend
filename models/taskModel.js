@@ -5,11 +5,14 @@ const taskSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
+    isDraft: {
+        type: Boolean,
+        required: true,
+    },
     status: {
         type: String,
         required: true,
-        default: 'draft',
-        enum: ['draft', 'published', 'unpublished', 'deleted', 'inProgress', 'submitted', 'confirmed', 'completed', 'expired'],
+        enum: ['published', 'unpublished', 'deleted', 'inProgress', 'submitted', 'confirmed', 'completed', 'expired'],
     },
     title: {
         type: String,
@@ -153,7 +156,7 @@ const taskSchema = new mongoose.Schema({
             ref: 'Review',
         },
     ],
-    submmitInfo: {
+    submittedInfo: {
         imgUrls: {
             type: [String],
         },
