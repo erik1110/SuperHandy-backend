@@ -207,8 +207,7 @@ const updateInfoForm = {
 };
 const taskDetail = {
     title: '任務標題',
-    status: 'published',
-    category: '家事',
+    category: '到府驅蟲',
     description: '任務描述',
     salary: 1000,
     exposurePlan: '一般曝光',
@@ -222,9 +221,6 @@ const taskDetail = {
         city: '台北市',
         dist: '信義區',
         address: '台北市信義區市府路45號',
-        landmark: '台北101',
-        lng: 121.5337064,
-        lat: 25.0296587,
     },
 };
 const taskDetailWithId = {

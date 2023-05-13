@@ -1112,7 +1112,7 @@
         "tags": [
           "Posts"
         ],
-        "summary": "檢查地址(取得經緯度)",
+        "summary": "檢查地址 (Check Location)",
         "description": "",
         "parameters": [
           {
@@ -1189,12 +1189,91 @@
         ]
       }
     },
-    "/post-task/draft": {
+    "/post-task/draft/save": {
       "post": {
         "tags": [
           "Posts"
         ],
-        "summary": "儲存草稿",
+        "summary": "儲存草稿 (Save draft)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "任務資料",
+            "schema": {
+              "$ref": "#/definitions/taskDetail"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "success"
+                },
+                "data": {
+                  "$ref": "#/definitions/taskDetailWithId"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "非新的草稿",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "打錯API了，儲存已存在的草稿請用put"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "系統錯誤，請稍後再試"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/post-task/draft/publish": {
+      "post": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "發佈草稿 (Publish draft)",
         "description": "",
         "parameters": [
           {
@@ -1273,7 +1352,7 @@
         "tags": [
           "Posts"
         ],
-        "summary": "取得草稿",
+        "summary": "取得草稿 (Get the draft)",
         "description": "",
         "parameters": [
           {
@@ -1286,35 +1365,9 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
-          },
-          {
-            "name": "parameter_name",
-            "in": "body",
-            "description": "任務資料",
-            "schema": {
-              "$ref": "#/definitions/taskDetail"
-            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "string",
-                  "example": "success"
-                },
-                "data": {
-                  "$ref": "#/definitions/taskDetailWithId"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
           "400": {
             "description": "非新的草稿",
             "schema": {
@@ -1356,7 +1409,7 @@
         "tags": [
           "Posts"
         ],
-        "summary": "更新草稿",
+        "summary": "更新草稿 (Update the draft)",
         "description": "",
         "parameters": [
           {
@@ -1439,7 +1492,7 @@
         "tags": [
           "Posts"
         ],
-        "summary": "刪除草稿",
+        "summary": "刪除草稿(Delete the draft)",
         "description": "",
         "parameters": [
           {
@@ -1452,35 +1505,9 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
-          },
-          {
-            "name": "parameter_name",
-            "in": "body",
-            "description": "任務資料",
-            "schema": {
-              "$ref": "#/definitions/taskDetail"
-            }
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "status": {
-                  "type": "string",
-                  "example": "success"
-                },
-                "data": {
-                  "$ref": "#/definitions/taskDetailWithId"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
           "400": {
             "description": "非新的草稿",
             "schema": {
@@ -1519,12 +1546,12 @@
         ]
       }
     },
-    "/post-task/apply": {
+    "/post-task/publish": {
       "post": {
         "tags": [
           "Posts"
         ],
-        "summary": "發佈任務",
+        "summary": "發佈任務 (Publish a task)",
         "description": "",
         "parameters": [
           {
@@ -1684,112 +1711,24 @@
         ]
       }
     },
-    "/post-task/edit": {
+    "/post-task/edit/{taskId}": {
       "post": {
         "tags": [
           "Posts"
         ],
-        "summary": "編輯任務",
+        "summary": "編輯任務 (Edit the task)",
         "description": "",
         "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
-          },
-          {
-            "name": "parameter_name",
-            "in": "body",
-            "description": "任務資料",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "taskId": {
-                  "type": "string",
-                  "example": "645be336a6b4506a5506be10"
-                },
-                "title": {
-                  "type": "string",
-                  "example": "任務標題"
-                },
-                "status": {
-                  "type": "string",
-                  "example": "published"
-                },
-                "category": {
-                  "type": "string",
-                  "example": "家事"
-                },
-                "description": {
-                  "type": "string",
-                  "example": "任務描述"
-                },
-                "salary": {
-                  "type": "number",
-                  "example": 1000
-                },
-                "exposurePlan": {
-                  "type": "string",
-                  "example": "一般曝光"
-                },
-                "imagesUrl": {
-                  "type": "array",
-                  "example": [
-                    "https://example.com/image1.jpg",
-                    "https://example.com/mage2.jpg"
-                  ],
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "contactInfo": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string",
-                      "example": "王小明"
-                    },
-                    "phone": {
-                      "type": "string",
-                      "example": "0912345678"
-                    },
-                    "email": {
-                      "type": "string",
-                      "example": "ming@gmail.com"
-                    }
-                  }
-                },
-                "location": {
-                  "type": "object",
-                  "properties": {
-                    "city": {
-                      "type": "string",
-                      "example": "台北市"
-                    },
-                    "dist": {
-                      "type": "string",
-                      "example": "信義區"
-                    },
-                    "address": {
-                      "type": "string",
-                      "example": "台北市信義區市府路45號"
-                    },
-                    "landmark": {
-                      "type": "string",
-                      "example": "台北101"
-                    },
-                    "lng": {
-                      "type": "number",
-                      "example": 121.5337064
-                    },
-                    "lat": {
-                      "type": "number",
-                      "example": 25.0296587
-                    }
-                  }
-                }
-              }
-            }
           }
         ],
         "responses": {
@@ -1849,112 +1788,24 @@
         ]
       }
     },
-    "/post-task/republish": {
+    "/post-task/republish/{taskId}": {
       "post": {
         "tags": [
           "Posts"
         ],
-        "summary": "重新發佈任務",
+        "summary": "重新發佈任務 (Republish the task)",
         "description": "",
         "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
-          },
-          {
-            "name": "parameter_name",
-            "in": "body",
-            "description": "任務資料",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "taskId": {
-                  "type": "string",
-                  "example": "645be336a6b4506a5506be10"
-                },
-                "title": {
-                  "type": "string",
-                  "example": "任務標題"
-                },
-                "status": {
-                  "type": "string",
-                  "example": "published"
-                },
-                "category": {
-                  "type": "string",
-                  "example": "家事"
-                },
-                "description": {
-                  "type": "string",
-                  "example": "任務描述"
-                },
-                "salary": {
-                  "type": "number",
-                  "example": 1000
-                },
-                "exposurePlan": {
-                  "type": "string",
-                  "example": "一般曝光"
-                },
-                "imagesUrl": {
-                  "type": "array",
-                  "example": [
-                    "https://example.com/image1.jpg",
-                    "https://example.com/mage2.jpg"
-                  ],
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "contactInfo": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string",
-                      "example": "王小明"
-                    },
-                    "phone": {
-                      "type": "string",
-                      "example": "0912345678"
-                    },
-                    "email": {
-                      "type": "string",
-                      "example": "ming@gmail.com"
-                    }
-                  }
-                },
-                "location": {
-                  "type": "object",
-                  "properties": {
-                    "city": {
-                      "type": "string",
-                      "example": "台北市"
-                    },
-                    "dist": {
-                      "type": "string",
-                      "example": "信義區"
-                    },
-                    "address": {
-                      "type": "string",
-                      "example": "台北市信義區市府路45號"
-                    },
-                    "landmark": {
-                      "type": "string",
-                      "example": "台北101"
-                    },
-                    "lng": {
-                      "type": "number",
-                      "example": 121.5337064
-                    },
-                    "lat": {
-                      "type": "number",
-                      "example": 25.0296587
-                    }
-                  }
-                }
-              }
-            }
           }
         ],
         "responses": {
@@ -2014,112 +1865,24 @@
         ]
       }
     },
-    "/post-task/unpublish": {
+    "/post-task/unpublish/{taskId}": {
       "post": {
         "tags": [
           "Posts"
         ],
-        "summary": "下架任務",
+        "summary": "下架任務 (Unpublish the task)",
         "description": "",
         "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",
             "type": "string"
-          },
-          {
-            "name": "parameter_name",
-            "in": "body",
-            "description": "任務資料",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "taskId": {
-                  "type": "string",
-                  "example": "645be336a6b4506a5506be10"
-                },
-                "title": {
-                  "type": "string",
-                  "example": "任務標題"
-                },
-                "status": {
-                  "type": "string",
-                  "example": "published"
-                },
-                "category": {
-                  "type": "string",
-                  "example": "家事"
-                },
-                "description": {
-                  "type": "string",
-                  "example": "任務描述"
-                },
-                "salary": {
-                  "type": "number",
-                  "example": 1000
-                },
-                "exposurePlan": {
-                  "type": "string",
-                  "example": "一般曝光"
-                },
-                "imagesUrl": {
-                  "type": "array",
-                  "example": [
-                    "https://example.com/image1.jpg",
-                    "https://example.com/mage2.jpg"
-                  ],
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "contactInfo": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string",
-                      "example": "王小明"
-                    },
-                    "phone": {
-                      "type": "string",
-                      "example": "0912345678"
-                    },
-                    "email": {
-                      "type": "string",
-                      "example": "ming@gmail.com"
-                    }
-                  }
-                },
-                "location": {
-                  "type": "object",
-                  "properties": {
-                    "city": {
-                      "type": "string",
-                      "example": "台北市"
-                    },
-                    "dist": {
-                      "type": "string",
-                      "example": "信義區"
-                    },
-                    "address": {
-                      "type": "string",
-                      "example": "台北市信義區市府路45號"
-                    },
-                    "landmark": {
-                      "type": "string",
-                      "example": "台北101"
-                    },
-                    "lng": {
-                      "type": "number",
-                      "example": 121.5337064
-                    },
-                    "lat": {
-                      "type": "number",
-                      "example": 25.0296587
-                    }
-                  }
-                }
-              }
-            }
           }
         ],
         "responses": {
@@ -2783,13 +2546,9 @@
           "type": "string",
           "example": "任務標題"
         },
-        "status": {
-          "type": "string",
-          "example": "published"
-        },
         "category": {
           "type": "string",
-          "example": "家事"
+          "example": "到府驅蟲"
         },
         "description": {
           "type": "string",
@@ -2844,18 +2603,6 @@
             "address": {
               "type": "string",
               "example": "台北市信義區市府路45號"
-            },
-            "landmark": {
-              "type": "string",
-              "example": "台北101"
-            },
-            "lng": {
-              "type": "number",
-              "example": 121.5337064
-            },
-            "lat": {
-              "type": "number",
-              "example": 25.0296587
             }
           }
         }
@@ -2872,13 +2619,9 @@
           "type": "string",
           "example": "任務標題"
         },
-        "status": {
-          "type": "string",
-          "example": "published"
-        },
         "category": {
           "type": "string",
-          "example": "家事"
+          "example": "到府驅蟲"
         },
         "description": {
           "type": "string",
@@ -2933,18 +2676,6 @@
             "address": {
               "type": "string",
               "example": "台北市信義區市府路45號"
-            },
-            "landmark": {
-              "type": "string",
-              "example": "台北101"
-            },
-            "lng": {
-              "type": "number",
-              "example": 121.5337064
-            },
-            "lat": {
-              "type": "number",
-              "example": 25.0296587
             }
           }
         }
