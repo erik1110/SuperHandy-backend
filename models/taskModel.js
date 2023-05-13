@@ -5,14 +5,10 @@ const taskSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
     },
-    isDraft: {
-        type: Boolean,
-        required: true,
-    },
     status: {
         type: String,
         required: true,
-        enum: ['published', 'unpublished', 'deleted', 'inProgress', 'submitted', 'confirmed', 'completed', 'expired'],
+        enum: ['draft', 'published', 'unpublished', 'deleted', 'inProgress', 'submitted', 'confirmed', 'completed', 'expired'],
     },
     title: {
         type: String,
@@ -36,7 +32,7 @@ const taskSchema = new mongoose.Schema({
     exposurePlan: {
         type: String,
         required: false,
-        enum: ['一般曝光', '限時曝光', '黃金曝光', '限時黃金曝光'],
+        enum: ['一般曝光', '限時曝光', '黃金曝光', '限時黃金曝光', null],
     },
     imgUrls: {
         type: [String],

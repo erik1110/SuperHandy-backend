@@ -45,17 +45,32 @@ const tasks = {
     }),
     /* 儲存草稿 */
     saveDraft: handleErrorAsync(async (req, res, next) => {
-        const validatorResult = TaskValidator.emailCheck(req.body);
+        const validatorResult = TaskValidator.checkDraft(req.body);
         if (!validatorResult.status) {
             return next(appError(400, '40102', validatorResult.msg));
         }
-        // const { address } = req.query;
-        // const geocodingResult = await geocoding(address);
-        // if (geocodingResult.status === 'OK') {
-        //     return res.status(200).json(getHttpResponse({ data: geocodingResult }));
-        // } else {
-        //     return res.status(404).json(appError(404, '40400', '找不到該地址'));
-        // }
+        const draftModel = await Task.create({
+            userId: req.user._id,
+            title: req.body.title,
+            status: 'draft',
+            category: req.body.category || null,
+            description: req.body.description || null,
+            salary: req.body.salary || null,
+            exposurePlan: req.body.exposurePlan || null,
+            imagesUrl: req.body.imagesUrl || null,
+            contactInfo: req.body.contactInfo || null,
+            location: req.body.location || null,
+            time: {
+              createdAt: Date.now(),
+              updatedAt: Date.now(),
+            },
+        });
+        return res.status(200).json(
+            getHttpResponse({
+                message: '儲存草稿成功',
+                data: draftModel,
+            }),
+        );
     }),
     //P03 OK OK
     createDraft: handleErrorAsync(async (req, res, next) => {

@@ -14,7 +14,6 @@ const initTasks = async () => {
     const tasks = [
         {
             userId: userCase1._id,
-            isDraft: false,
             status: 'completed',
             title: '陪我家狗玩',
             category: '寵物陪伴',
@@ -70,7 +69,6 @@ const initTasks = async () => {
         },
         {
             userId: userCase2._id,
-            isDraft: false,
             status: 'completed',
             title: '幫忙做畢業專題',
             category: '文書處理',
@@ -126,7 +124,6 @@ const initTasks = async () => {
         },
         {
             userId: userCase3._id,
-            isDraft: false,
             status: 'completed',
             title: '協助居家清潔',
             category: '清潔外包',
@@ -182,7 +179,6 @@ const initTasks = async () => {
         },
         {
             userId: userCase4._id,
-            isDraft: false,
             status: 'completed',
             title: '陪我練習開車',
             category: '其他內容',
@@ -242,7 +238,6 @@ const initTasks = async () => {
         },
         {
             userId: userCase5._id,
-            isDraft: false,
             status: 'completed',
             title: 'Notion 教學',
             category: '電腦教學',
