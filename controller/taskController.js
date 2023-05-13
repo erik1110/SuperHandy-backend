@@ -2,7 +2,6 @@ const getHttpResponse = require('../utils/successHandler');
 const { appError, handleErrorAsync } = require('../utils/errorHandler');
 const Task = require('../models/taskModel');
 const TaskValidator = require('../service/taskValidator');
-const validator = require('validator');
 const geocoding = require('../utils/geocoding');
 
 const timeFields = {
@@ -34,7 +33,7 @@ const isStatusFlowValid = (currentStatus, nextStatus) => {
 };
 
 const tasks = {
-    //P04 OK
+    /* 確認地理資訊 */
     checkGeocoding: handleErrorAsync(async (req, res, next) => {
         const { address } = req.query;
         const geocodingResult = await geocoding(address);
@@ -43,6 +42,20 @@ const tasks = {
         } else {
             return res.status(404).json(appError(404, '40400', '找不到該地址'));
         }
+    }),
+    /* 儲存草稿 */
+    saveDraft: handleErrorAsync(async (req, res, next) => {
+        const validatorResult = TaskValidator.emailCheck(req.body);
+        if (!validatorResult.status) {
+            return next(appError(400, '40102', validatorResult.msg));
+        }
+        // const { address } = req.query;
+        // const geocodingResult = await geocoding(address);
+        // if (geocodingResult.status === 'OK') {
+        //     return res.status(200).json(getHttpResponse({ data: geocodingResult }));
+        // } else {
+        //     return res.status(404).json(appError(404, '40400', '找不到該地址'));
+        // }
     }),
     //P03 OK OK
     createDraft: handleErrorAsync(async (req, res, next) => {
