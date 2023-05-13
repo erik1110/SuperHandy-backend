@@ -10,7 +10,7 @@ const swaggerFile = require('../swagger-output.json');
 
 module.exports = (app) => {
     app.use('/', userRouter);
-    app.use('/account', accountRouter);
+    app.use('/account', isAuth, accountRouter);
     app.use('/home', homeRouter);
     app.use('/general', generalRouter);
     app.use('/post-task', isAuth, postTaskRouter);

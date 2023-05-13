@@ -2,9 +2,8 @@ var express = require('express');
 var router = express.Router();
 const User = require('../models/userModel');
 const accountController = require('../controller/accountController');
-const { isAuth } = require('../middleware/auth');
 
-router.get('/profile', isAuth, async function (req, res, next) {
+router.get('/profile', async function (req, res, next) {
     /**
      * #swagger.tags = ['Account']
      * #swagger.summary = '取得使用者資料概要'
@@ -18,7 +17,7 @@ router.get('/profile', isAuth, async function (req, res, next) {
     */
     accountController.getProfile(req, res, next);
 });
-router.get('/info-form', isAuth, async function (req, res, next) {
+router.get('/info-form', async function (req, res, next) {
     /**
      * #swagger.tags = ['Account']
      * #swagger.summary = '取得使用者表單資料'
@@ -32,7 +31,7 @@ router.get('/info-form', isAuth, async function (req, res, next) {
     */
     accountController.getInfoForm(req, res, next);
 });
-router.patch('/info-form', isAuth, async function (req, res, next) {
+router.patch('/info-form', async function (req, res, next) {
     /**
      * #swagger.tags = ['Account']
      * #swagger.summary = '更新使用者表單資料'
@@ -71,7 +70,7 @@ router.patch('/info-form', isAuth, async function (req, res, next) {
 });
 
 /* 取得目前超人幣、幫手幣的餘額 */
-router.get('/points', isAuth, function (req, res, next) {
+router.get('/points', function (req, res, next) {
     /**
   * #swagger.tags = ['Account']
   * #swagger.summary = 'Get the current balance of Super Coins and Helper Coins'
@@ -101,7 +100,7 @@ router.get('/points', isAuth, function (req, res, next) {
 });
 
 /* 取得6組數字統計 */
-router.get('/profile-stats', isAuth, function (req, res, next) {
+router.get('/profile-stats', function (req, res, next) {
     /**
     * #swagger.tags = ['Account']
     * #swagger.summary = 'Get user statistics figures'
@@ -131,7 +130,7 @@ router.get('/profile-stats', isAuth, function (req, res, next) {
 });
 
 /* 點數歷史紀錄 */
-router.get('/points/history', isAuth, function (req, res, next) {
+router.get('/points/history', function (req, res, next) {
     /**
     * #swagger.tags = ['Account']
     * #swagger.summary = 'Get the history of points'
@@ -160,28 +159,83 @@ router.get('/points/history', isAuth, function (req, res, next) {
     accountController.getPointsHistory(req, res, next);
 });
 
-router.get('/testFindAllUser', async function (req, res, next) {
-    /**
-     * #swagger.tags = ['Dev']
-     * #swagger.summary = 'dev 取得所有user帳號'
-     */
-    try {
-        const allUser = await User.find({}, '_id lastName firstName nickname email password');
-        res.status(200).json({
-            allUser,
-        });
-    } catch (err) {
-        if (err.name === 'ValidationError') {
-            const errorObj = {};
-            const { errors } = err;
-            Object.keys(errors).forEach((col) => (errorObj[col] = errors[col].message));
-            return res.status(400).json({
-                message: 'Validation Error',
-                errorObj,
-            });
-        }
-        next(err);
+/* 購買點數 */
+router.post('/points/purchase', function (req, res, next) {
+  /**
+  * #swagger.tags = ['Account']
+  * #swagger.summary = 'Purchase the super coin'
+  * #swagger.security = [{
+      "Bearer": []
+    }]
+  */
+   /**
+    #swagger.parameters['parameter_name'] = {
+    in: 'body',
+    schema: {
+      $money: 500,
     }
+  }
+  */
+  /**
+  #swagger.responses[200] = {
+    description: '購買成功',
+    schema: { $ref: '#/definitions/cashbackPoints' }
+  }
+  #swagger.responses[400] = {
+    description: 'Token 失敗',
+    schema: { $ref: '#/definitions/ErrorToken' }
+  }
+  #swagger.responses[404] = {
+    description: '無此路由',
+    schema: { $ref: '#/definitions/Error404' }
+  }
+  #swagger.responses[500] = {
+    description: '系統錯誤',
+    schema: { $ref: '#/definitions/Error500' }
+  }
+  */
+  accountController.purchasePoints(req, res, next);
+});
+
+/* 返還現金 */
+router.post('/points/cashback', function (req, res, next) {
+  /**
+  * #swagger.tags = ['Account']
+  * #swagger.summary = 'Refund in cash'
+  * #swagger.security = [{
+      "Bearer": []
+    }]
+  */
+  /**
+  #swagger.parameters['parameter_name'] = {
+    in: 'body',
+    schema: {
+      $point: 300,
+      $bank: '台新銀行',
+      $bankNo: '812',
+      $bankAcct: '19011485059700'
+    }
+  }
+  */
+  /**
+  #swagger.responses[200] = {
+    description: '返還成功',
+    schema: { $ref: '#/definitions/cashbackPoints' }
+  }
+  #swagger.responses[400] = {
+    description: 'Token 失敗',
+    schema: { $ref: '#/definitions/ErrorToken' }
+  }
+  #swagger.responses[404] = {
+    description: '無此路由',
+    schema: { $ref: '#/definitions/Error404' }
+  }
+  #swagger.responses[500] = {
+    description: '系統錯誤',
+    schema: { $ref: '#/definitions/Error500' }
+  }
+  */
+  accountController.cashbackPoints(req, res, next);
 });
 
 module.exports = router;
