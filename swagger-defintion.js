@@ -205,10 +205,32 @@ const updateInfoForm = {
         updatedAt: '2023-05-08T14:37:43.829Z',
     },
 };
-const taskDetail = {
+const draftTaskDetail = {
+    title: '任務標題',
+    category: '到府驅蟲',
+    description: '',
+    salary: 1000,
+    exposurePlan: '一般曝光',
+    imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
+    contactInfo: {
+        name: '王小明',
+        phone: '0912345678',
+        email: 'ming@gmail.com',
+    },
+    location: {
+        city: '台北市',
+        dist: '信義區',
+        address: '台北市信義區市府路45號',
+    },
+};
+const publishTaskDetail = {
     title: '任務標題',
     category: '到府驅蟲',
     description: '任務描述',
+    taskTrans: {
+        superCoin: 1000,
+        helperCoin: 0,
+    },
     salary: 1000,
     exposurePlan: '一般曝光',
     imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
@@ -225,7 +247,7 @@ const taskDetail = {
 };
 const taskDetailWithId = {
     taskId: '645be336a6b4506a5506be10',
-    ...taskDetail,
+    ...publishTaskDetail,
 };
 
 const purchasePoints = {
@@ -267,7 +289,8 @@ module.exports = {
     getProfileSuccess,
     getInfoFormSuccess,
     updateInfoForm,
-    taskDetail,
+    draftTaskDetail,
+    publishTaskDetail,
     taskDetailWithId,
     purchasePoints,
     cashbackPoints

@@ -203,7 +203,7 @@ const accounts = {
         const user = await User.findOne({ _id: req.user._id });
         const {point, bank, bankNo, bankAcct }= req.body
         if (point >= user.superCoin) {
-            return next(appError(400, '40211', '點數異常'));
+            return next(appError(400, '40211', `超人幣不足： ${user.superCoin}`));
         }
         // 更新使用者點數
         user.superCoin -= point ;

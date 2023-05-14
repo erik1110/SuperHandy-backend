@@ -1207,7 +1207,7 @@
             "in": "body",
             "description": "任務資料",
             "schema": {
-              "$ref": "#/definitions/taskDetail"
+              "$ref": "#/definitions/draftTaskDetail"
             }
           }
         ],
@@ -1268,7 +1268,7 @@
         ]
       }
     },
-    "/post-task/draft/publish": {
+    "/post-task/draft/publish/{taskId}": {
       "post": {
         "tags": [
           "Posts"
@@ -1276,6 +1276,12 @@
         "summary": "發佈草稿 (Publish draft)",
         "description": "",
         "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",
@@ -1286,7 +1292,7 @@
             "in": "body",
             "description": "任務資料",
             "schema": {
-              "$ref": "#/definitions/taskDetail"
+              "$ref": "#/definitions/publishTaskDetail"
             }
           }
         ],
@@ -1428,7 +1434,7 @@
             "in": "body",
             "description": "任務資料",
             "schema": {
-              "$ref": "#/definitions/taskDetail"
+              "$ref": "#/definitions/publishTaskDetail"
             }
           }
         ],
@@ -2539,7 +2545,76 @@
         }
       }
     },
-    "taskDetail": {
+    "draftTaskDetail": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "任務標題"
+        },
+        "category": {
+          "type": "string",
+          "example": "到府驅蟲"
+        },
+        "description": {
+          "type": "string",
+          "example": ""
+        },
+        "salary": {
+          "type": "number",
+          "example": 1000
+        },
+        "exposurePlan": {
+          "type": "string",
+          "example": "一般曝光"
+        },
+        "imagesUrl": {
+          "type": "array",
+          "example": [
+            "https://example.com/image1.jpg",
+            "https://example.com/mage2.jpg"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "contactInfo": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "王小明"
+            },
+            "phone": {
+              "type": "string",
+              "example": "0912345678"
+            },
+            "email": {
+              "type": "string",
+              "example": "ming@gmail.com"
+            }
+          }
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "example": "台北市"
+            },
+            "dist": {
+              "type": "string",
+              "example": "信義區"
+            },
+            "address": {
+              "type": "string",
+              "example": "台北市信義區市府路45號"
+            }
+          }
+        }
+      }
+    },
+    "publishTaskDetail": {
       "type": "object",
       "properties": {
         "title": {
@@ -2553,6 +2628,19 @@
         "description": {
           "type": "string",
           "example": "任務描述"
+        },
+        "taskTrans": {
+          "type": "object",
+          "properties": {
+            "superCoin": {
+              "type": "number",
+              "example": 1000
+            },
+            "helperCoin": {
+              "type": "number",
+              "example": 0
+            }
+          }
         },
         "salary": {
           "type": "number",
@@ -2626,6 +2714,19 @@
         "description": {
           "type": "string",
           "example": "任務描述"
+        },
+        "taskTrans": {
+          "type": "object",
+          "properties": {
+            "superCoin": {
+              "type": "number",
+              "example": 1000
+            },
+            "helperCoin": {
+              "type": "number",
+              "example": 0
+            }
+          }
         },
         "salary": {
           "type": "number",

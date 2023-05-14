@@ -48,7 +48,7 @@ router.post('/draft/save', async function (req, res, next) {
  #swagger.parameters['parameter_name'] = {
   in: 'body',
   description: '任務資料',
-  schema: {$ref: "#/definitions/taskDetail"}
+  schema: {$ref: "#/definitions/draftTaskDetail"}
   }, 
   #swagger.responses[200] = {
     description: 'OK',
@@ -69,7 +69,7 @@ router.post('/draft/save', async function (req, res, next) {
   tasks.saveDraft(req, res, next);
 });
 /* 發佈草稿 */
-router.post('/draft/publish', async function (req, res, next) {
+router.post('/draft/publish/:taskId', async function (req, res, next) {
   /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '發佈草稿 (Publish draft)'
@@ -79,7 +79,7 @@ router.post('/draft/publish', async function (req, res, next) {
  #swagger.parameters['parameter_name'] = {
   in: 'body',
   description: '任務資料',
-  schema: {$ref: "#/definitions/taskDetail"}
+  schema: {$ref: "#/definitions/publishTaskDetail"}
   }, 
   #swagger.responses[200] = {
     description: 'OK',
@@ -97,7 +97,7 @@ router.post('/draft/publish', async function (req, res, next) {
     schema: {'message': '系統錯誤，請稍後再試'}
   }
  */
-  tasks.saveDraft(req, res, next);
+  tasks.publishDraft(req, res, next);
 });
 /* 取得草稿 */
 router.get('/draft/:taskId', async function (req, res, next) {
@@ -129,7 +129,7 @@ router.put('/draft/:taskId', async function (req, res, next) {
   #swagger.parameters['parameter_name'] = {
     in: 'body',
     description: '任務資料',
-    schema: {$ref: "#/definitions/taskDetail"}
+    schema: {$ref: "#/definitions/publishTaskDetail"}
     }, 
     #swagger.responses[200] = {
       description: 'OK',
