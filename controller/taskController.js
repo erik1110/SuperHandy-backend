@@ -190,7 +190,7 @@ const tasks = {
         if (task.status !== 'draft') {
             return next(appError(405, '40500', `任務狀態錯誤 ${task.status}`));
         }
-        const updatedTask = await Task.findOneAndUpdate(
+        await Task.findOneAndUpdate(
             { _id: taskId },
             {
                 $set: {
