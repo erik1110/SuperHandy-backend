@@ -245,9 +245,16 @@ const publishTaskDetail = {
         address: '台北市信義區市府路45號',
     },
 };
-const taskDetailWithId = {
+const draftTaskDetailResponse = {
+    taskId: '645be336a6b4506a5506be10',
+    ...draftTaskDetail,
+    message: '儲存草稿成功'
+};
+
+const draft2publishTaskDetailResponse = {
     taskId: '645be336a6b4506a5506be10',
     ...publishTaskDetail,
+    message: '發佈草稿成功'
 };
 
 const purchasePoints = {
@@ -291,7 +298,8 @@ module.exports = {
     updateInfoForm,
     draftTaskDetail,
     publishTaskDetail,
-    taskDetailWithId,
+    draftTaskDetailResponse,
+    draft2publishTaskDetailResponse,
     purchasePoints,
     cashbackPoints
 };

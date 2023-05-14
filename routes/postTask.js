@@ -54,12 +54,8 @@ router.post('/draft/save', async function (req, res, next) {
     description: 'OK',
     schema: {
     'status': 'success',
-    'data': {$ref: '#/definitions/taskDetailWithId'}
+    'data': {$ref: '#/definitions/draftTaskDetailResponse'}
     }
-  }
-  #swagger.responses[400] = {
-    description: '非新的草稿',
-    schema: {'message': '打錯API了，儲存已存在的草稿請用put'}
   }
   #swagger.responses[500] = {
     description: '系統錯誤',
@@ -82,15 +78,11 @@ router.post('/draft/publish/:taskId', async function (req, res, next) {
   schema: {$ref: "#/definitions/publishTaskDetail"}
   }, 
   #swagger.responses[200] = {
-    description: 'OK',
+    description: '發佈草稿成功',
     schema: {
     'status': 'success',
-    'data': {$ref: '#/definitions/taskDetailWithId'}
+    'data': {$ref: '#/definitions/draft2publishTaskDetailResponse'}
     }
-  }
-  #swagger.responses[400] = {
-    description: '非新的草稿',
-    schema: {'message': '打錯API了，儲存已存在的草稿請用put'}
   }
   #swagger.responses[500] = {
     description: '系統錯誤',

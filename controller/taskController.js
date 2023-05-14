@@ -152,6 +152,7 @@ const tasks = {
         });
         res.status(200).json(
             getHttpResponse({
+                message: '發佈草稿成功',
                 data: publishModel,
             }),
         );

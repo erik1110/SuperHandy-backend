@@ -1222,22 +1222,7 @@
                   "example": "success"
                 },
                 "data": {
-                  "$ref": "#/definitions/taskDetailWithId"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "400": {
-            "description": "非新的草稿",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "打錯API了，儲存已存在的草稿請用put"
+                  "$ref": "#/definitions/draftTaskDetailResponse"
                 }
               },
               "xml": {
@@ -1298,7 +1283,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "發佈草稿成功",
             "schema": {
               "type": "object",
               "properties": {
@@ -1307,22 +1292,7 @@
                   "example": "success"
                 },
                 "data": {
-                  "$ref": "#/definitions/taskDetailWithId"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "400": {
-            "description": "非新的草稿",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "打錯API了，儲存已存在的草稿請用put"
+                  "$ref": "#/definitions/draft2publishTaskDetailResponse"
                 }
               },
               "xml": {
@@ -2696,7 +2666,84 @@
         }
       }
     },
-    "taskDetailWithId": {
+    "draftTaskDetailResponse": {
+      "type": "object",
+      "properties": {
+        "taskId": {
+          "type": "string",
+          "example": "645be336a6b4506a5506be10"
+        },
+        "title": {
+          "type": "string",
+          "example": "任務標題"
+        },
+        "category": {
+          "type": "string",
+          "example": "到府驅蟲"
+        },
+        "description": {
+          "type": "string",
+          "example": ""
+        },
+        "salary": {
+          "type": "number",
+          "example": 1000
+        },
+        "exposurePlan": {
+          "type": "string",
+          "example": "一般曝光"
+        },
+        "imagesUrl": {
+          "type": "array",
+          "example": [
+            "https://example.com/image1.jpg",
+            "https://example.com/mage2.jpg"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "contactInfo": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "王小明"
+            },
+            "phone": {
+              "type": "string",
+              "example": "0912345678"
+            },
+            "email": {
+              "type": "string",
+              "example": "ming@gmail.com"
+            }
+          }
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "example": "台北市"
+            },
+            "dist": {
+              "type": "string",
+              "example": "信義區"
+            },
+            "address": {
+              "type": "string",
+              "example": "台北市信義區市府路45號"
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "儲存草稿成功"
+        }
+      }
+    },
+    "draft2publishTaskDetailResponse": {
       "type": "object",
       "properties": {
         "taskId": {
@@ -2779,6 +2826,10 @@
               "example": "台北市信義區市府路45號"
             }
           }
+        },
+        "message": {
+          "type": "string",
+          "example": "發佈草稿成功"
         }
       }
     },
