@@ -10,7 +10,7 @@ const ErrorToken = {
     status: 'false',
     message: '你尚未登入',
     error: {
-        name: '40003',
+        name: '40300',
     },
 };
 
@@ -162,6 +162,160 @@ const getProfileStats = {
     message: '取得成功',
 };
 
+const getProfileSuccess = {
+    status: 'success',
+    data: {
+        _id: '645905b344f899648941de61',
+        email: 'user1@example.com',
+        firstName: '文方',
+        lastName: '翁',
+        avatarPath: '',
+        nickname: '小文',
+    },
+    message: '查詢成功',
+};
+
+const getInfoFormSuccess = {
+    status: 'success',
+    data: {
+        email: 'user1@example.com',
+        firstName: '文方',
+        lastName: '翁',
+        phone: '0932345678',
+        avatarPath: '',
+        address: '',
+        posterIntro: '我是公正黨文宣部副主任兼黨部發言人。',
+        helperIntro: '',
+        helperSkills: [],
+    },
+    message: '查詢成功',
+};
+const updateInfoForm = {
+    status: 'success',
+    data: {
+        email: 'user1@example.com',
+        firstName: 'Erik',
+        lastName: 'Chen',
+        nickname: '小文',
+        phone: '0932345678',
+        address: '台北市',
+        posterIntro: '我是海報人',
+        helperIntro: '我是幫手人',
+        helperSkills: ['人力派遣', '市場調查'],
+        updatedAt: '2023-05-08T14:37:43.829Z',
+    },
+};
+const draftTaskDetail = {
+    title: '任務標題',
+    category: '到府驅蟲',
+    description: '',
+    salary: 1000,
+    exposurePlan: '一般曝光',
+    imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
+    contactInfo: {
+        name: '王小明',
+        phone: '0912345678',
+        email: 'ming@gmail.com',
+    },
+    location: {
+        city: '台北市',
+        dist: '信義區',
+        address: '台北市信義區市府路45號',
+    },
+};
+const publishTaskDetail = {
+    title: '任務標題',
+    category: '到府驅蟲',
+    description: '任務描述',
+    taskTrans: {
+        superCoin: 1000,
+        helperCoin: 0,
+    },
+    salary: 1000,
+    exposurePlan: '一般曝光',
+    imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
+    contactInfo: {
+        name: '王小明',
+        phone: '0912345678',
+        email: 'ming@gmail.com',
+    },
+    location: {
+        city: '台北市',
+        dist: '信義區',
+        address: '台北市信義區市府路45號',
+    },
+};
+const getDraftResponse = {
+    status: 'success',
+    data: {
+        userId: '645f125ab001884876e3a12a',
+        status: 'draft',
+        title: '任務標題',
+        category: '到府驅蟲',
+        description: null,
+        salary: 1000,
+        exposurePlan: '一般曝光',
+        imgUrls: [],
+        contactInfo: {
+            name: '王小明',
+            phone: '0912345678',
+            email: 'ming@gmail.com',
+        },
+        location: {
+            city: '台北市',
+            dist: '信義區',
+            address: '台北市信義區市府路45號',
+        },
+        viewers: [],
+        viewerCount: 0,
+        isUrgent: false,
+        time: {
+            createdAt: '2023-05-16T05:21:26.144Z',
+            updatedAt: '2023-05-16T05:21:26.144Z',
+        },
+        reviews: [],
+        submittedInfo: { imgUrls: [] },
+        helpers: [],
+        taskId: '6460a24905b52c47e04f4f38',
+    },
+    message: '取得草稿成功',
+};
+
+const unpublishEditDetail = {
+    title: '新的任務',
+    category: '到府驅蟲',
+    description: '這個任務非常困難',
+    imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
+    contactInfo: {
+        name: '王小明',
+        phone: '0912345678',
+        email: 'ming@gmail.com',
+    },
+    location: {
+        city: '台北市',
+        dist: '信義區',
+        address: '台北市信義區市府路45號',
+    },
+};
+
+const purchasePoints = {
+    status: 'success',
+    data: {
+        superCoin: 750,
+        helperCoin: 1050,
+    },
+    message: '購買成功',
+};
+
+const cashbackPoints = {
+    status: 'success',
+    data: {
+        superCoin: 450,
+        helperCoin: 1050,
+    },
+    message: '返還成功',
+};
+
 module.exports = {
     Success,
     Error400,
@@ -180,4 +334,13 @@ module.exports = {
     getExcellentHelpersSuccess,
     getPoints,
     getProfileStats,
+    getProfileSuccess,
+    getInfoFormSuccess,
+    updateInfoForm,
+    draftTaskDetail,
+    publishTaskDetail,
+    getDraftResponse,
+    unpublishEditDetail,
+    purchasePoints,
+    cashbackPoints,
 };
