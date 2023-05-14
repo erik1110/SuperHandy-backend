@@ -1210,7 +1210,7 @@
         ]
       }
     },
-    "/post-task/draft/save": {
+    "/post-task/draft": {
       "post": {
         "tags": [
           "Posts"
@@ -1320,7 +1320,7 @@
         ]
       }
     },
-    "/post-task/draft/publish/{taskId}": {
+    "/post-task/draft/{taskId}": {
       "post": {
         "tags": [
           "Posts"
@@ -1425,9 +1425,7 @@
             "Bearer": []
           }
         ]
-      }
-    },
-    "/post-task/draft/{taskId}": {
+      },
       "get": {
         "tags": [
           "Posts"
@@ -1767,7 +1765,7 @@
             }
           },
           "400": {
-            "description": "欄位錯誤提示、任務狀態錯誤、超人幣不足、幫手幣不足、找不到該地址",
+            "description": "欄位錯誤提示、超人幣不足、幫手幣不足、找不到該地址",
             "schema": {
               "type": "object",
               "properties": {
@@ -1784,7 +1782,7 @@
                   "properties": {
                     "name": {
                       "type": "string",
-                      "example": "[40102, 40214, 40211, 40211, 40400]"
+                      "example": "[40102, 40211, 40211, 40400]"
                     },
                     "statusCode": {
                       "type": "number",

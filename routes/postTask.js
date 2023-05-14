@@ -44,7 +44,7 @@ router.get('/check-location', async function (req, res, next) {
     tasks.checkGeocoding(req, res, next);
 });
 /* 儲存草稿 */
-router.post('/draft/save', async function (req, res, next) {
+router.post('/draft', async function (req, res, next) {
   /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '儲存草稿 (Save draft)'
@@ -84,7 +84,7 @@ router.post('/draft/save', async function (req, res, next) {
   tasks.saveDraft(req, res, next);
 });
 /* 發佈草稿 */
-router.post('/draft/publish/:taskId', async function (req, res, next) {
+router.post('/draft/:taskId', async function (req, res, next) {
   /**
    * #swagger.tags = ['Posts']
    * #swagger.summary = '發佈草稿 (Publish draft)'
@@ -248,12 +248,12 @@ router.post('/publish', async function (req, res, next) {
     }
   }
   #swagger.responses[400] = {
-    description: '欄位錯誤提示、任務狀態錯誤、超人幣不足、幫手幣不足、找不到該地址',
+    description: '欄位錯誤提示、超人幣不足、幫手幣不足、找不到該地址',
     schema: {
       'status': 'false',
       'message': '錯誤訊息',
       'error': {
-        'name': '[40102, 40214, 40211, 40211, 40400]',
+        'name': '[40102, 40211, 40211, 40400]',
         'statusCode': 400,
         'isOperational': true
       }
