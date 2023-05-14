@@ -1,4 +1,4 @@
-module.exports = class ValidatorMoney {
+module.exports = class moneyValidator {
     /**
      *
      * @param {Object} param0 { money } 要驗證的金額

@@ -117,13 +117,13 @@ module.exports = class Validator {
         if (!isEmail && !isPhone) {
             return {
                 status: false,
-                msg: '帳號格式不正確!',
+                msg: '帳號或密碼不正確',
             };
         }
         if (!validator.isLength(password, { min: 8 })) {
             return {
                 status: false,
-                msg: '密碼少於8位數!',
+                msg: '帳號或密碼不正確!',
             };
         }
         return {
