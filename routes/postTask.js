@@ -28,12 +28,18 @@ router.get('/check-location', async function (req, res, next) {
       }
       }
     },
-    #swagger.responses[404] = {
-      description: 'Not Found',
+    #swagger.responses[400] = {
+      description: '找不到該地址',
       schema: {
-        'message': '查無地址'
+        'status': 'false',
+        'message': '找不到該地址',
+        'error': {
+          'name': '40400',
+          'statusCode': 400,
+          'isOperational': true
+        }
       }
-    } 
+    }
     */
     tasks.checkGeocoding(req, res, next);
 });
@@ -56,6 +62,18 @@ router.post('/draft/save', async function (req, res, next) {
     'status': 'success',
     'message': '儲存草稿成功',
     'data': { 'taskId' : '645be336a6b4506a5506be10'}
+    }
+  }
+  #swagger.responses[400] = {
+    description: '欄位錯誤提示',
+    schema: {
+      'status': 'false',
+      'message': '錯誤訊息',
+      'error': {
+        'name': '40102',
+        'statusCode': 400,
+        'isOperational': true
+      }
     }
   }
   #swagger.responses[500] = {
@@ -85,6 +103,18 @@ router.post('/draft/publish/:taskId', async function (req, res, next) {
     'message': '發佈草稿成功',
     }
   }
+  #swagger.responses[400] = {
+    description: '欄位錯誤提示、查無此任務、沒有權限、任務狀態錯誤、超人幣不足、幫手幣不足、找不到該地址',
+    schema: {
+      'status': 'false',
+      'message': '錯誤訊息',
+      'error': {
+        'name': '[40102, 40212, 40302, 40214, 40211, 40211, 40400]',
+        'statusCode': 400,
+        'isOperational': true
+      }
+    }
+  }
   #swagger.responses[500] = {
     description: '系統錯誤',
     schema: {'message': '系統錯誤，請稍後再試'}
@@ -105,8 +135,16 @@ router.get('/draft/:taskId', async function (req, res, next) {
       schema: {$ref: '#/definitions/getDraftResponse'}
     }
     #swagger.responses[400] = {
-      description: '非新的草稿',
-      schema: {'message': '打錯API了，儲存已存在的草稿請用put'}
+      description: '查無此任務、沒有權限、任務狀態錯誤',
+      schema: {
+        'status': 'false',
+        'message': '錯誤訊息',
+        'error': {
+          'name': '[40212, 40302, 40214]',
+          'statusCode': 400,
+          'isOperational': true
+        }
+      }
     }
     #swagger.responses[500] = {
       description: '系統錯誤',
@@ -135,6 +173,18 @@ router.put('/draft/:taskId', async function (req, res, next) {
       'message': '更新草稿成功'
       }
     }
+    #swagger.responses[400] = {
+      description: '欄位錯誤提示、查無此任務、沒有權限、任務狀態錯誤',
+      schema: {
+        'status': 'false',
+        'message': '錯誤訊息',
+        'error': {
+          'name': '[40102, 40212, 40302, 40214]',
+          'statusCode': 400,
+          'isOperational': true
+        }
+      }
+    }
     #swagger.responses[500] = {
       description: '系統錯誤',
       schema: {'message': '系統錯誤，請稍後再試'}
@@ -155,6 +205,18 @@ router.delete('/draft/:taskId', async function (req, res, next) {
       schema: {
       'status': 'success',
       'message': '刪除草稿成功'
+      }
+    }
+    #swagger.responses[400] = {
+      description: '查無此任務、沒有權限、任務狀態錯誤',
+      schema: {
+        'status': 'false',
+        'message': '錯誤訊息',
+        'error': {
+          'name': '[40212, 40302, 40214]',
+          'statusCode': 400,
+          'isOperational': true
+        }
       }
     }
     #swagger.responses[500] = {
@@ -185,10 +247,16 @@ router.post('/publish', async function (req, res, next) {
     'data': { 'taskId' : '645be336a6b4506a5506be10'}
     }
   }
-  #swagger.responses[404] = {
-    description: 'Not Found',
+  #swagger.responses[400] = {
+    description: '欄位錯誤提示、任務狀態錯誤、超人幣不足、幫手幣不足、找不到該地址',
     schema: {
-    'message': '儲存失敗'
+      'status': 'false',
+      'message': '錯誤訊息',
+      'error': {
+        'name': '[40102, 40214, 40211, 40211, 40400]',
+        'statusCode': 400,
+        'isOperational': true
+      }
     }
   }
   #swagger.responses[500] = {
@@ -214,6 +282,18 @@ router.post('/edit/:taskId', async function (req, res, next) {
     schema: {
       'status': 'success',
       'message': '編輯下架任務成功',
+    }
+  }
+  #swagger.responses[400] = {
+    description: '欄位錯誤提示、沒有權限、任務狀態錯誤、找不到該地址',
+    schema: {
+      'status': 'false',
+      'message': '錯誤訊息',
+      'error': {
+        'name': '[40102, 40302, 40214, 40400]',
+        'statusCode': 400,
+        'isOperational': true
+      }
     }
   }
   #swagger.responses[500] = {
@@ -270,6 +350,18 @@ router.post('/unpublish/:taskId', async function (req, res, next) {
     schema: {
     'status': 'success',
     'message': '下架任務成功',
+    }
+  }
+  #swagger.responses[400] = {
+    description: '查無此任務、沒有權限、任務狀態錯誤',
+    schema: {
+      'status': 'false',
+      'message': '錯誤訊息',
+      'error': {
+        'name': '[40212, 40302, 40214]',
+        'statusCode': 400,
+        'isOperational': true
+      }
     }
   }
   #swagger.responses[500] = {
