@@ -59,7 +59,7 @@ const home = {
         const formattedReviews = reviews.map((review) => ({
             _id: review._id,
             comment: review.comment,
-            avatarPath: review.avatarPath,
+            avatar: review.avatarPath,
             name: review.name,
         }));
         res.status(200).json(
