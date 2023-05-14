@@ -1841,6 +1841,14 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "任務資料",
+            "schema": {
+              "$ref": "#/definitions/unpublishEditDetail"
+            }
           }
         ],
         "responses": {
@@ -1944,13 +1952,17 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "重新發佈任務成功",
             "schema": {
               "type": "object",
               "properties": {
                 "status": {
                   "type": "string",
                   "example": "success"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "重新發佈任務成功"
                 }
               },
               "xml": {
@@ -1958,14 +1970,35 @@
               }
             }
           },
-          "404": {
-            "description": "Not Found",
+          "400": {
+            "description": "Id 格式錯誤、查無此任務、沒有權限、任務狀態錯誤",
             "schema": {
               "type": "object",
               "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
                 "message": {
                   "type": "string",
-                  "example": "儲存失敗"
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40104, 40212, 40302, 40214]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
                 }
               },
               "xml": {
@@ -2018,7 +2051,7 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "下架任務成功",
             "schema": {
               "type": "object",
               "properties": {
@@ -2972,6 +3005,67 @@
         "message": {
           "type": "string",
           "example": "取得草稿成功"
+        }
+      }
+    },
+    "unpublishEditDetail": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "新的任務"
+        },
+        "category": {
+          "type": "string",
+          "example": "到府驅蟲"
+        },
+        "description": {
+          "type": "string",
+          "example": "這個任務非常困難"
+        },
+        "imagesUrl": {
+          "type": "array",
+          "example": [
+            "https://example.com/image1.jpg",
+            "https://example.com/mage2.jpg"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "contactInfo": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "王小明"
+            },
+            "phone": {
+              "type": "string",
+              "example": "0912345678"
+            },
+            "email": {
+              "type": "string",
+              "example": "ming@gmail.com"
+            }
+          }
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "city": {
+              "type": "string",
+              "example": "台北市"
+            },
+            "dist": {
+              "type": "string",
+              "example": "信義區"
+            },
+            "address": {
+              "type": "string",
+              "example": "台北市信義區市府路45號"
+            }
+          }
         }
       }
     },

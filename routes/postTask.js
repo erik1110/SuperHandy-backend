@@ -277,6 +277,11 @@ router.post('/edit/:taskId', async function (req, res, next) {
    */
   /**
   #swagger.security=[{"Bearer": []}]
+  #swagger.parameters['parameter_name'] = {
+    in: 'body',
+    description: '任務資料',
+    schema: {$ref: "#/definitions/unpublishEditDetail"}
+    },
   #swagger.responses[200] = {
     description: '編輯下架任務成功',
     schema: {
@@ -315,15 +320,22 @@ router.post('/republish/:taskId', async function (req, res, next) {
   /**
   #swagger.security=[{"Bearer": []}]
   #swagger.responses[200] = {
-    description: 'OK',
+    description: '重新發佈任務成功',
     schema: {
-      'status': 'success',
+    'status': 'success',
+    'message': '重新發佈任務成功',
     }
   }
-  #swagger.responses[404] = {
-    description: 'Not Found',
+  #swagger.responses[400] = {
+    description: 'Id 格式錯誤、查無此任務、沒有權限、任務狀態錯誤',
     schema: {
-    'message': '儲存失敗'
+      'status': 'false',
+      'message': '錯誤訊息',
+      'error': {
+        'name': '[40104, 40212, 40302, 40214]',
+        'statusCode': 400,
+        'isOperational': true
+      }
     }
   }
   #swagger.responses[500] = {
@@ -333,7 +345,7 @@ router.post('/republish/:taskId', async function (req, res, next) {
     }
   }
  */
-  tasks.publishTask(req, res, next);
+  tasks.republishTask(req, res, next);
 });
 
 /* 下架任務 */
@@ -345,7 +357,7 @@ router.post('/unpublish/:taskId', async function (req, res, next) {
   /**
   #swagger.security=[{"Bearer": []}]
   #swagger.responses[200] = {
-    description: 'OK',
+    description: '下架任務成功',
     schema: {
     'status': 'success',
     'message': '下架任務成功',

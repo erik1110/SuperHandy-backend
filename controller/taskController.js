@@ -365,6 +365,40 @@ const tasks = {
             }),
         );
     }),
+    /* 重新發佈任務 */
+    republishTask: handleErrorAsync(async (req, res, next) => {
+        const taskId = req.params.taskId;
+        if (!mongoose.isValidObjectId(taskId)) {
+            return next(appError(400, '40104', 'Id 格式錯誤'));
+        }
+        const task = await Task.findOne({ _id: taskId });
+        if (!task) {
+            return next(appError(404, '40212', '查無此任務'));
+        }
+        if (task.userId.toString() !== req.user._id.toString()) {
+            return next(appError(403, '40302', '沒有權限'));
+        }
+        if (task.status !== 'unpublished') {
+            return next(appError(405, '40214', `任務狀態錯誤 ${task.status}`));
+        }
+        // 這邊需要發送幫手被踢除的推播
+        await Task.findOneAndUpdate(
+            { _id: taskId },
+            {
+                $set: {
+                    status: 'published',
+                    'time.publishedAt': Date.now(),
+                    'time.updatedAt': Date.now(),
+                },
+            },
+            { new: true },
+        );
+        return res.status(200).json(
+            getHttpResponse({
+                message: '重新發佈任務成功'
+            }),
+        );
+    }),
     /* 下架任務 */
     unpublishTask: handleErrorAsync(async (req, res, next) => {
         const taskId = req.params.taskId;
@@ -381,12 +415,18 @@ const tasks = {
         if (task.status !== 'published') {
             return next(appError(405, '40214', `任務狀態錯誤 ${task.status}`));
         }
+        // 這邊需要發送幫手被踢除的推播
         await Task.findOneAndUpdate(
             { _id: taskId },
             {
                 $set: {
                     status: 'unpublished',
+                    helpers: task.helpers.map((helper) => ({
+                        helperId: helper.helperId,
+                        status: 'dropped',
+                    })),
                     'time.unpublishedAt': Date.now(),
+                    'time.updatedAt': Date.now(),
                 },
             },
             { new: true },

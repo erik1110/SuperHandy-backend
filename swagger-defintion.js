@@ -279,7 +279,24 @@ const getDraftResponse = {
       taskId: '6460a24905b52c47e04f4f38'
     },
     message: '取得草稿成功'
-  }
+};
+
+const unpublishEditDetail = {
+    title: '新的任務',
+    category: '到府驅蟲',
+    description: '這個任務非常困難',
+    imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
+    contactInfo: {
+        name: '王小明',
+        phone: '0912345678',
+        email: 'ming@gmail.com',
+    },
+    location: {
+        city: '台北市',
+        dist: '信義區',
+        address: '台北市信義區市府路45號',
+    },
+};
 
 const purchasePoints = {
     status: 'success',
@@ -323,6 +340,7 @@ module.exports = {
     draftTaskDetail,
     publishTaskDetail,
     getDraftResponse,
+    unpublishEditDetail,
     purchasePoints,
     cashbackPoints
 };
