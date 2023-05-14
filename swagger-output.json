@@ -1487,21 +1487,6 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "非新的草稿",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "打錯API了，儲存已存在的草稿請用put"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
           "500": {
             "description": "系統錯誤",
             "schema": {

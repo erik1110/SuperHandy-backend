@@ -150,16 +150,12 @@ router.delete('/draft/:taskId', async function (req, res, next) {
    */
   /**
     #swagger.security=[{"Bearer": []}]
-    #swagger.responses[400] = {
-      description: '非新的草稿',
-      schema: {'message': '打錯API了，儲存已存在的草稿請用put'}
-    }
     #swagger.responses[500] = {
       description: '系統錯誤',
       schema: {'message': '系統錯誤，請稍後再試'}
     }
   */
-  tasks.createDraft(req, res, next);
+  tasks.deleteDraft(req, res, next);
 });
 /* 發佈任務 */
 router.post('/publish', async function (req, res, next) {
