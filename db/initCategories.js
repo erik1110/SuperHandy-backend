@@ -93,4 +93,7 @@ const initCategories = async () => {
     }
 };
 
-module.exports = initCategories;
+module.exports = {
+    categories,
+    initCategories,
+};

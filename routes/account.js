@@ -161,14 +161,14 @@ router.get('/points/history', function (req, res, next) {
 
 /* 購買點數 */
 router.post('/points/purchase', function (req, res, next) {
-  /**
+    /**
   * #swagger.tags = ['Account']
   * #swagger.summary = 'Purchase the super coin'
   * #swagger.security = [{
       "Bearer": []
     }]
   */
-   /**
+    /**
     #swagger.parameters['parameter_name'] = {
     in: 'body',
     schema: {
@@ -176,7 +176,7 @@ router.post('/points/purchase', function (req, res, next) {
     }
   }
   */
-  /**
+    /**
   #swagger.responses[200] = {
     description: '購買成功',
     schema: { $ref: '#/definitions/cashbackPoints' }
@@ -194,19 +194,19 @@ router.post('/points/purchase', function (req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
   */
-  accountController.purchasePoints(req, res, next);
+    accountController.purchasePoints(req, res, next);
 });
 
 /* 返還現金 */
 router.post('/points/cashback', function (req, res, next) {
-  /**
+    /**
   * #swagger.tags = ['Account']
   * #swagger.summary = 'Refund in cash'
   * #swagger.security = [{
       "Bearer": []
     }]
   */
-  /**
+    /**
   #swagger.parameters['parameter_name'] = {
     in: 'body',
     schema: {
@@ -217,7 +217,7 @@ router.post('/points/cashback', function (req, res, next) {
     }
   }
   */
-  /**
+    /**
   #swagger.responses[200] = {
     description: '返還成功',
     schema: { $ref: '#/definitions/cashbackPoints' }
@@ -235,7 +235,7 @@ router.post('/points/cashback', function (req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
   */
-  accountController.cashbackPoints(req, res, next);
+    accountController.cashbackPoints(req, res, next);
 });
 
 module.exports = router;

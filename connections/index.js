@@ -15,7 +15,7 @@ mongoose
     .connect(DB)
     .then(async () => {
         console.log('資料庫連接成功');
-        await initCategories();
+        await initCategories.initCategories();
         await initPlans();
         await initUsers();
         await initTasks();

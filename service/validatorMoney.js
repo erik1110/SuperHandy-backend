@@ -21,7 +21,7 @@ module.exports = class ValidatorMoney {
         if (![100, 500, 1000].includes(money)) {
             return {
                 status: false,
-                msg: '購買金額不是目前有的方案'
+                msg: '購買金額不是目前有的方案',
             };
         }
         return {
@@ -42,19 +42,19 @@ module.exports = class ValidatorMoney {
                 msg: '欄位未填寫正確!',
             };
         }
-        if (bankNo.length!=3) {
+        if (bankNo.length != 3) {
             return {
                 status: false,
                 msg: '銀行代碼長度非3碼',
             };
         }
-        if (bankAcct.length!=14) {
+        if (bankAcct.length != 14) {
             return {
                 status: false,
                 msg: '銀行帳號長度非14碼',
             };
         }
-        if (point <300) {
+        if (point < 300) {
             return {
                 status: false,
                 msg: '兌換最少需要 300 超人幣',

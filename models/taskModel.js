@@ -8,7 +8,6 @@ const taskSchema = new mongoose.Schema({
     status: {
         type: String,
         required: true,
-        default: 'draft',
         enum: ['draft', 'published', 'unpublished', 'deleted', 'inProgress', 'submitted', 'confirmed', 'completed', 'expired'],
     },
     title: {
@@ -33,7 +32,7 @@ const taskSchema = new mongoose.Schema({
     exposurePlan: {
         type: String,
         required: false,
-        enum: ['一般曝光', '限時曝光', '黃金曝光', '限時黃金曝光'],
+        enum: ['一般曝光', '限時曝光', '黃金曝光', '限時黃金曝光', null],
     },
     imgUrls: {
         type: [String],
@@ -153,7 +152,7 @@ const taskSchema = new mongoose.Schema({
             ref: 'Review',
         },
     ],
-    submmitInfo: {
+    submittedInfo: {
         imgUrls: {
             type: [String],
         },

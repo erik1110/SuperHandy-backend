@@ -117,38 +117,38 @@ const accounts = {
     getPointsHistory: handleErrorAsync(async (req, res, next) => {
         const userTrans = await UserTrans.find({ userId: req.user._id });
         const taskTrans = await TaskTrans.find({ userId: req.user._id });
-        const formattedUserTrans = userTrans.map(trans => {
+        const formattedUserTrans = userTrans.map((trans) => {
             return {
-              tag: trans.tag,
-              taskId: trans.taskId || null,
-              taskName: trans.taskName || null,
-              money: {
-                salary: trans.salary || 0,
-                exposurePlan: trans.exposurePlan || 0,
-                platform: trans.platform || 0,
-                superCoin: trans.superCoin || 0,
-                helperCoin: trans.helperCoin || 0
-              },
-              desc: trans.desc || [],
-              role: trans.role,
-              createdAt: trans.createdAt
+                tag: trans.tag,
+                taskId: trans.taskId || null,
+                taskName: trans.taskName || null,
+                money: {
+                    salary: trans.salary || 0,
+                    exposurePlan: trans.exposurePlan || 0,
+                    platform: trans.platform || 0,
+                    superCoin: trans.superCoin || 0,
+                    helperCoin: trans.helperCoin || 0,
+                },
+                desc: trans.desc || [],
+                role: trans.role,
+                createdAt: trans.createdAt,
             };
         });
-        const formattedTaskTrans = taskTrans.map(trans => {
+        const formattedTaskTrans = taskTrans.map((trans) => {
             return {
-              tag: trans.tag,
-              taskId: trans.taskId,
-              taskName: trans.taskName,
-              money: {
-                salary: trans.salary || 0,
-                exposurePlan: trans.exposurePlan || 0,
-                platform: trans.platform || 0,
-                superCoin: trans.superCoin || 0,
-                helperCoin: trans.helperCoin || 0
-              },
-              desc: trans.desc || [],
-              role: trans.role,
-              createdAt: trans.createdAt
+                tag: trans.tag,
+                taskId: trans.taskId,
+                taskName: trans.taskName,
+                money: {
+                    salary: trans.salary || 0,
+                    exposurePlan: trans.exposurePlan || 0,
+                    platform: trans.platform || 0,
+                    superCoin: trans.superCoin || 0,
+                    helperCoin: trans.helperCoin || 0,
+                },
+                desc: trans.desc || [],
+                role: trans.role,
+                createdAt: trans.createdAt,
             };
         });
         const result = formattedUserTrans.concat(formattedTaskTrans);
@@ -166,8 +166,8 @@ const accounts = {
             return next(appError(400, '40102', validatorResult.msg));
         }
         const user = await User.findOne({ _id: req.user._id });
-        const money = req.body.money
-        const purchasePlan = { 100: 0, 500: 50, 1000: 200}
+        const money = req.body.money;
+        const purchasePlan = { 100: 0, 500: 50, 1000: 200 };
         let desc = ['購買點數'];
         if (purchasePlan[money] > 0) {
             desc.push('點數贈送');
@@ -201,12 +201,12 @@ const accounts = {
             return next(appError(400, '40102', validatorResult.msg));
         }
         const user = await User.findOne({ _id: req.user._id });
-        const {point, bank, bankNo, bankAcct }= req.body
+        const { point, bank, bankNo, bankAcct } = req.body;
         if (point >= user.superCoin) {
-            return next(appError(400, '40211', '點數異常'));
+            return next(appError(400, '40211', `超人幣不足： ${user.superCoin}`));
         }
         // 更新使用者點數
-        user.superCoin -= point ;
+        user.superCoin -= point;
         await user.save();
         // 新增一筆交易資訊
         await UserTrans.create({
