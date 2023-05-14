@@ -126,25 +126,21 @@ router.put('/draft/:taskId', async function (req, res, next) {
   #swagger.parameters['parameter_name'] = {
     in: 'body',
     description: '任務資料',
-    schema: {$ref: "#/definitions/publishTaskDetail"}
-    }, 
+    schema: {$ref: "#/definitions/draftTaskDetail"}
+    },
     #swagger.responses[200] = {
       description: 'OK',
       schema: {
       'status': 'success',
-      'data': {$ref: '#/definitions/taskDetailWithId'}
+      'message': '更新草稿成功'
       }
-    }
-    #swagger.responses[400] = {
-      description: '非新的草稿',
-      schema: {'message': '打錯API了，儲存已存在的草稿請用put'}
     }
     #swagger.responses[500] = {
       description: '系統錯誤',
       schema: {'message': '系統錯誤，請稍後再試'}
     }
   */
-  tasks.createDraft(req, res, next);
+  tasks.updateDraft(req, res, next);
 });
 /* 刪除草稿 */
 router.delete('/draft/:taskId', async function (req, res, next) {

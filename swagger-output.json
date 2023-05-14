@@ -1421,7 +1421,7 @@
             "in": "body",
             "description": "任務資料",
             "schema": {
-              "$ref": "#/definitions/publishTaskDetail"
+              "$ref": "#/definitions/draftTaskDetail"
             }
           }
         ],
@@ -1435,23 +1435,9 @@
                   "type": "string",
                   "example": "success"
                 },
-                "data": {
-                  "$ref": "#/definitions/taskDetailWithId"
-                }
-              },
-              "xml": {
-                "name": "main"
-              }
-            }
-          },
-          "400": {
-            "description": "非新的草稿",
-            "schema": {
-              "type": "object",
-              "properties": {
                 "message": {
                   "type": "string",
-                  "example": "打錯API了，儲存已存在的草稿請用put"
+                  "example": "更新草稿成功"
                 }
               },
               "xml": {

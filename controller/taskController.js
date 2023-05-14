@@ -32,10 +32,6 @@ const taskStatusRole = {
     expired: [],
 };
 
-const isStatusFlowValid = (currentStatus, nextStatus) => {
-    return taskStatusRole[currentStatus].includes(nextStatus);
-};
-
 const tasks = {
     /* 確認地理資訊 */
     checkGeocoding: handleErrorAsync(async (req, res, next) => {
@@ -131,7 +127,7 @@ const tasks = {
             latitude: geocodingResult.location.lat
         }
         // 將草稿更新為正式發佈
-        const publishModel = await Task.findByIdAndUpdate(
+        await Task.findByIdAndUpdate(
             {
                 _id: req.params.taskId,
             },
@@ -147,7 +143,6 @@ const tasks = {
             contactInfo: contactInfo,
             location: locationFormat,
             time: {
-              createdAt: Date.now(),
               updatedAt: Date.now(),
               publishedAt: Date.now()
             },
@@ -181,158 +176,42 @@ const tasks = {
             }),
         );
     }),
-    //P02 待補金流
-    publishTask: handleErrorAsync(async (req, res, next) => {
-        const { title, status, category, description, salary, exposurePlan, imagesUrl, contactInfo, location, taskId: _id } = req.body;
-        const userId = req.user._id;
-        // use TaskValidator to validate
-        const taskValidator = TaskValidator.validateTaskAllField({
-            title,
-            status,
-            category,
-            description,
-            salary,
-            exposurePlan,
-            imagesUrl,
-            contactInfo,
-            location,
-        });
-        if (!taskValidator.isValid) return next(appError(400, '40102', taskValidator.msg));
-
-        // check if task exists
-        let taskModel;
-        const currentTime = Date.now();
-        if (!!_id) {
-            taskModel = await Task.findOne({ _id: _id, userId: userId });
-        }
-        if (taskModel) {
-            // 更新任務
-            taskModel.status = 'published';
-            taskModel.description = description;
-            taskModel.imagesUrl = imagesUrl;
-            taskModel.time.publishedAt = currentTime;
-            taskModel.time.updatedAt = currentTime;
-            await taskModel.save();
-            taskModel.taskId = taskModel._id;
-            return res.status(200).json(getHttpResponse({ data: taskModel }));
-        } else {
-            // todo 20230511 待補: check if user has enough coin to pay salary
-            // if not, return error
-            const newTaskModel = await Task.create({
-                userId: userId,
-                title,
-                status: 'published',
-                category,
-                description,
-                salary,
-                exposurePlan,
-                imagesUrl,
-                contactInfo,
-                location,
-                time: {
-                    createdAt: currentTime,
-                    publishedAt: currentTime,
-                    updatedAt: currentTime,
-                },
-            });
-            if (!newTaskModel) return next(appError(400, '40005', '不明錯誤'));
-            // todo 20230511 待補: deduct user's coin
-            newTaskModel.taskId = newTaskModel._id;
-            return res.status(200).json(getHttpResponse({ data: newTaskModel }));
-        }
-    }),
-    //P01-02 OK OK
-    updateTask: handleErrorAsync(async (req, res, next) => {
+    /* 更新草稿 */
+    updateDraft: handleErrorAsync(async (req, res, next) => {
         const taskId = req.params.taskId;
-        const userId = req.user._id;
-        const { title, status, category, description, salary, exposurePlan, imagesUrl, contactInfo, location } = req.body;
-        if (!taskId) return next(appError(400, '40102', '請填入任務id'));
-        let taskModel = await Task.findOne({ _id: taskId, userId: userId });
-        if (taskModel.status !== 'draft' || taskModel.status !== 'unpublished') return next(appError(400, '40103', '此任務之狀態不可編輯'));
-
-        if (!taskModel.publishedAt) {
-            let draftModel = await Task.updateOne(
-                { _id: taskId, userId: userId },
-                {
-                    title,
-                    category,
-                    description,
-                    salary,
-                    exposurePlan,
-                    imagesUrl,
-                    contactInfo,
-                    location,
+        const validatorResult = TaskValidator.checkDraft(req.body);
+        if (!validatorResult.status) {
+            return next(appError(400, '40102', validatorResult.msg));
+        }
+        const task = await Task.findOne({ _id: taskId, userId: req.user._id });
+        if (!task) {
+            return next(appError(404, '40401', '找不到任務'));
+        }
+        if (task.status !== 'draft') {
+            return next(appError(405, '40500', `任務狀態錯誤 ${task.status}`));
+        }
+        const updatedTask = await Task.findOneAndUpdate(
+            { _id: taskId },
+            {
+                $set: {
+                    title: req.body.title,
+                    category: req.body.category || null,
+                    description: req.body.description || null,
+                    salary: req.body.salary || null,
+                    exposurePlan: req.body.exposurePlan || null,
+                    imagesUrl: req.body.imagesUrl || null,
+                    contactInfo: req.body.contactInfo || null,
+                    location: req.body.location || null,
                     'time.updatedAt': Date.now(),
                 },
-            );
-            if (!draftModel) return next(appError(400, '40208', '無效的請求'));
-            //get newTaskModel
-            let newTaskModel = await Task.findOne({ _id: taskId, userId: userId });
-            //return task
-            newTaskModel.taskId = newTaskModel._id;
-            return res.status(200).json(getHttpResponse({ data: newTaskModel }));
-        } else {
-            const taskValidator = TaskValidator.validateTaskAllFields({
-                title,
-                status,
-                category,
-                description,
-                salary,
-                exposurePlan,
-                imagesUrl,
-                contactInfo,
-                location,
-            });
-            if (!taskValidator.isValid) return next(appError(400, '40102', taskValidator.message));
-            taskModel.description = description;
-            taskModel.imagesUrl = imagesUrl;
-            taskModel.time.updatedAt = Date.now();
-            await taskModel.save();
-            taskModel.taskId = taskModel._id;
-            return res.status(200).json(getHttpResponse({ data: taskModel }));
-        }
-    }),
-    //P01-03 OK
-    deleteTask: handleErrorAsync(async (req, res, next) => {
-        const taskId = req.params.taskId;
-        const userId = req.user._id;
-        if (!taskId) return next(appError(400, '40102', '請填入任務id'));
-
-        let taskModel = await Task.findOne({ _id: taskId, userId: userId }, { status: 1 });
-
-        if (!isStatusFlowValid(taskModel.status, 'deleted')) return next(appError(400, '40210', '此任務之狀態不可刪除'));
-
-        taskModel.status = 'deleted';
-        taskModel.time.deletedAt = Date.now();
-        taskModel.time.updatedAt = Date.now();
-        await taskModel.save();
-        taskModel.taskId = taskModel._id;
-        return res.status(200).json(getHttpResponse({ data: taskModel }));
-    }),
-    //P01-04 OK
-    updateTaskStatus: handleErrorAsync(async (req, res, next) => {
-        const taskId = req.params.taskId;
-        const userId = req.user._id;
-        const nextStatus = req.body.status;
-        if (!taskId) return next(appError(400, '40102', '請填入任務id'));
-        //find task by taskId
-        taskModel = await Task.findOne({ _id: taskId, userId: userId });
-        if (!taskModel) return next(appError(400, '40210', '查無資料'));
-        //use isStatusFlowValid to check if the status flow is valid
-        if (!isStatusFlowValid(taskModel.status, nextStatus)) return next(appError(400, '40103', '任務狀態錯誤'));
-        taskModel.status = nextStatus;
-        taskModel.time.updatedAt = Date.now();
-
-        if (timeFields.hasOwnProperty(nextStatus)) {
-            taskModel.time[timeFields[nextStatus]] = Date.now();
-        }
-        if (nextStatus === 'unpublished' && taskModel.helpers?.length > 0) {
-            taskModel.helpers.forEach((x) => (x.status = 'dropped'));
-            // todo 20230511 待補: 發送通知給helpers
-        }
-        await taskModel.save();
-        taskModel.taskId = taskModel._id;
-        return res.status(200).json(getHttpResponse({ data: taskModel }));
+            },
+            { new: true },
+        );
+        return res.status(200).json(
+            getHttpResponse({
+                message: '更新草稿成功'
+            }),
+        );
     }),
 };
 
