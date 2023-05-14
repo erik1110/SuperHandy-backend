@@ -168,35 +168,14 @@ router.post('/publish', async function (req, res, next) {
   #swagger.parameters['parameter_name'] = {
     in: 'body',
     description: '任務資料',
-    schema: {
-        'taskId':'645be336a6b4506a5506be10',
-        'title': '任務標題',
-        'status': 'published',
-        'category': '家事',
-        'description': '任務描述',
-        'salary': 1000,
-        'exposurePlan': '一般曝光',
-        'imagesUrl': ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
-        'contactInfo': {
-          'name': '王小明',
-          'phone': '0912345678',
-          'email': 'ming@gmail.com',
-        },
-        'location': {
-          "city": "台北市",
-          "dist": "信義區",
-          "address": "台北市信義區市府路45號",
-          "landmark": "台北101",
-          "lng": 121.5337064,
-          "lat": 25.0296587
-        }
-      }
-    },   
+    schema: {$ref: "#/definitions/publishTaskDetail"}
+    },
   #swagger.responses[200] = {
-    description: 'OK',
+    description: '發佈任務成功',
     schema: {
-    'status': 'scuccess',
-    'data': {$ref: "#/definitions/taskDetailWithId"}
+    'status': 'success',
+    'message': '發佈任務成功',
+    'data': { 'taskId' : '645be336a6b4506a5506be10'}
     }
   }
   #swagger.responses[404] = {

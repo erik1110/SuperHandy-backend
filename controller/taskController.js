@@ -8,30 +8,6 @@ const TaskValidator = require('../service/taskValidator');
 const getexposurePlanPrices = require('../service/exposurePlan');
 const geocoding = require('../utils/geocoding');
 
-const timeFields = {
-    published: 'publishedAt',
-    unpublished: 'publishedAt',
-    closed: 'closedAt',
-    deleted: 'deletedAt',
-    inProgress: 'inProgressAt',
-    submitted: 'submittedAt',
-    confirmed: 'confirmedAt',
-    completed: 'completedAt',
-    expired: 'expiredAt',
-};
-
-const taskStatusRole = {
-    draft: ['draft', 'published', 'deleted'],
-    published: ['unpublished', 'deleted', 'inProgress', 'expired'],
-    unpublished: ['published', 'deleted', 'expired'],
-    deleted: [],
-    inProgress: ['submitted'],
-    submitted: ['confirmed'],
-    confirmed: ['completed'],
-    completed: [],
-    expired: [],
-};
-
 const tasks = {
     /* 確認地理資訊 */
     checkGeocoding: handleErrorAsync(async (req, res, next) => {
@@ -251,7 +227,78 @@ const tasks = {
             }),
         );
     }),
-
+    /* 發佈任務 */
+    publishTask: handleErrorAsync(async (req, res, next) => {
+        const validatorResult = TaskValidator.checkPublish(req.body);
+        if (!validatorResult.status) {
+            return next(appError(400, '40102', validatorResult.msg));
+        }
+        const { title, category, taskTrans, description, salary, exposurePlan, imagesUrl, contactInfo, location } = req.body;
+        const userId = req.user._id;
+        const address = location.address;
+        const user = await User.findOne({ _id: userId });
+        if (taskTrans.superCoin >= user.superCoin) {
+            return next(appError(400, '40211', `超人幣不足： ${user.superCoin}`));
+        }
+        if (taskTrans.helperCoin >= user.helperCoin) {
+            return next(appError(400, '40211', `幫手幣不足： ${user.helperCoin}`));
+        }
+        const geocodingResult = await geocoding(address);
+        if (geocodingResult.status !== 'OK') {
+            return next(appError(404, '40400', '找不到該地址'));
+        }
+        const locationFormat = {
+            city: req.body.location.city,
+            dist: req.body.location.dist,
+            address: req.body.location.address,
+            longitude: geocodingResult.location.lng,
+            latitude: geocodingResult.location.lat
+        }
+        // 更新使用者點數
+        user.superCoin -= taskTrans.superCoin ;
+        user.helperCoin -= taskTrans.helperCoin ;
+        await user.save();
+        // 正式發佈
+        const publishTask = await Task.create(
+            {
+            userId: userId,
+            title: title,
+            status: 'published',
+            category: category,
+            description: description,
+            salary: salary,
+            exposurePlan: exposurePlan,
+            imagesUrl: imagesUrl,
+            contactInfo: contactInfo,
+            location: locationFormat,
+            time: {
+                createdAt: Date.now(),
+                updatedAt: Date.now(),
+                publishedAt: Date.now()
+            },
+        });
+        // 新增一筆交易資訊
+        await TaskTrans.create({
+            taskId: publishTask._id,
+            userId: userId,
+            tag: '刊登任務',
+            salary: salary,
+            exposurePlan: getexposurePlanPrices(exposurePlan),
+            platform: 0,
+            superCoin: -taskTrans.superCoin,
+            helperCoin: -taskTrans.helperCoin,
+            desc: ['預扣薪水', exposurePlan],
+            role: '案主',
+        });
+        res.status(200).json(
+            getHttpResponse({
+                message: '發佈任務成功',
+                data: {
+                    taskId:publishTask._id
+                }
+            }),
+        );
+    }),
 };
 
 module.exports = tasks;
