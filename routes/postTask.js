@@ -104,12 +104,12 @@ router.post('/draft/publish/:taskId', async function (req, res, next) {
     }
   }
   #swagger.responses[400] = {
-    description: '欄位錯誤提示、查無此任務、沒有權限、任務狀態錯誤、超人幣不足、幫手幣不足、找不到該地址',
+    description: 'Id 格式錯誤、欄位錯誤提示、查無此任務、沒有權限、任務狀態錯誤、超人幣不足、幫手幣不足、找不到該地址',
     schema: {
       'status': 'false',
       'message': '錯誤訊息',
       'error': {
-        'name': '[40102, 40212, 40302, 40214, 40211, 40211, 40400]',
+        'name': '[40104, 40102, 40212, 40302, 40214, 40211, 40211, 40400]',
         'statusCode': 400,
         'isOperational': true
       }
@@ -135,12 +135,12 @@ router.get('/draft/:taskId', async function (req, res, next) {
       schema: {$ref: '#/definitions/getDraftResponse'}
     }
     #swagger.responses[400] = {
-      description: '查無此任務、沒有權限、任務狀態錯誤',
+      description: 'Id 格式錯誤、查無此任務、沒有權限、任務狀態錯誤',
       schema: {
         'status': 'false',
         'message': '錯誤訊息',
         'error': {
-          'name': '[40212, 40302, 40214]',
+          'name': '[40104, 40212, 40302, 40214]',
           'statusCode': 400,
           'isOperational': true
         }
@@ -174,12 +174,12 @@ router.put('/draft/:taskId', async function (req, res, next) {
       }
     }
     #swagger.responses[400] = {
-      description: '欄位錯誤提示、查無此任務、沒有權限、任務狀態錯誤',
+      description: 'Id 格式錯誤、欄位錯誤提示、查無此任務、沒有權限、任務狀態錯誤',
       schema: {
         'status': 'false',
         'message': '錯誤訊息',
         'error': {
-          'name': '[40102, 40212, 40302, 40214]',
+          'name': '[40104, 40102, 40212, 40302, 40214]',
           'statusCode': 400,
           'isOperational': true
         }
@@ -208,12 +208,12 @@ router.delete('/draft/:taskId', async function (req, res, next) {
       }
     }
     #swagger.responses[400] = {
-      description: '查無此任務、沒有權限、任務狀態錯誤',
+      description: 'Id 格式錯誤、查無此任務、沒有權限、任務狀態錯誤',
       schema: {
         'status': 'false',
         'message': '錯誤訊息',
         'error': {
-          'name': '[40212, 40302, 40214]',
+          'name': '[40104, 40212, 40302, 40214]',
           'statusCode': 400,
           'isOperational': true
         }
@@ -285,12 +285,12 @@ router.post('/edit/:taskId', async function (req, res, next) {
     }
   }
   #swagger.responses[400] = {
-    description: '欄位錯誤提示、沒有權限、任務狀態錯誤、找不到該地址',
+    description: 'Id 格式錯誤、欄位錯誤提示、沒有權限、任務狀態錯誤、找不到該地址',
     schema: {
       'status': 'false',
       'message': '錯誤訊息',
       'error': {
-        'name': '[40102, 40302, 40214, 40400]',
+        'name': '[40104, 40102, 40302, 40214, 40400]',
         'statusCode': 400,
         'isOperational': true
       }
@@ -318,7 +318,6 @@ router.post('/republish/:taskId', async function (req, res, next) {
     description: 'OK',
     schema: {
       'status': 'success',
-      'data': {$ref: "#/definitions/taskDetailWithId"}
     }
   }
   #swagger.responses[404] = {
@@ -353,12 +352,12 @@ router.post('/unpublish/:taskId', async function (req, res, next) {
     }
   }
   #swagger.responses[400] = {
-    description: '查無此任務、沒有權限、任務狀態錯誤',
+    description: 'Id 格式錯誤、查無此任務、沒有權限、任務狀態錯誤',
     schema: {
       'status': 'false',
       'message': '錯誤訊息',
       'error': {
-        'name': '[40212, 40302, 40214]',
+        'name': '[40104, 40212, 40302, 40214]',
         'statusCode': 400,
         'isOperational': true
       }

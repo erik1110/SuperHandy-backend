@@ -16,7 +16,7 @@ const tasks = {
         if (geocodingResult.status === 'OK') {
             return res.status(200).json(getHttpResponse({ data: geocodingResult }));
         } else {
-            return next(appError(404, '40400', '找不到該地址'));
+            return next(appError(400, '40400', '找不到該地址'));
         }
     }),
     /* 儲存草稿 */
@@ -60,15 +60,18 @@ const tasks = {
         const userId = req.user._id;
         const taskId = req.params.taskId;
         const address = location.address;
+        if (!mongoose.isValidObjectId(taskId)) {
+            return next(appError(400, '40104', 'Id 格式錯誤'));
+        }
         const task = await Task.findOne({ _id: taskId });
         if (!task) {
             return next(appError(400, '40212', '查無此任務'));
         }
         if (task.userId.toString() !== req.user._id.toString()) {
-            return next(appError(403, '40302', '沒有權限'));
+            return next(appError(400, '40302', '沒有權限'));
         }
         if (task.status!=='draft') {
-            return next(appError(405, '40214', `任務狀態錯誤： ${task.status}`));
+            return next(appError(400, '40214', `任務狀態錯誤： ${task.status}`));
         }
         const user = await User.findOne({ _id: userId });
         if (taskTrans.superCoin >= user.superCoin) {
@@ -79,7 +82,7 @@ const tasks = {
         }
         const geocodingResult = await geocoding(address);
         if (geocodingResult.status !== 'OK') {
-            return next(appError(404, '40400', '找不到該地址'));
+            return next(appError(400, '40400', '找不到該地址'));
         }
         // 更新使用者點數
         user.superCoin -= taskTrans.superCoin ;
@@ -135,6 +138,9 @@ const tasks = {
     /* 取得草稿 */
     getDraft: handleErrorAsync(async (req, res, next) => {
         const taskId = req.params.taskId;
+        if (!mongoose.isValidObjectId(taskId)) {
+            return next(appError(400, '40104', 'Id 格式錯誤'));
+        }
         const task = await Task.findOne({ _id: taskId }).lean();
         if (!task) {
             return next(appError(400, '40212', '查無此任務'));
@@ -164,6 +170,9 @@ const tasks = {
         const validatorResult = TaskValidator.checkDraft(req.body);
         if (!validatorResult.status) {
             return next(appError(400, '40102', validatorResult.msg));
+        }
+        if (!mongoose.isValidObjectId(taskId)) {
+            return next(appError(400, '40104', 'Id 格式錯誤'));
         }
         const task = await Task.findOne({ _id: taskId });
         if (!task) {
@@ -201,6 +210,9 @@ const tasks = {
     /* 刪除草稿 */
     deleteDraft: handleErrorAsync(async (req, res, next) => {
         const taskId = req.params.taskId;
+        if (!mongoose.isValidObjectId(taskId)) {
+            return next(appError(400, '40104', 'Id 格式錯誤'));
+        }
         const task = await Task.findOne({ _id: taskId });
         if (!task) {
             return next(appError(404, '40212', '查無此任務'));
@@ -302,6 +314,9 @@ const tasks = {
     /* 編輯下架任務 */
     unpublishEditTask: handleErrorAsync(async (req, res, next) => {
         const taskId = req.params.taskId;
+        if (!mongoose.isValidObjectId(taskId)) {
+            return next(appError(400, '40104', 'Id 格式錯誤'));
+        }
         const validatorResult = TaskValidator.checkUnpublishEdit(req.body);
         if (!validatorResult.status) {
             return next(appError(400, '40102', validatorResult.msg));
@@ -353,6 +368,9 @@ const tasks = {
     /* 下架任務 */
     unpublishTask: handleErrorAsync(async (req, res, next) => {
         const taskId = req.params.taskId;
+        if (!mongoose.isValidObjectId(taskId)) {
+            return next(appError(400, '40104', 'Id 格式錯誤'));
+        }
         const task = await Task.findOne({ _id: taskId });
         if (!task) {
             return next(appError(404, '40212', '查無此任務'));
