@@ -5,7 +5,7 @@ const TaskTrans = require('../models/taskTransModel');
 const Review = require('../models/reviewModel');
 const User = require('../models/userModel');
 const UserTrans = require('../models/userTransModel');
-const ValidatorMoney = require('../service/validatorMoney');
+const moneyValidator = require('../service/moneyValidator');
 const getHttpResponse = require('../utils/successHandler');
 
 const accounts = {
@@ -161,7 +161,7 @@ const accounts = {
         );
     }),
     purchasePoints: handleErrorAsync(async (req, res, next) => {
-        const validatorResult = ValidatorMoney.checkPurchasePlan(req.body);
+        const validatorResult = moneyValidator.checkPurchasePlan(req.body);
         if (!validatorResult.status) {
             return next(appError(400, '40102', validatorResult.msg));
         }
@@ -196,7 +196,7 @@ const accounts = {
         );
     }),
     cashbackPoints: handleErrorAsync(async (req, res, next) => {
-        const validatorResult = ValidatorMoney.checkCashback(req.body);
+        const validatorResult = moneyValidator.checkCashback(req.body);
         if (!validatorResult.status) {
             return next(appError(400, '40102', validatorResult.msg));
         }
@@ -215,6 +215,11 @@ const accounts = {
             superCoin: -point,
             helperCoin: 0,
             desc: [bank, bankNo, bankAcct.slice(-5)],
+            bank: {
+                bank: bank,
+                bankNo: bankNo,
+                bankAcct: bankAcct
+            },
             role: '系統',
         });
         res.status(200).json(

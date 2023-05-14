@@ -5,7 +5,7 @@ const getHttpResponse = require('../utils/successHandler');
 const bcrypt = require('bcryptjs');
 const User = require('../models/userModel');
 const { generateJwtToken, generateJwtTokenForEmail } = require('../middleware/auth');
-const Validator = require('../service/validator');
+const Validator = require('../service/userValidator');
 const validator = require('validator');
 const mailer = require('../utils/mailer');
 

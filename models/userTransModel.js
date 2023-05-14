@@ -22,6 +22,17 @@ const userTransSchema = new mongoose.Schema({
         type: String,
         enum: ['系統'],
     },
+    bank: {
+        bank: {
+            type: String,
+        },
+        bankNo: {
+            type: String,
+        },
+        bankAcct: {
+            type: String,
+        },
+    },
     createdAt: {
         type: Date,
         default: Date.now,

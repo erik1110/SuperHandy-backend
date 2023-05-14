@@ -35,18 +35,32 @@ const home = {
         );
     }),
     getCompeletedReviews: handleErrorAsync(async (req, res, next) => {
-        const reviews = await SuperhandyReview.find({})
-            .populate({
-                path: 'userId',
-                select: 'lastName',
-            })
-            .select({
+        const reviews = await SuperhandyReview.aggregate([
+            {
+              $lookup: {
+                from: 'users',
+                localField: 'userId',
+                foreignField: '_id',
+                as: 'user',
+              },
+            },
+            {
+              $unwind: '$user',
+            },
+            {
+              $project: {
+                _id: 1,
                 comment: 1,
-            });
+                avatarPath: '$user.avatarPath',
+                name: '$user.lastName',
+              },
+            },
+          ]);
         const formattedReviews = reviews.map((review) => ({
             _id: review._id,
             comment: review.comment,
-            name: review.userId.lastName,
+            avatar: review.avatarPath,
+            name: review.name,
         }));
         res.status(200).json(
             getHttpResponse({
