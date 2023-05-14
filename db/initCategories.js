@@ -95,5 +95,5 @@ const initCategories = async () => {
 
 module.exports = {
     categories,
-    initCategories
-}
+    initCategories,
+};

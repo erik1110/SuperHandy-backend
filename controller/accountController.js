@@ -166,8 +166,8 @@ const accounts = {
             return next(appError(400, '40102', validatorResult.msg));
         }
         const user = await User.findOne({ _id: req.user._id });
-        const money = req.body.money
-        const purchasePlan = { 100: 0, 500: 50, 1000: 200}
+        const money = req.body.money;
+        const purchasePlan = { 100: 0, 500: 50, 1000: 200 };
         let desc = ['購買點數'];
         if (purchasePlan[money] > 0) {
             desc.push('點數贈送');
@@ -201,12 +201,12 @@ const accounts = {
             return next(appError(400, '40102', validatorResult.msg));
         }
         const user = await User.findOne({ _id: req.user._id });
-        const {point, bank, bankNo, bankAcct }= req.body
+        const { point, bank, bankNo, bankAcct } = req.body;
         if (point >= user.superCoin) {
             return next(appError(400, '40211', `超人幣不足： ${user.superCoin}`));
         }
         // 更新使用者點數
-        user.superCoin -= point ;
+        user.superCoin -= point;
         await user.save();
         // 新增一筆交易資訊
         await UserTrans.create({

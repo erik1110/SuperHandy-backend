@@ -45,11 +45,11 @@ router.get('/check-location', async function (req, res, next) {
 });
 /* 儲存草稿 */
 router.post('/draft', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '儲存草稿 (Save draft)'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '儲存草稿 (Save draft)'
+     */
+    /**
  #swagger.security=[{"Bearer": []}]
  #swagger.parameters['parameter_name'] = {
   in: 'body',
@@ -81,15 +81,15 @@ router.post('/draft', async function (req, res, next) {
     schema: {'message': '系統錯誤，請稍後再試'}
   }
  */
-  tasks.saveDraft(req, res, next);
+    tasks.saveDraft(req, res, next);
 });
 /* 發佈草稿 */
 router.post('/draft/:taskId', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '發佈草稿 (Publish draft)'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '發佈草稿 (Publish draft)'
+     */
+    /**
  #swagger.security=[{"Bearer": []}]
  #swagger.parameters['parameter_name'] = {
   in: 'body',
@@ -120,15 +120,15 @@ router.post('/draft/:taskId', async function (req, res, next) {
     schema: {'message': '系統錯誤，請稍後再試'}
   }
  */
-  tasks.publishDraft(req, res, next);
+    tasks.publishDraft(req, res, next);
 });
 /* 取得草稿 */
 router.get('/draft/:taskId', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '取得草稿 (Get the draft)'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '取得草稿 (Get the draft)'
+     */
+    /**
     #swagger.security=[{"Bearer": []}]
     #swagger.responses[200] = {
       description: 'OK',
@@ -151,15 +151,15 @@ router.get('/draft/:taskId', async function (req, res, next) {
       schema: {'message': '系統錯誤，請稍後再試'}
     }
   */
-  tasks.getDraft(req, res, next);
+    tasks.getDraft(req, res, next);
 });
 /* 更新草稿 */
 router.put('/draft/:taskId', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '更新草稿 (Update the draft)'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '更新草稿 (Update the draft)'
+     */
+    /**
    #swagger.security=[{"Bearer": []}]
   #swagger.parameters['parameter_name'] = {
     in: 'body',
@@ -190,15 +190,15 @@ router.put('/draft/:taskId', async function (req, res, next) {
       schema: {'message': '系統錯誤，請稍後再試'}
     }
   */
-  tasks.updateDraft(req, res, next);
+    tasks.updateDraft(req, res, next);
 });
 /* 刪除草稿 */
 router.delete('/draft/:taskId', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '刪除草稿(Delete the draft)'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '刪除草稿(Delete the draft)'
+     */
+    /**
     #swagger.security=[{"Bearer": []}]
         #swagger.responses[200] = {
       description: 'OK',
@@ -224,15 +224,15 @@ router.delete('/draft/:taskId', async function (req, res, next) {
       schema: {'message': '系統錯誤，請稍後再試'}
     }
   */
-  tasks.deleteDraft(req, res, next);
+    tasks.deleteDraft(req, res, next);
 });
 /* 發佈任務 */
 router.post('/publish', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '發佈任務 (Publish a task)'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '發佈任務 (Publish a task)'
+     */
+    /**
    #swagger.security=[{"Bearer": []}]
   #swagger.parameters['parameter_name'] = {
     in: 'body',
@@ -266,16 +266,16 @@ router.post('/publish', async function (req, res, next) {
     }
   }
  */
-  tasks.publishTask(req, res, next);
+    tasks.publishTask(req, res, next);
 });
 
 /* 編輯下架任務 */
 router.post('/edit/:taskId', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '編輯下架任務 (Edit the unpublished task)'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '編輯下架任務 (Edit the unpublished task)'
+     */
+    /**
   #swagger.security=[{"Bearer": []}]
   #swagger.parameters['parameter_name'] = {
     in: 'body',
@@ -308,16 +308,16 @@ router.post('/edit/:taskId', async function (req, res, next) {
     }
   }
  */
-  tasks.unpublishEditTask(req, res, next);
+    tasks.unpublishEditTask(req, res, next);
 });
 
 /* 重新發佈任務 */
 router.post('/republish/:taskId', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '重新發佈任務 (Republish the task)'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '重新發佈任務 (Republish the task)'
+     */
+    /**
   #swagger.security=[{"Bearer": []}]
   #swagger.responses[200] = {
     description: '重新發佈任務成功',
@@ -345,16 +345,16 @@ router.post('/republish/:taskId', async function (req, res, next) {
     }
   }
  */
-  tasks.republishTask(req, res, next);
+    tasks.republishTask(req, res, next);
 });
 
 /* 下架任務 */
 router.post('/unpublish/:taskId', async function (req, res, next) {
-  /**
-   * #swagger.tags = ['Posts']
-   * #swagger.summary = '下架任務 (Unpublish the task)'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Posts']
+     * #swagger.summary = '下架任務 (Unpublish the task)'
+     */
+    /**
   #swagger.security=[{"Bearer": []}]
   #swagger.responses[200] = {
     description: '下架任務成功',
@@ -382,7 +382,7 @@ router.post('/unpublish/:taskId', async function (req, res, next) {
     }
   }
  */
-  tasks.unpublishTask(req, res, next);
+    tasks.unpublishTask(req, res, next);
 });
 
 module.exports = router;

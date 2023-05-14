@@ -2,7 +2,7 @@ const User = require('../models/userModel');
 const categories = require('../db/initCategories');
 const validator = require('validator');
 
-const categoryNames = categories.categories.map(cat => cat.name);
+const categoryNames = categories.categories.map((cat) => cat.name);
 const getexposurePlanPrices = require('../service/exposurePlan');
 
 module.exports = class TaskValidator {
@@ -13,7 +13,7 @@ module.exports = class TaskValidator {
                 msg: '未填寫任務標題!',
             };
         }
-        if (category && ! categoryNames.includes(category)) {
+        if (category && !categoryNames.includes(category)) {
             return {
                 status: false,
                 msg: '任務類別錯誤!',
@@ -89,7 +89,7 @@ module.exports = class TaskValidator {
                 msg: '未填寫任務標題!',
             };
         }
-        if (!category || ! categoryNames.includes(category)) {
+        if (!category || !categoryNames.includes(category)) {
             return {
                 status: false,
                 msg: '任務類別錯誤!',
@@ -182,7 +182,7 @@ module.exports = class TaskValidator {
                 msg: '未填寫任務標題!',
             };
         }
-        if (!category || ! categoryNames.includes(category)) {
+        if (!category || !categoryNames.includes(category)) {
             return {
                 status: false,
                 msg: '任務類別錯誤!',

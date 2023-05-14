@@ -37,16 +37,16 @@ const tasks = {
             contactInfo: req.body.contactInfo || null,
             location: req.body.location || null,
             time: {
-              createdAt: Date.now(),
-              updatedAt: Date.now(),
+                createdAt: Date.now(),
+                updatedAt: Date.now(),
             },
         });
         return res.status(200).json(
             getHttpResponse({
                 message: '儲存草稿成功',
                 data: {
-                    taskId : draftModel._id
-                }
+                    taskId: draftModel._id,
+                },
             }),
         );
     }),
@@ -70,7 +70,7 @@ const tasks = {
         if (task.userId.toString() !== req.user._id.toString()) {
             return next(appError(400, '40302', '沒有權限'));
         }
-        if (task.status!=='draft') {
+        if (task.status !== 'draft') {
             return next(appError(400, '40214', `任務狀態錯誤： ${task.status}`));
         }
         const user = await User.findOne({ _id: userId });
@@ -85,8 +85,8 @@ const tasks = {
             return next(appError(400, '40400', '找不到該地址'));
         }
         // 更新使用者點數
-        user.superCoin -= taskTrans.superCoin ;
-        user.helperCoin -= taskTrans.helperCoin ;
+        user.superCoin -= taskTrans.superCoin;
+        user.helperCoin -= taskTrans.helperCoin;
         await user.save();
         // 新增一筆交易資訊
         await TaskTrans.create({
@@ -106,32 +106,33 @@ const tasks = {
             dist: req.body.location.dist,
             address: req.body.location.address,
             longitude: geocodingResult.location.lng,
-            latitude: geocodingResult.location.lat
-        }
+            latitude: geocodingResult.location.lat,
+        };
         // 將草稿更新為正式發佈
         await Task.findByIdAndUpdate(
             {
                 _id: req.params.taskId,
             },
             {
-            userId: userId,
-            title: title,
-            status: 'publish',
-            category: category,
-            description: description,
-            salary: salary,
-            exposurePlan: exposurePlan,
-            imagesUrl: imagesUrl,
-            contactInfo: contactInfo,
-            location: locationFormat,
-            time: {
-              updatedAt: Date.now(),
-              publishedAt: Date.now()
+                userId: userId,
+                title: title,
+                status: 'publish',
+                category: category,
+                description: description,
+                salary: salary,
+                exposurePlan: exposurePlan,
+                imagesUrl: imagesUrl,
+                contactInfo: contactInfo,
+                location: locationFormat,
+                time: {
+                    updatedAt: Date.now(),
+                    publishedAt: Date.now(),
+                },
             },
-        });
+        );
         res.status(200).json(
             getHttpResponse({
-                message: '發佈草稿成功'
+                message: '發佈草稿成功',
             }),
         );
     }),
@@ -148,7 +149,7 @@ const tasks = {
         if (task.userId.toString() !== req.user._id.toString()) {
             return next(appError(403, '40302', '沒有權限'));
         }
-        if (task.status!=='draft') {
+        if (task.status !== 'draft') {
             return next(appError(405, '40214', `任務狀態錯誤： ${task.status}`));
         }
         delete task.__v;
@@ -203,7 +204,7 @@ const tasks = {
         );
         return res.status(200).json(
             getHttpResponse({
-                message: '更新草稿成功'
+                message: '更新草稿成功',
             }),
         );
     }),
@@ -264,15 +265,14 @@ const tasks = {
             dist: req.body.location.dist,
             address: req.body.location.address,
             longitude: geocodingResult.location.lng,
-            latitude: geocodingResult.location.lat
-        }
+            latitude: geocodingResult.location.lat,
+        };
         // 更新使用者點數
-        user.superCoin -= taskTrans.superCoin ;
-        user.helperCoin -= taskTrans.helperCoin ;
+        user.superCoin -= taskTrans.superCoin;
+        user.helperCoin -= taskTrans.helperCoin;
         await user.save();
         // 正式發佈
-        const publishTask = await Task.create(
-            {
+        const publishTask = await Task.create({
             userId: userId,
             title: title,
             status: 'published',
@@ -286,7 +286,7 @@ const tasks = {
             time: {
                 createdAt: Date.now(),
                 updatedAt: Date.now(),
-                publishedAt: Date.now()
+                publishedAt: Date.now(),
             },
         });
         // 新增一筆交易資訊
@@ -306,8 +306,8 @@ const tasks = {
             getHttpResponse({
                 message: '發佈任務成功',
                 data: {
-                    taskId:publishTask._id
-                }
+                    taskId: publishTask._id,
+                },
             }),
         );
     }),
@@ -342,8 +342,8 @@ const tasks = {
             dist: location.dist,
             address: location.address,
             longitude: geocodingResult.location.lng,
-            latitude: geocodingResult.location.lat
-        }
+            latitude: geocodingResult.location.lat,
+        };
         await Task.findOneAndUpdate(
             { _id: taskId },
             {
@@ -361,7 +361,7 @@ const tasks = {
         );
         return res.status(200).json(
             getHttpResponse({
-                message: '編輯下架任務成功'
+                message: '編輯下架任務成功',
             }),
         );
     }),
@@ -395,7 +395,7 @@ const tasks = {
         );
         return res.status(200).json(
             getHttpResponse({
-                message: '重新發佈任務成功'
+                message: '重新發佈任務成功',
             }),
         );
     }),
@@ -433,7 +433,7 @@ const tasks = {
         );
         return res.status(200).json(
             getHttpResponse({
-                message: '下架任務成功'
+                message: '下架任務成功',
             }),
         );
     }),
