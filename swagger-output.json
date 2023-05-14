@@ -1221,8 +1221,18 @@
                   "type": "string",
                   "example": "success"
                 },
+                "message": {
+                  "type": "string",
+                  "example": "儲存草稿成功"
+                },
                 "data": {
-                  "$ref": "#/definitions/draftTaskDetailResponse"
+                  "type": "object",
+                  "properties": {
+                    "taskId": {
+                      "type": "string",
+                      "example": "645be336a6b4506a5506be10"
+                    }
+                  }
                 }
               },
               "xml": {
@@ -1291,8 +1301,9 @@
                   "type": "string",
                   "example": "success"
                 },
-                "data": {
-                  "$ref": "#/definitions/draft2publishTaskDetailResponse"
+                "message": {
+                  "type": "string",
+                  "example": "發佈草稿成功"
                 }
               },
               "xml": {
@@ -1344,6 +1355,12 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/getDraftResponse"
+            }
+          },
           "400": {
             "description": "非新的草稿",
             "schema": {
@@ -2666,170 +2683,135 @@
         }
       }
     },
-    "draftTaskDetailResponse": {
+    "getDraftResponse": {
       "type": "object",
       "properties": {
-        "taskId": {
+        "status": {
           "type": "string",
-          "example": "645be336a6b4506a5506be10"
+          "example": "success"
         },
-        "title": {
-          "type": "string",
-          "example": "任務標題"
-        },
-        "category": {
-          "type": "string",
-          "example": "到府驅蟲"
-        },
-        "description": {
-          "type": "string",
-          "example": ""
-        },
-        "salary": {
-          "type": "number",
-          "example": 1000
-        },
-        "exposurePlan": {
-          "type": "string",
-          "example": "一般曝光"
-        },
-        "imagesUrl": {
-          "type": "array",
-          "example": [
-            "https://example.com/image1.jpg",
-            "https://example.com/mage2.jpg"
-          ],
-          "items": {
-            "type": "string"
-          }
-        },
-        "contactInfo": {
+        "data": {
           "type": "object",
           "properties": {
-            "name": {
+            "userId": {
               "type": "string",
-              "example": "王小明"
+              "example": "645f125ab001884876e3a12a"
             },
-            "phone": {
+            "status": {
               "type": "string",
-              "example": "0912345678"
+              "example": "draft"
             },
-            "email": {
+            "title": {
               "type": "string",
-              "example": "ming@gmail.com"
-            }
-          }
-        },
-        "location": {
-          "type": "object",
-          "properties": {
-            "city": {
-              "type": "string",
-              "example": "台北市"
+              "example": "任務標題"
             },
-            "dist": {
+            "category": {
               "type": "string",
-              "example": "信義區"
+              "example": "到府驅蟲"
             },
-            "address": {
-              "type": "string",
-              "example": "台北市信義區市府路45號"
-            }
-          }
-        },
-        "message": {
-          "type": "string",
-          "example": "儲存草稿成功"
-        }
-      }
-    },
-    "draft2publishTaskDetailResponse": {
-      "type": "object",
-      "properties": {
-        "taskId": {
-          "type": "string",
-          "example": "645be336a6b4506a5506be10"
-        },
-        "title": {
-          "type": "string",
-          "example": "任務標題"
-        },
-        "category": {
-          "type": "string",
-          "example": "到府驅蟲"
-        },
-        "description": {
-          "type": "string",
-          "example": "任務描述"
-        },
-        "taskTrans": {
-          "type": "object",
-          "properties": {
-            "superCoin": {
+            "description": {},
+            "salary": {
               "type": "number",
               "example": 1000
             },
-            "helperCoin": {
+            "exposurePlan": {
+              "type": "string",
+              "example": "一般曝光"
+            },
+            "imgUrls": {
+              "type": "array",
+              "example": [],
+              "items": {}
+            },
+            "contactInfo": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "王小明"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "0912345678"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "ming@gmail.com"
+                }
+              }
+            },
+            "location": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string",
+                  "example": "台北市"
+                },
+                "dist": {
+                  "type": "string",
+                  "example": "信義區"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "台北市信義區市府路45號"
+                }
+              }
+            },
+            "viewers": {
+              "type": "array",
+              "example": [],
+              "items": {}
+            },
+            "viewerCount": {
               "type": "number",
               "example": 0
-            }
-          }
-        },
-        "salary": {
-          "type": "number",
-          "example": 1000
-        },
-        "exposurePlan": {
-          "type": "string",
-          "example": "一般曝光"
-        },
-        "imagesUrl": {
-          "type": "array",
-          "example": [
-            "https://example.com/image1.jpg",
-            "https://example.com/mage2.jpg"
-          ],
-          "items": {
-            "type": "string"
-          }
-        },
-        "contactInfo": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "example": "王小明"
             },
-            "phone": {
-              "type": "string",
-              "example": "0912345678"
+            "isUrgent": {
+              "type": "boolean",
+              "example": false
             },
-            "email": {
-              "type": "string",
-              "example": "ming@gmail.com"
-            }
-          }
-        },
-        "location": {
-          "type": "object",
-          "properties": {
-            "city": {
-              "type": "string",
-              "example": "台北市"
+            "time": {
+              "type": "object",
+              "properties": {
+                "createdAt": {
+                  "type": "string",
+                  "example": "2023-05-16T05:21:26.144Z"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2023-05-16T05:21:26.144Z"
+                }
+              }
             },
-            "dist": {
-              "type": "string",
-              "example": "信義區"
+            "reviews": {
+              "type": "array",
+              "example": [],
+              "items": {}
             },
-            "address": {
+            "submittedInfo": {
+              "type": "object",
+              "properties": {
+                "imgUrls": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                }
+              }
+            },
+            "helpers": {
+              "type": "array",
+              "example": [],
+              "items": {}
+            },
+            "taskId": {
               "type": "string",
-              "example": "台北市信義區市府路45號"
+              "example": "6460a24905b52c47e04f4f38"
             }
           }
         },
         "message": {
           "type": "string",
-          "example": "發佈草稿成功"
+          "example": "取得草稿成功"
         }
       }
     },

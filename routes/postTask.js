@@ -54,7 +54,8 @@ router.post('/draft/save', async function (req, res, next) {
     description: 'OK',
     schema: {
     'status': 'success',
-    'data': {$ref: '#/definitions/draftTaskDetailResponse'}
+    'message': '儲存草稿成功',
+    'data': { 'taskId' : '645be336a6b4506a5506be10'}
     }
   }
   #swagger.responses[500] = {
@@ -81,7 +82,7 @@ router.post('/draft/publish/:taskId', async function (req, res, next) {
     description: '發佈草稿成功',
     schema: {
     'status': 'success',
-    'data': {$ref: '#/definitions/draft2publishTaskDetailResponse'}
+    'message': '發佈草稿成功',
     }
   }
   #swagger.responses[500] = {
@@ -99,6 +100,10 @@ router.get('/draft/:taskId', async function (req, res, next) {
    */
   /**
     #swagger.security=[{"Bearer": []}]
+    #swagger.responses[200] = {
+      description: 'OK',
+      schema: {$ref: '#/definitions/getDraftResponse'}
+    }
     #swagger.responses[400] = {
       description: '非新的草稿',
       schema: {'message': '打錯API了，儲存已存在的草稿請用put'}
@@ -108,7 +113,7 @@ router.get('/draft/:taskId', async function (req, res, next) {
       schema: {'message': '系統錯誤，請稍後再試'}
     }
   */
-  tasks.createDraft(req, res, next);
+  tasks.getDraft(req, res, next);
 });
 /* 更新草稿 */
 router.put('/draft/:taskId', async function (req, res, next) {

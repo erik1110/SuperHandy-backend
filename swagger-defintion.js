@@ -245,17 +245,41 @@ const publishTaskDetail = {
         address: '台北市信義區市府路45號',
     },
 };
-const draftTaskDetailResponse = {
-    taskId: '645be336a6b4506a5506be10',
-    ...draftTaskDetail,
-    message: '儲存草稿成功'
-};
-
-const draft2publishTaskDetailResponse = {
-    taskId: '645be336a6b4506a5506be10',
-    ...publishTaskDetail,
-    message: '發佈草稿成功'
-};
+const getDraftResponse = {
+    status: 'success',
+    data: {
+      userId: '645f125ab001884876e3a12a',
+      status: 'draft',
+      title: '任務標題',
+      category: '到府驅蟲',
+      description: null,
+      salary: 1000,
+      exposurePlan: '一般曝光',
+      imgUrls: [],
+      contactInfo: {
+        name: '王小明',
+        phone: '0912345678',
+        email: 'ming@gmail.com'
+      },
+      location: {
+        city: '台北市',
+        dist: '信義區',
+        address: '台北市信義區市府路45號'
+      },
+      viewers: [],
+      viewerCount: 0,
+      isUrgent: false,
+      time: {
+        createdAt: '2023-05-16T05:21:26.144Z',
+        updatedAt: '2023-05-16T05:21:26.144Z'
+      },
+      reviews: [],
+      submittedInfo: { imgUrls: [] },
+      helpers: [],
+      taskId: '6460a24905b52c47e04f4f38'
+    },
+    message: '取得草稿成功'
+  }
 
 const purchasePoints = {
     status: 'success',
@@ -298,8 +322,7 @@ module.exports = {
     updateInfoForm,
     draftTaskDetail,
     publishTaskDetail,
-    draftTaskDetailResponse,
-    draft2publishTaskDetailResponse,
+    getDraftResponse,
     purchasePoints,
     cashbackPoints
 };

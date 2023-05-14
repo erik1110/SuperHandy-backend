@@ -72,7 +72,9 @@ const tasks = {
         return res.status(200).json(
             getHttpResponse({
                 message: '儲存草稿成功',
-                data: draftModel,
+                data: {
+                    taskId : draftModel._id
+                }
             }),
         );
     }),
@@ -152,8 +154,30 @@ const tasks = {
         });
         res.status(200).json(
             getHttpResponse({
-                message: '發佈草稿成功',
-                data: publishModel,
+                message: '發佈草稿成功'
+            }),
+        );
+    }),
+    /* 取得草稿 */
+    getDraft: handleErrorAsync(async (req, res, next) => {
+        const taskId = req.params.taskId;
+        const task = await Task.findOne({ _id: taskId }).lean();
+        if (!task) {
+            return next(appError(400, '40212', '查無此 TaskId'));
+        }
+        if (task.status!=='draft') {
+            return next(appError(405, '40500', `任務狀態錯誤： ${task.status}`));
+        }
+        delete task.__v;
+        task.taskId = task._id;
+        delete task._id;
+        delete task.location.landmark;
+        delete task.location.longitude;
+        delete task.location.latitude;
+        res.status(200).json(
+            getHttpResponse({
+                message: '取得草稿成功',
+                data: task,
             }),
         );
     }),
@@ -216,21 +240,6 @@ const tasks = {
             newTaskModel.taskId = newTaskModel._id;
             return res.status(200).json(getHttpResponse({ data: newTaskModel }));
         }
-    }),
-    //P01-01 OK OK
-    getDraft: handleErrorAsync(async (req, res, next) => {
-        const taskId = req.params.taskId;
-        const userId = req.user._id;
-        if (!taskId) return next(appError(400, '40102', '請填入任務id'));
-
-        let taskModel = await Task.findOne({ _id: taskId, userId: userId });
-
-        if (!taskModel) return next(appError(404, '40210', '找不到任務'));
-        //check if the task is draft
-        if (taskModel.status !== 'draft' || taskModel.status !== 'unpublished') return next(appError(400, '40103', '此任務之狀態不可編輯'));
-        //return task
-        taskModel.taskId = taskModel._id;
-        res.status(200).json(getHttpResponse({ data: taskModel }));
     }),
     //P01-02 OK OK
     updateTask: handleErrorAsync(async (req, res, next) => {
