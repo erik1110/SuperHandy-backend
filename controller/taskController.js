@@ -84,13 +84,15 @@ const tasks = {
         const userId = req.user._id;
         const taskId = req.params.taskId;
         const address = location.address;
-        const geocodingResult = await geocoding(address);
         const task = await Task.findOne({ _id: taskId });
         if (!task) {
-            return next(appError(400, '40212', '查無此 TaskId'));
+            return next(appError(400, '40212', '查無此任務'));
+        }
+        if (task.userId.toString() !== req.user._id.toString()) {
+            return next(appError(403, '40302', '沒有權限'));
         }
         if (task.status!=='draft') {
-            return next(appError(405, '40500', `任務狀態錯誤： ${task.status}`));
+            return next(appError(405, '40214', `任務狀態錯誤： ${task.status}`));
         }
         const user = await User.findOne({ _id: userId });
         if (taskTrans.superCoin >= user.superCoin) {
@@ -99,6 +101,7 @@ const tasks = {
         if (taskTrans.helperCoin >= user.helperCoin) {
             return next(appError(400, '40211', `幫手幣不足： ${user.helperCoin}`));
         }
+        const geocodingResult = await geocoding(address);
         if (geocodingResult.status !== 'OK') {
             return next(appError(404, '40400', '找不到該地址'));
         }
@@ -158,10 +161,13 @@ const tasks = {
         const taskId = req.params.taskId;
         const task = await Task.findOne({ _id: taskId }).lean();
         if (!task) {
-            return next(appError(400, '40212', '查無此 TaskId'));
+            return next(appError(400, '40212', '查無此任務'));
+        }
+        if (task.userId.toString() !== req.user._id.toString()) {
+            return next(appError(403, '40302', '沒有權限'));
         }
         if (task.status!=='draft') {
-            return next(appError(405, '40500', `任務狀態錯誤： ${task.status}`));
+            return next(appError(405, '40214', `任務狀態錯誤： ${task.status}`));
         }
         delete task.__v;
         task.taskId = task._id;
@@ -183,12 +189,15 @@ const tasks = {
         if (!validatorResult.status) {
             return next(appError(400, '40102', validatorResult.msg));
         }
-        const task = await Task.findOne({ _id: taskId, userId: req.user._id });
+        const task = await Task.findOne({ _id: taskId });
         if (!task) {
-            return next(appError(404, '40401', '找不到任務'));
+            return next(appError(404, '40212', '查無此任務'));
+        }
+        if (task.userId.toString() !== req.user._id.toString()) {
+            return next(appError(403, '40302', '沒有權限'));
         }
         if (task.status !== 'draft') {
-            return next(appError(405, '40500', `任務狀態錯誤 ${task.status}`));
+            return next(appError(405, '40214', `任務狀態錯誤 ${task.status}`));
         }
         await Task.findOneAndUpdate(
             { _id: taskId },
@@ -213,6 +222,36 @@ const tasks = {
             }),
         );
     }),
+    /* 刪除草稿 */
+    deleteDraft: handleErrorAsync(async (req, res, next) => {
+        const taskId = req.params.taskId;
+        const task = await Task.findOne({ _id: taskId });
+        if (!task) {
+            return next(appError(404, '40212', '查無此任務'));
+        }
+        if (task.userId.toString() !== req.user._id.toString()) {
+            return next(appError(403, '40302', '沒有權限'));
+        }
+        if (task.status !== 'draft') {
+            return next(appError(405, '40214', `任務狀態錯誤${task.status}`));
+        }
+        await Task.findOneAndUpdate(
+            { _id: taskId },
+            {
+                $set: {
+                    status: 'deleted',
+                    'time.deletedAt': Date.now(),
+                },
+            },
+            { new: true },
+        );
+        return res.status(200).json(
+            getHttpResponse({
+                message: '刪除草稿成功',
+            }),
+        );
+    }),
+
 };
 
 module.exports = tasks;
