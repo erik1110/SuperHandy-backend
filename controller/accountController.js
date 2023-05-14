@@ -215,6 +215,11 @@ const accounts = {
             superCoin: -point,
             helperCoin: 0,
             desc: [bank, bankNo, bankAcct.slice(-5)],
+            bank: {
+                bank: bank,
+                bankNo: bankNo,
+                bankAcct: bankAcct
+            },
             role: '系統',
         });
         res.status(200).json(
