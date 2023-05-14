@@ -299,6 +299,86 @@ const tasks = {
             }),
         );
     }),
+    /* 編輯下架任務 */
+    unpublishEditTask: handleErrorAsync(async (req, res, next) => {
+        const taskId = req.params.taskId;
+        const validatorResult = TaskValidator.checkUnpublishEdit(req.body);
+        if (!validatorResult.status) {
+            return next(appError(400, '40102', validatorResult.msg));
+        }
+        const task = await Task.findOne({ _id: taskId });
+        if (!task) {
+            return next(appError(404, '40212', '查無此任務'));
+        }
+        if (task.userId.toString() !== req.user._id.toString()) {
+            return next(appError(403, '40302', '沒有權限'));
+        }
+        if (task.status !== 'unpublished') {
+            return next(appError(405, '40214', `任務狀態錯誤 ${task.status}`));
+        }
+        const { title, category, description, imagesUrl, contactInfo, location } = req.body;
+        const address = location.address;
+        const geocodingResult = await geocoding(address);
+        if (geocodingResult.status !== 'OK') {
+            return next(appError(404, '40400', '找不到該地址'));
+        }
+        const locationFormat = {
+            city: location.city,
+            dist: location.dist,
+            address: location.address,
+            longitude: geocodingResult.location.lng,
+            latitude: geocodingResult.location.lat
+        }
+        await Task.findOneAndUpdate(
+            { _id: taskId },
+            {
+                $set: {
+                    title: title,
+                    category: category,
+                    description: description,
+                    imagesUrl: imagesUrl,
+                    contactInfo: contactInfo,
+                    location: locationFormat,
+                    'time.updatedAt': Date.now(),
+                },
+            },
+            { new: true },
+        );
+        return res.status(200).json(
+            getHttpResponse({
+                message: '編輯下架任務成功'
+            }),
+        );
+    }),
+    /* 下架任務 */
+    unpublishTask: handleErrorAsync(async (req, res, next) => {
+        const taskId = req.params.taskId;
+        const task = await Task.findOne({ _id: taskId });
+        if (!task) {
+            return next(appError(404, '40212', '查無此任務'));
+        }
+        if (task.userId.toString() !== req.user._id.toString()) {
+            return next(appError(403, '40302', '沒有權限'));
+        }
+        if (task.status !== 'published') {
+            return next(appError(405, '40214', `任務狀態錯誤 ${task.status}`));
+        }
+        await Task.findOneAndUpdate(
+            { _id: taskId },
+            {
+                $set: {
+                    status: 'unpublished',
+                    'time.unpublishedAt': Date.now(),
+                },
+            },
+            { new: true },
+        );
+        return res.status(200).json(
+            getHttpResponse({
+                message: '下架任務成功'
+            }),
+        );
+    }),
 };
 
 module.exports = tasks;

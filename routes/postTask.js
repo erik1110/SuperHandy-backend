@@ -150,6 +150,13 @@ router.delete('/draft/:taskId', async function (req, res, next) {
    */
   /**
     #swagger.security=[{"Bearer": []}]
+        #swagger.responses[200] = {
+      description: 'OK',
+      schema: {
+      'status': 'success',
+      'message': '刪除草稿成功'
+      }
+    }
     #swagger.responses[500] = {
       description: '系統錯誤',
       schema: {'message': '系統錯誤，請稍後再試'}
@@ -194,25 +201,19 @@ router.post('/publish', async function (req, res, next) {
   tasks.publishTask(req, res, next);
 });
 
-/* 編輯任務 */
+/* 編輯下架任務 */
 router.post('/edit/:taskId', async function (req, res, next) {
   /**
    * #swagger.tags = ['Posts']
-   * #swagger.summary = '編輯任務 (Edit the task)'
+   * #swagger.summary = '編輯下架任務 (Edit the unpublished task)'
    */
   /**
   #swagger.security=[{"Bearer": []}]
   #swagger.responses[200] = {
-    description: 'OK',
+    description: '編輯下架任務成功',
     schema: {
-    'status': 'scuccess',
-    'data': {$ref: "#/definitions/taskDetailWithId"}
-    }
-  }
-  #swagger.responses[404] = {
-    description: 'Not Found',
-    schema: {
-    'message': '儲存失敗'
+      'status': 'success',
+      'message': '編輯下架任務成功',
     }
   }
   #swagger.responses[500] = {
@@ -222,7 +223,7 @@ router.post('/edit/:taskId', async function (req, res, next) {
     }
   }
  */
-  tasks.publishTask(req, res, next);
+  tasks.unpublishEditTask(req, res, next);
 });
 
 /* 重新發佈任務 */
@@ -236,8 +237,8 @@ router.post('/republish/:taskId', async function (req, res, next) {
   #swagger.responses[200] = {
     description: 'OK',
     schema: {
-    'status': 'scuccess',
-    'data': {$ref: "#/definitions/taskDetailWithId"}
+      'status': 'success',
+      'data': {$ref: "#/definitions/taskDetailWithId"}
     }
   }
   #swagger.responses[404] = {
@@ -267,14 +268,8 @@ router.post('/unpublish/:taskId', async function (req, res, next) {
   #swagger.responses[200] = {
     description: 'OK',
     schema: {
-    'status': 'scuccess',
-    'data': {$ref: "#/definitions/taskDetailWithId"}
-    }
-  }
-  #swagger.responses[404] = {
-    description: 'Not Found',
-    schema: {
-    'message': '儲存失敗'
+    'status': 'success',
+    'message': '下架任務成功',
     }
   }
   #swagger.responses[500] = {
@@ -284,7 +279,7 @@ router.post('/unpublish/:taskId', async function (req, res, next) {
     }
   }
  */
-  tasks.publishTask(req, res, next);
+  tasks.unpublishTask(req, res, next);
 });
 
 module.exports = router;
