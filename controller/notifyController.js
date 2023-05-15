@@ -1,12 +1,7 @@
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
 const { appError, handleErrorAsync } = require('../utils/errorHandler');
 const getHttpResponse = require('../utils/successHandler');
 const Notify = require('../models/notifyModel');
-const { generateJwtToken, generateJwtTokenForEmail } = require('../middleware/auth');
-const Validator = require('../service/userValidator');
-const validator = require('validator');
-const mailer = require('../utils/mailer');
 
 const notify = {
     getNotifyList: handleErrorAsync(async (req, res, next) => {
