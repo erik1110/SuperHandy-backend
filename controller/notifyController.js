@@ -35,7 +35,7 @@ const notify = {
         if (!notify) {
             return next(appError(404, '40212', '查無此通知'));
         }
-        if (notify.userId.toString() !== req.user._id.toString()) {
+        if (notify.userId.toString() !== userId.toString()) {
             return next(appError(403, '40302', '沒有權限'));
         }
         if (notify.read) {
