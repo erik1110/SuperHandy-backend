@@ -5,6 +5,7 @@ const initCategories = require('../db/initCategories');
 const initPlans = require('../db/initPlans');
 const initTasks = require('../db/initTasks');
 const initReviews = require('../db/initReviews');
+const initNotify = require('../db/initNotify');
 const initUsers = require('../db/initUsers');
 const initTransactions = require('../db/initTransactions');
 const initSuperhandyReviews = require('../db/initSuperhandyReviews');
@@ -21,6 +22,7 @@ mongoose
         await initTasks();
         await initTransactions();
         await initReviews();
+        await initNotify();
         await initSuperhandyReviews();
     })
     .catch((err) => console.error('資料庫連接失敗', err));

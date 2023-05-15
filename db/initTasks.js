@@ -45,7 +45,7 @@ const initTasks = async () => {
                     status: 'unpaired',
                 },
                 {
-                    helperId: userCase1._id,
+                    helperId: userCase2._id,
                     status: 'unpaired',
                 },
             ],

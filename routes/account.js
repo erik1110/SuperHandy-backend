@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-const User = require('../models/userModel');
 const accountController = require('../controller/accountController');
 
 router.get('/profile', async function (req, res, next) {
