@@ -5,6 +5,7 @@ const User = require('../models/userModel');
 const Task = require('../models/taskModel');
 const TaskTrans = require('../models/taskTransModel');
 const TaskValidator = require('../service/taskValidator');
+const Notify = require('../models/notifyModel');
 const getexposurePlanPrices = require('../service/exposurePlan');
 const geocoding = require('../utils/geocoding');
 
@@ -415,7 +416,29 @@ const tasks = {
         if (task.status !== 'published') {
             return next(appError(405, '40214', `任務狀態錯誤 ${task.status}`));
         }
-        // 這邊需要發送幫手被踢除的推播
+        // 推播通知
+        const helpers = task.helpers;
+        const notifications = helpers.map(helper => {
+        const helpId = helper.helperId;
+          return {
+            userId: helpId,
+            tag: '幫手通知',
+            read: true,
+            description: `您待媒合的任務：「${task.title} 」已下架`,
+            taskId: taskId,
+            createdAt: Date.now(),
+          };
+        });
+        await Notify.insertMany(notifications);
+        await Notify.create({
+            userId: req.user._id,
+            tag: '案主通知',
+            read: true,
+            description: `您待媒合的任務：「${task.title} 」已下架，無法被其他人查看該任務`,
+            taskId: taskId,
+            createdAt: Date.now(),
+        })
+        // 更新 Task
         await Task.findOneAndUpdate(
             { _id: taskId },
             {
