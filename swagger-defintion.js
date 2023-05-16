@@ -93,6 +93,7 @@ const getSuperhandyReviewSuccess = {
             _id: '644fdf6b56c25a7e04b77197',
             comment: '個人物品多 之前透過此平台搜尋到 此清潔整理員工作時都會注意細節 每次需要時依舊還是會想要主動聯繫此清潔整理員',
             name: '翁',
+            avatar: ''
         },
     ],
     message: '取得成功',

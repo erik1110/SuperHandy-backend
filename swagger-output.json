@@ -2471,6 +2471,10 @@
               "name": {
                 "type": "string",
                 "example": "翁"
+              },
+              "avatar": {
+                "type": "string",
+                "example": ""
               }
             }
           }
