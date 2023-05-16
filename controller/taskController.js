@@ -109,6 +109,16 @@ const tasks = {
             longitude: geocodingResult.location.lng,
             latitude: geocodingResult.location.lat,
         };
+        const currentDate = Date.now();
+        let expiredAt;
+        if (exposurePlan === '一般曝光' || exposurePlan === '黃金曝光') {
+        expiredAt = new Date(currentDate + 30 * 24 * 60 * 60 * 1000); // 30 天後
+        } else if (exposurePlan === '限時曝光' || exposurePlan === '限時黃金曝光') {
+        expiredAt = new Date(currentDate + 7 * 24 * 60 * 60 * 1000); // 7 天後
+        } else {
+            // 預設為 1 天後
+            expiredAt = new Date(currentDate + 1 * 24 * 60 * 60 * 1000);
+        }
         // 將草稿更新為正式發佈
         await Task.findByIdAndUpdate(
             {
@@ -126,8 +136,9 @@ const tasks = {
                 contactInfo: contactInfo,
                 location: locationFormat,
                 time: {
-                    updatedAt: Date.now(),
-                    publishedAt: Date.now(),
+                    updatedAt: currentDate,
+                    publishedAt: currentDate,
+                    expiredAt: expiredAt,
                 },
             },
         );
@@ -272,6 +283,16 @@ const tasks = {
         user.superCoin -= taskTrans.superCoin;
         user.helperCoin -= taskTrans.helperCoin;
         await user.save();
+        const currentDate = Date.now();
+        let expiredAt;
+        if (exposurePlan === '一般曝光' || exposurePlan === '黃金曝光') {
+        expiredAt = new Date(currentDate + 30 * 24 * 60 * 60 * 1000); // 30 天後
+        } else if (exposurePlan === '限時曝光' || exposurePlan === '限時黃金曝光') {
+        expiredAt = new Date(currentDate + 7 * 24 * 60 * 60 * 1000); // 7 天後
+        } else {
+            // 預設為 1 天後
+            expiredAt = new Date(currentDate + 1 * 24 * 60 * 60 * 1000);
+        }
         // 正式發佈
         const publishTask = await Task.create({
             userId: userId,
@@ -285,9 +306,10 @@ const tasks = {
             contactInfo: contactInfo,
             location: locationFormat,
             time: {
-                createdAt: Date.now(),
-                updatedAt: Date.now(),
-                publishedAt: Date.now(),
+                createdAt: currentDate,
+                updatedAt: currentDate,
+                publishedAt: currentDate,
+                expiredAt: expiredAt,
             },
         });
         // 新增一筆交易資訊
