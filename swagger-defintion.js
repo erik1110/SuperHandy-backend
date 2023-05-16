@@ -317,6 +317,19 @@ const cashbackPoints = {
     message: '返還成功',
 };
 
+const getNotifyList = {
+    status: 'success',
+    data: {
+        userId: "646266a3d7d8ce5010f8c327",
+        tag: "案主通知",
+        read: true,
+        description: "您的任務：「陪我家狗玩 」幫手已提交驗收內容，請進行驗收",
+        taskId: "646266a3d7d8ce5010f8c334",
+        createdAt: "2022-02-17T05:55:56.000Z"
+    },
+    message: '取得通知成功',
+};
+
 module.exports = {
     Success,
     Error400,
@@ -344,4 +357,5 @@ module.exports = {
     unpublishEditDetail,
     purchasePoints,
     cashbackPoints,
+    getNotifyList
 };

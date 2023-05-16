@@ -2127,6 +2127,79 @@
           }
         ]
       }
+    },
+    "/notifications/list": {
+      "get": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "取得通知清單 (Get all notifications)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得通知成功",
+            "schema": {
+              "$ref": "#/definitions/getNotifyList"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/notifications/read/{notifyId}": {
+      "patch": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "將某個通知標記為已讀 (Mark a notification as read)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "notifyId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "已讀通知成功"
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
     }
   },
   "definitions": {
@@ -3122,6 +3195,48 @@
         "message": {
           "type": "string",
           "example": "返還成功"
+        }
+      }
+    },
+    "getNotifyList": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "userId": {
+              "type": "string",
+              "example": "646266a3d7d8ce5010f8c327"
+            },
+            "tag": {
+              "type": "string",
+              "example": "案主通知"
+            },
+            "read": {
+              "type": "boolean",
+              "example": true
+            },
+            "description": {
+              "type": "string",
+              "example": "您的任務：「陪我家狗玩 」幫手已提交驗收內容，請進行驗收"
+            },
+            "taskId": {
+              "type": "string",
+              "example": "646266a3d7d8ce5010f8c334"
+            },
+            "createdAt": {
+              "type": "string",
+              "example": "2022-02-17T05:55:56.000Z"
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得通知成功"
         }
       }
     }
