@@ -329,6 +329,22 @@ const getNotifyList = {
     },
     message: '取得通知成功',
 };
+const getPostedTasksHist = {
+    status: "success",
+    data: [
+      {
+        title: "陪我家狗玩",
+        status: "已完成",
+        salary: 300,
+        address: "台北市松山區復興北路15號",
+        createdAt: "2023-01-30T04:34:56.000Z",
+        publishedAt: "2022-02-15T05:34:56.000Z",
+        expiredAt: "2023-03-01T04:34:56.000Z",
+        helpers: "張亞靜"
+      },
+    ],
+    message: "取得成功"
+  }
 
 module.exports = {
     Success,
@@ -357,5 +373,6 @@ module.exports = {
     unpublishEditDetail,
     purchasePoints,
     cashbackPoints,
-    getNotifyList
+    getNotifyList,
+    getPostedTasksHist
 };
