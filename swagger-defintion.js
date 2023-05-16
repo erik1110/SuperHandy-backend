@@ -320,6 +320,7 @@ const cashbackPoints = {
 const getNotifyList = {
     status: 'success',
     data: {
+        notifyId: "6462e2fbcc60d505cc83de30",
         userId: "646266a3d7d8ce5010f8c327",
         tag: "案主通知",
         read: true,
