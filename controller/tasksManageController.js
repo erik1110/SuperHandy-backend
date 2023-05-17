@@ -104,23 +104,30 @@ const tasks = {
     }
     const isTaskOwner = task.userId._id.toString() === userId.toString();
     const isTaskHelper = task.helpers.some((helper) => {
-      return helper.status === "paired" && helper.helperId._id === userId;
+      return helper.status === "paired" && helper.helperId._id.toString() === userId.toString();
     });
-    if (isTaskOwner) {
-      role = '案主';
-    } else if (isTaskHelper) {
-      role = '幫手';
-    } else {
-      return next(appError(400, '40212', '查無此任務'));
-    }
     const helper = task.helpers.find((helper) => helper.status === 'paired');
     const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : '';
     const posterName = task.userId ? `${task.userId.lastName}${task.userId.firstName}` : '';
-    const formatHelpers = task.helpers.map(helper => ({
-      helperId: helper.helperId._id,
-      status: helper.status,
-      lastName: helper.helperId.lastName
-    }));
+    let formatHelpers
+    if (isTaskOwner) {
+      role = '案主';
+      formatHelpers = task.helpers.map(helper => ({
+                                        helperId: helper.helperId._id,
+                                        status: helper.status,
+                                        lastName: helper.helperId.lastName
+                                      }));
+    } else if (isTaskHelper) {
+      role = '幫手';
+      formatHelpers = task.helpers.filter(helper => helper.status === "paired")
+                                  .map(helper => ({
+                                    helperId: helper.helperId._id,
+                                    status: helper.status,
+                                    lastName: helper.helperId.lastName
+                                  }));
+    } else {
+      return next(appError(400, '40212', '查無此任務'));
+    }
     const formattedTask = {
       taskId: task._id,
       role: role,
