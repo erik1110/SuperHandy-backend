@@ -445,7 +445,6 @@ const tasks = {
             return {
                 userId: helpId,
                 tag: '幫手通知',
-                read: false,
                 description: `您待媒合的任務：「${task.title} 」已下架`,
                 taskId: taskId,
                 createdAt: Date.now(),
@@ -455,7 +454,6 @@ const tasks = {
         await Notify.create({
             userId: req.user._id,
             tag: '案主通知',
-            read: false,
             description: `您待媒合的任務：「${task.title} 」已下架，無法被其他人查看該任務`,
             taskId: taskId,
             createdAt: Date.now(),
