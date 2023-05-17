@@ -20,62 +20,15 @@ const statusMapping = {
 const tasks = {
     getPostedTasksHist: handleErrorAsync(async (req, res, next) => {
         const userId = req.user._id;
-        const tasks = await Task.aggregate([
-          { $match: { userId: userId } },
-          {
-            $lookup: {
-              from: 'users',
-              localField: 'helpers.helperId',
-              foreignField: '_id',
-              as: 'helperDetails',
-              pipeline: [
-                { $project: { lastName: 1, firstName: 1 } }
-              ],
-            },
-          },
-          {
-            $project: {
-              _id: 1,
-              title: 1,
-              'location.city': 1,
-              'location.dist': 1,
-              'location.address': 1,
-              salary: 1,
-              status: 1,
-              'time.createdAt': 1,
-              'time.publishedAt': 1,
-              'time.expiredAt': 1,
-              helperDetails: {
-                $map: {
-                  input: '$helpers',
-                  as: 'helper',
-                  in: {
-                    $mergeObjects: [
-                      '$$helper',
-                      {
-                        $arrayElemAt: [
-                          {
-                            $filter: {
-                              input: '$helperDetails',
-                              as: 'detail',
-                              cond: { $eq: ['$$detail._id', '$$helper.helperId'] },
-                            },
-                          },
-                          0
-                        ]
-                      }
-                    ]
-                  }
-                }
-              },
-            },
-          },
-        ]);
-        const formattedTasks = tasks.map((task) => {
-          const pairedHelpers = task.helperDetails.filter((helper) => helper.status === 'paired');
-          const helperNames = pairedHelpers.map((helper) => `${helper.lastName}${helper.firstName}`);
+        const task = await Task.find({ userId: userId })
+                    .populate({
+                      path: 'helpers.helperId',
+                      select: 'lastName firstName',
+                    });
+        const formattedData = task.map((task) => {
+          const helper = task.helpers.find((helper) => helper.status === 'paired');
+          const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : '';
           return {
-            taskId: task._id,
             title: task.title,
             status: statusMapping[task.status] || task.status,
             salary: task.salary,
@@ -83,13 +36,13 @@ const tasks = {
             createdAt: task.time.createdAt,
             publishedAt: task.time.publishedAt,
             expiredAt: task.time.expiredAt,
-            helper: helperNames.join(','),
+            helper: helperName,
           };
         });
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',
-                data: formattedTasks,
+                data: formattedData,
             }),
         );
     }),
@@ -171,54 +124,25 @@ const tasks = {
     if (!mongoose.isValidObjectId(taskId)) {
       return next(appError(400, '40104', 'Id 格式錯誤'));
     }
-    // function isHelper(userId, helper) {
-    //   return helper.helperId.toString() === userId.toString() && helper.status === 'paired';
-    // }
-    
-    const tasks = await Task.aggregate([
-      { $match: { _id: new mongoose.Types.ObjectId(taskId) } },
-      {
-        $lookup: {
-          from: 'users',
-          let: { helperIds: '$helpers.helperId' },
-          pipeline: [
-            { $match: { $expr: { $in: ['$_id', '$$helperIds'] } } },
-            { $project: { lastName: 1, firstName: 1 } }
-          ],
-          as: 'helperDetails'
-        },
-      },
-      {
-        $project: {
-          _id: 1,
-          title: 1,
-          'location.city': 1,
-          'location.dist': 1,
-          'location.address': 1,
-          salary: 1,
-          status: 1,
-          'time.createdAt': 1,
-          'time.publishedAt': 1,
-          'time.expiredAt': 1,
-          helpers: 1,
-          helperDetails: {
-            $arrayElemAt: ['$helperDetails', 0],
-          },
-        },
-      },
-    ]);
-    
-    
-    // const isTaskOwner = task.userId.toString() === userId.toString();
-    // const isTaskHelper = task.helpers.some((helper) => isHelper(userId, helper));
-    
-    // if (isTaskOwner) {
-    //   role = '案主';
-    // } else if (isTaskHelper) {
-    //   role = '幫手';
-    // } else {
-    //   return next(appError(400, '40212', '查無此任務'));
-    // }
+    const task = await Task.findOne({ _id: taskId })
+      .populate({
+        path: 'helpers.helperId',
+        select: 'lastName firstName',
+      })
+      .select('_id userId title location.city location.dist location.address salary status time.createdAt time.publishedAt time.expiredAt helpers');
+    const isTaskOwner = task.userId.toString() === userId.toString();
+    const isTaskHelper = task.helpers.some((helper) => {
+      return helper.status === "paired" && helper.helperId._id === userId;
+    });
+
+    if (isTaskOwner) {
+      role = '案主';
+    } else if (isTaskHelper) {
+      role = '幫手';
+    } else {
+      return next(appError(400, '40212', '查無此任務'));
+    }
+    // console.log(role)
     // const disallowedStatuses = ['draft', 'deleted'];
 
     // if (disallowedStatuses.includes(task.status)) {
@@ -243,7 +167,7 @@ const tasks = {
     res.status(200).json(
         getHttpResponse({
             message: '取得成功',
-            data: tasks,
+            data: task,
         }),
     );
 }),
