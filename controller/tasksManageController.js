@@ -6,7 +6,7 @@ const User = require('../models/userModel');
 const Task = require('../models/taskModel');
 const TaskTrans = require('../models/taskTransModel');
 
-const statusDict = {
+const statusMapping = {
     draft: '草稿',
     published: '媒合中',
     inProgressed: '進行中',
@@ -59,13 +59,13 @@ const tasks = {
         ]);
         const formattedTasks = tasks.map((task) => ({
             title: task.title,
-            status: statusDict[task.status] || task.status,
+            status: statusMapping[task.status] || task.status,
             salary: task.salary,
             address: `${task.location.city}${task.location.dist}${task.location.address}`,
             createdAt: task.time.createdAt,
             publishedAt: task.time.publishedAt,
             expiredAt: task.time.expiredAt,
-            helpers: task.helperDetails ? `${task.helperDetails.lastName}${task.helperDetails.firstName}` : '',
+            helper: task.helperDetails ? `${task.helperDetails.lastName}${task.helperDetails.firstName}` : '',
         }));
         res.status(200).json(
             getHttpResponse({
@@ -74,6 +74,73 @@ const tasks = {
             }),
         );
     }),
+    getAppliedTasksHist: handleErrorAsync(async (req, res, next) => {
+      const userId = req.user._id;
+      const tasks = await Task.aggregate([
+        {
+          $match: {
+            helpers: {
+              $elemMatch: {
+                helperId: userId,
+                status: 'paired',
+              },
+            },
+          },
+        },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'userId',
+            foreignField: '_id',
+            as: 'userDetails',
+            pipeline: [
+              { $project: { lastName: 1, firstName: 1 } }
+            ],
+          },
+        },
+        {
+          $project: {
+            title: 1,
+            'location.city': 1,
+            'location.dist': 1,
+            'location.address': 1,
+            salary: 1,
+            status: 1,
+            'time.createdAt': 1,
+            'time.publishedAt': 1,
+            'time.expiredAt': 1,
+            helpers: {
+              $filter: {
+                input: '$helpers',
+                as: 'helper',
+                cond: { $eq: ['$$helper.status', 'paired'] },
+              },
+            },
+            userDetails: {
+              $arrayElemAt: ['$userDetails', 0],
+            },
+          },
+        },
+      ]);
+      const formattedTasks = tasks.map((task) => {
+        return {
+          title: task.title,
+          status: statusMapping[task.status] || '',
+          salary: task.salary,
+          address: `${task.location.city}${task.location.dist}${task.location.address}`,
+          createdAt: task.time.createdAt,
+          publishedAt: task.time.publishedAt,
+          expiredAt: task.time.expiredAt,
+          poster: `${task.userDetails.lastName}${task.userDetails.firstName}`,
+        };
+      });
+      res.status(200).json(
+          getHttpResponse({
+              message: '取得成功',
+              data: formattedTasks,
+          }),
+      );
+  }),
  };
 
 module.exports = tasks;

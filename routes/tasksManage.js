@@ -35,7 +35,7 @@ router.get('/helper', function (req, res, next) {
         schema: { $ref: '#/definitions/Error500' }
     }
 */
-  tasksManageController.markRead(req, res, next);
+  tasksManageController.getAppliedTasksHist(req, res, next);
 });
 
 /* 取得任務詳情 */
