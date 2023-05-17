@@ -97,7 +97,10 @@ const tasks = {
       }).populate({
         path: 'userId',
         select: 'lastName firstName',
-      });
+    });
+    if (!task) {
+      return next(appError(404, '40212', '查無此任務'));
+    }
     const disallowedStatuses = ['draft', 'deleted'];
     if (disallowedStatuses.includes(task.status)) {
       return next(appError(400, '40214', '任務狀態錯誤'));

@@ -3505,7 +3505,7 @@
         "data": {
           "type": "object",
           "properties": {
-            "notify": {
+            "notifyId": {
               "type": "string",
               "example": "6462e2fbcc60d505cc83de30"
             },
