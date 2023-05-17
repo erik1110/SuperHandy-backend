@@ -8,12 +8,12 @@ const notifySchema = new mongoose.Schema({
     tag: {
         type: String,
         required: true,
-        enum: ['案主通知', '幫手通知', '系統通知']
+        enum: ['案主通知', '幫手通知', '系統通知'],
     },
     read: {
         type: Boolean,
         default: false,
-        required: true
+        required: true,
     },
     description: {
         type: String,

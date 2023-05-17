@@ -218,7 +218,7 @@ const accounts = {
             bank: {
                 bank: bank,
                 bankNo: bankNo,
-                bankAcct: bankAcct
+                bankAcct: bankAcct,
             },
             role: '系統',
         });

@@ -112,9 +112,9 @@ const tasks = {
         const currentDate = Date.now();
         let expiredAt;
         if (exposurePlan === '一般曝光' || exposurePlan === '黃金曝光') {
-        expiredAt = new Date(currentDate + 30 * 24 * 60 * 60 * 1000); // 30 天後
+            expiredAt = new Date(currentDate + 30 * 24 * 60 * 60 * 1000); // 30 天後
         } else if (exposurePlan === '限時曝光' || exposurePlan === '限時黃金曝光') {
-        expiredAt = new Date(currentDate + 7 * 24 * 60 * 60 * 1000); // 7 天後
+            expiredAt = new Date(currentDate + 7 * 24 * 60 * 60 * 1000); // 7 天後
         } else {
             // 預設為 1 天後
             expiredAt = new Date(currentDate + 1 * 24 * 60 * 60 * 1000);
@@ -286,9 +286,9 @@ const tasks = {
         const currentDate = Date.now();
         let expiredAt;
         if (exposurePlan === '一般曝光' || exposurePlan === '黃金曝光') {
-        expiredAt = new Date(currentDate + 30 * 24 * 60 * 60 * 1000); // 30 天後
+            expiredAt = new Date(currentDate + 30 * 24 * 60 * 60 * 1000); // 30 天後
         } else if (exposurePlan === '限時曝光' || exposurePlan === '限時黃金曝光') {
-        expiredAt = new Date(currentDate + 7 * 24 * 60 * 60 * 1000); // 7 天後
+            expiredAt = new Date(currentDate + 7 * 24 * 60 * 60 * 1000); // 7 天後
         } else {
             // 預設為 1 天後
             expiredAt = new Date(currentDate + 1 * 24 * 60 * 60 * 1000);
@@ -440,16 +440,16 @@ const tasks = {
         }
         // 推播通知
         const helpers = task.helpers;
-        const notifications = helpers.map(helper => {
-        const helpId = helper.helperId;
-          return {
-            userId: helpId,
-            tag: '幫手通知',
-            read: true,
-            description: `您待媒合的任務：「${task.title} 」已下架`,
-            taskId: taskId,
-            createdAt: Date.now(),
-          };
+        const notifications = helpers.map((helper) => {
+            const helpId = helper.helperId;
+            return {
+                userId: helpId,
+                tag: '幫手通知',
+                read: true,
+                description: `您待媒合的任務：「${task.title} 」已下架`,
+                taskId: taskId,
+                createdAt: Date.now(),
+            };
         });
         await Notify.insertMany(notifications);
         await Notify.create({
@@ -459,7 +459,7 @@ const tasks = {
             description: `您待媒合的任務：「${task.title} 」已下架，無法被其他人查看該任務`,
             taskId: taskId,
             createdAt: Date.now(),
-        })
+        });
         // 更新 Task
         await Task.findOneAndUpdate(
             { _id: taskId },

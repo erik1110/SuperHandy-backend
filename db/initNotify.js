@@ -12,7 +12,7 @@ const initNotify = async () => {
         const userCase3 = await User.findOne({ email: 'chiayu@example.com' }).select('lastName firstName phone');
         const userCase5 = await User.findOne({ email: 'weiyu@example.com' }).select('lastName firstName phone');
         const taskCase1 = tasks.find((task) => task.userId._id.equals(userCase1._id));
-    
+
         const notify = [
             {
                 userId: userCase5._id,

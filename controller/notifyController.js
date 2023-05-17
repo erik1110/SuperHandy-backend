@@ -6,10 +6,9 @@ const Notify = require('../models/notifyModel');
 const notify = {
     getNotifyList: handleErrorAsync(async (req, res, next) => {
         const userId = req.user._id;
-        const notifications = await Notify.find({ userId: userId }, { __v: 0 })
-                                          .sort({ createdAt: -1 }).lean();
+        const notifications = await Notify.find({ userId: userId }, { __v: 0 }).sort({ createdAt: -1 }).lean();
 
-        const transformedNotifications = notifications.map(notification => {
+        const transformedNotifications = notifications.map((notification) => {
             return { notifyId: notification._id, ...notification };
         });
         delete transformedNotifications._id;
@@ -50,6 +49,6 @@ const notify = {
             }),
         );
     }),
- };
+};
 
 module.exports = notify;
