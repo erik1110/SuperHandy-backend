@@ -20,12 +20,12 @@ const statusMapping = {
 const tasks = {
     getPostedTasksHist: handleErrorAsync(async (req, res, next) => {
         const userId = req.user._id;
-        const task = await Task.find({ userId: userId })
+        const tasks = await Task.find({ userId: userId })
                     .populate({
                       path: 'helpers.helperId',
                       select: 'lastName firstName',
                     });
-        const formattedData = task.map((task) => {
+        const formattedData = tasks.map((task) => {
           const helper = task.helpers.find((helper) => helper.status === 'paired');
           const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : '';
           return {
@@ -48,64 +48,26 @@ const tasks = {
     }),
     getAppliedTasksHist: handleErrorAsync(async (req, res, next) => {
       const userId = req.user._id;
-      const tasks = await Task.aggregate([
-        {
-          $match: {
-            helpers: {
-              $elemMatch: {
-                helperId: userId,
-                status: 'paired',
-              },
-            },
-          },
-        },
-        {
-          $lookup: {
-            from: 'users',
-            localField: 'userId',
-            foreignField: '_id',
-            as: 'userDetails',
-            pipeline: [
-              { $project: { lastName: 1, firstName: 1 } }
-            ],
-          },
-        },
-        {
-          $project: {
-            _id: 1,
-            title: 1,
-            'location.city': 1,
-            'location.dist': 1,
-            'location.address': 1,
-            salary: 1,
-            status: 1,
-            'time.createdAt': 1,
-            'time.publishedAt': 1,
-            'time.expiredAt': 1,
-            helpers: {
-              $filter: {
-                input: '$helpers',
-                as: 'helper',
-                cond: { $eq: ['$$helper.status', 'paired'] },
-              },
-            },
-            userDetails: {
-              $arrayElemAt: ['$userDetails', 0],
-            },
-          },
-        },
-      ]);
+      const tasks = await Task.find({
+        'helpers.helperId': userId,
+        'helpers.status': 'paired',
+      }).populate({
+        path: 'userId',
+        select: 'lastName firstName',
+      });
+      
       const formattedTasks = tasks.map((task) => {
+        const posterName = task.userId ? `${task.userId.lastName}${task.userId.firstName}` : '';
+      
         return {
-          taskId: task._id,
           title: task.title,
-          status: statusMapping[task.status] || '',
+          status: task.status,
           salary: task.salary,
           address: `${task.location.city}${task.location.dist}${task.location.address}`,
           createdAt: task.time.createdAt,
           publishedAt: task.time.publishedAt,
           expiredAt: task.time.expiredAt,
-          poster: `${task.userDetails.lastName}${task.userDetails.firstName}`,
+          poster: posterName,
         };
       });
       res.status(200).json(
