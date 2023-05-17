@@ -31,6 +31,7 @@ const tasks = {
           return {
             taskId: task._id,
             title: task.title,
+            isUrgent: task.isUrgent,
             status: statusMapping[task.status] || task.status,
             salary: task.salary,
             address: `${task.location.city}${task.location.dist}${task.location.address}`,
@@ -65,6 +66,7 @@ const tasks = {
         return {
           taskId: task._id,
           title: task.title,
+          isUrgent: task.isUrgent,
           status: task.status,
           salary: task.salary,
           address: `${task.location.city}${task.location.dist}${task.location.address}`,

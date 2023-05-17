@@ -335,6 +335,7 @@ const getPostedTasksHist = {
       {
         taskId: "646431446cac1cf0dd5acaee",
         title: "陪我家狗玩",
+        isUrgent: true,
         status: "已完成",
         salary: 300,
         address: "台北市松山區復興北路15號",
@@ -352,6 +353,7 @@ const getAppliedTasksHist = {
       {
         taskId: "646431446cac1cf0dd5acaee",
         title: "幫忙做畢業專題",
+        isUrgent: false,
         status: "已完成",
         salary: 300,
         address: "台北市松山區羅斯福路四段1號",
