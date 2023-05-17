@@ -29,6 +29,7 @@ const tasks = {
           const helper = task.helpers.find((helper) => helper.status === 'paired');
           const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : '';
           return {
+            taskId: task._id,
             title: task.title,
             status: statusMapping[task.status] || task.status,
             salary: task.salary,
@@ -55,11 +56,10 @@ const tasks = {
         path: 'userId',
         select: 'lastName firstName',
       });
-      
       const formattedTasks = tasks.map((task) => {
         const posterName = task.userId ? `${task.userId.lastName}${task.userId.firstName}` : '';
-      
         return {
+          taskId: task._id,
           title: task.title,
           status: task.status,
           salary: task.salary,
@@ -80,8 +80,6 @@ const tasks = {
   getTaskDetails: handleErrorAsync(async (req, res, next) => {
     const userId = req.user._id;
     const taskId = req.params.taskId;
-    console.log("userId", userId)
-    console.log("taskId", taskId)
     let role;
     if (!mongoose.isValidObjectId(taskId)) {
       return next(appError(400, '40104', 'Id 格式錯誤'));
@@ -90,13 +88,20 @@ const tasks = {
       .populate({
         path: 'helpers.helperId',
         select: 'lastName firstName',
-      })
-      .select('_id userId title location.city location.dist location.address salary status time.createdAt time.publishedAt time.expiredAt helpers');
-    const isTaskOwner = task.userId.toString() === userId.toString();
+      }).populate({
+        path: 'userId',
+        select: 'lastName firstName',
+      });
+    const disallowedStatuses = ['draft', 'deleted'];
+    if (disallowedStatuses.includes(task.status)) {
+      return next(appError(400, '40214', '任務狀態錯誤'));
+    }
+    const isTaskOwner = task.userId._id.toString() === userId.toString();
+    console.log("task.userId", task.userId)
+    console.log("userId:", userId)
     const isTaskHelper = task.helpers.some((helper) => {
       return helper.status === "paired" && helper.helperId._id === userId;
     });
-
     if (isTaskOwner) {
       role = '案主';
     } else if (isTaskHelper) {
@@ -104,32 +109,41 @@ const tasks = {
     } else {
       return next(appError(400, '40212', '查無此任務'));
     }
-    // console.log(role)
-    // const disallowedStatuses = ['draft', 'deleted'];
-
-    // if (disallowedStatuses.includes(task.status)) {
-    //   return next(appError(400, '40212', '查無此任務'));
-    // }
-    // const formattedTasks = tasks.map((task) => {
-    //   return {
-    //     taskId: task._id,
-    //     publishedAt: task.time.publishedAt,
-    //     helper:  task.helpers.
-    //     title: task.title,
-    //     status: statusMapping[task.status] || '',
-    //     salary: task.salary,
-    //     address: `${task.location.city}${task.location.dist}${task.location.address}`,
-    //     createdAt: task.time.createdAt,
-    //     publishedAt: task.time.publishedAt,
-    //     expiredAt: task.time.expiredAt,
-    //     poster: `${task.userDetails.lastName}${task.userDetails.firstName}`,
-    //   };
-    // });
-
+    const helper = task.helpers.find((helper) => helper.status === 'paired');
+    const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : '';
+    const posterName = task.userId ? `${task.userId.lastName}${task.userId.firstName}` : '';
+    const formatHelpers = task.helpers.map(helper => ({
+      helperId: helper.helperId._id,
+      status: helper.status,
+      lastName: helper.helperId.lastName
+    }));
+    const formattedTask = {
+      taskId: task._id,
+      role: role, // 您需要提供 role 變數的值
+      publishedAt: task.time.publishedAt,
+      status: statusMapping[task.status] || '',
+      helper: helperName,
+      poster: posterName,
+      progressBar: {
+        publishedAt: task.time.publishedAt,
+        inProgressAt: task.time.inProgressAt,
+        submittedAt: task.time.submittedAt,
+        confirmedAt: task.time.confirmedAt,
+        completedAt: task.time.completedAt
+      },
+      title: task.title,
+      isUrgent: task.isUrgent,
+      salary: task.salary,
+      address: `${task.location.city}${task.location.dist}${task.location.address}`,
+      category: task.category,
+      description: task.description,
+      imgUrls: task.imgUrls,
+      helpers: formatHelpers
+    };
     res.status(200).json(
         getHttpResponse({
             message: '取得成功',
-            data: task,
+            data: formattedTask,
         }),
     );
 }),
