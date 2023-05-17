@@ -50,8 +50,12 @@ const tasks = {
     getAppliedTasksHist: handleErrorAsync(async (req, res, next) => {
       const userId = req.user._id;
       const tasks = await Task.find({
-        'helpers.helperId': userId,
-        'helpers.status': 'paired',
+        helpers: {
+          $elemMatch: {
+            helperId: userId,
+            status: 'paired'
+          }
+        }
       }).populate({
         path: 'userId',
         select: 'lastName firstName',
@@ -97,8 +101,6 @@ const tasks = {
       return next(appError(400, '40214', '任務狀態錯誤'));
     }
     const isTaskOwner = task.userId._id.toString() === userId.toString();
-    console.log("task.userId", task.userId)
-    console.log("userId:", userId)
     const isTaskHelper = task.helpers.some((helper) => {
       return helper.status === "paired" && helper.helperId._id === userId;
     });
