@@ -105,7 +105,7 @@ const taskSchema = new mongoose.Schema({
             {
                 helperId: {
                     type: mongoose.Schema.Types.ObjectId,
-                    ref: 'User'
+                    ref: 'User',
                 },
                 status: {
                     type: String,
