@@ -3505,6 +3505,10 @@
         "data": {
           "type": "object",
           "properties": {
+            "notify": {
+              "type": "string",
+              "example": "6462e2fbcc60d505cc83de30"
+            },
             "userId": {
               "type": "string",
               "example": "646266a3d7d8ce5010f8c327"
