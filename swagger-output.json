@@ -2252,7 +2252,10 @@
         ],
         "responses": {
           "200": {
-            "description": "取得成功"
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/getAppliedTasksHist"
+            }
           },
           "500": {
             "description": "系統錯誤",
@@ -3535,7 +3538,60 @@
                 "type": "string",
                 "example": "2023-03-01T04:34:56.000Z"
               },
-              "helpers": {
+              "helper": {
+                "type": "string",
+                "example": "張亞靜"
+              }
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
+        }
+      }
+    },
+    "getAppliedTasksHist": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "example": "幫忙做畢業專題"
+              },
+              "status": {
+                "type": "string",
+                "example": "已完成"
+              },
+              "salary": {
+                "type": "number",
+                "example": 300
+              },
+              "address": {
+                "type": "string",
+                "example": "台北市松山區羅斯福路四段1號"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2023-01-30T04:34:56.000Z"
+              },
+              "publishedAt": {
+                "type": "string",
+                "example": "2022-02-15T05:34:56.000Z"
+              },
+              "expiredAt": {
+                "type": "string",
+                "example": "2023-03-01T04:34:56.000Z"
+              },
+              "poster": {
                 "type": "string",
                 "example": "張亞靜"
               }
