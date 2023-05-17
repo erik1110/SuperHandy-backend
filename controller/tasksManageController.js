@@ -104,7 +104,7 @@ const tasks = {
     }
     const isTaskOwner = task.userId._id.toString() === userId.toString();
     const isTaskHelper = task.helpers.some((helper) => {
-      return helper.status === "paired" && helper.helperId._id === userId;
+      return helper.status === "paired" && helper.helperId._id.toString() === userId.toString();
     });
     if (isTaskOwner) {
       role = '案主';
@@ -116,7 +116,8 @@ const tasks = {
     const helper = task.helpers.find((helper) => helper.status === 'paired');
     const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : '';
     const posterName = task.userId ? `${task.userId.lastName}${task.userId.firstName}` : '';
-    const formatHelpers = task.helpers.map(helper => ({
+    const formatHelpers = task.helpers.filter(helper => helper.status === "paired")
+      .map(helper => ({
       helperId: helper.helperId._id,
       status: helper.status,
       lastName: helper.helperId.lastName
