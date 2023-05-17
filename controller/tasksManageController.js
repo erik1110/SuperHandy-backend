@@ -123,7 +123,7 @@ const tasks = {
     }));
     const formattedTask = {
       taskId: task._id,
-      role: role, // 您需要提供 role 變數的值
+      role: role,
       publishedAt: task.time.publishedAt,
       status: statusMapping[task.status] || '',
       helper: helperName,
