@@ -73,7 +73,7 @@ const tasks = {
             return next(appError(400, '40302', '沒有權限'));
         }
         if (task.status !== 'draft') {
-            return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping[task.status]}`));
+            return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
         const user = await User.findOne({ _id: userId });
         if (taskTrans.superCoin >= user.superCoin) {
@@ -163,7 +163,7 @@ const tasks = {
             return next(appError(403, '40302', '沒有權限'));
         }
         if (task.status !== 'draft') {
-            return next(appError(405, '40214', `任務狀態錯誤： ${statusMapping[task.status]}`));
+            return next(appError(405, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
         delete task.__v;
         task.taskId = task._id;
@@ -196,7 +196,7 @@ const tasks = {
             return next(appError(403, '40302', '沒有權限'));
         }
         if (task.status !== 'draft') {
-            return next(appError(405, '40214', `任務狀態錯誤： ${statusMapping[task.status]}`));
+            return next(appError(405, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
         await Task.findOneAndUpdate(
             { _id: taskId },
@@ -235,7 +235,7 @@ const tasks = {
             return next(appError(403, '40302', '沒有權限'));
         }
         if (task.status !== 'draft') {
-            return next(appError(405, '40214', `任務狀態錯誤： ${statusMapping[task.status]}`));
+            return next(appError(405, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
         await Task.findOneAndUpdate(
             { _id: taskId },
@@ -353,7 +353,7 @@ const tasks = {
             return next(appError(403, '40302', '沒有權限'));
         }
         if (task.status !== 'unpublished') {
-            return next(appError(405, '40214', `任務狀態錯誤： ${statusMapping[task.status]}`));
+            return next(appError(405, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
         const { title, category, description, imagesUrl, contactInfo, location } = req.body;
         const address = location.address;
@@ -403,7 +403,7 @@ const tasks = {
             return next(appError(403, '40302', '沒有權限'));
         }
         if (task.status !== 'unpublished') {
-            return next(appError(405, '40214', `任務狀態錯誤： ${statusMapping[task.status]}`));
+            return next(appError(405, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
         // 這邊需要發送幫手被踢除的推播
         await Task.findOneAndUpdate(
@@ -437,7 +437,7 @@ const tasks = {
             return next(appError(403, '40302', '沒有權限'));
         }
         if (task.status !== 'published') {
-            return next(appError(405, '40214', `任務狀態錯誤： ${statusMapping[task.status]}`));
+            return next(appError(405, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
         // 推播通知
         const helpers = task.helpers;

@@ -1,4 +1,4 @@
-const statusMapping = {
+const taskStatusMapping = {
     draft: '草稿',
     published: '媒合中',
     inProgressed: '進行中',
@@ -9,4 +9,14 @@ const statusMapping = {
     deleted: '未成立',
 };
 
-module.exports = statusMapping;
+const helperStatusMapping = {
+    waiting: '等待媒合中',
+    paired: '媒合成功',
+    unpaired: '媒合失敗',
+    dropped: '取消媒合'
+};
+
+module.exports = {
+    taskStatusMapping,
+    helperStatusMapping,
+};

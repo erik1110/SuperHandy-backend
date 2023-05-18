@@ -21,7 +21,7 @@ const tasks = {
                 taskId: task._id,
                 title: task.title,
                 isUrgent: task.isUrgent,
-                status: statusMapping[task.status] || task.status,
+                status: statusMapping.taskStatusMapping[task.status] || task.status,
                 salary: task.salary,
                 address: `${task.location.city}${task.location.dist}${task.location.address}`,
                 createdAt: task.time.createdAt,
@@ -42,8 +42,7 @@ const tasks = {
         const tasks = await Task.find({
             helpers: {
                 $elemMatch: {
-                    helperId: userId,
-                    status: 'paired',
+                    helperId: userId
                 },
             },
         }).populate({
@@ -52,11 +51,13 @@ const tasks = {
         });
         const formattedTasks = tasks.map((task) => {
             const posterName = task.userId ? `${task.userId.lastName}${task.userId.firstName}` : null;
+            const filteredHelper = task.helpers.find(helper => helper.helperId.toString() === userId.toString());
             return {
                 taskId: task._id,
                 title: task.title,
                 isUrgent: task.isUrgent,
-                status: statusMapping[task.status] || task.status,
+                status: statusMapping.taskStatusMapping[task.status] || task.status,
+                helperStatus: statusMapping.helperStatusMapping[filteredHelper.status],
                 salary: task.salary,
                 address: `${task.location.city}${task.location.dist}${task.location.address}`,
                 createdAt: task.time.createdAt,
@@ -92,7 +93,7 @@ const tasks = {
             return next(appError(404, '40212', '查無此任務'));
         }
         if (task.status==='draft') {
-            return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping[task.status]}`));
+            return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
         const isTaskOwner = task.userId._id.toString() === userId.toString();
         const isTaskHelper = task.helpers.some((helper) => {
