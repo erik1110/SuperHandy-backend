@@ -162,6 +162,46 @@ const tasks = {
             }),
         );
     }),
+    deleteTask: handleErrorAsync(async (req, res, next) => {
+        const userId = req.user._id;
+        const taskId = req.params.taskId;
+        if (!mongoose.isValidObjectId(taskId)) {
+            return next(appError(400, '40104', 'Id 格式錯誤'));
+        }
+        if (!task) {
+            return next(appError(400, '40212', '查無此任務'));
+        }
+        if (task.userId.toString() !== req.user._id.toString()) {
+            return next(appError(400, '40302', '沒有權限'));
+        }
+        if (!["published", "unpublished"].includes(task.status)) {
+            return next(appError(400, '40214', `任務狀態錯誤： ${task.status}`));
+        }
+        const tasks = await Task.find({ _id: taskId })
+
+        const formattedData = tasks.map((task) => {
+            const helper = task.helpers.find((helper) => helper.status === 'paired');
+            const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : '';
+            return {
+                taskId: task._id,
+                title: task.title,
+                isUrgent: task.isUrgent,
+                status: statusMapping[task.status] || task.status,
+                salary: task.salary,
+                address: `${task.location.city}${task.location.dist}${task.location.address}`,
+                createdAt: task.time.createdAt,
+                publishedAt: task.time.publishedAt,
+                expiredAt: task.time.expiredAt,
+                helper: helperName,
+            };
+        });
+        res.status(200).json(
+            getHttpResponse({
+                message: '刪除成功',
+                data: formattedData,
+            }),
+        );
+    }),
 };
 
 module.exports = tasks;

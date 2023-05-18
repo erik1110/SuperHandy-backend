@@ -85,7 +85,7 @@ router.delete('/:taskId', function (req, res, next) {
       schema: { $ref: '#/definitions/Error500' }
   }
 */
-    tasksManageController.markRead(req, res, next);
+    tasksManageController.deleteTask(req, res, next);
 });
 
 /* 案主確認驗收 */
