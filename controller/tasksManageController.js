@@ -5,6 +5,7 @@ const Notify = require('../models/notifyModel');
 const User = require('../models/userModel');
 const Task = require('../models/taskModel');
 const TaskTrans = require('../models/taskTransModel');
+const TaskValidator = require('../service/taskValidator');
 const statusMapping = require('../service/statusMapping');
 
 const tasks = {
@@ -98,7 +99,8 @@ const tasks = {
         const isTaskOwner = task.userId._id.toString() === userId.toString();
         const isTaskHelper = task.helpers.some((helper) => {
             const isMatchingHelper = helper.helperId.toString() === userId.toString();
-            return isMatchingHelper;
+            const isMatchingStatus = helper.status === 'paired';
+            return isMatchingHelper && isMatchingStatus;
         });
         const helper = task.helpers.find((helper) => helper.status === 'paired');
         const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : null;
@@ -114,6 +116,7 @@ const tasks = {
         } else if (isTaskHelper) {
             role = '幫手';
             formatHelpers = task.helpers
+                .filter((helper) => helper.status === 'paired')
                 .map((helper) => ({
                     helperId: helper.helperId._id,
                     status: statusMapping.helperStatusMapping[helper.status],
@@ -144,6 +147,7 @@ const tasks = {
             description: task.description,
             imgUrls: task.imgUrls,
             helpers: formatHelpers,
+            submittedInfo: task.submittedInfo
         };
         res.status(200).json(
             getHttpResponse({
@@ -207,6 +211,66 @@ const tasks = {
         res.status(200).json(
             getHttpResponse({
                 message: '刪除成功'
+            }),
+        );
+    }),
+    uploadAcceptance: handleErrorAsync(async (req, res, next) => {
+        const validatorResult = TaskValidator.checkUploadAcceptance(req.body);
+        if (!validatorResult.status) {
+            return next(appError(400, '40102', validatorResult.msg));
+        }
+        const helperId = req.user._id;
+        const taskId = req.params.taskId;
+        const submittedInfo = req.body.submittedInfo;
+        if (!mongoose.isValidObjectId(taskId)) {
+            return next(appError(400, '40104', 'Id 格式錯誤'));
+        }
+        const task = await Task.findOne({ _id: taskId });
+        if (!task) {
+            return next(appError(400, '40212', '查無此任務'));
+        }
+        if (task.status!=='inProgressed') {
+            return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
+        }
+        const isTaskHelper = task.helpers.some((helper) => {
+            const isMatchingHelper = helper.helperId.toString() === helperId.toString();
+            const isMatchingStatus = helper.status === 'paired';
+            return isMatchingHelper && isMatchingStatus;
+        });
+        if (!isTaskHelper){
+            return next(appError(400, '40302', '沒有權限'));
+        }
+        // 推播通知
+        await Notify.create({
+            userId: task.userId,
+            tag: '案主通知',
+            description: `您待媒合的任務：「${task.title} 」幫手已提交驗收內容，請進行驗收`,
+            taskId: taskId,
+            createdAt: Date.now(),
+        });
+        await Notify.create({
+            userId: helperId,
+            tag: '幫手通知',
+            description: `您待媒合的任務：「${task.title} 」已經提交驗收!`,
+            taskId: taskId,
+            createdAt: Date.now(),
+        });
+        // 更新任務狀態為`進行中 (submitted)`
+        await Task.findOneAndUpdate(
+            { _id: taskId },
+            {
+                $set: {
+                    status: 'submitted',
+                    submittedInfo: submittedInfo,
+                    'time.submittedAt': Date.now(),
+                    'time.updatedAt': Date.now(),
+                },
+            },
+            { new: true },
+        );
+        res.status(200).json(
+            getHttpResponse({
+                message: '確認成功',
             }),
         );
     }),
