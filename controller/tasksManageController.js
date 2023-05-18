@@ -98,7 +98,7 @@ const tasks = {
         }
         const isTaskOwner = task.userId._id.toString() === userId.toString();
         const isTaskHelper = task.helpers.some((helper) => {
-            const isMatchingHelper = helper.helperId.toString() === userId.toString();
+            const isMatchingHelper = helper.helperId._id.toString() === userId.toString();
             const isMatchingStatus = helper.status === 'paired';
             return isMatchingHelper && isMatchingStatus;
         });
@@ -246,6 +246,25 @@ const tasks = {
             description: `您的任務：「${task.title} 」案主已驗收完成，後續系統將自動提撥款項，並請進行評價`,
             taskId: taskId,
             createdAt: Date.now(),
+        });
+        // 更新使用者點數：撥款給幫手
+        const user = await User.findOne({ _id: helperId });
+        const realSalary = Math.round(task.salary * 0.9)
+        const platformFee = task.salary - realSalary
+        user.superCoin += realSalary;
+        await user.save();
+        // 新增一筆交易資訊
+        await TaskTrans.create({
+            taskId: taskId,
+            userId: helperId,
+            tag: '完成任務',
+            salary: task.salary,
+            exposurePlan: 0,
+            platform: platformFee,
+            superCoin: realSalary,
+            helperCoin: 0,
+            desc: ['薪水'],
+            role: '幫手',
         });
         // 更新任務狀態為`已完成 (confirmed)`
         await Task.findOneAndUpdate(
