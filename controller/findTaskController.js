@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { appError, handleErrorAsync } = require('../utils/errorHandler');
 const getHttpResponse = require('../utils/successHandler');
 const Task = require('../models/taskModel');
+const geocoding = require('../utils/geocoding');
 
 const statusMapping = {
     draft: '草稿',
@@ -13,6 +14,27 @@ const statusMapping = {
     unpublished: '已下架',
     deleted: '未成立',
 };
+
+function calculateDistance(lon1, lat1, lon2, lat2) {
+    const radius = 6371; // 地球平均半徑（公里）
+    const dLat = (lat2 - lat1) * (Math.PI / 180);
+    const dLon = (lon2 - lon1) * (Math.PI / 180);
+    const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = radius * c;
+    return distance;
+}
+
+function validDistance(centerLongitude, centerLatitude, taskLongitude, taskLatitude, radius) {
+    //const radius = 10; // 半徑10公里
+    const distance = calculateDistance(centerLongitude, centerLatitude, taskLongitude, taskLatitude);
+    if (distance <= radius) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 const tasks = {
     getTaskDetails: handleErrorAsync(async (req, res, next) => {
@@ -191,6 +213,94 @@ const tasks = {
                     limit,
                     total_pages,
                     total_tasks,
+                },
+            }),
+        );
+    }),
+    getTaskListMap: handleErrorAsync(async (req, res, next) => {
+        let { longitude: centerLongitude, latitude: centerLatitude, city, dist, radius, isUrgent, keyword, services } = req.query;
+        if (!centerLongitude || !centerLatitude) {
+            if (!city || !dist) {
+                return next(appError(400, '40105', '請輸入經緯度或縣市區域'));
+            }
+            const geocodingResult = await geocoding(`${city}${dist}`);
+            if (geocodingResult.status !== 'OK') {
+                return next(appError(400, '40400', '找不到該地址'));
+            }
+            centerLongitude = geocodingResult.location.lng;
+            centerLatitude = geocodingResult.location.lat;
+        }
+        isUrgent = isUrgent === 'true' ? true : false;
+        services = services ? services.split(',') : [];
+        radius = Number(radius) || 3; //km
+        //find all tasks
+        const tasks = await Task.find({
+            status: 'published',
+        }).populate({
+            path: 'userId',
+            select: 'lastName firstName phone email',
+        });
+
+        if (!tasks) {
+            return next(appError(404, '40210', '查無資料'));
+        }
+        //filter tasks by city, dist, urgent, keyword, services
+        const filteredTasks = tasks.filter((task) => {
+            // 檢查是否存在急件條件
+            if (isUrgent === true && task.isUrgent !== isUrgent) {
+                return false;
+            }
+
+            // 檢查是否存在關鍵字條件
+            if (keyword && !(task.title.includes(keyword) || task.description.includes(keyword))) {
+                return false;
+            }
+
+            // 檢查是否存在服務類別條件
+            if (services.length > 0 && !services.some((service) => task.category.includes(service))) {
+                return false;
+            }
+
+            // 檢查是否符合經緯度條件
+            const isValidDistance = validDistance(centerLongitude, centerLatitude, task.location.longitude, task.location.latitude, radius);
+            if (!isValidDistance) {
+                return false;
+            }
+
+            // 全數條件通關，則返回 true
+            return true;
+        });
+        const total_tasks = filteredTasks.length;
+
+        //format tasks
+        const formattedTasks = filteredTasks.map((task) => {
+            const posterName = `${task.userId?.lastName}**`;
+            return {
+                taskId: task._id,
+                publishedAt: task.time.publishedAt,
+                status: statusMapping[task.status] || '',
+                title: task.title,
+                isUrgent: task.isUrgent,
+                salary: task.salary,
+                address: `${task.location.city}${task.location.dist}`,
+                category: task.category,
+                description: task.description,
+                imgUrls: task.imgUrls[0] || '',
+                viewerCount: task.viewers.length,
+                helperCount: task.helpers.length,
+                posterName: posterName,
+                contactName: `${task.contactInfo.name.slice(0, 1)}**`,
+            };
+        });
+
+        res.status(200).json(
+            getHttpResponse({
+                message: '取得成功',
+                data: {
+                    tasks: formattedTasks,
+                    total_tasks,
+                    longitude: centerLongitude,
+                    latitude: centerLatitude,
                 },
             }),
         );

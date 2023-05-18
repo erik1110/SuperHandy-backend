@@ -458,6 +458,33 @@ const getTaskListGeneral = {
     },
     message: '取得成功',
 };
+const getTaskListMap = {
+    status: 'success',
+    data: {
+        tasks: [
+            {
+                taskId: '645bec484ff0061f89e0b103',
+                publishedAt: '2023-05-10T19:11:04.653Z',
+                status: '媒合中',
+                title: '任務標題',
+                isUrgent: false,
+                salary: 1000,
+                address: '台北市信義區',
+                category: '家事',
+                description: '任務描述',
+                imgUrls: '',
+                viewerCount: 0,
+                helperCount: 0,
+                posterName: '王**',
+                contactName: '王**',
+            },
+        ],
+        total_tasks: 1,
+        longitude: 121.5720055,
+        latitude: 25.0409201,
+    },
+    message: '取得成功',
+};
 
 module.exports = {
     Success,
