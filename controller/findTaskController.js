@@ -43,7 +43,7 @@ const tasks = {
         if (!mongoose.isValidObjectId(taskId)) {
             return next(appError(400, '40104', 'Id 格式錯誤'));
         }
-        const task = await Task.findOne({ _id: taskId })
+        const task = await Task.findOne({ _id: taskId, status: 'published' })
             .populate({
                 path: 'helpers.helperId',
                 select: 'lastName firstName',
@@ -54,10 +54,6 @@ const tasks = {
             });
         if (!task) {
             return next(appError(404, '40212', '查無此任務'));
-        }
-        const disallowedStatuses = ['draft', 'deleted'];
-        if (disallowedStatuses.includes(task.status)) {
-            return next(appError(400, '40214', '任務狀態錯誤'));
         }
         const isRelatedUser = task.userId._id.toString() === userId || task.helpers.some((helper) => helper.helperId._id.toString() === userId);
         const posterName = isRelatedUser ? `${task.userId.lastName}${task.userId.firstName}` : `${task.userId.lastName}**`;
