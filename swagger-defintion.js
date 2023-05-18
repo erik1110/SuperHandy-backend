@@ -356,6 +356,7 @@ const getAppliedTasksHist = {
             title: '幫忙做畢業專題',
             isUrgent: false,
             status: '已完成',
+            helperStatus: '媒合成功',
             salary: 300,
             address: '台北市松山區羅斯福路四段1號',
             createdAt: '2023-01-30T04:34:56.000Z',
@@ -392,7 +393,7 @@ const getTaskDetails = {
         helpers: [
             {
                 helperId: '646431446cac1cf0dd5acae6',
-                status: 'paired',
+                status: '媒合成功',
                 lastName: '陳',
             },
         ],
