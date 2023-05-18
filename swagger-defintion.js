@@ -401,6 +401,13 @@ const getTaskDetails = {
     message: '取得成功',
 };
 
+const uploadAcceptanceReq = {
+    submittedInfo: {
+        imgUrls: ["http://example.com/1.jpg"],
+        comment: '好多人好難排，但我拿到了'
+    }
+}
+
 module.exports = {
     Success,
     Error400,
@@ -432,4 +439,5 @@ module.exports = {
     getPostedTasksHist,
     getAppliedTasksHist,
     getTaskDetails,
+    uploadAcceptanceReq
 };
