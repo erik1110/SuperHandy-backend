@@ -127,7 +127,7 @@ const tasks = {
             {
                 userId: userId,
                 title: title,
-                status: 'publish',
+                status: 'published',
                 category: category,
                 description: description,
                 salary: salary,
@@ -354,7 +354,7 @@ const tasks = {
         if (task.status !== 'unpublished') {
             return next(appError(405, '40214', `任務狀態錯誤 ${task.status}`));
         }
-        const { title, category, description, imagesUrl, contactInfo, location } = req.body;
+        const { category, description, imagesUrl, contactInfo, location } = req.body;
         const address = location.address;
         const geocodingResult = await geocoding(address);
         if (geocodingResult.status !== 'OK') {
@@ -371,7 +371,6 @@ const tasks = {
             { _id: taskId },
             {
                 $set: {
-                    title: title,
                     category: category,
                     description: description,
                     imagesUrl: imagesUrl,
