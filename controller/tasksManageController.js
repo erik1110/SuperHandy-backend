@@ -214,6 +214,57 @@ const tasks = {
             }),
         );
     }),
+    confirmAcceptance: handleErrorAsync(async (req, res, next) => {
+        const userId = req.user._id;
+        const taskId = req.params.taskId;
+        if (!mongoose.isValidObjectId(taskId)) {
+            return next(appError(400, '40104', 'Id 格式錯誤'));
+        }
+        const task = await Task.findOne({ _id: taskId });
+        if (!task) {
+            return next(appError(400, '40212', '查無此任務'));
+        }
+        if (task.userId.toString() !== userId.toString()) {
+            return next(appError(400, '40302', '沒有權限'));
+        }
+        if (task.status!=='submitted') {
+            return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
+        }
+        const pairedHelpers = task.helpers.filter((helper) => helper.status === "paired");
+        const helperId = pairedHelpers.map((helper) => helper.helperId)[0];
+        // 推播通知
+        await Notify.create({
+            userId: userId,
+            tag: '案主通知',
+            description: `您的任務：「${task.title} 」已結案，後續系統將自動提撥款項給幫手，並請進行評價`,
+            taskId: taskId,
+            createdAt: Date.now(),
+        });
+        await Notify.create({
+            userId: helperId,
+            tag: '幫手通知',
+            description: `您的任務：「${task.title} 」案主已驗收完成，後續系統將自動提撥款項，並請進行評價`,
+            taskId: taskId,
+            createdAt: Date.now(),
+        });
+        // 更新任務狀態為`已完成 (confirmed)`
+        await Task.findOneAndUpdate(
+            { _id: taskId },
+            {
+                $set: {
+                    status: 'confirmed',
+                    'time.confirmedAt': Date.now(),
+                    'time.updatedAt': Date.now(),
+                },
+            },
+            { new: true },
+        );
+        res.status(200).json(
+            getHttpResponse({
+                message: '確認成功',
+            }),
+        );
+    }),
     uploadAcceptance: handleErrorAsync(async (req, res, next) => {
         const validatorResult = TaskValidator.checkUploadAcceptance(req.body);
         if (!validatorResult.status) {
@@ -244,14 +295,14 @@ const tasks = {
         await Notify.create({
             userId: task.userId,
             tag: '案主通知',
-            description: `您待媒合的任務：「${task.title} 」幫手已提交驗收內容，請進行驗收`,
+            description: `您的任務：「${task.title} 」幫手已提交驗收內容，請進行驗收`,
             taskId: taskId,
             createdAt: Date.now(),
         });
         await Notify.create({
             userId: helperId,
             tag: '幫手通知',
-            description: `您待媒合的任務：「${task.title} 」已經提交驗收!`,
+            description: `您的任務：「${task.title} 」已經提交驗收!`,
             taskId: taskId,
             createdAt: Date.now(),
         });
@@ -270,7 +321,7 @@ const tasks = {
         );
         res.status(200).json(
             getHttpResponse({
-                message: '確認成功',
+                message: '上傳成功',
             }),
         );
     }),
