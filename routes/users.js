@@ -7,7 +7,7 @@ const { isAuth } = require('../middleware/auth');
 router.post('/sign-up', function (req, res, next) {
     /**
      * #swagger.tags = ['Sign-in']
-     * #swagger.summary = 'Register an Account and send a verification email'
+     * #swagger.summary = '註冊+寄信 (Register an Account and send a verification email)'
      */
     /**
   #swagger.parameters['parameter_name'] = {
@@ -49,7 +49,7 @@ router.post('/sign-up', function (req, res, next) {
 router.get('/verify-email', isAuth, function (req, res, next) {
     /**
     * #swagger.tags = ['Sign-in']
-    * #swagger.summary = 'Verify the registration email'
+    * #swagger.summary = '驗證註冊信 (Verify the registration email)'
     * #swagger.security = [{
         "Bearer": []
       }]
@@ -78,7 +78,7 @@ router.get('/verify-email', isAuth, function (req, res, next) {
 router.post('/resend-verification', function (req, res, next) {
     /**
      * #swagger.tags = ['Sign-in']
-     * #swagger.summary = 'Resend an Email for verification'
+     * #swagger.summary = '重寄驗證信 (Resend an Email for verification)'
      */
     /**
     #swagger.parameters['parameter_name'] = {
@@ -112,7 +112,7 @@ router.post('/resend-verification', function (req, res, next) {
 router.post('/sign-in', function (req, res, next) {
     /**
      * #swagger.tags = ['Sign-in']
-     * #swagger.summary = 'Login an Account'
+     * #swagger.summary = '登入 (Sign-in)'
      */
     /**
   #swagger.parameters['parameter_name'] = {
@@ -145,11 +145,11 @@ router.post('/sign-in', function (req, res, next) {
     userController.signIn(req, res, next);
 });
 
-/* 忘記密碼 */
+/* 忘記密碼+寄驗證信 */
 router.post('/forgot-password', function (req, res, next) {
     /**
      * #swagger.tags = ['Sign-in']
-     * #swagger.summary = 'forgot password and send an Email for verification'
+     * #swagger.summary = '忘記密碼+寄驗證信 (Forgot password and send an Email for verification)'
      */
     /**
   #swagger.parameters['parameter_name'] = {
@@ -183,7 +183,7 @@ router.post('/forgot-password', function (req, res, next) {
 router.patch('/forgot-reset-password', isAuth, (req, res, next) =>
     /**
     * #swagger.tags = ['Sign-in']
-    * #swagger.summary = 'forget password and reset the password from email'
+    * #swagger.summary = '忘記密碼並重設密碼 (Forget password and reset the password from email)'
     * #swagger.security = [{
         "Bearer": []
       }]
@@ -221,7 +221,7 @@ router.patch('/forgot-reset-password', isAuth, (req, res, next) =>
 router.patch('/update-password', isAuth, (req, res, next) =>
     /**
     * #swagger.tags = ['Sign-in']
-    * #swagger.summary = 'update password after sign in'
+    * #swagger.summary = '更新密碼 (Update password after sign in)'
     * #swagger.security = [{
         "Bearer": []
       }]
