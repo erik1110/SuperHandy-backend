@@ -51,12 +51,12 @@ router.get('/:taskId', function (req, res, next) {
       schema: { $ref: '#/definitions/getTaskDetails' }
   }
   #swagger.responses[400] = {
-    description: 'Id 格式錯誤、任務狀態錯誤、查無此任務',
+    description: 'Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限',
     schema: {
       'status': 'false',
       'message': '錯誤訊息',
       'error': {
-        'name': '[40104, 40214, 40212]',
+        'name': '[40104, 40214, 40212, 40302]',
         'statusCode': 400,
         'isOperational': true
       }

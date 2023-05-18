@@ -97,7 +97,8 @@ const tasks = {
         }
         const isTaskOwner = task.userId._id.toString() === userId.toString();
         const isTaskHelper = task.helpers.some((helper) => {
-            return helper.status === 'paired' && helper.helperId._id.toString() === userId.toString();
+            const isMatchingHelper = helper.helperId._id.toString() === userId.toString();
+            return isMatchingHelper;
         });
         const helper = task.helpers.find((helper) => helper.status === 'paired');
         const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : '';
@@ -113,14 +114,13 @@ const tasks = {
         } else if (isTaskHelper) {
             role = '幫手';
             formatHelpers = task.helpers
-                .filter((helper) => helper.status === 'paired')
                 .map((helper) => ({
                     helperId: helper.helperId._id,
                     status: statusMapping.helperStatusMapping[helper.status],
                     lastName: helper.helperId.lastName,
                 }));
         } else {
-            return next(appError(400, '40212', '查無此任務'));
+            return next(appError(400, '40302', '沒有權限'));
         }
         const formattedTask = {
             taskId: task._id,
