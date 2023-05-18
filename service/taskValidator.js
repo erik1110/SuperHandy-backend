@@ -83,12 +83,6 @@ module.exports = class TaskValidator {
         };
     }
     static checkPublish({ title, category, description, taskTrans, salary, exposurePlan, imagesUrl, contactInfo, location }) {
-        if (!title) {
-            return {
-                status: false,
-                msg: '未填寫任務標題!',
-            };
-        }
         if (!category || !categoryNames.includes(category)) {
             return {
                 status: false,
@@ -176,12 +170,6 @@ module.exports = class TaskValidator {
         };
     }
     static checkUnpublishEdit({ title, category, description, imagesUrl, contactInfo, location }) {
-        if (!title) {
-            return {
-                status: false,
-                msg: '未填寫任務標題!',
-            };
-        }
         if (!category || !categoryNames.includes(category)) {
             return {
                 status: false,
