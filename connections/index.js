@@ -14,15 +14,15 @@ const DB = process.env.DATABASE.replace('<password>', process.env.DATABASE_PASSW
 
 mongoose
     .connect(DB)
-    .then(async () => {
-        console.log('資料庫連接成功');
-        await initCategories.initCategories();
-        await initPlans();
-        await initUsers();
-        await initTasks();
-        await initTransactions();
-        await initReviews();
-        await initNotify();
-        await initSuperhandyReviews();
-    })
+    // .then(async () => {
+    //     console.log('資料庫連接成功');
+    //     await initCategories.initCategories();
+    //     await initPlans();
+    //     await initUsers();
+    //     await initTasks();
+    //     await initTransactions();
+    //     await initReviews();
+    //     await initNotify();
+    //     await initSuperhandyReviews();
+    // })
     .catch((err) => console.error('資料庫連接失敗', err));
