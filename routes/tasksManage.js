@@ -125,7 +125,7 @@ router.post('/upload-acceptance/:taskId', function (req, res, next) {
 });
 
 /* 案主確認幫手人選 */
-router.post('/confirm-helper/:taskId', function (req, res, next) {
+router.post('/confirm-helper/:taskId/:helperId', function (req, res, next) {
     /**
    * #swagger.tags = ['Tasks']
    * #swagger.summary = '案主確認幫手人選 (Confirm selected helper)'
@@ -139,7 +139,7 @@ router.post('/confirm-helper/:taskId', function (req, res, next) {
       schema: { $ref: '#/definitions/Error500' }
   }
 */
-    tasksManageController.markRead(req, res, next);
+    tasksManageController.confirmHelper(req, res, next);
 });
 
 module.exports = router;

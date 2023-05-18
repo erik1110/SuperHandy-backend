@@ -97,7 +97,7 @@ const tasks = {
         }
         const isTaskOwner = task.userId._id.toString() === userId.toString();
         const isTaskHelper = task.helpers.some((helper) => {
-            const isMatchingHelper = helper.helperId._id.toString() === userId.toString();
+            const isMatchingHelper = helper.helperId.toString() === userId.toString();
             return isMatchingHelper;
         });
         const helper = task.helpers.find((helper) => helper.status === 'paired');
@@ -166,7 +166,7 @@ const tasks = {
             return next(appError(400, '40302', '沒有權限'));
         }
         if (!["published", "unpublished"].includes(task.status)) {
-            return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping[task.status]}`));
+            return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
         // 推播通知
         const helpers = task.helpers;
@@ -207,6 +207,80 @@ const tasks = {
         res.status(200).json(
             getHttpResponse({
                 message: '刪除成功'
+            }),
+        );
+    }),
+    confirmHelper: handleErrorAsync(async (req, res, next) => {
+        const userId = req.user._id;
+        const taskId = req.params.taskId;
+        const helperId = req.params.helperId;
+        if (!mongoose.isValidObjectId(taskId) || !mongoose.isValidObjectId(helperId)) {
+            return next(appError(400, '40104', 'Id 格式錯誤'));
+        }
+        const task = await Task.findOne({ _id: taskId });
+        if (!task) {
+            return next(appError(400, '40212', '查無此任務'));
+        }
+        if (task.userId.toString() !== userId.toString()) {
+            return next(appError(400, '40302', '沒有權限'));
+        }
+        if (task.status!=='published') {
+            return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
+        }
+        const isTaskHelper = task.helpers.some((helper) => {
+            const isMatchingHelper = helper.helperId.toString() === helperId.toString();
+            return isMatchingHelper;
+        });
+        if (!isTaskHelper){
+            return next(appError(400, '40302', '沒有權限'));
+        }
+        // 更新任務狀態為`進行中 (inProgress)`
+        await Task.findOneAndUpdate(
+            { _id: taskId },
+            {
+                $set: {
+                    status: 'inProgressed',
+                    helpers: task.helpers.map((helper) => ({
+                        helperId: helper.helperId,
+                        status: helper.helperId.toString() === helperId.toString() ? 'paired' : 'unpaired',
+                      })),
+                    'time.inProgressAt': Date.now(),
+                    'time.updatedAt': Date.now(),
+                },
+            },
+            { new: true },
+        );
+        // 推播通知
+        const helpers = task.helpers;
+        const notifications = helpers.map((helper) => {
+            const helpId = helper.helperId;
+            const status = (helper.helperId.toString() === helperId.toString()) ? 'paired' : 'unpaired';
+            if (status === 'paired') {
+                descriptionNew = `您待媒合的任務：「${task.title}」媒合成功，您可以進行任務囉！`;
+            } else if (status === 'unpaired') {
+                descriptionNew = `您待媒合的任務：「${task.title}」媒合失敗`;
+            } else {
+                return next(appError(500, '50001', `幫手狀態不正確`));
+            }
+            return {
+              userId: helpId,
+              tag: '幫手通知',
+              description: descriptionNew,
+              taskId: taskId,
+              createdAt: Date.now(),
+            };
+        });
+        await Notify.insertMany(notifications);
+        await Notify.create({
+            userId: req.user._id,
+            tag: '案主通知',
+            description: `您待媒合的任務：「${task.title} 」媒合成功，幫手可以進行任務囉！`,
+            taskId: taskId,
+            createdAt: Date.now(),
+        });
+        res.status(200).json(
+            getHttpResponse({
+                message: '確認成功',
             }),
         );
     }),
