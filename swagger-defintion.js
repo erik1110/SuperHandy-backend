@@ -490,4 +490,6 @@ module.exports = {
     getPostedTasksHist,
     getAppliedTasksHist,
     getTaskDetails,
+    findTaskDetails,
+    getTaskListGeneral,
 };

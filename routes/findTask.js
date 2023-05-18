@@ -7,6 +7,7 @@ router.get('/detail/:taskId', async function (req, res, next) {
     /**
    * #swagger.tags = ['Find-tasks']
    * #swagger.summary = '取得任務詳情 (Get task details)'
+   * /
   /**
    #swagger.responses[200] = {
       description: '取得成功',
@@ -37,6 +38,7 @@ router.get('/list/query', async function (req, res, next) {
     /**
  * #swagger.tags = ['Find-tasks']
  * #swagger.summary = '取得未媒合之任務列表(一般查詢)'
+ * /
 /**
   #swagger.parameters['city'] = {in: 'query',description: '篩選縣市',default:  '台北市'}, 
   #swagger.parameters['dist'] = {in: 'query',description: '篩選地區',default:  '信義區'}, 
@@ -47,7 +49,7 @@ router.get('/list/query', async function (req, res, next) {
     default:  'newest'}, 
   #swagger.parameters['keyword'] = {in: 'query',description: '關鍵字查詢(任務標題、任務說明)',default:  ''}, 
   #swagger.parameters['services'] = {in: 'query',description: '服務類別，可複選(使用,區隔)',default:  ''}, 
-  #swagger.parameters['limit'] = {in: 'query',description: '每一頁的資料筆數(default:6)',default:  '6'}, 
+  #swagger.parameters['limit'] = {in: 'query',description: '每一頁的資料筆數(default:10)',default:  '6'}, 
   #swagger.parameters['page'] = {in: 'query',description: '第幾頁(default:1)',default:  '1'}, 
  #swagger.responses[200] = {
     description: '取得成功',

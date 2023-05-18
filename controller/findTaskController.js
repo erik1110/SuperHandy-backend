@@ -90,7 +90,7 @@ const tasks = {
         let { city, dist, isUrgent, sortby, keyword, services, limit, page } = req.query;
         isUrgent = isUrgent === 'true' ? true : false;
         services = services ? services.split(',') : [];
-        limit = Number(limit) || 6;
+        limit = Number(limit) || 10;
         page = Number(page) || 1;
         switch (sortby) {
             case 'newest':

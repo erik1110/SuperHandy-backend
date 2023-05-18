@@ -1010,6 +1010,190 @@
         }
       }
     },
+    "/find-task/detail/{taskId}": {
+      "get": {
+        "tags": [
+          "Find-tasks"
+        ],
+        "summary": "取得任務詳情 (Get task details)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/findTaskDetails"
+            }
+          },
+          "400": {
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40104, 40214, 40212]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/find-task/list/query": {
+      "get": {
+        "tags": [
+          "Find-tasks"
+        ],
+        "summary": "取得未媒合之任務列表(一般查詢)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "description": "篩選縣市",
+            "default": "台北市",
+            "type": "string"
+          },
+          {
+            "name": "dist",
+            "in": "query",
+            "description": "篩選地區",
+            "default": "信義區",
+            "type": "string"
+          },
+          {
+            "name": "isUrgent",
+            "in": "query",
+            "description": "是否為急件",
+            "default": "true",
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "排序依據(newest,highestSalary,mostEnquiries)(最新刊登 最高薪資 最高詢問度)",
+            "default": "newest",
+            "type": "string"
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "關鍵字查詢(任務標題、任務說明)",
+            "default": "",
+            "type": "string"
+          },
+          {
+            "name": "services",
+            "in": "query",
+            "description": "服務類別，可複選(使用,區隔)",
+            "default": "",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "每一頁的資料筆數(default:10)",
+            "default": "6",
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "第幾頁(default:1)",
+            "default": "1",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/getTaskListGeneral"
+            }
+          },
+          "400": {
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40104, 40214, 40212]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
     "/post-task/check-location": {
       "get": {
         "tags": [
@@ -3563,6 +3747,230 @@
                   }
                 }
               }
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
+        }
+      }
+    },
+    "findTaskDetails": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "taskId": {
+              "type": "string",
+              "example": "646431446cac1cf0dd5acaee"
+            },
+            "publishedAt": {
+              "type": "string",
+              "example": "2022-02-15T05:34:56.000Z"
+            },
+            "status": {
+              "type": "string",
+              "example": "已完成"
+            },
+            "progressBar": {
+              "type": "object",
+              "properties": {
+                "publishedAt": {
+                  "type": "string",
+                  "example": "2022-02-15T05:34:56.000Z"
+                },
+                "inProgressAt": {
+                  "type": "string",
+                  "example": "2022-02-16T05:34:56.000Z"
+                },
+                "submittedAt": {
+                  "type": "string",
+                  "example": "2022-02-17T05:55:56.000Z"
+                },
+                "confirmedAt": {
+                  "type": "string",
+                  "example": "2022-02-19T11:15:50.000Z"
+                },
+                "completedAt": {
+                  "type": "string",
+                  "example": "2022-02-23T00:19:50.000Z"
+                }
+              }
+            },
+            "title": {
+              "type": "string",
+              "example": "陪我家狗玩"
+            },
+            "isUrgent": {
+              "type": "boolean",
+              "example": true
+            },
+            "salary": {
+              "type": "number",
+              "example": 300
+            },
+            "address": {
+              "type": "string",
+              "example": "台北市松山區復興北路15號"
+            },
+            "category": {
+              "type": "string",
+              "example": "寵物陪伴"
+            },
+            "description": {
+              "type": "string",
+              "example": "我家有黃金獵犬，但我這禮拜很忙，請幫我 2/20 早上 8 點來歌唱大樓找我，並帶他去附近公園陪他散步"
+            },
+            "imgUrls": {
+              "type": "array",
+              "example": [
+                "https://example.com/dog.jpg"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "viewerCount": {
+              "type": "number",
+              "example": 1
+            },
+            "posterInfo": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "陳**"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "0919******"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "*****@********"
+                }
+              }
+            },
+            "contactInfo": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "陳瑋宇"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "0919694069"
+                },
+                "email": {
+                  "type": "string",
+                  "example": ""
+                }
+              }
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
+        }
+      }
+    },
+    "getTaskListGeneral": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "taskId": {
+                    "type": "string",
+                    "example": "645bec484ff0061f89e0b103"
+                  },
+                  "publishedAt": {
+                    "type": "string",
+                    "example": "2023-05-10T19:11:04.653Z"
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "媒合中"
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": "任務標題"
+                  },
+                  "isUrgent": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "salary": {
+                    "type": "number",
+                    "example": 1000
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "台北市信義區"
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "家事"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "任務描述"
+                  },
+                  "imgUrls": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "viewerCount": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "helperCount": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "posterName": {
+                    "type": "string",
+                    "example": "王**"
+                  },
+                  "contactName": {
+                    "type": "string",
+                    "example": "王**"
+                  }
+                }
+              }
+            },
+            "page": {
+              "type": "number",
+              "example": 1
+            },
+            "limit": {
+              "type": "number",
+              "example": 6
+            },
+            "total_pages": {
+              "type": "number",
+              "example": 1
+            },
+            "total_tasks": {
+              "type": "number",
+              "example": 5
             }
           }
         },
