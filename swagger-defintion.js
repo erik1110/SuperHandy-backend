@@ -68,10 +68,7 @@ const getCompletedCasesSuccess = {
     data: [
         {
             location: {
-                city: '台北市',
-                dist: '松山區',
-                address: '復興北路15號',
-                landmark: '歌唱大樓',
+                address: '台北市松山區復興北路15號',
                 longitude: 121.53868,
                 latitude: 25.02697,
             },
@@ -283,7 +280,6 @@ const getDraftResponse = {
 };
 
 const unpublishEditDetail = {
-    title: '新的任務',
     category: '到府驅蟲',
     description: '這個任務非常困難',
     imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
