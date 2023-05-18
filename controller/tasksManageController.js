@@ -31,6 +31,7 @@ const tasks = {
                 helper: helperName,
             };
         });
+        formattedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',
@@ -67,6 +68,7 @@ const tasks = {
                 poster: posterName,
             };
         });
+        formattedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',
