@@ -16,7 +16,7 @@ const tasks = {
         });
         const formattedData = tasks.map((task) => {
             const helper = task.helpers.find((helper) => helper.status === 'paired');
-            const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : '';
+            const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : null;
             return {
                 taskId: task._id,
                 title: task.title,
@@ -25,8 +25,8 @@ const tasks = {
                 salary: task.salary,
                 address: `${task.location.city}${task.location.dist}${task.location.address}`,
                 createdAt: task.time.createdAt,
-                publishedAt: task.time.publishedAt,
-                expiredAt: task.time.expiredAt,
+                publishedAt: task.time.publishedAt || null,
+                expiredAt: task.time.expiredAt || null,
                 helper: helperName,
             };
         });
@@ -51,7 +51,7 @@ const tasks = {
             select: 'lastName firstName',
         });
         const formattedTasks = tasks.map((task) => {
-            const posterName = task.userId ? `${task.userId.lastName}${task.userId.firstName}` : '';
+            const posterName = task.userId ? `${task.userId.lastName}${task.userId.firstName}` : null;
             return {
                 taskId: task._id,
                 title: task.title,
@@ -60,8 +60,8 @@ const tasks = {
                 salary: task.salary,
                 address: `${task.location.city}${task.location.dist}${task.location.address}`,
                 createdAt: task.time.createdAt,
-                publishedAt: task.time.publishedAt,
-                expiredAt: task.time.expiredAt,
+                publishedAt: task.time.publishedAt || null,
+                expiredAt: task.time.expiredAt || null,
                 poster: posterName,
             };
         });
@@ -91,8 +91,7 @@ const tasks = {
         if (!task) {
             return next(appError(404, '40212', '查無此任務'));
         }
-        const disallowedStatuses = ['draft', 'deleted'];
-        if (disallowedStatuses.includes(task.status)) {
+        if (task.status==='draft') {
             return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping[task.status]}`));
         }
         const isTaskOwner = task.userId._id.toString() === userId.toString();
@@ -168,6 +167,27 @@ const tasks = {
         if (!["published", "unpublished"].includes(task.status)) {
             return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping[task.status]}`));
         }
+        // 推播通知
+        const helpers = task.helpers;
+        const notifications = helpers.map((helper) => {
+            const helpId = helper.helperId;
+            return {
+                userId: helpId,
+                tag: '幫手通知',
+                description: `您待媒合的任務：「${task.title} 」已刪除`,
+                taskId: taskId,
+                createdAt: Date.now(),
+            };
+        });
+        await Notify.insertMany(notifications);
+        await Notify.create({
+            userId: req.user._id,
+            tag: '案主通知',
+            description: `您待媒合的任務：「${task.title} 」已刪除，無法被其他人查看該任務`,
+            taskId: taskId,
+            createdAt: Date.now(),
+        });
+        // 更新任務狀態為`刪除`
         task.status = 'deleted';
         task.time.deletedAt = Date.now();
         await task.save();
