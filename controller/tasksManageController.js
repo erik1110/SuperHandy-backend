@@ -366,7 +366,7 @@ const tasks = {
             return isMatchingHelper;
         });
         if (!isTaskHelper){
-            return next(appError(400, '40302', '沒有權限'));
+            return next(appError(400, '40215', '該幫手未申請或不存在'));
         }
         // 更新任務狀態為`進行中 (inProgress)`
         await Task.findOneAndUpdate(
@@ -394,7 +394,7 @@ const tasks = {
             } else if (status === 'unpaired') {
                 descriptionNew = `您待媒合的任務：「${task.title}」媒合失敗`;
             } else {
-                return next(appError(500, '50001', `幫手狀態不正確`));
+                return next(appError(500, '50001', `系統錯誤`));
             }
             return {
               userId: helpId,
