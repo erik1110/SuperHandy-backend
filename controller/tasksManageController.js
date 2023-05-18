@@ -5,17 +5,7 @@ const Notify = require('../models/notifyModel');
 const User = require('../models/userModel');
 const Task = require('../models/taskModel');
 const TaskTrans = require('../models/taskTransModel');
-
-const statusMapping = {
-    draft: '草稿',
-    published: '媒合中',
-    inProgressed: '進行中',
-    submitted: '進行中',
-    confirmed: '已完成',
-    completed: '已完成',
-    unpublished: '已下架',
-    deleted: '未成立',
-};
+const statusMapping = require('../service/statusMapping');
 
 const tasks = {
     getPostedTasksHist: handleErrorAsync(async (req, res, next) => {
@@ -103,7 +93,7 @@ const tasks = {
         }
         const disallowedStatuses = ['draft', 'deleted'];
         if (disallowedStatuses.includes(task.status)) {
-            return next(appError(400, '40214', '任務狀態錯誤'));
+            return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping[task.status]}`));
         }
         const isTaskOwner = task.userId._id.toString() === userId.toString();
         const isTaskHelper = task.helpers.some((helper) => {
@@ -168,37 +158,22 @@ const tasks = {
         if (!mongoose.isValidObjectId(taskId)) {
             return next(appError(400, '40104', 'Id 格式錯誤'));
         }
+        const task = await Task.findOne({ _id: taskId });
         if (!task) {
             return next(appError(400, '40212', '查無此任務'));
         }
-        if (task.userId.toString() !== req.user._id.toString()) {
+        if (task.userId.toString() !== userId.toString()) {
             return next(appError(400, '40302', '沒有權限'));
         }
         if (!["published", "unpublished"].includes(task.status)) {
-            return next(appError(400, '40214', `任務狀態錯誤： ${task.status}`));
+            return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping[task.status]}`));
         }
-        const tasks = await Task.find({ _id: taskId })
-
-        const formattedData = tasks.map((task) => {
-            const helper = task.helpers.find((helper) => helper.status === 'paired');
-            const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : '';
-            return {
-                taskId: task._id,
-                title: task.title,
-                isUrgent: task.isUrgent,
-                status: statusMapping[task.status] || task.status,
-                salary: task.salary,
-                address: `${task.location.city}${task.location.dist}${task.location.address}`,
-                createdAt: task.time.createdAt,
-                publishedAt: task.time.publishedAt,
-                expiredAt: task.time.expiredAt,
-                helper: helperName,
-            };
-        });
+        task.status = 'deleted';
+        task.time.deletedAt = Date.now();
+        await task.save();
         res.status(200).json(
             getHttpResponse({
-                message: '刪除成功',
-                data: formattedData,
+                message: '刪除成功'
             }),
         );
     }),
