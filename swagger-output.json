@@ -2370,6 +2370,42 @@
           "200": {
             "description": "刪除成功"
           },
+          "400": {
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40104, 40214, 40212, 40302]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
           "500": {
             "description": "系統錯誤",
             "schema": {
@@ -2408,6 +2444,42 @@
           "200": {
             "description": "確認成功"
           },
+          "400": {
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40104, 40214, 40212, 40302]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
           "500": {
             "description": "系統錯誤",
             "schema": {
@@ -2440,11 +2512,55 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "上傳內容",
+            "schema": {
+              "$ref": "#/definitions/uploadAcceptanceReq"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "上傳成功"
+          },
+          "400": {
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40104, 40214, 40212, 40302]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
             "description": "系統錯誤",
@@ -2489,6 +2605,42 @@
         "responses": {
           "200": {
             "description": "確認成功"
+          },
+          "400": {
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限、該幫手未申請或不存在",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40104, 40214, 40212, 40302, 40215]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
             "description": "系統錯誤",
@@ -3790,6 +3942,29 @@
         "message": {
           "type": "string",
           "example": "取得成功"
+        }
+      }
+    },
+    "uploadAcceptanceReq": {
+      "type": "object",
+      "properties": {
+        "submittedInfo": {
+          "type": "object",
+          "properties": {
+            "imgUrls": {
+              "type": "array",
+              "example": [
+                "http://example.com/1.jpg"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "comment": {
+              "type": "string",
+              "example": "好多人好難排，但我拿到了"
+            }
+          }
         }
       }
     }

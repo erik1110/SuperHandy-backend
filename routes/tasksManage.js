@@ -80,6 +80,18 @@ router.delete('/:taskId', function (req, res, next) {
    #swagger.responses[200] = {
       description: '刪除成功'
   }
+   #swagger.responses[400] = {
+    description: 'Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限',
+    schema: {
+      'status': 'false',
+      'message': '錯誤訊息',
+      'error': {
+        'name': '[40104, 40214, 40212, 40302]',
+        'statusCode': 400,
+        'isOperational': true
+      }
+    }
+  }
   #swagger.responses[500] = {
       description: '系統錯誤',
       schema: { $ref: '#/definitions/Error500' }
@@ -97,6 +109,18 @@ router.post('/confirm-acceptance/:taskId', function (req, res, next) {
   /**
    #swagger.responses[200] = {
       description: '確認成功'
+  }
+   #swagger.responses[400] = {
+    description: 'Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限',
+    schema: {
+      'status': 'false',
+      'message': '錯誤訊息',
+      'error': {
+        'name': '[40104, 40214, 40212, 40302]',
+        'statusCode': 400,
+        'isOperational': true
+      }
+    }
   }
   #swagger.responses[500] = {
       description: '系統錯誤',
@@ -121,6 +145,18 @@ router.post('/upload-acceptance/:taskId', function (req, res, next) {
    #swagger.responses[200] = {
       description: '上傳成功'
   }
+   #swagger.responses[400] = {
+    description: 'Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限',
+    schema: {
+      'status': 'false',
+      'message': '錯誤訊息',
+      'error': {
+        'name': '[40104, 40214, 40212, 40302]',
+        'statusCode': 400,
+        'isOperational': true
+      }
+    }
+  }
   #swagger.responses[500] = {
       description: '系統錯誤',
       schema: { $ref: '#/definitions/Error500' }
@@ -138,6 +174,18 @@ router.post('/confirm-helper/:taskId/:helperId', function (req, res, next) {
   /**
    #swagger.responses[200] = {
       description: '確認成功'
+  }
+  #swagger.responses[400] = {
+    description: 'Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限、該幫手未申請或不存在',
+    schema: {
+      'status': 'false',
+      'message': '錯誤訊息',
+      'error': {
+        'name': '[40104, 40214, 40212, 40302, 40215]',
+        'statusCode': 400,
+        'isOperational': true
+      }
+    }
   }
   #swagger.responses[500] = {
       description: '系統錯誤',
