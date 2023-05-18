@@ -103,7 +103,7 @@ router.post('/confirm-acceptance/:taskId', function (req, res, next) {
       schema: { $ref: '#/definitions/Error500' }
   }
 */
-    tasksManageController.markRead(req, res, next);
+    tasksManageController.confirmAcceptance(req, res, next);
 });
 
 /* 幫手上傳驗收內容 */
@@ -113,6 +113,11 @@ router.post('/upload-acceptance/:taskId', function (req, res, next) {
    * #swagger.summary = '幫手上傳驗收內容 (Upload acceptance)'
    * #swagger.security=[{"Bearer": []}]
   /**
+    #swagger.parameters['parameter_name'] = {
+    in: 'body',
+    description: '上傳內容',
+    schema: {$ref: "#/definitions/uploadAcceptanceReq"}
+    },
    #swagger.responses[200] = {
       description: '上傳成功'
   }
@@ -121,7 +126,7 @@ router.post('/upload-acceptance/:taskId', function (req, res, next) {
       schema: { $ref: '#/definitions/Error500' }
   }
 */
-    tasksManageController.markRead(req, res, next);
+    tasksManageController.uploadAcceptance(req, res, next);
 });
 
 /* 案主確認幫手人選 */
