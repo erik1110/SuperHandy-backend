@@ -189,9 +189,21 @@ const tasks = {
             createdAt: Date.now(),
         });
         // 更新任務狀態為`刪除`
-        task.status = 'deleted';
-        task.time.deletedAt = Date.now();
-        await task.save();
+        await Task.findOneAndUpdate(
+            { _id: taskId },
+            {
+                $set: {
+                    status: 'deleted',
+                    helpers: task.helpers.map((helper) => ({
+                        helperId: helper.helperId,
+                        status: 'dropped',
+                    })),
+                    'time.updatedAt': Date.now(),
+                    'time.deletedAt': Date.now(),
+                },
+            },
+            { new: true },
+        );
         res.status(200).json(
             getHttpResponse({
                 message: '刪除成功'

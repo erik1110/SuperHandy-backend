@@ -459,7 +459,7 @@ const tasks = {
             taskId: taskId,
             createdAt: Date.now(),
         });
-        // 更新 Task
+        // 更新任務狀態為`已下架`
         await Task.findOneAndUpdate(
             { _id: taskId },
             {
