@@ -2299,7 +2299,7 @@
             }
           },
           "400": {
-            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務",
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限",
             "schema": {
               "type": "object",
               "properties": {
@@ -2316,7 +2316,7 @@
                   "properties": {
                     "name": {
                       "type": "string",
-                      "example": "[40104, 40214, 40212]"
+                      "example": "[40104, 40214, 40212, 40302]"
                     },
                     "statusCode": {
                       "type": "number",
@@ -2460,7 +2460,7 @@
         ]
       }
     },
-    "/tasks/management/confirm-helper/{taskId}": {
+    "/tasks/management/confirm-helper/{taskId}/{helperId}": {
       "post": {
         "tags": [
           "Tasks"
@@ -2470,6 +2470,12 @@
         "parameters": [
           {
             "name": "taskId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "helperId",
             "in": "path",
             "required": true,
             "type": "string"
@@ -3630,6 +3636,10 @@
                 "type": "string",
                 "example": "已完成"
               },
+              "helperStatus": {
+                "type": "string",
+                "example": "媒合成功"
+              },
               "salary": {
                 "type": "number",
                 "example": 300
@@ -3766,7 +3776,7 @@
                   },
                   "status": {
                     "type": "string",
-                    "example": "paired"
+                    "example": "媒合成功"
                   },
                   "lastName": {
                     "type": "string",
