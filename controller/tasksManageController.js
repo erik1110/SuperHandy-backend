@@ -101,8 +101,8 @@ const tasks = {
             return isMatchingHelper;
         });
         const helper = task.helpers.find((helper) => helper.status === 'paired');
-        const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : '';
-        const posterName = task.userId ? `${task.userId.lastName}${task.userId.firstName}` : '';
+        const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : null;
+        const posterName = task.userId ? `${task.userId.lastName}${task.userId.firstName}` : null;
         let formatHelpers;
         if (isTaskOwner) {
             role = '案主';
@@ -126,7 +126,7 @@ const tasks = {
             taskId: task._id,
             role: role,
             publishedAt: task.time.publishedAt,
-            status: statusMapping[task.status] || '',
+            status: statusMapping.taskStatusMapping[task.status] || '',
             helper: helperName,
             poster: posterName,
             progressBar: {
