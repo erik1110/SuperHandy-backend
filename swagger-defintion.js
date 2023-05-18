@@ -430,7 +430,7 @@ const findTaskDetails = {
     },
     message: '取得成功',
 };
-const getTaskListGeneral = {
+const findTaskListGeneral = {
     status: 'success',
     data: {
         tasks: [
@@ -458,7 +458,7 @@ const getTaskListGeneral = {
     },
     message: '取得成功',
 };
-const getTaskListMap = {
+const findTaskListMap = {
     status: 'success',
     data: {
         tasks: [
@@ -482,6 +482,19 @@ const getTaskListMap = {
         total_tasks: 1,
         longitude: 121.5720055,
         latitude: 25.0409201,
+    },
+    message: '取得成功',
+};
+const findTaskListHighlight = {
+    status: 'success',
+    data: {
+        tasks: [
+            {
+                taskId: '645bec484ff0061f89e0b103',
+                title: '任務標題',
+                imgUrls: '',
+            },
+        ],
     },
     message: '取得成功',
 };
@@ -518,5 +531,5 @@ module.exports = {
     getAppliedTasksHist,
     getTaskDetails,
     findTaskDetails,
-    getTaskListGeneral,
+    getTaskListGeneral: findTaskListGeneral,
 };

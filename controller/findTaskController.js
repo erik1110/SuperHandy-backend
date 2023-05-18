@@ -36,6 +36,19 @@ function validDistance(centerLongitude, centerLatitude, taskLongitude, taskLatit
     }
 }
 
+function getRandomIndexList(range, count) {
+    count = range < count ? range + 1 : count;
+    let numbers = [...Array(range).keys()];
+    let selectedNumbers = [];
+    // 選取不重複的數字
+    while (selectedNumbers.length < count) {
+        let randomIndex = Math.floor(Math.random() * numbers.length);
+        selectedNumbers.push(numbers[randomIndex]);
+        numbers.splice(randomIndex, 1);
+    }
+    return selectedNumbers;
+}
+
 const tasks = {
     getTaskDetails: handleErrorAsync(async (req, res, next) => {
         const userId = req?.user?._id || '';
@@ -297,6 +310,34 @@ const tasks = {
                     total_tasks,
                     longitude: centerLongitude,
                     latitude: centerLatitude,
+                },
+            }),
+        );
+    }),
+    getTaskListHighlight: handleErrorAsync(async (req, res, next) => {
+        //find all tasks sort by viewerCount and limit 5
+        const tasks = await Task.find({ status: 'published' }).sort({ 'viewers.length': -1 }).select('_id title imgUrls');
+        if (!tasks) {
+            return next(appError(404, '40210', '查無資料'));
+        }
+        const randomIndexList = getRandomIndexList(tasks.length, 5);
+        //format tasks
+        let formattedTasks = [];
+        tasks.forEach((task, index) => {
+            if (randomIndexList.includes(index)) {
+                formattedTasks.push({
+                    taskId: task._id,
+                    title: task.title,
+                    imgUrls: task.imgUrls[0] || '',
+                });
+            }
+        });
+
+        res.status(200).json(
+            getHttpResponse({
+                message: '取得成功',
+                data: {
+                    tasks: formattedTasks,
                 },
             }),
         );

@@ -53,7 +53,7 @@ router.get('/list/query', async function (req, res, next) {
   #swagger.parameters['page'] = {in: 'query',description: '第幾頁(default:1)',default:  '1'}, 
  #swagger.responses[200] = {
     description: '取得成功',
-    schema: { $ref: '#/definitions/getTaskListGeneral' }
+    schema: { $ref: '#/definitions/findTaskListGeneral' }
 }
 #swagger.responses[400] = {
   description: 'Id 格式錯誤、任務狀態錯誤、查無此任務',
@@ -92,7 +92,7 @@ router.get('/map/query', async function (req, res, next) {
 #swagger.parameters['services'] = {in: 'query',description: '服務類別，可複選(使用,區隔)',default:  ''}, 
 #swagger.responses[200] = {
   description: '取得成功',
-  schema: { $ref: '#/definitions/getTaskListMap' }
+  schema: { $ref: '#/definitions/findTaskListMap' }
 }
 #swagger.responses[400] = {
 description: '請輸入經緯度或縣市區域、找不到該地址、查無資料',
@@ -112,6 +112,37 @@ schema: {
 }
 */
     tasks.getTaskListMap(req, res, next);
+});
+
+/* 取得未媒合之任務列表(限時推薦)*/
+router.get('/highlight', async function (req, res, next) {
+    /**
+* #swagger.tags = ['Find-tasks']
+* #swagger.summary = '取得未媒合之任務列表(限時推薦)'
+* /
+/**
+#swagger.responses[200] = {
+  description: '取得成功',
+  schema: { $ref: '#/definitions/findTaskListHighlight' }
+}
+#swagger.responses[400] = {
+description: '查無資料',
+schema: {
+  'status': 'false',
+  'message': '錯誤訊息',
+  'error': {
+    'name': '[40210]',
+    'statusCode': 400,
+    'isOperational': true
+  }
+}
+}
+#swagger.responses[500] = {
+  description: '系統錯誤',
+  schema: { $ref: '#/definitions/Error500' }
+}
+*/
+    tasks.getTaskListHighlight(req, res, next);
 });
 
 module.exports = router;

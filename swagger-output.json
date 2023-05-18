@@ -1146,7 +1146,7 @@
           "200": {
             "description": "取得成功",
             "schema": {
-              "$ref": "#/definitions/getTaskListGeneral"
+              "$ref": "#/definitions/findTaskListGeneral"
             }
           },
           "400": {
@@ -1263,7 +1263,7 @@
           "200": {
             "description": "取得成功",
             "schema": {
-              "$ref": "#/definitions/getTaskListMap"
+              "$ref": "#/definitions/findTaskListMap"
             }
           },
           "400": {
@@ -1285,6 +1285,66 @@
                     "name": {
                       "type": "string",
                       "example": "[40105, 40400, 40210]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/find-task/highlight": {
+      "get": {
+        "tags": [
+          "Find-tasks"
+        ],
+        "summary": "取得未媒合之任務列表(限時推薦)",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/findTaskListHighlight"
+            }
+          },
+          "400": {
+            "description": "查無資料",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40210]"
                     },
                     "statusCode": {
                       "type": "number",
