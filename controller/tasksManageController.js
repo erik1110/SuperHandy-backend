@@ -107,7 +107,7 @@ const tasks = {
             role = '案主';
             formatHelpers = task.helpers.map((helper) => ({
                 helperId: helper.helperId._id,
-                status: helper.status,
+                status: statusMapping.helperStatusMapping[helper.status],
                 lastName: helper.helperId.lastName,
             }));
         } else if (isTaskHelper) {
@@ -116,7 +116,7 @@ const tasks = {
                 .filter((helper) => helper.status === 'paired')
                 .map((helper) => ({
                     helperId: helper.helperId._id,
-                    status: helper.status,
+                    status: statusMapping.helperStatusMapping[helper.status],
                     lastName: helper.helperId.lastName,
                 }));
         } else {
