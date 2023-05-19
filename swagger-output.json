@@ -1200,7 +1200,7 @@
           "Find-tasks"
         ],
         "summary": "取得未媒合之任務列表(地圖模式)",
-        "description": "",
+        "description": "經緯度和地址擇一填寫即可(都填寫時，以經緯度為優先)",
         "parameters": [
           {
             "name": "longitude",
@@ -4244,7 +4244,7 @@
         }
       }
     },
-    "getTaskListGeneral": {
+    "findTaskListGeneral": {
       "type": "object",
       "properties": {
         "status": {
@@ -4333,6 +4333,138 @@
             "total_tasks": {
               "type": "number",
               "example": 5
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
+        }
+      }
+    },
+    "findTaskListMap": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "taskId": {
+                    "type": "string",
+                    "example": "645bec484ff0061f89e0b103"
+                  },
+                  "publishedAt": {
+                    "type": "string",
+                    "example": "2023-05-10T19:11:04.653Z"
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "媒合中"
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": "任務標題"
+                  },
+                  "isUrgent": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "salary": {
+                    "type": "number",
+                    "example": 1000
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "台北市信義區"
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "家事"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "任務描述"
+                  },
+                  "imgUrls": {
+                    "type": "string",
+                    "example": ""
+                  },
+                  "viewerCount": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "helperCount": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "posterName": {
+                    "type": "string",
+                    "example": "王**"
+                  },
+                  "contactName": {
+                    "type": "string",
+                    "example": "王**"
+                  }
+                }
+              }
+            },
+            "total_tasks": {
+              "type": "number",
+              "example": 1
+            },
+            "longitude": {
+              "type": "number",
+              "example": 121.5720055
+            },
+            "latitude": {
+              "type": "number",
+              "example": 25.0409201
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
+        }
+      }
+    },
+    "findTaskListHighlight": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "taskId": {
+                    "type": "string",
+                    "example": "645bec484ff0061f89e0b103"
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": "任務標題"
+                  },
+                  "imgUrls": {
+                    "type": "string",
+                    "example": ""
+                  }
+                }
+              }
             }
           }
         },
