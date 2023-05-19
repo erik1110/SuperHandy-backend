@@ -80,6 +80,7 @@ router.get('/map/query', async function (req, res, next) {
     /**
 * #swagger.tags = ['Find-tasks']
 * #swagger.summary = '取得未媒合之任務列表(地圖模式)'
+* #swagger.description = '經緯度和地址擇一填寫即可(都填寫時，以經緯度為優先)'
 * /
 /**
 #swagger.parameters['longitude'] = {in: 'query',description: '經度(中心點)',default:  '121.5654268'}, 

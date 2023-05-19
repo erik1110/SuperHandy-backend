@@ -531,5 +531,7 @@ module.exports = {
     getAppliedTasksHist,
     getTaskDetails,
     findTaskDetails,
-    getTaskListGeneral: findTaskListGeneral,
+    findTaskListGeneral,
+    findTaskListMap,
+    findTaskListHighlight,
 };
