@@ -306,7 +306,11 @@ const tasks = {
             return next(appError(400, '40212', '查無此任務'));
         }
         if (task.status!=='inProgressed') {
-            return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
+            if (task.status === 'submitted'){
+                return next(appError(400, '40214', `任務狀態錯誤：幫手已完成上傳驗收`));
+            } else {
+                return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
+            }
         }
         const isTaskHelper = task.helpers.some((helper) => {
             const isMatchingHelper = helper.helperId.toString() === helperId.toString();
