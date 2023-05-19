@@ -230,7 +230,11 @@ const tasks = {
             return next(appError(400, '40302', '沒有權限'));
         }
         if (task.status!=='submitted') {
-            return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
+            if (task.status === 'inProgressed'){
+                return next(appError(400, '40214', `任務狀態錯誤： 幫手尚未上傳驗收內容`));
+            } else {
+                return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
+            }
         }
         const pairedHelpers = task.helpers.filter((helper) => helper.status === "paired");
         const helperId = pairedHelpers.map((helper) => helper.helperId)[0];
