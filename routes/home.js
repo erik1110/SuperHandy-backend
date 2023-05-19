@@ -6,7 +6,7 @@ const homeController = require('../controller/homeController');
 router.get('/completed-cases', function (req, res, next) {
     /**
      * #swagger.tags = ['Home']
-     * #swagger.summary = 'Get Completed Cases'
+     * #swagger.summary = '取得已完成之案例 (Get Completed Cases)'
      */
     /**
     #swagger.responses[200] = {
@@ -24,7 +24,7 @@ router.get('/completed-cases', function (req, res, next) {
 router.get('/completed-reviews', function (req, res, next) {
     /**
      * #swagger.tags = ['Home']
-     * #swagger.summary = 'Get Completed Reviews'
+     * #swagger.summary = '取得真實心得評價 (Get Completed Reviews)'
      */
     /**
   #swagger.responses[200] = {
@@ -43,7 +43,7 @@ router.get('/completed-reviews', function (req, res, next) {
 router.get('/task-stats', function (req, res, next) {
     /**
      * #swagger.tags = ['Home']
-     * #swagger.summary = 'Get task statistics count'
+     * #swagger.summary = '取得任務統計數量 (Get task statistics count)'
      */
     /**
   #swagger.responses[200] = {
@@ -62,7 +62,7 @@ router.get('/task-stats', function (req, res, next) {
 router.get('/excellent-helpers', function (req, res, next) {
     /**
      * #swagger.tags = ['Home']
-     * #swagger.summary = 'Get excellent helpers'
+     * #swagger.summary = '取得優秀幫手資料 (Get excellent helpers)'
      */
     /**
   #swagger.responses[200] = {

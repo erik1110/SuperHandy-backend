@@ -14,6 +14,55 @@ const initTasks = async () => {
     const tasks = [
         {
             userId: userCase1._id,
+            status: 'published',
+            title: '急！幫忙代購王國之類',
+            category: '排隊代購',
+            description: '很急，5/11 晚上請在信義店前排隊代購，12:00準時想拿到遊戲片',
+            salary: 500,
+            exposurePlan: '黃金曝光',
+            imgUrls: ['https://example.com/switch.jpg'],
+            contactInfo: {
+                name: `${userCase1.lastName}${userCase1.firstName}`,
+                phone: userCase1.phone,
+                email: userCase1.email,
+            },
+            location: {
+                city: '台北市',
+                dist: '信義區',
+                address: '松智路17號',
+                longitude: 121.53868,
+                latitude: 25.02697,
+            },
+            isUrgent: true,
+            helpers: [
+                {
+                    helperId: userCase5._id,
+                    status: 'waiting',
+                },
+                {
+                    helperId: userCase3._id,
+                    status: 'waiting',
+                },
+                {
+                    helperId: userCase2._id,
+                    status: 'waiting',
+                },
+            ],
+            time: {
+                createdAt: new Date('2023-04-30T12:34:56'),
+                updatedAt: new Date('2022-05-12T08:19:50'),
+                publishedAt: new Date('2022-05-10T13:34:56'),
+                unpublishedAt: null,
+                deletedAt: null,
+                inProgressAt: null,
+                submittedAt: null,
+                confirmedAt: null,
+                completedAt: null,
+                expiredAt: new Date('2023-05-30T12:34:56'),
+            },
+        },
+        {
+            userId: userCase1._id,
             status: 'completed',
             title: '陪我家狗玩',
             category: '寵物陪伴',
@@ -30,7 +79,6 @@ const initTasks = async () => {
                 city: '台北市',
                 dist: '松山區',
                 address: '復興北路15號',
-                landmark: '歌唱大樓',
                 longitude: 121.53868,
                 latitude: 25.02697,
             },
@@ -85,7 +133,6 @@ const initTasks = async () => {
                 city: '台北市',
                 dist: '松山區',
                 address: '羅斯福路四段1號',
-                landmark: '國立台灣大學',
                 longitude: 121.537369,
                 latitude: 25.017503,
             },
@@ -195,7 +242,6 @@ const initTasks = async () => {
                 city: '台中市',
                 dist: '南區',
                 address: '復興南路二段240號',
-                landmark: '逢甲大學',
                 longitude: 120.637803,
                 latitude: 24.178145,
             },
@@ -254,7 +300,6 @@ const initTasks = async () => {
                 city: '台北市',
                 dist: '中正區',
                 address: '信義路1號',
-                landmark: '台北101',
                 longitude: 121.564534,
                 latitude: 25.033903,
             },
@@ -301,7 +346,7 @@ const initTasks = async () => {
         // 刪除現有的所有類別
         await Task.deleteMany({
             title: {
-                $in: ['陪我家狗玩', '幫忙做畢業專題', '協助居家清潔', '陪我練習開車', 'Notion 教學'],
+                $in: ['急！幫忙代購王國之類', '陪我家狗玩', '幫忙做畢業專題', '協助居家清潔', '陪我練習開車', 'Notion 教學'],
             },
         });
 

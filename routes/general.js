@@ -6,7 +6,7 @@ const generalController = require('../controller/generalController');
 router.get('/categories', function (req, res, next) {
     /**
      * #swagger.tags = ['General']
-     * #swagger.summary = 'Get Service Category (including task description template)'
+     * #swagger.summary = '取得服務類別，包含任務說明的template (Get Service Category (including task description template)'
      */
     /**
     #swagger.responses[200] = {
@@ -29,7 +29,7 @@ router.get('/categories', function (req, res, next) {
 router.get('/exposure-plan', function (req, res, next) {
     /**
      * #swagger.tags = ['General']
-     * #swagger.summary = 'Get Exposure Plan'
+     * #swagger.summary = '取得曝光方案 (Get exposure plan)'
      */
     /**
     #swagger.responses[200] = {

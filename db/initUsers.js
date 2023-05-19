@@ -125,7 +125,7 @@ const initUsers = async () => {
                 helperIntro: '我是一名資訊工程師，熟悉Java開發。',
                 thirdPartyId: '',
                 thirdPartyType: '',
-                isVerifiedEmail: false,
+                isVerifiedEmail: true,
                 status: true,
                 superCoin: 500,
                 helperCoin: 50,

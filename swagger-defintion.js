@@ -352,6 +352,7 @@ const getAppliedTasksHist = {
             title: '幫忙做畢業專題',
             isUrgent: false,
             status: '已完成',
+            helperStatus: '媒合成功',
             salary: 300,
             address: '台北市松山區羅斯福路四段1號',
             createdAt: '2023-01-30T04:34:56.000Z',
@@ -388,7 +389,7 @@ const getTaskDetails = {
         helpers: [
             {
                 helperId: '646431446cac1cf0dd5acae6',
-                status: 'paired',
+                status: '媒合成功',
                 lastName: '陳',
             },
         ],
@@ -396,6 +397,12 @@ const getTaskDetails = {
     message: '取得成功',
 };
 
+const uploadAcceptanceReq = {
+    submittedInfo: {
+        imgUrls: ["http://example.com/1.jpg"],
+        comment: '好多人好難排，但我拿到了'
+    }
+}
 const findTaskDetails = {
     status: 'success',
     data: {
@@ -530,6 +537,7 @@ module.exports = {
     getPostedTasksHist,
     getAppliedTasksHist,
     getTaskDetails,
+    uploadAcceptanceReq,
     findTaskDetails,
     findTaskListGeneral,
     findTaskListMap,
