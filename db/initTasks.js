@@ -15,7 +15,7 @@ const initTasks = async () => {
         {
             userId: userCase1._id,
             status: 'published',
-            title: '急！幫忙代購王國之類',
+            title: '急！幫忙代購王國之淚',
             category: '排隊代購',
             description: '很急，5/11 晚上請在信義店前排隊代購，12:00準時想拿到遊戲片',
             salary: 500,
@@ -346,7 +346,7 @@ const initTasks = async () => {
         // 刪除現有的所有類別
         await Task.deleteMany({
             title: {
-                $in: ['急！幫忙代購王國之類', '陪我家狗玩', '幫忙做畢業專題', '協助居家清潔', '陪我練習開車', 'Notion 教學'],
+                $in: ['急！幫忙代購王國之淚', '陪我家狗玩', '幫忙做畢業專題', '協助居家清潔', '陪我練習開車', 'Notion 教學'],
             },
         });
 
