@@ -70,7 +70,7 @@
         "tags": [
           "Sign-in"
         ],
-        "summary": "Register an Account and send a verification email",
+        "summary": "註冊+寄信 (Register an Account and send a verification email)",
         "description": "",
         "parameters": [
           {
@@ -152,7 +152,7 @@
         "tags": [
           "Sign-in"
         ],
-        "summary": "Verify the registration email",
+        "summary": "驗證註冊信 (Verify the registration email)",
         "description": "",
         "parameters": [],
         "responses": {
@@ -190,7 +190,7 @@
         "tags": [
           "Sign-in"
         ],
-        "summary": "Resend an Email for verification",
+        "summary": "重寄驗證信 (Resend an Email for verification)",
         "description": "",
         "parameters": [
           {
@@ -238,7 +238,7 @@
         "tags": [
           "Sign-in"
         ],
-        "summary": "Login an Account",
+        "summary": "登入 (Sign-in)",
         "description": "",
         "parameters": [
           {
@@ -297,7 +297,7 @@
         "tags": [
           "Sign-in"
         ],
-        "summary": "forgot password and send an Email for verification",
+        "summary": "忘記密碼+寄驗證信 (Forgot password and send an Email for verification)",
         "description": "",
         "parameters": [
           {
@@ -345,7 +345,7 @@
         "tags": [
           "Sign-in"
         ],
-        "summary": "forget password and reset the password from email",
+        "summary": "忘記密碼並重設密碼 (Forget password and reset the password from email)",
         "description": "",
         "parameters": [
           {
@@ -403,7 +403,7 @@
         "tags": [
           "Sign-in"
         ],
-        "summary": "update password after sign in",
+        "summary": "更新密碼 (Update password after sign in)",
         "description": "",
         "parameters": [
           {
@@ -466,7 +466,7 @@
         "tags": [
           "Account"
         ],
-        "summary": "取得使用者資料概要",
+        "summary": "取得使用者資料概要 (Summary of User Data)",
         "description": "",
         "parameters": [],
         "responses": {
@@ -489,7 +489,7 @@
         "tags": [
           "Account"
         ],
-        "summary": "取得使用者表單資料",
+        "summary": "取得使用者表單資料 (Get User Form Data)",
         "description": "",
         "parameters": [],
         "responses": {
@@ -510,7 +510,7 @@
         "tags": [
           "Account"
         ],
-        "summary": "更新使用者表單資料",
+        "summary": "更新使用者表單資料 (Update User Form Data)",
         "description": "",
         "parameters": [
           {
@@ -605,7 +605,7 @@
         "tags": [
           "Account"
         ],
-        "summary": "Get the current balance of Super Coins and Helper Coins",
+        "summary": "取得目前超人幣、幫手幣的餘額 (Get the current balance of Super Coins and Helper Coins)",
         "description": "",
         "parameters": [],
         "responses": {
@@ -646,7 +646,7 @@
         "tags": [
           "Account"
         ],
-        "summary": "Get user statistics figures",
+        "summary": "取得6組數字統計 (Get user statistics figures)",
         "description": "",
         "parameters": [],
         "responses": {
@@ -687,7 +687,7 @@
         "tags": [
           "Account"
         ],
-        "summary": "Get the history of points",
+        "summary": "點數歷史紀錄 (Get the history of points)",
         "description": "",
         "parameters": [],
         "responses": {
@@ -728,7 +728,7 @@
         "tags": [
           "Account"
         ],
-        "summary": "Purchase the super coin",
+        "summary": "購買點數 (Purchase the super coin)",
         "description": "",
         "parameters": [
           {
@@ -786,7 +786,7 @@
         "tags": [
           "Account"
         ],
-        "summary": "Refund in cash",
+        "summary": "返還現金 (Refund in cash)",
         "description": "",
         "parameters": [
           {
@@ -859,7 +859,7 @@
         "tags": [
           "Home"
         ],
-        "summary": "Get Completed Cases",
+        "summary": "取得已完成之案例 (Get Completed Cases)",
         "description": "",
         "parameters": [],
         "responses": {
@@ -883,7 +883,7 @@
         "tags": [
           "Home"
         ],
-        "summary": "Get Completed Reviews",
+        "summary": "取得真實心得評價 (Get Completed Reviews)",
         "description": "",
         "parameters": [],
         "responses": {
@@ -907,7 +907,7 @@
         "tags": [
           "Home"
         ],
-        "summary": "Get task statistics count",
+        "summary": "取得任務統計數量 (Get task statistics count)",
         "description": "",
         "parameters": [],
         "responses": {
@@ -931,7 +931,7 @@
         "tags": [
           "Home"
         ],
-        "summary": "Get excellent helpers",
+        "summary": "取得優秀幫手資料 (Get excellent helpers)",
         "description": "",
         "parameters": [],
         "responses": {
@@ -955,7 +955,7 @@
         "tags": [
           "General"
         ],
-        "summary": "Get Service Category (including task description template)",
+        "summary": "取得服務類別，包含任務說明的template (Get Service Category (including task description template)",
         "description": "",
         "parameters": [],
         "responses": {
@@ -985,7 +985,7 @@
         "tags": [
           "General"
         ],
-        "summary": "Get Exposure Plan",
+        "summary": "取得曝光方案 (Get exposure plan)",
         "description": "",
         "parameters": [],
         "responses": {
@@ -2485,7 +2485,7 @@
             }
           },
           "400": {
-            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務",
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限",
             "schema": {
               "type": "object",
               "properties": {
@@ -2502,7 +2502,7 @@
                   "properties": {
                     "name": {
                       "type": "string",
-                      "example": "[40104, 40214, 40212]"
+                      "example": "[40104, 40214, 40212, 40302]"
                     },
                     "statusCode": {
                       "type": "number",
@@ -2551,6 +2551,42 @@
           "200": {
             "description": "刪除成功"
           },
+          "400": {
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40104, 40214, 40212, 40302]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
           "500": {
             "description": "系統錯誤",
             "schema": {
@@ -2584,6 +2620,42 @@
           "200": {
             "description": "確認成功"
           },
+          "400": {
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40104, 40214, 40212, 40302]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
           "500": {
             "description": "系統錯誤",
             "schema": {
@@ -2611,11 +2683,55 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "上傳內容",
+            "schema": {
+              "$ref": "#/definitions/uploadAcceptanceReq"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "上傳成功"
+          },
+          "400": {
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40104, 40214, 40212, 40302]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
             "description": "系統錯誤",
@@ -2631,7 +2747,7 @@
         ]
       }
     },
-    "/tasks/management/confirm-helper/{taskId}": {
+    "/tasks/management/confirm-helper/{taskId}/{helperId}": {
       "post": {
         "tags": [
           "Tasks"
@@ -2644,11 +2760,53 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "helperId",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "確認成功"
+          },
+          "400": {
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限、該幫手未申請或不存在",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40104, 40214, 40212, 40302, 40215]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           },
           "500": {
             "description": "系統錯誤",
@@ -3780,6 +3938,10 @@
                 "type": "string",
                 "example": "已完成"
               },
+              "helperStatus": {
+                "type": "string",
+                "example": "媒合成功"
+              },
               "salary": {
                 "type": "number",
                 "example": 300
@@ -3916,7 +4078,7 @@
                   },
                   "status": {
                     "type": "string",
-                    "example": "paired"
+                    "example": "媒合成功"
                   },
                   "lastName": {
                     "type": "string",
@@ -3930,6 +4092,29 @@
         "message": {
           "type": "string",
           "example": "取得成功"
+        }
+      }
+    },
+    "uploadAcceptanceReq": {
+      "type": "object",
+      "properties": {
+        "submittedInfo": {
+          "type": "object",
+          "properties": {
+            "imgUrls": {
+              "type": "array",
+              "example": [
+                "http://example.com/1.jpg"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "comment": {
+              "type": "string",
+              "example": "好多人好難排，但我拿到了"
+            }
+          }
         }
       }
     },

@@ -5,7 +5,7 @@ const accountController = require('../controller/accountController');
 router.get('/profile', async function (req, res, next) {
     /**
      * #swagger.tags = ['Account']
-     * #swagger.summary = '取得使用者資料概要'
+     * #swagger.summary = '取得使用者資料概要 (Summary of User Data)'
      */
     /**
     #swagger.security=[{"Bearer": []}],
@@ -19,7 +19,7 @@ router.get('/profile', async function (req, res, next) {
 router.get('/info-form', async function (req, res, next) {
     /**
      * #swagger.tags = ['Account']
-     * #swagger.summary = '取得使用者表單資料'
+     * #swagger.summary = '取得使用者表單資料 (Get User Form Data)'
      */
     /**
     #swagger.security=[{"Bearer": []}],
@@ -33,7 +33,7 @@ router.get('/info-form', async function (req, res, next) {
 router.patch('/info-form', async function (req, res, next) {
     /**
      * #swagger.tags = ['Account']
-     * #swagger.summary = '更新使用者表單資料'
+     * #swagger.summary = '更新使用者表單資料 (Update User Form Data)'
      */
     /**
     #swagger.security=[{"Bearer": []}],
@@ -72,7 +72,7 @@ router.patch('/info-form', async function (req, res, next) {
 router.get('/points', function (req, res, next) {
     /**
   * #swagger.tags = ['Account']
-  * #swagger.summary = 'Get the current balance of Super Coins and Helper Coins'
+  * #swagger.summary = '取得目前超人幣、幫手幣的餘額 (Get the current balance of Super Coins and Helper Coins)'
   * #swagger.security = [{
       "Bearer": []
     }]
@@ -102,7 +102,7 @@ router.get('/points', function (req, res, next) {
 router.get('/profile-stats', function (req, res, next) {
     /**
     * #swagger.tags = ['Account']
-    * #swagger.summary = 'Get user statistics figures'
+    * #swagger.summary = '取得6組數字統計 (Get user statistics figures)'
     * #swagger.security = [{
         "Bearer": []
       }]
@@ -132,7 +132,7 @@ router.get('/profile-stats', function (req, res, next) {
 router.get('/points/history', function (req, res, next) {
     /**
     * #swagger.tags = ['Account']
-    * #swagger.summary = 'Get the history of points'
+    * #swagger.summary = '點數歷史紀錄 (Get the history of points)'
     * #swagger.security = [{
         "Bearer": []
       }]
@@ -162,7 +162,7 @@ router.get('/points/history', function (req, res, next) {
 router.post('/points/purchase', function (req, res, next) {
     /**
   * #swagger.tags = ['Account']
-  * #swagger.summary = 'Purchase the super coin'
+  * #swagger.summary = '購買點數 (Purchase the super coin)'
   * #swagger.security = [{
       "Bearer": []
     }]
@@ -200,7 +200,7 @@ router.post('/points/purchase', function (req, res, next) {
 router.post('/points/cashback', function (req, res, next) {
     /**
   * #swagger.tags = ['Account']
-  * #swagger.summary = 'Refund in cash'
+  * #swagger.summary = '返還現金 (Refund in cash)'
   * #swagger.security = [{
       "Bearer": []
     }]
