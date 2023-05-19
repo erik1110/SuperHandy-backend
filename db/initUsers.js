@@ -4,11 +4,7 @@ const User = require('../models/userModel');
 const initUsers = async () => {
     try {
         // 刪除現有的所有類別
-        await User.deleteMany({
-            email: {
-                $in: ['user1@example.com', 'user2@example.com', 'user3@example.com', 'chiayu@example.com', 'yunshan@example.com', 'weiyu@example.com'],
-            },
-        });
+        await User.deleteMany({});
         const password = await bcrypt.hash('12345678', 12);
         const users = [
             {
