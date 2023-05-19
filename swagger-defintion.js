@@ -396,6 +396,109 @@ const getTaskDetails = {
     message: '取得成功',
 };
 
+const findTaskDetails = {
+    status: 'success',
+    data: {
+        taskId: '646431446cac1cf0dd5acaee',
+        publishedAt: '2022-02-15T05:34:56.000Z',
+        status: '已完成',
+        progressBar: {
+            publishedAt: '2022-02-15T05:34:56.000Z',
+            inProgressAt: '2022-02-16T05:34:56.000Z',
+            submittedAt: '2022-02-17T05:55:56.000Z',
+            confirmedAt: '2022-02-19T11:15:50.000Z',
+            completedAt: '2022-02-23T00:19:50.000Z',
+        },
+        title: '陪我家狗玩',
+        isUrgent: true,
+        salary: 300,
+        address: '台北市松山區復興北路15號',
+        category: '寵物陪伴',
+        description: '我家有黃金獵犬，但我這禮拜很忙，請幫我 2/20 早上 8 點來歌唱大樓找我，並帶他去附近公園陪他散步',
+        imgUrls: ['https://example.com/dog.jpg'],
+        viewerCount: 1,
+        posterInfo: {
+            name: '陳**',
+            phone: '0919******',
+            email: '*****@********',
+        },
+        contactInfo: {
+            name: '陳瑋宇',
+            phone: '0919694069',
+            email: '',
+        },
+    },
+    message: '取得成功',
+};
+const findTaskListGeneral = {
+    status: 'success',
+    data: {
+        tasks: [
+            {
+                taskId: '645bec484ff0061f89e0b103',
+                publishedAt: '2023-05-10T19:11:04.653Z',
+                status: '媒合中',
+                title: '任務標題',
+                isUrgent: false,
+                salary: 1000,
+                address: '台北市信義區',
+                category: '家事',
+                description: '任務描述',
+                imgUrls: '',
+                viewerCount: 0,
+                helperCount: 0,
+                posterName: '王**',
+                contactName: '王**',
+            },
+        ],
+        page: 1,
+        limit: 6,
+        total_pages: 1,
+        total_tasks: 5,
+    },
+    message: '取得成功',
+};
+const findTaskListMap = {
+    status: 'success',
+    data: {
+        tasks: [
+            {
+                taskId: '645bec484ff0061f89e0b103',
+                publishedAt: '2023-05-10T19:11:04.653Z',
+                status: '媒合中',
+                title: '任務標題',
+                isUrgent: false,
+                salary: 1000,
+                address: '台北市信義區',
+                category: '家事',
+                description: '任務描述',
+                imgUrls: '',
+                viewerCount: 0,
+                helperCount: 0,
+                posterName: '王**',
+                contactName: '王**',
+            },
+        ],
+        total_tasks: 1,
+        longitude: 121.5720055,
+        latitude: 25.0409201,
+    },
+    message: '取得成功',
+};
+const findTaskListHighlight = {
+    status: 'success',
+    data: {
+        tasks: [
+            {
+                taskId: '645bec484ff0061f89e0b103',
+                title: '任務標題',
+                imgUrls: '',
+            },
+        ],
+    },
+    message: '取得成功',
+};
+
 module.exports = {
     Success,
     Error400,
@@ -427,4 +530,6 @@ module.exports = {
     getPostedTasksHist,
     getAppliedTasksHist,
     getTaskDetails,
+    findTaskDetails,
+    getTaskListGeneral: findTaskListGeneral,
 };
