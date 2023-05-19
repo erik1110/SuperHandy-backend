@@ -50,7 +50,7 @@ function getRandomIndexList(range, count) {
 }
 
 const tasks = {
-    getTaskDetails: handleErrorAsync(async (req, res, next) => {
+    findTaskDetails: handleErrorAsync(async (req, res, next) => {
         const userId = req?.user?._id || '';
         const taskId = req.params.taskId;
         if (!mongoose.isValidObjectId(taskId)) {
@@ -117,7 +117,7 @@ const tasks = {
             }),
         );
     }),
-    getTaskListGeneral: handleErrorAsync(async (req, res, next) => {
+    findTaskListGeneral: handleErrorAsync(async (req, res, next) => {
         let { city, dist, isUrgent, sortby, keyword, services, limit, page } = req.query;
         isUrgent = isUrgent === 'true' ? true : false;
         services = services ? services.split(',') : [];
@@ -226,7 +226,7 @@ const tasks = {
             }),
         );
     }),
-    getTaskListMap: handleErrorAsync(async (req, res, next) => {
+    findTaskListMap: handleErrorAsync(async (req, res, next) => {
         let { longitude: centerLongitude, latitude: centerLatitude, city, dist, radius, isUrgent, keyword, services } = req.query;
         if (!centerLongitude || !centerLatitude) {
             if (!city || !dist) {
@@ -314,7 +314,7 @@ const tasks = {
             }),
         );
     }),
-    getTaskListHighlight: handleErrorAsync(async (req, res, next) => {
+    findTaskListHighlight: handleErrorAsync(async (req, res, next) => {
         //find all tasks sort by viewerCount and limit 5
         const tasks = await Task.find({ status: 'published' }).sort({ 'viewers.length': -1 }).select('_id title imgUrls');
         if (!tasks) {

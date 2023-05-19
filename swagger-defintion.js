@@ -539,5 +539,7 @@ module.exports = {
     getTaskDetails,
     uploadAcceptanceReq,
     findTaskDetails,
-    getTaskListGeneral: findTaskListGeneral,
+    findTaskListGeneral,
+    findTaskListMap,
+    findTaskListHighlight,
 };
