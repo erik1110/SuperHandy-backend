@@ -15,7 +15,7 @@ const tasks = {
             path: 'helpers.helperId',
             select: 'lastName firstName',
         });
-        const formattedData = tasks.map((task) => {
+        const formattedTasks = tasks.map((task) => {
             const helper = task.helpers.find((helper) => helper.status === 'paired');
             const helperName = helper ? `${helper.helperId.lastName}${helper.helperId.firstName}` : null;
             return {
@@ -31,11 +31,11 @@ const tasks = {
                 helper: helperName,
             };
         });
-        formattedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        formattedTasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',
-                data: formattedData,
+                data: formattedTasks,
             }),
         );
     }),
@@ -68,7 +68,7 @@ const tasks = {
                 poster: posterName,
             };
         });
-        formattedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        formattedTasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',
