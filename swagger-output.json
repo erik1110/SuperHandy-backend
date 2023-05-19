@@ -1448,7 +1448,12 @@
               "$ref": "#/definitions/Error500"
             }
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
       }
     },
     "/post-task/check-location": {

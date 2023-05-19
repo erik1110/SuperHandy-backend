@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const tasks = require('../controller/findTaskController');
-const { isAuth } = require('../middleware/auth');
+const { isAuth, isMember } = require('../middleware/auth');
 
 /* 取得特定任務之詳情 */
-router.get('/detail/:taskId', async function (req, res, next) {
+router.get('/detail/:taskId', isMember, async function (req, res, next) {
     /**
    * #swagger.tags = ['Find-tasks']
    * #swagger.summary = '取得任務詳情 (Get task details)'
@@ -151,6 +151,7 @@ schema: {
 router.post('/apply/:taskId', isAuth, async function (req, res, next) {
     /**
 * #swagger.tags = ['Find-tasks']
+* #swagger.security=[{"Bearer": []}],  
 * #swagger.summary = '我要接案'
 * /
 /**
