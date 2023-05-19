@@ -30,7 +30,7 @@ router.get('/detail/:taskId', async function (req, res, next) {
       schema: { $ref: '#/definitions/Error500' }
   }
 */
-    tasks.getTaskDetails(req, res, next);
+    tasks.findTaskDetails(req, res, next);
 });
 
 /* 取得未媒合之任務列表(列表模式)*/
@@ -72,7 +72,7 @@ router.get('/list/query', async function (req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
 }
 */
-    tasks.getTaskListGeneral(req, res, next);
+    tasks.findTaskListGeneral(req, res, next);
 });
 
 /* 取得未媒合之任務列表(地圖模式)*/
@@ -112,7 +112,7 @@ schema: {
   schema: { $ref: '#/definitions/Error500' }
 }
 */
-    tasks.getTaskListMap(req, res, next);
+    tasks.findTaskListMap(req, res, next);
 });
 
 /* 取得未媒合之任務列表(限時推薦)*/
@@ -143,7 +143,7 @@ schema: {
   schema: { $ref: '#/definitions/Error500' }
 }
 */
-    tasks.getTaskListHighlight(req, res, next);
+    tasks.findTaskListHighlight(req, res, next);
 });
 
 module.exports = router;
