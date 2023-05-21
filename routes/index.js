@@ -16,7 +16,7 @@ module.exports = (app) => {
     app.use('/account', isAuth, accountRouter);
     app.use('/home', homeRouter);
     app.use('/general', generalRouter);
-    app.use('/find-task', isMember, findTaskRouter);
+    app.use('/find-task', findTaskRouter);
     app.use('/post-task', isAuth, postTaskRouter);
     app.use('/notifications', isAuth, notifyRouter);
     app.use('/tasks/management', isAuth, tasksRouter);
