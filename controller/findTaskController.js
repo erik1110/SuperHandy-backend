@@ -62,7 +62,8 @@ const tasks = {
         if (!task.userId) {
             return next(appError(400, '40200', '查詢不到此用戶'));
         }
-        const isRelatedUser = task.userId._id.toString() == userId || task.helpers.some((helper) => helper.helperId?._id?.toString() == userId);
+        const isRelatedUser =
+            task.userId._id.toString() == userId.toString() || task.helpers.some((helper) => helper.helperId?._id?.toString() == userId.toString());
         const posterName = isRelatedUser ? `${task.userId.lastName}${task.userId.firstName}` : `${task.userId.lastName}**`;
         const posterPhone = isRelatedUser ? task.userId.phone : `${task.userId.phone.slice(0, 4)}******`;
         const posterEmail = isRelatedUser ? task.userId.email : `*****@********`;
@@ -355,10 +356,10 @@ const tasks = {
             return next(appError(400, '40212', '查無此任務'));
         }
 
-        if (task.userId._id.toString() == userId) {
+        if (task.userId._id.toString() == userId.toString()) {
             return next(appError(400, '40216', '無法應徵自己的任務'));
         }
-        if (task.helpers.some((helper) => helper.helperId._id.toString() == userId)) {
+        if (task.helpers.some((helper) => helper.helperId._id.toString() == userId.toString())) {
             return next(appError(400, '40217', '已應徵過此任務'));
         }
         const helper = {
