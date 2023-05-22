@@ -611,6 +611,7 @@ const tasks = {
         );
         // 推播通知
         const helpers = task.helpers;
+        let descriptionNew;
         const notifications = helpers.map((helper) => {
             const helpId = helper.helperId;
             const status = (helper.helperId.toString() === helperId.toString()) ? 'paired' : 'unpaired';
