@@ -47,14 +47,15 @@ const tasks = {
         if (!mongoose.isValidObjectId(taskId)) {
             return next(appError(400, '40104', 'Id 格式錯誤'));
         }
-        const task = await Task.findOne({ _id: taskId, status: 'published' })
+        //, status: 'published'
+        const task = await Task.findOne({ _id: taskId })
             .populate({
                 path: 'helpers.helperId',
                 select: 'lastName firstName',
             })
             .populate({
                 path: 'userId',
-                select: 'lastName firstName phone email',
+                select: 'lastName firstName phone email avatarPath',
             });
         if (!task) {
             return next(appError(400, '40212', '查無此任務'));
@@ -64,9 +65,43 @@ const tasks = {
         }
         const isRelatedUser =
             task.userId._id.toString() == userId.toString() || task.helpers.some((helper) => helper.helperId?._id?.toString() == userId.toString());
-        const posterName = isRelatedUser ? `${task.userId.lastName}${task.userId.firstName}` : `${task.userId.lastName}**`;
         const posterPhone = isRelatedUser ? task.userId.phone : `${task.userId.phone.slice(0, 4)}******`;
         const posterEmail = isRelatedUser ? task.userId.email : `*****@********`;
+
+        const posterData = await Task.find({
+            userId: task.userId._id,
+            status: { $in: ['completed', 'inProgress', 'submitted', 'confirmed'] },
+        })
+            .select('reviews category status')
+            .populate({
+                path: 'reviews',
+            });
+        let reviewRank = {};
+        let totalStars = [];
+        let categories = [];
+        categories.forEach((category) => (reviewRank[category.name] = []));
+        posterData.forEach((task) => {
+            if (task.status != 'completed') return;
+            if (task.reviews?.helper?.star) {
+                if (!reviewRank[task.category]) {
+                    reviewRank[task.category] = { name: task.category, stars: [], totalReviews: 0 };
+                }
+                reviewRank[task.category].stars.push(task.reviews.helper.star);
+                reviewRank[task.category].totalReviews++;
+                totalStars.push(task.reviews.helper.star);
+            }
+        });
+        Object.keys(reviewRank).forEach((key) => {
+            const { name, stars, totalReviews } = reviewRank[key];
+            const star = Number(stars.reduce((sum, star) => sum + star, 0) / totalReviews).toFixed(1);
+            categories.push({ name, star, totalReviews });
+        });
+        categories.sort((a, b) => b.star - a.star);
+        if (categories.length > 3) categories.length = 3;
+
+        let completedTaskCount = posterData.filter((task) => task.status === 'completed').length;
+        let completedTaskPercent = Math.round((completedTaskCount / posterData.length) * 100);
+        let avgStar = Number((totalStars.reduce((sum, star) => sum + star, 0) / totalStars.length).toFixed(1));
 
         const viewerId = userId ? userId : req.ip;
         const isViewerExist = task.viewers.includes(viewerId);
@@ -95,9 +130,16 @@ const tasks = {
             imgUrls: task.imgUrls,
             viewerCount: task.viewers.length,
             posterInfo: {
-                name: posterName,
+                lastName: task.userId.lastName,
                 phone: posterPhone,
                 email: posterEmail,
+                avatar: task.userId.avatarPath,
+                completedTasks: completedTaskCount,
+                completionRate: completedTaskPercent,
+                rating: {
+                    overall: avgStar,
+                    categories,
+                },
             },
             contactInfo: {
                 name: task.contactInfo.name,
