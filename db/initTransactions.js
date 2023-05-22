@@ -6,27 +6,21 @@ const UserTrans = require('../models/userTransModel');
 const initTransactions = async () => {
     try {
         const users = await User.find().select('email');
-        const tasks = await Task.find().select('userId');
+        const tasks = await Task.find().select('userId title');
         const userCase1 = users.find((user) => user.email === 'user1@example.com');
         const userCase2 = users.find((user) => user.email === 'user2@example.com');
         const userCase3 = users.find((user) => user.email === 'chiayu@example.com');
         const userCase4 = users.find((user) => user.email === 'yunshan@example.com');
         const userCase5 = users.find((user) => user.email === 'weiyu@example.com');
-        const taskCase1 = tasks.find((task) => task.userId._id.equals(userCase1._id));
-        const taskCase2 = tasks.find((task) => task.userId._id.equals(userCase2._id));
-        const taskCase3 = tasks.find((task) => task.userId._id.equals(userCase3._id));
-        const taskCase4 = tasks.find((task) => task.userId._id.equals(userCase4._id));
-        const taskCase5 = tasks.find((task) => task.userId._id.equals(userCase5._id));
-        await TaskTrans.deleteMany({
-            _id: {
-                $in: [taskCase1._id, taskCase2._id, taskCase3._id, taskCase4._id, taskCase5._id],
-            },
-        });
-        await UserTrans.deleteMany({
-            email: {
-                $in: [userCase1._id, userCase2._id, userCase3._id, userCase4._id, userCase5._id],
-            },
-        });
+        const taskCase1 = tasks.find((task) => task.title === '急！幫忙代購王國之淚');
+        const taskCase2 = tasks.find((task) => task.title === '幫忙打王國之淚的Boss');
+        const taskCase3 = tasks.find((task) => task.title === '陪我家狗玩');
+        const taskCase4 = tasks.find((task) => task.title === '幫忙做畢業專題');
+        const taskCase5 = tasks.find((task) => task.title === '協助居家清潔');
+        const taskCase6 = tasks.find((task) => task.title === '陪我練習開車');
+        const taskCase7 = tasks.find((task) => task.title === 'Notion 教學');
+        await TaskTrans.deleteMany({});
+        await UserTrans.deleteMany({});
         const taskTransactions = [
             {
                 taskId: taskCase1._id,
@@ -41,7 +35,31 @@ const initTransactions = async () => {
                 role: '案主',
             },
             {
-                taskId: taskCase2._id,
+                taskId: taskCase1._id,
+                userId: userCase1._id,
+                tag: '刊登任務',
+                salary: 500,
+                exposurePlan: 50,
+                platform: 0,
+                superCoin: -500,
+                helperCoin: -50,
+                desc: ['預扣薪水', '黃金曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase3._id,
+                userId: userCase1._id,
+                tag: '刊登任務',
+                salary: 300,
+                exposurePlan: 50,
+                platform: 0,
+                superCoin: -300,
+                helperCoin: -50,
+                desc: ['預扣薪水', '黃金曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase4._id,
                 userId: userCase2._id,
                 tag: '刊登任務',
                 salary: 1300,
@@ -53,7 +71,7 @@ const initTransactions = async () => {
                 role: '案主',
             },
             {
-                taskId: taskCase3._id,
+                taskId: taskCase5._id,
                 userId: userCase3._id,
                 tag: '刊登任務',
                 salary: 666,
@@ -65,7 +83,7 @@ const initTransactions = async () => {
                 role: '案主',
             },
             {
-                taskId: taskCase4._id,
+                taskId: taskCase6._id,
                 userId: userCase4._id,
                 tag: '刊登任務',
                 salary: 567,
@@ -77,7 +95,7 @@ const initTransactions = async () => {
                 role: '案主',
             },
             {
-                taskId: taskCase5._id,
+                taskId: taskCase7._id,
                 userId: userCase5._id,
                 tag: '刊登任務',
                 salary: 999,
@@ -89,7 +107,7 @@ const initTransactions = async () => {
                 role: '案主',
             },
             {
-                taskId: taskCase1._id,
+                taskId: taskCase3._id,
                 userId: userCase5._id,
                 tag: '完成任務',
                 salary: 300,
@@ -101,7 +119,7 @@ const initTransactions = async () => {
                 role: '幫手',
             },
             {
-                taskId: taskCase2._id,
+                taskId: taskCase4._id,
                 userId: userCase1._id,
                 tag: '完成任務',
                 salary: 1300,
@@ -113,7 +131,7 @@ const initTransactions = async () => {
                 role: '幫手',
             },
             {
-                taskId: taskCase3._id,
+                taskId: taskCase5._id,
                 userId: userCase1._id,
                 tag: '刊登任務',
                 salary: 666,
@@ -125,7 +143,7 @@ const initTransactions = async () => {
                 role: '幫手',
             },
             {
-                taskId: taskCase4._id,
+                taskId: taskCase6._id,
                 userId: userCase1._id,
                 tag: '刊登任務',
                 salary: 567,
@@ -137,7 +155,7 @@ const initTransactions = async () => {
                 role: '幫手',
             },
             {
-                taskId: taskCase5._id,
+                taskId: taskCase7._id,
                 userId: userCase2._id,
                 tag: '刊登任務',
                 salary: 999,
