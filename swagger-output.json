@@ -2747,6 +2747,78 @@
         ]
       }
     },
+    "/tasks/management/confirm-helper/{taskId}": {
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "評分與留言 (Rating and Review:)",
+        "description": "會看 userId 決定是幫手還是案主，前端無需帶此參數",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "確認成功",
+            "schema": {
+              "$ref": "#/definitions/ratingAndReviewReq"
+            }
+          },
+          "400": {
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限、該幫手未申請或不存在",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40104, 40214, 40212, 40302, 40215]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/tasks/management/confirm-helper/{taskId}/{helperId}": {
       "post": {
         "tags": [
@@ -4494,6 +4566,19 @@
         "message": {
           "type": "string",
           "example": "取得成功"
+        }
+      }
+    },
+    "ratingAndReviewReq": {
+      "type": "object",
+      "properties": {
+        "star": {
+          "type": "number",
+          "example": 4
+        },
+        "comment": {
+          "type": "string",
+          "example": "幫手表現超棒der"
         }
       }
     }

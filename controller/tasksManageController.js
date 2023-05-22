@@ -403,6 +403,48 @@ const tasks = {
             }),
         );
     }),
+    ratingAndReview: handleErrorAsync(async (req, res, next) => {
+        const userId = req.user._id;
+        const taskId = req.params.taskId;
+        let role;
+        if (!mongoose.isValidObjectId(taskId)) {
+            return next(appError(400, '40104', 'Id 格式錯誤'));
+        }
+        const task = await Task.findOne({ _id: taskId })
+            .populate({
+                path: 'helpers.helperId',
+                select: 'lastName firstName',
+            })
+            .populate({
+                path: 'userId',
+                select: 'lastName firstName',
+            });
+        if (!task) {
+            return next(appError(404, '40212', '查無此任務'));
+        }
+        if (task.status!=='confirmed') {
+            return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
+        }
+        const isTaskOwner = task.userId._id.toString() === userId.toString();
+        const isTaskHelper = task.helpers.some((helper) => {
+            const isMatchingHelper = helper.helperId._id.toString() === userId.toString();
+            const isMatchingStatus = helper.status === 'paired';
+            return isMatchingHelper && isMatchingStatus;
+        });
+        if (isTaskOwner) {
+            role = '案主';
+        } else if (isTaskHelper) {
+            role = '幫手';
+        } else {
+            return next(appError(400, '40302', '沒有權限'));
+        }
+        res.status(200).json(
+            getHttpResponse({
+                message: '取得成功',
+                data: role,
+            }),
+        );
+    }),
     confirmHelper: handleErrorAsync(async (req, res, next) => {
         const userId = req.user._id;
         const taskId = req.params.taskId;

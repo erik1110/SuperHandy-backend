@@ -512,6 +512,10 @@ const findTaskListHighlight = {
     },
     message: '取得成功',
 };
+const ratingAndReviewReq = {
+    star: 4,
+    comment: '幫手表現超棒der'
+}
 
 module.exports = {
     Success,
@@ -549,4 +553,5 @@ module.exports = {
     findTaskListGeneral,
     findTaskListMap,
     findTaskListHighlight,
+    ratingAndReviewReq
 };
