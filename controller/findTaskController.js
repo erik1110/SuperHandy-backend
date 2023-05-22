@@ -2,18 +2,9 @@ const mongoose = require('mongoose');
 const { appError, handleErrorAsync } = require('../utils/errorHandler');
 const getHttpResponse = require('../utils/successHandler');
 const Task = require('../models/taskModel');
+const Notify = require('../models/notifyModel');
 const geocoding = require('../utils/geocoding');
-
-const statusMapping = {
-    draft: '草稿',
-    published: '媒合中',
-    inProgressed: '進行中',
-    submitted: '進行中',
-    confirmed: '已完成',
-    completed: '已完成',
-    unpublished: '已下架',
-    deleted: '未成立',
-};
+const { taskStatusMapping } = require('../service/statusMapping');
 
 function calculateDistance(lon1, lat1, lon2, lat2) {
     const radius = 6371; // 地球平均半徑（公里）
@@ -66,9 +57,13 @@ const tasks = {
                 select: 'lastName firstName phone email',
             });
         if (!task) {
-            return next(appError(404, '40212', '查無此任務'));
+            return next(appError(400, '40212', '查無此任務'));
         }
-        const isRelatedUser = task.userId._id.toString() === userId || task.helpers.some((helper) => helper.helperId._id.toString() === userId);
+        if (!task.userId) {
+            return next(appError(400, '40200', '查詢不到此用戶'));
+        }
+        const isRelatedUser =
+            task.userId._id.toString() == userId.toString() || task.helpers.some((helper) => helper.helperId?._id?.toString() == userId.toString());
         const posterName = isRelatedUser ? `${task.userId.lastName}${task.userId.firstName}` : `${task.userId.lastName}**`;
         const posterPhone = isRelatedUser ? task.userId.phone : `${task.userId.phone.slice(0, 4)}******`;
         const posterEmail = isRelatedUser ? task.userId.email : `*****@********`;
@@ -83,7 +78,7 @@ const tasks = {
         const formattedTask = {
             taskId: task._id,
             publishedAt: task.time.publishedAt,
-            status: statusMapping[task.status] || '',
+            status: taskStatusMapping[task.status] || '',
             progressBar: {
                 publishedAt: task.time.publishedAt,
                 inProgressAt: task.time.inProgressAt,
@@ -198,7 +193,7 @@ const tasks = {
             return {
                 taskId: task._id,
                 publishedAt: task.time.publishedAt,
-                status: statusMapping[task.status] || '',
+                status: taskStatusMapping[task.status] || '',
                 title: task.title,
                 isUrgent: task.isUrgent,
                 salary: task.salary,
@@ -287,7 +282,7 @@ const tasks = {
             return {
                 taskId: task._id,
                 publishedAt: task.time.publishedAt,
-                status: statusMapping[task.status] || '',
+                status: taskStatusMapping[task.status] || '',
                 title: task.title,
                 isUrgent: task.isUrgent,
                 salary: task.salary,
@@ -341,6 +336,57 @@ const tasks = {
                 },
             }),
         );
+    }),
+    applyTask: handleErrorAsync(async (req, res, next) => {
+        const userId = req.user._id;
+        const taskId = req.params.taskId;
+        if (!mongoose.isValidObjectId(taskId)) {
+            return next(appError(400, '40104', 'Id 格式錯誤'));
+        }
+        const task = await Task.findOne({ _id: taskId, status: 'published' })
+            .populate({
+                path: 'helpers.helperId',
+                select: 'lastName firstName',
+            })
+            .populate({
+                path: 'userId',
+                select: 'lastName firstName phone email',
+            });
+        if (!task) {
+            return next(appError(400, '40212', '查無此任務'));
+        }
+
+        if (task.userId._id.toString() == userId.toString()) {
+            return next(appError(400, '40216', '無法應徵自己的任務'));
+        }
+        if (task.helpers.some((helper) => helper.helperId._id.toString() == userId.toString())) {
+            return next(appError(400, '40217', '已應徵過此任務'));
+        }
+        const helper = {
+            helperId: userId,
+            status: 'waiting',
+        };
+        task.helpers.push(helper);
+        await task.save();
+
+        const currentTime = Date.now();
+        //發送通知給案主
+        await Notify.create({
+            userId: task.userId._id,
+            tag: '案主通知',
+            description: `您待媒合的任務：「${task.title} 」已有幫手應徵囉，請至任務詳情查看`,
+            taskId: taskId,
+            createdAt: currentTime,
+        });
+        //發送通知給幫手
+        await Notify.create({
+            userId: userId,
+            tag: '幫手通知',
+            description: `您媒合中的任務：「${task.title} 」正在等待案主審核`,
+            taskId: taskId,
+            createdAt: currentTime,
+        });
+        res.status(200).json(getHttpResponse({ message: '等待媒合中' }));
     }),
 };
 

@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const tasks = require('../controller/findTaskController');
+const { isAuth, isMember } = require('../middleware/auth');
 
 /* 取得特定任務之詳情 */
-router.get('/detail/:taskId', async function (req, res, next) {
+router.get('/detail/:taskId', isMember, async function (req, res, next) {
     /**
    * #swagger.tags = ['Find-tasks']
    * #swagger.summary = '取得任務詳情 (Get task details)'
@@ -144,6 +145,38 @@ schema: {
 }
 */
     tasks.findTaskListHighlight(req, res, next);
+});
+
+/* 我要接案*/
+router.post('/apply/:taskId', isAuth, async function (req, res, next) {
+    /**
+* #swagger.tags = ['Find-tasks']
+* #swagger.security=[{"Bearer": []}],  
+* #swagger.summary = '我要接案'
+* /
+/**
+#swagger.responses[200] = {
+description: 'OK',
+schema: { status: 'success',message: '等待媒合中' }
+}
+#swagger.responses[400] = {
+description: 'Id 格式錯誤、查無此任務、無法應徵自己的任務、已應徵過此任務',
+schema: {
+  'status': 'false',
+  'message': '錯誤訊息',
+  'error': {
+      'name': '[40104,40212,40216,40217]',
+      'statusCode': 400,
+      'isOperational': true
+    }
+  }
+}
+#swagger.responses[500] = {
+description: '系統錯誤',
+schema: { $ref: '#/definitions/Error500' }
+}
+*/
+    tasks.applyTask(req, res, next);
 });
 
 module.exports = router;
