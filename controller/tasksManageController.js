@@ -130,7 +130,6 @@ const tasks = {
                         path: 'reviews',
                         select: 'poster.star',
                   });
-                  console.log(helperData)
                   const categories = helperData.reduce((acc, task) => {
                     const existingCategory = acc.find((category) => category.name === task.category);
                     if (existingCategory) {
