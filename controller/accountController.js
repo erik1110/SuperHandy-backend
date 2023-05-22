@@ -89,9 +89,9 @@ const accounts = {
             select: 'helper.star',
         });
 
-        let ratingHelper
+        let ratingPoster
         if (posterData.length === 0) {
-            ratingHelper = null;
+            ratingPoster = null;
         } else {
         const totalStars = posterData.reduce((sum, task) => {
             if (task.reviews && task.reviews.helper && task.reviews.helper.star) {
@@ -99,7 +99,7 @@ const accounts = {
             }
             return sum;
         }, 0);
-            ratingHelper = totalStars / posterData.length;
+            ratingPoster = Number((totalStars / posterData.length).toFixed(2));
         }
         const helperData = await Task.find({
             helpers: {
@@ -110,17 +110,17 @@ const accounts = {
             path: 'reviews',
             select: 'poster.star',
         });
-        let ratingPoster
+        let ratingHelper
         if (helperData.length === 0) {
-            ratingPoster = null;
+            ratingHelper = null;
         } else {
         const totalStars = helperData.reduce((sum, task) => {
-            if (task.reviews && task.reviews.helper && task.reviews.helper.star) {
-            return sum + task.reviews.helper.star;
+            if (task.reviews && task.reviews.helper && task.reviews.poster.star) {
+            return sum + task.reviews.poster.star;
             }
             return sum;
         }, 0);
-            ratingPoster = totalStars / helperData.length;
+            ratingHelper = Number((totalStars / helperData.length).toFixed(2));
         }
         res.status(200).json(
             getHttpResponse({
