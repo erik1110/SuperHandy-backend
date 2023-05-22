@@ -95,7 +95,7 @@ const initReviews = async () => {
         for (let i = 0; i < insertedReviews.length; i++) {
             const taskId = insertedReviews[i].taskId;
             const reviewId = insertedReviews[i]._id;
-            await Task.updateOne({ _id: taskId }, { $push: { reviews: reviewId } });
+            await Task.updateOne({ _id: taskId }, { reviews: reviewId });
         }
         console.log('評論資料初始化成功');
     } catch (err) {

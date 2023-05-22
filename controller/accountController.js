@@ -88,8 +88,19 @@ const accounts = {
             path: 'reviews',
             select: 'helper.star',
         });
-        const posterScore = posterData.flatMap((task) => task.reviews.map((review) => review.helper.star));
-        const ratingPoster = posterScore.length ? Number((posterScore.reduce((acc, val) => acc + val) / posterScore.length).toFixed(2)) : null;
+
+        let ratingPoster
+        if (posterData.length === 0) {
+            ratingPoster = null;
+        } else {
+        const totalStars = posterData.reduce((sum, task) => {
+            if (task.reviews && task.reviews.helper && task.reviews.helper.star) {
+            return sum + task.reviews.helper.star;
+            }
+            return sum;
+        }, 0);
+            ratingPoster = totalStars / posterData.length;
+        }
         const helperData = await Task.find({
             helpers: {
                 $elemMatch: { helperId: req.user._id, status: 'paired' },
@@ -99,8 +110,18 @@ const accounts = {
             path: 'reviews',
             select: 'poster.star',
         });
-        const helperScore = helperData.flatMap((task) => task.reviews.map((review) => review.poster.star));
-        const ratingHelper = helperScore.length ? Number((helperScore.reduce((acc, val) => acc + val) / helperScore.length).toFixed(2)) : null;
+        let ratingHelper
+        if (helperData.length === 0) {
+            ratingHelper = null;
+        } else {
+        const totalStars = helperData.reduce((sum, task) => {
+            if (task.reviews && task.reviews.helper && task.reviews.helper.star) {
+            return sum + task.reviews.helper.star;
+            }
+            return sum;
+        }, 0);
+            ratingHelper = totalStars / helperData.length;
+        }
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',
