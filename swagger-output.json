@@ -2837,7 +2837,7 @@
         "tags": [
           "Tasks"
         ],
-        "summary": "評分與留言 (Rating and Review:)",
+        "summary": "評分與留言 (Rating and Review)",
         "description": "會看 userId 決定是幫手還是案主，前端無需帶此參數",
         "parameters": [
           {
@@ -2845,17 +2845,22 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "評價資料",
+            "schema": {
+              "$ref": "#/definitions/ratingAndReviewReq"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "確認成功",
-            "schema": {
-              "$ref": "#/definitions/ratingAndReviewReq"
-            }
+            "description": "確認成功"
           },
           "400": {
-            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限、該幫手未申請或不存在",
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限",
             "schema": {
               "type": "object",
               "properties": {
@@ -2872,7 +2877,7 @@
                   "properties": {
                     "name": {
                       "type": "string",
-                      "example": "[40104, 40214, 40212, 40302, 40215]"
+                      "example": "[40104, 40214, 40212, 40302]"
                     },
                     "statusCode": {
                       "type": "number",
