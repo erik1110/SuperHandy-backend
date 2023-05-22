@@ -14,10 +14,64 @@ const initTasks = async () => {
     const tasks = [
         {
             userId: userCase1._id,
-            status: 'published',
+            status: 'confirmed',
             title: '急！幫忙代購王國之淚',
             category: '排隊代購',
             description: '很急，5/11 晚上請在信義店前排隊代購，12:00準時想拿到遊戲片',
+            salary: 300,
+            exposurePlan: '黃金曝光',
+            imgUrls: ['https://example.com/switch.jpg'],
+            contactInfo: {
+                name: `${userCase1.lastName}${userCase1.firstName}`,
+                phone: userCase1.phone,
+                email: userCase1.email,
+            },
+            location: {
+                city: '台北市',
+                dist: '信義區',
+                address: '台北市信義區松智路17號',
+                longitude: 121.53868,
+                latitude: 25.02697,
+            },
+            isUrgent: true,
+            helpers: [
+                {
+                    helperId: userCase2._id,
+                    status: 'paired',
+                },
+                {
+                    helperId: userCase3._id,
+                    status: 'unpaired',
+                },
+                {
+                    helperId: userCase5._id,
+                    status: 'unpaired',
+                },
+            ],
+            time: {
+                createdAt: new Date('2023-05-12T12:34:56'),
+                updatedAt: new Date('2022-06-12T08:19:50'),
+                publishedAt: new Date('2022-05-13T13:34:56'),
+                unpublishedAt: null,
+                deletedAt: null,
+                inProgressAt: new Date('2022-05-16T13:34:56'),
+                submittedAt: new Date('2022-05-17T13:55:56'),
+                confirmedAt: new Date('2022-05-19T19:15:50'),
+                completedAt: null,
+                expiredAt: new Date('2023-06-12T12:34:56'),
+            },
+            submittedInfo: {
+                imgUrls: ['https://example.com/images/report1.jpg', 'https://example.com/images/report2.jpg'],
+                comment: '這個任務簡單啦',
+                createAt: new Date('2022-05-17T13:55:56'),
+            },
+        },
+        {
+            userId: userCase1._id,
+            status: 'published',
+            title: '幫忙打王國之淚的Boss',
+            category: '人力派遣',
+            description: 'Boss 好難打，急徵高手幫忙，不可以花我太多素材，意者私聊',
             salary: 500,
             exposurePlan: '黃金曝光',
             imgUrls: ['https://example.com/switch.jpg'],
@@ -78,7 +132,7 @@ const initTasks = async () => {
             location: {
                 city: '台北市',
                 dist: '松山區',
-                address: '復興北路15號',
+                address: '台北市松山區復興北路15號',
                 longitude: 121.53868,
                 latitude: 25.02697,
             },
@@ -112,7 +166,7 @@ const initTasks = async () => {
             submittedInfo: {
                 imgUrls: ['https://example.com/images/report1.jpg', 'https://example.com/images/report2.jpg'],
                 comment: '你家的狗很乖很聽話',
-                submittedAt: new Date('2022-02-17T13:55:56'),
+                createAt: new Date('2022-02-17T13:55:56'),
             },
         },
         {
@@ -132,7 +186,7 @@ const initTasks = async () => {
             location: {
                 city: '台北市',
                 dist: '松山區',
-                address: '羅斯福路四段1號',
+                address: '台北市松山區羅斯福路四段1號',
                 longitude: 121.537369,
                 latitude: 25.017503,
             },
@@ -166,7 +220,7 @@ const initTasks = async () => {
             submittedInfo: {
                 imgUrls: ['https://example.com/images/report3.jpg', 'https://example.com/images/report4.jpg'],
                 comment: '這份報告有夠難做，NLP 難啊',
-                submittedAt: new Date('2023-04-13T09:00:00'),
+                createAt: new Date('2023-04-13T09:00:00'),
             },
         },
         {
@@ -186,7 +240,7 @@ const initTasks = async () => {
             location: {
                 city: '新北市',
                 dist: '板橋區',
-                address: '新站路20號',
+                address: '新北市板橋區新站路20號',
                 landmark: '板橋火車站',
                 longitude: 121.462966,
                 latitude: 25.012422,
@@ -221,7 +275,7 @@ const initTasks = async () => {
             submittedInfo: {
                 imgUrls: ['https://example.com/images/report5.jpg', 'https://example.com/images/report6.jpg', 'https://example.com/images/report7.jpg'],
                 comment: '這份工作比想像中還要累，但收穫也很多。',
-                submittedAt: new Date('2023-04-17T09:00:00'),
+                createAt: new Date('2023-04-17T09:00:00'),
             },
         },
         {
@@ -241,7 +295,7 @@ const initTasks = async () => {
             location: {
                 city: '台中市',
                 dist: '南區',
-                address: '復興南路二段240號',
+                address: '台中市南區復興南路二段240號',
                 longitude: 120.637803,
                 latitude: 24.178145,
             },
@@ -279,7 +333,7 @@ const initTasks = async () => {
             submittedInfo: {
                 imgUrls: ['https://example.com/images/report8.jpg', 'https://example.com/images/report9.jpg', 'https://example.com/images/report10.jpg'],
                 comment: '學生學得很快，很有耐心。',
-                submittedAt: new Date('2023-04-17T09:00:00'),
+                createAt: new Date('2023-04-17T09:00:00'),
             },
         },
         {
@@ -299,7 +353,7 @@ const initTasks = async () => {
             location: {
                 city: '台北市',
                 dist: '中正區',
-                address: '信義路1號',
+                address: '台北市中正區信義路1號',
                 longitude: 121.564534,
                 latitude: 25.033903,
             },
@@ -337,7 +391,7 @@ const initTasks = async () => {
             submittedInfo: {
                 imgUrls: ['https://example.com/images/report11.jpg', 'https://example.com/images/report12.jpg', 'https://example.com/images/report13.jpg'],
                 comment: '',
-                submittedAt: new Date('2023-04-17T09:00:00'),
+                createAt: new Date('2023-04-17T09:00:00'),
             },
         },
     ];

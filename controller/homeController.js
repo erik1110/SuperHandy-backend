@@ -1,29 +1,31 @@
-const mongoose = require('mongoose');
 const moment = require('moment');
 const { appError, handleErrorAsync } = require('../utils/errorHandler');
 const getHttpResponse = require('../utils/successHandler');
 const Task = require('../models/taskModel');
-const Review = require('../models/reviewModel');
 const SuperhandyReview = require('../models/superhandyReviewModel');
 const fakeExcellentHelperData = require('../db/fakeExcellentHelpers');
+const statusMapping = require('../service/statusMapping');
 
 const home = {
     getCompeletedCases: handleErrorAsync(async (req, res, next) => {
-        const tasks = await Task.aggregate([
-            {
-              $project: {
-                title: 1,
-                status: 1,
-                createAt: '$time.createdAt',
-                completedAt: '$time.completedAt',
-                salary: 1,
-                address: { $concat: ['$location.city', '$location.dist', '$location.address'] }
-              }
+        const tasks = await Task.find({ status: 'completed' }, 'title status salary time location')
+            .populate('location', 'address longitude latitude')
+            .lean();
+        const formattedTasks = tasks.map(task => ({
+            title: task.title,
+            status: statusMapping.taskStatusMapping[task.status],
+            salary: task.salary,
+            createAt: task.time.createdAt,
+            completedAt: task.time.completedAt,
+            location: {
+                address: task.location.address,
+                longitude: task.location.longitude,
+                latitude: task.location.latitude,
             }
-        ]);
+        }));
         res.status(200).json(
             getHttpResponse({
-                data: tasks,
+                data: formattedTasks,
                 message: '取得成功',
             }),
         );

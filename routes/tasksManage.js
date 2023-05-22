@@ -165,6 +165,42 @@ router.post('/upload-acceptance/:taskId', function (req, res, next) {
     tasksManageController.uploadAcceptance(req, res, next);
 });
 
+/* 評分與留言 */
+router.post('/confirm-helper/:taskId', function (req, res, next) {
+  /**
+ * #swagger.tags = ['Tasks']
+ * #swagger.description = '會看 userId 決定是幫手還是案主，前端無需帶此參數'
+ * #swagger.summary = '評分與留言 (Rating and Review)'
+ * #swagger.security=[{"Bearer": []}]
+/**
+  #swagger.parameters['parameter_name'] = {
+    in: 'body',
+    description: '評價資料',
+    schema: { $ref: '#/definitions/ratingAndReviewReq' }
+  },
+ #swagger.responses[200] = {
+    description: '確認成功',
+}
+#swagger.responses[400] = {
+  description: 'Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限',
+  schema: {
+    'status': 'false',
+    'message': '錯誤訊息',
+    'error': {
+      'name': '[40104, 40214, 40212, 40302]',
+      'statusCode': 400,
+      'isOperational': true
+    }
+  }
+}
+#swagger.responses[500] = {
+    description: '系統錯誤',
+    schema: { $ref: '#/definitions/Error500' }
+}
+*/
+  tasksManageController.ratingAndReview(req, res, next);
+});
+
 /* 案主確認幫手人選 */
 router.post('/confirm-helper/:taskId/:helperId', function (req, res, next) {
     /**

@@ -2832,6 +2832,83 @@
         ]
       }
     },
+    "/tasks/management/confirm-helper/{taskId}": {
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "評分與留言 (Rating and Review)",
+        "description": "會看 userId 決定是幫手還是案主，前端無需帶此參數",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "評價資料",
+            "schema": {
+              "$ref": "#/definitions/ratingAndReviewReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "確認成功"
+          },
+          "400": {
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40104, 40214, 40212, 40302]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/tasks/management/confirm-helper/{taskId}/{helperId}": {
       "post": {
         "tags": [
@@ -3092,30 +3169,9 @@
           "items": {
             "type": "object",
             "properties": {
-              "location": {
-                "type": "object",
-                "properties": {
-                  "address": {
-                    "type": "string",
-                    "example": "台北市松山區復興北路15號"
-                  },
-                  "longitude": {
-                    "type": "number",
-                    "example": 121.53868
-                  },
-                  "latitude": {
-                    "type": "number",
-                    "example": 25.02697
-                  }
-                }
-              },
-              "_id": {
-                "type": "string",
-                "example": "644fc95562a7112b1c72bcfd"
-              },
               "status": {
                 "type": "string",
-                "example": "completed"
+                "example": "已完成"
               },
               "title": {
                 "type": "string",
@@ -3132,6 +3188,23 @@
               "completedAt": {
                 "type": "string",
                 "example": "2022-02-23T00:19:50.000Z"
+              },
+              "location": {
+                "type": "object",
+                "properties": {
+                  "longitude": {
+                    "type": "number",
+                    "example": 121.53868
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "example": 25.02697
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "台北市松山區復興北路15號"
+                  }
+                }
               }
             }
           }
@@ -4171,6 +4244,33 @@
                   }
                 }
               }
+            },
+            "contactInfo": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "翁文方"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "0932345678"
+                },
+                "email": {
+                  "type": "string",
+                  "example": ""
+                }
+              }
+            },
+            "submittedInfo": {
+              "type": "object",
+              "properties": {
+                "imgUrls": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                }
+              }
             }
           }
         },
@@ -4556,6 +4656,19 @@
         "message": {
           "type": "string",
           "example": "取得成功"
+        }
+      }
+    },
+    "ratingAndReviewReq": {
+      "type": "object",
+      "properties": {
+        "star": {
+          "type": "number",
+          "example": 4
+        },
+        "comment": {
+          "type": "string",
+          "example": "幫手表現超棒der"
         }
       }
     }

@@ -3,21 +3,17 @@ const Task = require('../models/taskModel');
 const User = require('../models/userModel');
 
 const initReviews = async () => {
-    const users = await User.find().select('email');
-    const tasks = await Task.find().select('userId');
-    const userCase1 = users.find((user) => user.email === 'user1@example.com');
-    const userCase2 = users.find((user) => user.email === 'user2@example.com');
-    const userCase3 = users.find((user) => user.email === 'chiayu@example.com');
-    const userCase4 = users.find((user) => user.email === 'yunshan@example.com');
-    const userCase5 = users.find((user) => user.email === 'weiyu@example.com');
-    const taskCase1 = tasks.find((task) => task.userId._id.equals(userCase1._id));
-    const taskCase2 = tasks.find((task) => task.userId._id.equals(userCase2._id));
-    const taskCase3 = tasks.find((task) => task.userId._id.equals(userCase3._id));
-    const taskCase4 = tasks.find((task) => task.userId._id.equals(userCase4._id));
-    const taskCase5 = tasks.find((task) => task.userId._id.equals(userCase5._id));
+    const tasks = await Task.find().select('userId title');
+    // const taskCase1 = tasks.find((task) => task.title === '急！幫忙代購王國之淚');
+    // const taskCase2 = tasks.find((task) => task.title === '幫忙打王國之淚的Boss');
+    const taskCase3 = tasks.find((task) => task.title === '陪我家狗玩');
+    const taskCase4 = tasks.find((task) => task.title === '幫忙做畢業專題');
+    const taskCase5 = tasks.find((task) => task.title === '協助居家清潔');
+    const taskCase6 = tasks.find((task) => task.title === '陪我練習開車');
+    const taskCase7 = tasks.find((task) => task.title === 'Notion 教學');
     const reviews = [
         {
-            taskId: taskCase1._id,
+            taskId: taskCase3._id,
             helper: {
                 status: 'completed',
                 star: 5,
@@ -31,7 +27,7 @@ const initReviews = async () => {
             status: 'completed',
         },
         {
-            taskId: taskCase2._id,
+            taskId: taskCase4._id,
             helper: {
                 status: 'completed',
                 star: 2,
@@ -45,7 +41,7 @@ const initReviews = async () => {
             status: 'completed',
         },
         {
-            taskId: taskCase3._id,
+            taskId: taskCase5._id,
             helper: {
                 status: 'completed',
                 star: 3,
@@ -59,7 +55,7 @@ const initReviews = async () => {
             status: 'completed',
         },
         {
-            taskId: taskCase4._id,
+            taskId: taskCase6._id,
             helper: {
                 status: 'completed',
                 star: 5,
@@ -73,7 +69,7 @@ const initReviews = async () => {
             status: 'completed',
         },
         {
-            taskId: taskCase5._id,
+            taskId: taskCase7._id,
             helper: {
                 status: 'completed',
                 star: 2,
@@ -99,7 +95,7 @@ const initReviews = async () => {
         for (let i = 0; i < insertedReviews.length; i++) {
             const taskId = insertedReviews[i].taskId;
             const reviewId = insertedReviews[i]._id;
-            await Task.updateOne({ _id: taskId }, { $push: { reviews: reviewId } });
+            await Task.updateOne({ _id: taskId }, { reviews: reviewId });
         }
         console.log('評論資料初始化成功');
     } catch (err) {
