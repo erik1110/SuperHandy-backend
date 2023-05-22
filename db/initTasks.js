@@ -15,7 +15,7 @@ const initTasks = async () => {
         {
             userId: userCase1._id,
             status: 'published',
-            title: '幫忙代購王國之類',
+            title: '幫忙代購王國之淚',
             category: '排隊代購',
             description: '很急，5/11 晚上請在信義店前排隊代購，12:00準時想拿到遊戲片',
             salary: 500,
