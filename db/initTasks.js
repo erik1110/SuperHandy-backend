@@ -14,11 +14,11 @@ const initTasks = async () => {
     const tasks = [
         {
             userId: userCase1._id,
-            status: 'published',
-            title: '幫忙代購王國之淚',
-            category: '排隊代購',
-            description: '很急，5/11 晚上請在信義店前排隊代購，12:00準時想拿到遊戲片',
-            salary: 500,
+            status: 'confirmed',
+            title: '幫忙打王國之淚的Boss',
+            category: '人力派遣',
+            description: 'Boss 好難打，急徵高手幫忙，不可以花我太多素材，意者私聊',
+            salary: 300,
             exposurePlan: '黃金曝光',
             imgUrls: ['https://example.com/switch.jpg'],
             contactInfo: {
@@ -36,7 +36,7 @@ const initTasks = async () => {
             isUrgent: true,
             helpers: [
                 {
-                    helperId: userCase5._id,
+                    helperId: userCase2._id,
                     status: 'paired',
                 },
                 {
@@ -44,8 +44,62 @@ const initTasks = async () => {
                     status: 'unpaired',
                 },
                 {
-                    helperId: userCase2._id,
+                    helperId: userCase5._id,
                     status: 'unpaired',
+                },
+            ],
+            time: {
+                createdAt: new Date('2023-05-12T12:34:56'),
+                updatedAt: new Date('2022-06-12T08:19:50'),
+                publishedAt: new Date('2022-05-13T13:34:56'),
+                unpublishedAt: null,
+                deletedAt: null,
+                inProgressAt: new Date('2022-05-16T13:34:56'),
+                submittedAt: new Date('2022-05-17T13:55:56'),
+                confirmedAt: new Date('2022-05-19T19:15:50'),
+                completedAt: null,
+                expiredAt: new Date('2023-06-12T12:34:56'),
+            },
+            submittedInfo: {
+                imgUrls: ['https://example.com/images/report1.jpg', 'https://example.com/images/report2.jpg'],
+                comment: '這個任務簡單啦',
+                createAt: new Date('2022-05-17T13:55:56'),
+            },
+        },
+        {
+            userId: userCase1._id,
+            status: 'published',
+            title: '急！幫忙代購王國之淚',
+            category: '排隊代購',
+            description: '很急，5/11 晚上請在信義店前排隊代購，12:00準時想拿到遊戲片',
+            salary: 500,
+            exposurePlan: '黃金曝光',
+            imgUrls: ['https://example.com/switch.jpg'],
+            contactInfo: {
+                name: `${userCase1.lastName}${userCase1.firstName}`,
+                phone: userCase1.phone,
+                email: userCase1.email,
+            },
+            location: {
+                city: '台北市',
+                dist: '信義區',
+                address: '松智路17號',
+                longitude: 121.53868,
+                latitude: 25.02697,
+            },
+            isUrgent: true,
+            helpers: [
+                {
+                    helperId: userCase5._id,
+                    status: 'waiting',
+                },
+                {
+                    helperId: userCase3._id,
+                    status: 'waiting',
+                },
+                {
+                    helperId: userCase2._id,
+                    status: 'waiting',
                 },
             ],
             time: {
@@ -54,16 +108,11 @@ const initTasks = async () => {
                 publishedAt: new Date('2022-05-10T13:34:56'),
                 unpublishedAt: null,
                 deletedAt: null,
-                inProgressAt: new Date('2022-0-16T13:34:56'),
-                submittedAt: new Date('2022-02-17T13:55:56'),
-                confirmedAt: new Date('2022-02-19T19:15:50'),
-                completedAt: new Date('2022-02-23T08:19:50'),
-                expiredAt: new Date('2023-05-030T12:34:56'),
-            },
-            submittedInfo: {
-                imgUrls: ['https://example.com/images/report1.jpg', 'https://example.com/images/report2.jpg'],
-                comment: '你家的狗很乖很聽話',
-                submittedAt: new Date('2022-02-17T13:55:56'),
+                inProgressAt: null,
+                submittedAt: null,
+                confirmedAt: null,
+                completedAt: null,
+                expiredAt: new Date('2023-05-30T12:34:56'),
             },
         },
         {
@@ -117,7 +166,7 @@ const initTasks = async () => {
             submittedInfo: {
                 imgUrls: ['https://example.com/images/report1.jpg', 'https://example.com/images/report2.jpg'],
                 comment: '你家的狗很乖很聽話',
-                submittedAt: new Date('2022-02-17T13:55:56'),
+                createAt: new Date('2022-02-17T13:55:56'),
             },
         },
         {
@@ -171,7 +220,7 @@ const initTasks = async () => {
             submittedInfo: {
                 imgUrls: ['https://example.com/images/report3.jpg', 'https://example.com/images/report4.jpg'],
                 comment: '這份報告有夠難做，NLP 難啊',
-                submittedAt: new Date('2023-04-13T09:00:00'),
+                createAt: new Date('2023-04-13T09:00:00'),
             },
         },
         {
@@ -226,7 +275,7 @@ const initTasks = async () => {
             submittedInfo: {
                 imgUrls: ['https://example.com/images/report5.jpg', 'https://example.com/images/report6.jpg', 'https://example.com/images/report7.jpg'],
                 comment: '這份工作比想像中還要累，但收穫也很多。',
-                submittedAt: new Date('2023-04-17T09:00:00'),
+                createAt: new Date('2023-04-17T09:00:00'),
             },
         },
         {
@@ -284,7 +333,7 @@ const initTasks = async () => {
             submittedInfo: {
                 imgUrls: ['https://example.com/images/report8.jpg', 'https://example.com/images/report9.jpg', 'https://example.com/images/report10.jpg'],
                 comment: '學生學得很快，很有耐心。',
-                submittedAt: new Date('2023-04-17T09:00:00'),
+                createAt: new Date('2023-04-17T09:00:00'),
             },
         },
         {
@@ -342,7 +391,7 @@ const initTasks = async () => {
             submittedInfo: {
                 imgUrls: ['https://example.com/images/report11.jpg', 'https://example.com/images/report12.jpg', 'https://example.com/images/report13.jpg'],
                 comment: '',
-                submittedAt: new Date('2023-04-17T09:00:00'),
+                createAt: new Date('2023-04-17T09:00:00'),
             },
         },
     ];
