@@ -451,6 +451,7 @@ const tasks = {
         const pairedHelpers = task.helpers.filter((helper) => helper.status === "paired");
         const helperId = pairedHelpers.map((helper) => helper.helperId)[0];
         const review = await Review.findOne({ taskId: taskId })
+        let reviewCreate; 
         if (!review) {
             if (role==='案主') {
                 reviewCreate = await Review.create({
