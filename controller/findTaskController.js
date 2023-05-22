@@ -200,7 +200,7 @@ const tasks = {
                 address: `${task.location.city}${task.location.dist}`,
                 category: task.category,
                 description: task.description,
-                imgUrls: task.imgUrls[0] || '',
+                imgUrls: task.imgUrls,
                 viewerCount: task.viewers.length,
                 helperCount: task.helpers.length,
                 posterName: posterName,
@@ -289,7 +289,7 @@ const tasks = {
                 address: `${task.location.city}${task.location.dist}`,
                 category: task.category,
                 description: task.description,
-                imgUrls: task.imgUrls[0] || '',
+                imgUrls: task.imgUrls,
                 viewerCount: task.viewers.length,
                 helperCount: task.helpers.length,
                 posterName: posterName,
@@ -311,7 +311,7 @@ const tasks = {
     }),
     findTaskListHighlight: handleErrorAsync(async (req, res, next) => {
         //find all tasks sort by viewerCount and limit 5
-        const tasks = await Task.find({ status: 'published' }).sort({ 'viewers.length': -1 }).select('_id title imgUrls');
+        const tasks = await Task.find({ status: 'published' }).sort({ 'viewers.length': -1 }).select('_id title imgUrls category');
         if (!tasks) {
             return next(appError(404, '40210', '查無資料'));
         }
@@ -324,6 +324,7 @@ const tasks = {
                     taskId: task._id,
                     title: task.title,
                     imgUrls: task.imgUrls[0] || '',
+                    category: task.category,
                 });
             }
         });
