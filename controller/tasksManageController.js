@@ -110,11 +110,59 @@ const tasks = {
         let formatHelpers;
         if (isTaskOwner) {
             role = '案主';
-            formatHelpers = task.helpers.map((helper) => ({
-                helperId: helper.helperId._id,
-                status: statusMapping.helperStatusMapping[helper.status],
-                lastName: helper.helperId.lastName,
-            }));
+            formatHelpers = await Promise.all(
+                task.helpers.map(async (helper) => {
+                  const completedTasks = await Task.countDocuments({
+                    helpers: { $elemMatch: { helperId: helper.helperId._id, status: 'paired' }},
+                    status: 'completed'
+                  });
+                  const numOfTasks = await Task.countDocuments({
+                    helpers: { $elemMatch: { helperId: helper.helperId._id, status: 'paired' }},
+                  });
+                  const completionRate = (completedTasks / numOfTasks) * 100 || 0
+                  const helperData = await Task.find({
+                        helpers: {
+                            $elemMatch: { helperId: helper.helperId._id, status: 'paired' },
+                        },
+                        status: 'completed',
+                     }).populate({
+                        path: 'reviews',
+                        select: 'poster.star',
+                  });
+                  const categories = helperData.reduce((acc, task) => {
+                    const existingCategory = acc.find((category) => category.name === task.category);
+                    if (existingCategory) {
+                      existingCategory.star += task.reviews[0]?.poster.star || 0;
+                      existingCategory.totalReviews++;
+                    } else {
+                      acc.push({
+                        name: task.category,
+                        star: task.reviews[0]?.poster.star || 0,
+                        totalReviews: 1,
+                      });
+                    }
+                    return acc;
+                  }, []);
+                  categories.forEach((category) => {
+                    category.star = category.star / category.totalReviews;
+                  });
+                  const sortedCategories = categories.sort((a, b) => b.star - a.star);
+                  const topThreeCategories = sortedCategories.slice(0, 3);
+                  const helperScore = helperData.flatMap((task) => task.reviews.map((review) => review.poster.star));
+                  const ratingHelper = helperScore.length ? Number((helperScore.reduce((acc, val) => acc + val) / helperScore.length).toFixed(2)) : null;
+                  return {
+                    helperId: helper.helperId._id,
+                    status: statusMapping.helperStatusMapping[helper.status],
+                    lastName: helper.helperId.lastName,
+                    completedTasks: completedTasks,
+                    completionRate: completionRate,
+                    rating: {
+                        overall: ratingHelper,
+                        categories: topThreeCategories,
+                    }
+                  };
+                })
+            );
         } else if (isTaskHelper) {
             role = '幫手';
             formatHelpers = task.helpers

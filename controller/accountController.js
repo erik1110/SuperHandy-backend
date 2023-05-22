@@ -78,7 +78,8 @@ const accounts = {
             userId: req.user._id,
         });
         const numOfCompletedTasks = await Task.countDocuments({
-            helpers: { $elemMatch: { helperId: user._id, status: 'paired' } },
+            helpers: { $elemMatch: { helperId: user._id, status: 'paired' }},
+            status: 'completed'
         });
         const posterData = await Task.find({
             userId: req.user._id,
