@@ -47,8 +47,7 @@ const tasks = {
         if (!mongoose.isValidObjectId(taskId)) {
             return next(appError(400, '40104', 'Id 格式錯誤'));
         }
-        //, status: 'published'
-        const task = await Task.findOne({ _id: taskId })
+        const task = await Task.findOne({ _id: taskId, status: 'published' })
             .populate({
                 path: 'helpers.helperId',
                 select: 'lastName firstName',
