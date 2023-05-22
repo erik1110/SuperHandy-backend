@@ -3007,30 +3007,9 @@
           "items": {
             "type": "object",
             "properties": {
-              "location": {
-                "type": "object",
-                "properties": {
-                  "address": {
-                    "type": "string",
-                    "example": "台北市松山區復興北路15號"
-                  },
-                  "longitude": {
-                    "type": "number",
-                    "example": 121.53868
-                  },
-                  "latitude": {
-                    "type": "number",
-                    "example": 25.02697
-                  }
-                }
-              },
-              "_id": {
-                "type": "string",
-                "example": "644fc95562a7112b1c72bcfd"
-              },
               "status": {
                 "type": "string",
-                "example": "completed"
+                "example": "已完成"
               },
               "title": {
                 "type": "string",
@@ -3047,6 +3026,23 @@
               "completedAt": {
                 "type": "string",
                 "example": "2022-02-23T00:19:50.000Z"
+              },
+              "location": {
+                "type": "object",
+                "properties": {
+                  "longitude": {
+                    "type": "number",
+                    "example": 121.53868
+                  },
+                  "latitude": {
+                    "type": "number",
+                    "example": 25.02697
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "台北市松山區復興北路15號"
+                  }
+                }
               }
             }
           }
@@ -4084,6 +4080,33 @@
                     "type": "string",
                     "example": "陳"
                   }
+                }
+              }
+            },
+            "contactInfo": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "翁文方"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "0932345678"
+                },
+                "email": {
+                  "type": "string",
+                  "example": ""
+                }
+              }
+            },
+            "submittedInfo": {
+              "type": "object",
+              "properties": {
+                "imgUrls": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
                 }
               }
             }

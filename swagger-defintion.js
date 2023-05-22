@@ -67,17 +67,16 @@ const getCompletedCasesSuccess = {
     status: 'success',
     data: [
         {
-            location: {
-                address: '台北市松山區復興北路15號',
-                longitude: 121.53868,
-                latitude: 25.02697,
-            },
-            _id: '644fc95562a7112b1c72bcfd',
-            status: 'completed',
+            status: '已完成',
             title: '陪我家狗玩',
             salary: 300,
             createAt: '2023-01-30T04:34:56.000Z',
             completedAt: '2022-02-23T00:19:50.000Z',
+            location: {
+                longitude: 121.53868,
+                latitude: 25.02697,
+                address: '台北市松山區復興北路15號',
+            },
         },
     ],
     message: '取得成功',
@@ -393,6 +392,14 @@ const getTaskDetails = {
                 lastName: '陳',
             },
         ],
+        contactInfo: {
+            name: "翁文方",
+            phone: "0932345678",
+            email: ""
+        },
+        submittedInfo: {
+            imgUrls: []
+        }
     },
     message: '取得成功',
 };

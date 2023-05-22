@@ -15,7 +15,7 @@ const initTasks = async () => {
         {
             userId: userCase1._id,
             status: 'published',
-            title: '急！幫忙代購王國之淚',
+            title: '幫忙代購王國之類',
             category: '排隊代購',
             description: '很急，5/11 晚上請在信義店前排隊代購，12:00準時想拿到遊戲片',
             salary: 500,
@@ -29,7 +29,7 @@ const initTasks = async () => {
             location: {
                 city: '台北市',
                 dist: '信義區',
-                address: '松智路17號',
+                address: '台北市信義區松智路17號',
                 longitude: 121.53868,
                 latitude: 25.02697,
             },
@@ -37,15 +37,15 @@ const initTasks = async () => {
             helpers: [
                 {
                     helperId: userCase5._id,
-                    status: 'waiting',
+                    status: 'paired',
                 },
                 {
                     helperId: userCase3._id,
-                    status: 'waiting',
+                    status: 'unpaired',
                 },
                 {
                     helperId: userCase2._id,
-                    status: 'waiting',
+                    status: 'unpaired',
                 },
             ],
             time: {
@@ -54,11 +54,16 @@ const initTasks = async () => {
                 publishedAt: new Date('2022-05-10T13:34:56'),
                 unpublishedAt: null,
                 deletedAt: null,
-                inProgressAt: null,
-                submittedAt: null,
-                confirmedAt: null,
-                completedAt: null,
-                expiredAt: new Date('2023-05-30T12:34:56'),
+                inProgressAt: new Date('2022-0-16T13:34:56'),
+                submittedAt: new Date('2022-02-17T13:55:56'),
+                confirmedAt: new Date('2022-02-19T19:15:50'),
+                completedAt: new Date('2022-02-23T08:19:50'),
+                expiredAt: new Date('2023-05-030T12:34:56'),
+            },
+            submittedInfo: {
+                imgUrls: ['https://example.com/images/report1.jpg', 'https://example.com/images/report2.jpg'],
+                comment: '你家的狗很乖很聽話',
+                submittedAt: new Date('2022-02-17T13:55:56'),
             },
         },
         {
@@ -78,7 +83,7 @@ const initTasks = async () => {
             location: {
                 city: '台北市',
                 dist: '松山區',
-                address: '復興北路15號',
+                address: '台北市松山區復興北路15號',
                 longitude: 121.53868,
                 latitude: 25.02697,
             },
@@ -132,7 +137,7 @@ const initTasks = async () => {
             location: {
                 city: '台北市',
                 dist: '松山區',
-                address: '羅斯福路四段1號',
+                address: '台北市松山區羅斯福路四段1號',
                 longitude: 121.537369,
                 latitude: 25.017503,
             },
@@ -186,7 +191,7 @@ const initTasks = async () => {
             location: {
                 city: '新北市',
                 dist: '板橋區',
-                address: '新站路20號',
+                address: '新北市板橋區新站路20號',
                 landmark: '板橋火車站',
                 longitude: 121.462966,
                 latitude: 25.012422,
@@ -241,7 +246,7 @@ const initTasks = async () => {
             location: {
                 city: '台中市',
                 dist: '南區',
-                address: '復興南路二段240號',
+                address: '台中市南區復興南路二段240號',
                 longitude: 120.637803,
                 latitude: 24.178145,
             },
@@ -299,7 +304,7 @@ const initTasks = async () => {
             location: {
                 city: '台北市',
                 dist: '中正區',
-                address: '信義路1號',
+                address: '台北市中正區信義路1號',
                 longitude: 121.564534,
                 latitude: 25.033903,
             },
