@@ -149,6 +149,7 @@ const tasks = {
             description: task.description,
             imgUrls: task.imgUrls,
             helpers: formatHelpers,
+            contactInfo: task.contactInfo,
             submittedInfo: task.submittedInfo
         };
         res.status(200).json(
