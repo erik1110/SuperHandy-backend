@@ -170,12 +170,16 @@ router.post('/confirm-helper/:taskId', function (req, res, next) {
   /**
  * #swagger.tags = ['Tasks']
  * #swagger.description = '會看 userId 決定是幫手還是案主，前端無需帶此參數'
- * #swagger.summary = '評分與留言 (Rating and Review:)'
+ * #swagger.summary = '評分與留言 (Rating and Review)'
  * #swagger.security=[{"Bearer": []}]
 /**
+  #swagger.parameters['parameter_name'] = {
+    in: 'body',
+    description: '評價資料',
+    schema: { $ref: '#/definitions/ratingAndReviewReq' }
+  },
  #swagger.responses[200] = {
     description: '確認成功',
-    schema: {$ref: "#/definitions/ratingAndReviewReq"}
 }
 #swagger.responses[400] = {
   description: 'Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限、該幫手未申請或不存在',

@@ -147,12 +147,10 @@ const taskSchema = new mongoose.Schema({
             type: Date,
         },
     },
-    reviews: [
-        {
+    reviews: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Review',
-        },
-    ],
+    },
     submittedInfo: {
         imgUrls: {
             type: [String],

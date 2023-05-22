@@ -8,13 +8,13 @@ const reviewSchema = new mongoose.Schema({
     helper: {
         status: {
             type: String,
-            required: true,
+            required: false,
             default: 'waiting',
             enum: ['waiting', 'completed'],
         },
         star: {
             type: Number,
-            required: true,
+            required: false,
             min: 1,
             max: 5,
         },
@@ -26,13 +26,13 @@ const reviewSchema = new mongoose.Schema({
     poster: {
         status: {
             type: String,
-            required: true,
+            required: false,
             default: 'waiting',
             enum: ['waiting', 'completed'],
         },
         star: {
             type: Number,
-            required: true,
+            required: false,
             min: 1,
             max: 5,
         },

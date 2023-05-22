@@ -3,6 +3,7 @@ const { appError, handleErrorAsync } = require('../utils/errorHandler');
 const getHttpResponse = require('../utils/successHandler');
 const Notify = require('../models/notifyModel');
 const User = require('../models/userModel');
+const Review = require('../models/reviewModel');
 const Task = require('../models/taskModel');
 const TaskTrans = require('../models/taskTransModel');
 const TaskValidator = require('../service/taskValidator');
@@ -129,27 +130,34 @@ const tasks = {
                         path: 'reviews',
                         select: 'poster.star',
                   });
+                  console.log(helperData)
                   const categories = helperData.reduce((acc, task) => {
                     const existingCategory = acc.find((category) => category.name === task.category);
                     if (existingCategory) {
-                      existingCategory.star += task.reviews[0]?.poster.star || 0;
+                      existingCategory.star += task.reviews.poster.star || 0;
                       existingCategory.totalReviews++;
                     } else {
                       acc.push({
                         name: task.category,
-                        star: task.reviews[0]?.poster.star || 0,
+                        star: task.reviews.poster.star || 0,
                         totalReviews: 1,
                       });
                     }
                     return acc;
                   }, []);
                   categories.forEach((category) => {
-                    category.star = category.star / category.totalReviews;
+                        category.star = category.star / category.totalReviews;
                   });
                   const sortedCategories = categories.sort((a, b) => b.star - a.star);
                   const topThreeCategories = sortedCategories.slice(0, 3);
-                  const helperScore = helperData.flatMap((task) => task.reviews.map((review) => review.poster.star));
-                  const ratingHelper = helperScore.length ? Number((helperScore.reduce((acc, val) => acc + val) / helperScore.length).toFixed(2)) : null;
+                  let totalStars = 0;
+                  let totalCount = 0;
+
+                  for (const category of categories) {
+                    totalStars += category.star * category.totalReviews;
+                    totalCount += category.totalReviews;
+                  }
+                  const averageStar = totalStars / totalCount;
                   return {
                     helperId: helper.helperId._id,
                     status: statusMapping.helperStatusMapping[helper.status],
@@ -157,7 +165,7 @@ const tasks = {
                     completedTasks: completedTasks,
                     completionRate: completionRate,
                     rating: {
-                        overall: ratingHelper,
+                        overall: averageStar,
                         categories: topThreeCategories,
                     }
                   };
@@ -422,6 +430,9 @@ const tasks = {
         if (!task) {
             return next(appError(404, '40212', '查無此任務'));
         }
+        if (task.status === 'completed'){
+            return next(appError(400, '40214', `任務狀態錯誤：任務已完成 (completed)`));
+        }
         if (task.status!=='confirmed') {
             return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
@@ -438,10 +449,124 @@ const tasks = {
         } else {
             return next(appError(400, '40302', '沒有權限'));
         }
+        const pairedHelpers = task.helpers.filter((helper) => helper.status === "paired");
+        const helperId = pairedHelpers.map((helper) => helper.helperId)[0];
+        const review = await Review.findOne({ taskId: taskId })
+        if (!review) {
+            if (role==='案主') {
+                reviewCreate = await Review.create({
+                    taskId: taskId,
+                    poster: {
+                        status: 'completed',
+                        star: req.body.star,
+                        comment: req.body.comment
+                    },
+                    status: 'waiting',
+                    createdAt: Date.now(),
+                    updatedAt: Date.now(),
+                });
+                await Notify.create({
+                    userId: helperId,
+                    tag: '幫手通知',
+                    description: `您的任務：「${task.title} 」，案主給您評價囉！`,
+                    taskId: taskId,
+                    createdAt: Date.now(),
+                });
+            } else {
+                reviewCreate = await Review.create({
+                    taskId: taskId,
+                    helper: {
+                        status: 'completed',
+                        star: req.body.star,
+                        comment: req.body.comment
+                    },
+                    status: 'waiting',
+                    createdAt: Date.now(),
+                    updatedAt: Date.now(),
+                });
+                await Notify.create({
+                    userId: helperId,
+                    tag: '案主通知',
+                    description: `您的任務：「${task.title} 」，幫手給您評價囉！`,
+                    taskId: taskId,
+                    createdAt: Date.now(),
+                });
+            }
+            // 寫入 reviewId
+            await Task.findOneAndUpdate(
+                { _id: taskId },
+                {
+                    $set: {
+                        reviews: reviewCreate._id,
+                        'time.updatedAt': Date.now(),
+                    },
+                },
+                { new: true },
+            );
+        } else {
+            if (role==='案主') {
+                await Review.findOneAndUpdate(
+                    { taskId: taskId },
+                    {
+                        $set: {
+                            status: 'completed',
+                            poster: {
+                                status: 'completed',
+                                star: req.body.star,
+                                comment: req.body.comment
+                            },
+                            updatedAt: Date.now(),
+                        },
+                    },
+                    { new: true },
+                );
+                await Notify.create({
+                    userId: helperId,
+                    tag: '幫手通知',
+                    description: `您的任務：「${task.title} 」，案主給您評價囉！`,
+                    taskId: taskId,
+                    createdAt: Date.now(),
+                });
+            } else {
+                await Review.findOneAndUpdate(
+                    { taskId: taskId },
+                    {
+                        $set: {
+                            status: 'completed',
+                            helper: {
+                                status: 'completed',
+                                star: req.body.star,
+                                comment: req.body.comment
+                            },
+                            updatedAt: Date.now(),
+                        },
+                    },
+                    { new: true },
+                );
+                await Notify.create({
+                    userId: helperId,
+                    tag: '案主通知',
+                    description: `您的任務：「${task.title} 」，幫手給您評價囉！`,
+                    taskId: taskId,
+                    createdAt: Date.now(),
+                });
+            }
+            // 更新任務狀態為`已完成 (completed)`
+            await Task.findOneAndUpdate(
+                { _id: taskId },
+                {
+                    $set: {
+                        status: 'completed',
+                        'time.completedAt': Date.now(),
+                        'time.updatedAt': Date.now(),
+                    },
+                },
+                { new: true },
+            );
+        }
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',
-                data: role,
             }),
         );
     }),
