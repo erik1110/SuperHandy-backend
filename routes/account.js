@@ -331,7 +331,7 @@ router.get('/comments', function (req, res, next) {
 }
   #swagger.parameters['limit'] = {
   in: 'query',
-  description: '每一頁的資料筆數(預設為10)',
+  description: '每一頁的資料筆數(預設為10)，最多100',
   type: 'integer',
   default: 10
 }
@@ -345,10 +345,18 @@ router.get('/comments', function (req, res, next) {
     description: '取得成功',
     schema: { $ref: '#/definitions/getCommentsHist' }
 }
-#swagger.responses[400] = {
-  description: 'Token 失敗',
-  schema: { $ref: '#/definitions/ErrorToken' }
-}
+  #swagger.responses[400] = {
+    description: '缺少角色參數',
+    schema: {
+      'status': 'false',
+      'message': '錯誤訊息',
+      'error': {
+        'name': '[40102]',
+        'statusCode': 400,
+        'isOperational': true
+      }
+    }
+  }
 #swagger.responses[500] = {
   description: '系統錯誤',
   schema: { $ref: '#/definitions/Error500' }
@@ -378,10 +386,19 @@ router.get('/comments/starCounts', function (req, res, next) {
     description: '取得成功',
     schema: { $ref: '#/definitions/getStarCounts' }
 }
-#swagger.responses[400] = {
-  description: 'Token 失敗',
-  schema: { $ref: '#/definitions/ErrorToken' }
 }
+  #swagger.responses[400] = {
+    description: '缺少角色參數',
+    schema: {
+      'status': 'false',
+      'message': '錯誤訊息',
+      'error': {
+        'name': '[40102]',
+        'statusCode': 400,
+        'isOperational': true
+      }
+    }
+  }
 #swagger.responses[500] = {
   description: '系統錯誤',
   schema: { $ref: '#/definitions/Error500' }

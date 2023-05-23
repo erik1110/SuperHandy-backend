@@ -928,9 +928,39 @@
             }
           },
           "400": {
-            "description": "Token 失敗",
+            "description": "缺少角色參數",
             "schema": {
-              "$ref": "#/definitions/ErrorToken"
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40102]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
             }
           },
           "500": {
@@ -975,9 +1005,39 @@
             }
           },
           "400": {
-            "description": "Token 失敗",
+            "description": "缺少角色參數",
             "schema": {
-              "$ref": "#/definitions/ErrorToken"
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40102]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
             }
           },
           "500": {

@@ -261,6 +261,14 @@ const accounts = {
         categories = categories ? categories.split(',') : [];
         limit = Number(limit) || 10;
         page = Number(page) || 1;
+        if (page <= 0) {
+            page = 1;
+        }
+        if (limit <= 0) {
+            limit = 10;
+        } else if (limit > 100) {
+            limit = 100;
+        }
         if (role === '案主') {
             query = { 'poster.posterId': userId };
             if (yourStar) {
@@ -280,7 +288,6 @@ const accounts = {
         } else {
             return next(appError(400, '40102', '缺少角色參數'));
         }
-        console.log(query)
         const reviews = await Review.find(query)
                                    .populate({
                                     path: 'taskId',
