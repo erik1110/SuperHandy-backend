@@ -74,7 +74,7 @@ const initReviews = async () => {
                 comment: '原po人好美',
             },
             poster: {
-                postId: userCase4._id,
+                posterId: userCase4._id,
                 status: 'completed',
                 star: 5,
                 comment: '教練人好帥',

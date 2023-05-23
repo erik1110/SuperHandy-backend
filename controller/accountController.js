@@ -270,7 +270,7 @@ const accounts = {
                 query['poster.status'] = reviewStatusReverseMapping[reviewStatus];
             }
         } else if (role === '幫手') {
-            query = { 'helper.helpId': userId };
+            query = { 'helper.helperId': userId };
             if (yourStar) {
                 query['poster.star'] = { $eq: Number(yourStar) };
             }
@@ -280,6 +280,7 @@ const accounts = {
         } else {
             return next(appError(400, '40102', '缺少角色參數'));
         }
+        console.log(query)
         const reviews = await Review.find(query)
                                    .populate({
                                     path: 'taskId',
@@ -293,8 +294,9 @@ const accounts = {
                                 }).limit(limit)
                                 .skip((page - 1) * limit);
         const formattedReviews = reviews.map(review => {
+            const yourStar = role === '案主' ? review.helper.star : review.poster.star;
             return {
-                yourStar: review.helper.star || null,
+                yourStar: yourStar || null,
                 category: review.taskId.category,
                 title: review.taskId.title,
                 address: review.taskId.location.address,
@@ -370,6 +372,7 @@ const accounts = {
                 }
             ];
             const starCounts = await Review.aggregate(aggregateQuery);
+            console.log(starCounts)
             // 轉換成以星星數為鍵、計數為值的物件
             starCountMap = starCounts.reduce((acc, { star, count }) => {
                 acc[star] = count;
