@@ -166,7 +166,7 @@ router.post('/upload-acceptance/:taskId', function (req, res, next) {
 });
 
 /* 評分與留言 */
-router.post('/confirm-helper/:taskId', function (req, res, next) {
+router.post('/comment/:taskId', function (req, res, next) {
   /**
  * #swagger.tags = ['Tasks']
  * #swagger.description = '會看 userId 決定是幫手還是案主，前端無需帶此參數'

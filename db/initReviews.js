@@ -3,6 +3,11 @@ const Task = require('../models/taskModel');
 const User = require('../models/userModel');
 
 const initReviews = async () => {
+    const userCase1 = await User.findOne({ email: 'user1@example.com' }).select('lastName firstName phone');
+    const userCase2 = await User.findOne({ email: 'user2@example.com' }).select('lastName firstName phone');
+    const userCase3 = await User.findOne({ email: 'chiayu@example.com' }).select('lastName firstName phone');
+    const userCase4 = await User.findOne({ email: 'yunshan@example.com' }).select('lastName firstName phone');
+    const userCase5 = await User.findOne({ email: 'weiyu@example.com' }).select('lastName firstName phone');
     const tasks = await Task.find().select('userId title');
     // const taskCase1 = tasks.find((task) => task.title === '急！幫忙代購王國之淚');
     // const taskCase2 = tasks.find((task) => task.title === '幫忙打王國之淚的Boss');
@@ -15,11 +20,13 @@ const initReviews = async () => {
         {
             taskId: taskCase3._id,
             helper: {
+                helperId: userCase5._id,
                 status: 'completed',
                 star: 5,
                 comment: '案主態度好，狗好很帶',
             },
             poster: {
+                posterId: userCase1._id,
                 status: 'completed',
                 star: 4,
                 comment: '早上八點有點遲到，讓我等了十分鐘',
@@ -29,11 +36,13 @@ const initReviews = async () => {
         {
             taskId: taskCase4._id,
             helper: {
+                helperId: userCase1._id,
                 status: 'completed',
                 star: 2,
                 comment: '這份工作太難，薪水太少了吧！',
             },
             poster: {
+                posterId: userCase2._id,
                 status: 'completed',
                 star: 4,
                 comment: '寫得還差強人意，請加油',
@@ -43,11 +52,13 @@ const initReviews = async () => {
         {
             taskId: taskCase5._id,
             helper: {
+                helperId: userCase1._id,
                 status: 'completed',
                 star: 3,
                 comment: '案主的家太髒亂了吧！',
             },
             poster: {
+                posterId: userCase3._id,
                 status: 'completed',
                 star: 5,
                 comment: '很用心清潔，五星好評',
@@ -57,11 +68,13 @@ const initReviews = async () => {
         {
             taskId: taskCase6._id,
             helper: {
+                helperId: userCase1._id,
                 status: 'completed',
                 star: 5,
                 comment: '原po人好美',
             },
             poster: {
+                posterId: userCase4._id,
                 status: 'completed',
                 star: 5,
                 comment: '教練人好帥',
@@ -71,11 +84,13 @@ const initReviews = async () => {
         {
             taskId: taskCase7._id,
             helper: {
+                helperId: userCase2._id,
                 status: 'completed',
                 star: 2,
                 comment: '學習力好差 有待加強',
             },
             poster: {
+                posterId: userCase5._id,
                 status: 'completed',
                 star: 1,
                 comment: '教得好差 態度不好',

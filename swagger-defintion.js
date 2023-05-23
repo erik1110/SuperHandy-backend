@@ -517,6 +517,47 @@ const ratingAndReviewReq = {
     comment: '幫手表現超棒der'
 }
 
+const getCommentsHist = {
+    status: "success",
+    data: [
+      {
+        yourStar: 5,
+        category: "寵物陪伴",
+        title: "陪我家狗玩",
+        address: "台北市松山區復興北路15號",
+        salary: 300,
+        name: "陳瑋宇",
+        publishedAt: "2022-02-15T05:34:56.000Z",
+        helperReview: {
+          star: 5,
+          status: "已評價",
+          comment: "案主態度好，狗好很帶"
+        },
+        posterReview: {
+          star: 4,
+          status: "已評價",
+          comment: "早上八點有點遲到，讓我等了十分鐘"
+        },
+        taskId: "646c280234ecc5e9e7aef1ce"
+      }
+    ],
+    message: "取得成功"
+}
+const getStarCounts = {
+    status: "success",
+    data: {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 1,
+      5: 2,
+      null: 0,
+      avg: 4.67,
+      totalCount: 3
+    },
+    message: "取得成功"
+}
+
 module.exports = {
     Success,
     Error400,
@@ -553,5 +594,7 @@ module.exports = {
     findTaskListGeneral,
     findTaskListMap,
     findTaskListHighlight,
-    ratingAndReviewReq
+    ratingAndReviewReq,
+    getCommentsHist,
+    getStarCounts,
 };

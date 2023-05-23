@@ -1,4 +1,3 @@
-const User = require('../models/userModel');
 const categories = require('../db/initCategories');
 const validator = require('validator');
 

@@ -286,7 +286,7 @@ const tasks = {
             return next(appError(400, '40302', '沒有權限'));
         }
         if (task.status!=='submitted') {
-            if (task.status === 'inProgressed'){
+            if (task.status === 'inProgress'){
                 return next(appError(400, '40214', `任務狀態錯誤： 幫手尚未上傳驗收內容`));
             } else {
                 return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
@@ -361,7 +361,7 @@ const tasks = {
         if (!task) {
             return next(appError(400, '40212', '查無此任務'));
         }
-        if (task.status!=='inProgressed') {
+        if (task.status!=='inProgress') {
             if (task.status === 'submitted'){
                 return next(appError(400, '40214', `任務狀態錯誤：幫手已完成上傳驗收`));
             } else {
@@ -457,6 +457,7 @@ const tasks = {
                 reviewCreate = await Review.create({
                     taskId: taskId,
                     poster: {
+                        posterId: userId,
                         status: 'completed',
                         star: req.body.star,
                         comment: req.body.comment
@@ -476,6 +477,7 @@ const tasks = {
                 reviewCreate = await Review.create({
                     taskId: taskId,
                     helper: {
+                        helperId: userId,
                         status: 'completed',
                         star: req.body.star,
                         comment: req.body.comment
@@ -511,6 +513,7 @@ const tasks = {
                         $set: {
                             status: 'completed',
                             poster: {
+                                posterId: userId,
                                 status: 'completed',
                                 star: req.body.star,
                                 comment: req.body.comment
@@ -534,6 +537,7 @@ const tasks = {
                         $set: {
                             status: 'completed',
                             helper: {
+                                helperId: userId,
                                 status: 'completed',
                                 star: req.body.star,
                                 comment: req.body.comment
@@ -599,7 +603,7 @@ const tasks = {
             { _id: taskId },
             {
                 $set: {
-                    status: 'inProgressed',
+                    status: 'inProgress',
                     helpers: task.helpers.map((helper) => ({
                         helperId: helper.helperId,
                         status: helper.helperId.toString() === helperId.toString() ? 'paired' : 'unpaired',

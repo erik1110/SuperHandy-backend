@@ -854,6 +854,206 @@
         ]
       }
     },
+    "/account/comments": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "查看評論的歷史紀錄 (Get review history)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "query",
+            "description": "角色",
+            "type": "string",
+            "enum": [
+              "幫手",
+              "案主"
+            ],
+            "default": "案主"
+          },
+          {
+            "name": "categories",
+            "in": "query",
+            "description": "服務類別，可複選(使用,區隔) (沒有給參數代表全部)",
+            "default": "寵物陪伴",
+            "type": "string"
+          },
+          {
+            "name": "reviewStatus",
+            "in": "query",
+            "description": "角色的評價狀態 (沒有給參數代表全部)",
+            "type": "string",
+            "enum": [
+              "待評價",
+              "已評價"
+            ],
+            "default": "已評價"
+          },
+          {
+            "name": "yourStar",
+            "in": "query",
+            "description": "你的星星數(1,2,3,4,5, 沒有給參數代表全部，沒評價也算在全部)",
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "default": 4
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "每一頁的資料筆數(預設為10)，最多100",
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "第幾頁(預設為1)",
+            "type": "integer",
+            "default": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/getCommentsHist"
+            }
+          },
+          "400": {
+            "description": "欄位錯誤提示",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40102]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/account/comments/starCounts": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "在評價頁面查看星星記數 (View star counts on the review page)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "query",
+            "description": "角色",
+            "type": "string",
+            "enum": [
+              "幫手",
+              "案主"
+            ],
+            "default": "案主"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/getStarCounts"
+            }
+          },
+          "400": {
+            "description": "缺少角色參數",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40102]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/home/completed-cases": {
       "get": {
         "tags": [
@@ -2832,7 +3032,7 @@
         ]
       }
     },
-    "/tasks/management/confirm-helper/{taskId}": {
+    "/tasks/management/comment/{taskId}": {
       "post": {
         "tags": [
           "Tasks"
@@ -4669,6 +4869,143 @@
         "comment": {
           "type": "string",
           "example": "幫手表現超棒der"
+        }
+      }
+    },
+    "getCommentsHist": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "yourStar": {
+                "type": "number",
+                "example": 5
+              },
+              "category": {
+                "type": "string",
+                "example": "寵物陪伴"
+              },
+              "title": {
+                "type": "string",
+                "example": "陪我家狗玩"
+              },
+              "address": {
+                "type": "string",
+                "example": "台北市松山區復興北路15號"
+              },
+              "salary": {
+                "type": "number",
+                "example": 300
+              },
+              "name": {
+                "type": "string",
+                "example": "陳瑋宇"
+              },
+              "publishedAt": {
+                "type": "string",
+                "example": "2022-02-15T05:34:56.000Z"
+              },
+              "helperReview": {
+                "type": "object",
+                "properties": {
+                  "star": {
+                    "type": "number",
+                    "example": 5
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "已評價"
+                  },
+                  "comment": {
+                    "type": "string",
+                    "example": "案主態度好，狗好很帶"
+                  }
+                }
+              },
+              "posterReview": {
+                "type": "object",
+                "properties": {
+                  "star": {
+                    "type": "number",
+                    "example": 4
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "已評價"
+                  },
+                  "comment": {
+                    "type": "string",
+                    "example": "早上八點有點遲到，讓我等了十分鐘"
+                  }
+                }
+              },
+              "taskId": {
+                "type": "string",
+                "example": "646c280234ecc5e9e7aef1ce"
+              }
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
+        }
+      }
+    },
+    "getStarCounts": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "1": {
+              "type": "number",
+              "example": 0
+            },
+            "2": {
+              "type": "number",
+              "example": 0
+            },
+            "3": {
+              "type": "number",
+              "example": 0
+            },
+            "4": {
+              "type": "number",
+              "example": 1
+            },
+            "5": {
+              "type": "number",
+              "example": 2
+            },
+            "null": {
+              "type": "number",
+              "example": 0
+            },
+            "avg": {
+              "type": "number",
+              "example": 4.67
+            },
+            "totalCount": {
+              "type": "number",
+              "example": 3
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
         }
       }
     }
