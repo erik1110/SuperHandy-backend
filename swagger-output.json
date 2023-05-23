@@ -908,7 +908,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "每一頁的資料筆數(預設為10)",
+            "description": "每一頁的資料筆數(預設為10)，最多100",
             "type": "integer",
             "default": 10
           },
@@ -928,7 +928,7 @@
             }
           },
           "400": {
-            "description": "缺少角色參數",
+            "description": "欄位錯誤提示",
             "schema": {
               "type": "object",
               "properties": {

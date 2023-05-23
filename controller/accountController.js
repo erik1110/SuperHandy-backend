@@ -5,7 +5,7 @@ const TaskTrans = require('../models/taskTransModel');
 const Review = require('../models/reviewModel');
 const User = require('../models/userModel');
 const UserTrans = require('../models/userTransModel');
-const moneyValidator = require('../service/moneyValidator');
+const reviewValidator = require('../service/reviewValidator');
 const getHttpResponse = require('../utils/successHandler');
 const { reviewStatusMapping, reviewStatusReverseMapping } = require('../service/statusMapping');
 
@@ -256,6 +256,10 @@ const accounts = {
         );
     }),
     getReviewHistory: handleErrorAsync(async (req, res, next) => {
+        const validatorResult = reviewValidator.checkReview(req.query);
+        if (!validatorResult.status) {
+            return next(appError(400, '40102', validatorResult.msg));
+        }
         const userId = req.user._id;
         let { role, categories, reviewStatus, yourStar, limit, page } = req.query;
         categories = categories ? categories.split(',') : [];
@@ -285,8 +289,6 @@ const accounts = {
             if (reviewStatus) {
                 query['helper.status'] = reviewStatusReverseMapping[reviewStatus];
             }
-        } else {
-            return next(appError(400, '40102', '缺少角色參數'));
         }
         const reviews = await Review.find(query)
                                    .populate({

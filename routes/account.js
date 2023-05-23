@@ -346,7 +346,7 @@ router.get('/comments', function (req, res, next) {
     schema: { $ref: '#/definitions/getCommentsHist' }
 }
   #swagger.responses[400] = {
-    description: '缺少角色參數',
+    description: '欄位錯誤提示',
     schema: {
       'status': 'false',
       'message': '錯誤訊息',
