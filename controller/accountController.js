@@ -383,8 +383,14 @@ const accounts = {
         for (const starRating of starRatings) {
             starCountMap[starRating] = starCountMap[starRating] || 0;
         }
+        // 計算平均
+        const starRatings2 = [1, 2, 3, 4, 5];
+        const totalReviews = starRatings2.reduce((total, starRating2) => total + starCountMap[starRating2], 0);
+        const averageRating = totalReviews > 0 ? starRatings.reduce((sum, starRating) => sum + starRating * starCountMap[starRating], 0) / totalReviews : 0;
+        starCountMap.avg = Number(averageRating.toFixed(2));
+
         // 計算全部加總
-        starCountMap.all = starRatings.reduce((total, starRating) => total + starCountMap[starRating], 0);
+        starCountMap.totalCount = starRatings.reduce((total, starRating) => total + starCountMap[starRating], 0);
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',

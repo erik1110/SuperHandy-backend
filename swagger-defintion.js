@@ -552,7 +552,8 @@ const getStarCounts = {
       4: 1,
       5: 2,
       null: 0,
-      all: 3
+      avg: 4.67,
+      totalCount: 3
     },
     message: "取得成功"
 }
