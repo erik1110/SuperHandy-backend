@@ -543,6 +543,19 @@ const getCommentsHist = {
     ],
     message: "取得成功"
 }
+const getStarCounts = {
+    status: "success",
+    data: {
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 1,
+      5: 2,
+      null: 0,
+      all: 3
+    },
+    message: "取得成功"
+}
 
 module.exports = {
     Success,
@@ -582,4 +595,5 @@ module.exports = {
     findTaskListHighlight,
     ratingAndReviewReq,
     getCommentsHist,
+    getStarCounts,
 };

@@ -947,6 +947,53 @@
         ]
       }
     },
+    "/account/comments/starCounts": {
+      "get": {
+        "tags": [
+          "Account"
+        ],
+        "summary": "在評價頁面查看星星記數 (View star counts on the review page)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "role",
+            "in": "query",
+            "description": "角色",
+            "type": "string",
+            "enum": [
+              "幫手",
+              "案主"
+            ],
+            "default": "案主"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/getStarCounts"
+            }
+          },
+          "400": {
+            "description": "Token 失敗",
+            "schema": {
+              "$ref": "#/definitions/ErrorToken"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/home/completed-cases": {
       "get": {
         "tags": [
@@ -4843,6 +4890,52 @@
                 "type": "string",
                 "example": "646c280234ecc5e9e7aef1ce"
               }
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
+        }
+      }
+    },
+    "getStarCounts": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "1": {
+              "type": "number",
+              "example": 0
+            },
+            "2": {
+              "type": "number",
+              "example": 0
+            },
+            "3": {
+              "type": "number",
+              "example": 0
+            },
+            "4": {
+              "type": "number",
+              "example": 1
+            },
+            "5": {
+              "type": "number",
+              "example": 2
+            },
+            "null": {
+              "type": "number",
+              "example": 0
+            },
+            "all": {
+              "type": "number",
+              "example": 3
             }
           }
         },

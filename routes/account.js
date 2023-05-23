@@ -297,4 +297,97 @@ router.get('/comments', function (req, res, next) {
   accountController.getReviewHistory(req, res, next);
 });
 
+/* 查看評論的歷史紀錄 */
+router.get('/comments', function (req, res, next) {
+  /**
+* #swagger.tags = ['Account']
+* #swagger.summary = '查看評論的歷史紀錄 (Get review history)'
+* #swagger.security = [{
+    "Bearer": []
+  }]
+*/
+/**
+  #swagger.parameters['role'] = {
+      in: 'query',
+      description: '角色',
+      type: 'string',
+      enum: ['幫手', '案主'],
+      default: '案主'
+   }
+  #swagger.parameters['categories'] = {in: 'query',description: '服務類別，可複選(使用,區隔) (沒有給參數代表全部)', default:  '寵物陪伴'},
+  #swagger.parameters['reviewStatus'] = {
+    in: 'query',
+    description: '角色的評價狀態 (沒有給參數代表全部)',
+    type: 'string',
+    enum: ['待評價', '已評價'],
+    default: '已評價'
+  }
+  #swagger.parameters['yourStar'] = {
+  in: 'query',
+  description: '你的星星數(1,2,3,4,5, 沒有給參數代表全部，沒評價也算在全部)',
+  type: 'integer',
+  enum: [1, 2, 3, 4, 5],
+  default: 4
+}
+  #swagger.parameters['limit'] = {
+  in: 'query',
+  description: '每一頁的資料筆數(預設為10)',
+  type: 'integer',
+  default: 10
+}
+  #swagger.parameters['page'] = {
+  in: 'query',
+  description: '第幾頁(預設為1)',
+  type: 'integer',
+  default: 1
+}
+ #swagger.responses[200] = {
+    description: '取得成功',
+    schema: { $ref: '#/definitions/getCommentsHist' }
+}
+#swagger.responses[400] = {
+  description: 'Token 失敗',
+  schema: { $ref: '#/definitions/ErrorToken' }
+}
+#swagger.responses[500] = {
+  description: '系統錯誤',
+  schema: { $ref: '#/definitions/Error500' }
+}
+*/
+  accountController.getReviewHistory(req, res, next);
+});
+
+/* 在評價頁面查看星星記數 */
+router.get('/comments/starCounts', function (req, res, next) {
+  /**
+* #swagger.tags = ['Account']
+* #swagger.summary = '在評價頁面查看星星記數 (View star counts on the review page)'
+* #swagger.security = [{
+    "Bearer": []
+  }]
+*/
+/**
+  #swagger.parameters['role'] = {
+      in: 'query',
+      description: '角色',
+      type: 'string',
+      enum: ['幫手', '案主'],
+      default: '案主'
+   }
+ #swagger.responses[200] = {
+    description: '取得成功',
+    schema: { $ref: '#/definitions/getStarCounts' }
+}
+#swagger.responses[400] = {
+  description: 'Token 失敗',
+  schema: { $ref: '#/definitions/ErrorToken' }
+}
+#swagger.responses[500] = {
+  description: '系統錯誤',
+  schema: { $ref: '#/definitions/Error500' }
+}
+*/
+  accountController.getStarCounts(req, res, next);
+});
+
 module.exports = router;

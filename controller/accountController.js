@@ -325,6 +325,73 @@ const accounts = {
             }),
         );
     }),
+    getStarCounts: handleErrorAsync(async (req, res, next) => {
+        const userId = req.user._id;
+        const role = req.query.role;
+        let starCountMap;
+        if (role === '案主') {
+            const aggregateQuery = [
+                { $match: { 'poster.posterId': userId } },
+                {
+                    $group: {
+                        _id: '$helper.star',
+                        count: { $sum: 1 }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        star: '$_id',
+                        count: 1
+                    }
+                }
+            ];
+            const starCounts = await Review.aggregate(aggregateQuery);
+            // 轉換成以星星數為鍵、計數為值的物件
+            starCountMap = starCounts.reduce((acc, { star, count }) => {
+                acc[star] = count;
+                return acc;
+            }, {});
+        } else if (role === '幫手') {
+            const aggregateQuery = [
+                { $match: { 'helper.helperId': userId } },
+                {
+                    $group: {
+                        _id: '$poster.star',
+                        count: { $sum: 1 }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        star: '$_id',
+                        count: 1
+                    }
+                }
+            ];
+            const starCounts = await Review.aggregate(aggregateQuery);
+            // 轉換成以星星數為鍵、計數為值的物件
+            starCountMap = starCounts.reduce((acc, { star, count }) => {
+                acc[star] = count;
+                return acc;
+            }, {});
+        } else {
+            return next(appError(400, '40102', '缺少角色參數'));
+        }
+        // 補充未被評價的次數
+        const starRatings = [null, 1, 2, 3, 4, 5];
+        for (const starRating of starRatings) {
+            starCountMap[starRating] = starCountMap[starRating] || 0;
+        }
+        // 計算全部加總
+        starCountMap.all = starRatings.reduce((total, starRating) => total + starCountMap[starRating], 0);
+        res.status(200).json(
+            getHttpResponse({
+                message: '取得成功',
+                data: starCountMap,
+            }),
+        );
+    }),
 };
 
 module.exports = accounts;
