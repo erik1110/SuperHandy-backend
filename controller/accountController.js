@@ -5,6 +5,7 @@ const TaskTrans = require('../models/taskTransModel');
 const Review = require('../models/reviewModel');
 const User = require('../models/userModel');
 const UserTrans = require('../models/userTransModel');
+const moneyValidator = require('../service/moneyValidator');
 const reviewValidator = require('../service/reviewValidator');
 const getHttpResponse = require('../utils/successHandler');
 const { reviewStatusMapping, reviewStatusReverseMapping } = require('../service/statusMapping');
