@@ -21,8 +21,13 @@ const reviewStatusMapping = {
     completed: '已評價',
 };
 
+const reviewStatusReverseMapping = {
+    '待評價': 'waiting',
+    '已評價': 'completed',
+};
 module.exports = {
     taskStatusMapping,
     helperStatusMapping,
-    reviewStatusMapping
+    reviewStatusMapping,
+    reviewStatusReverseMapping
 };

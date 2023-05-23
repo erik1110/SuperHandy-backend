@@ -7,6 +7,7 @@ const User = require('../models/userModel');
 const UserTrans = require('../models/userTransModel');
 const moneyValidator = require('../service/moneyValidator');
 const getHttpResponse = require('../utils/successHandler');
+const { reviewStatusMapping, reviewStatusReverseMapping } = require('../service/statusMapping');
 
 const accounts = {
     getProfile: handleErrorAsync(async (req, res, next) => {
@@ -251,6 +252,76 @@ const accounts = {
                     superCoin: user.superCoin,
                     helperCoin: user.helperCoin,
                 },
+            }),
+        );
+    }),
+    getReviewHistory: handleErrorAsync(async (req, res, next) => {
+        const userId = req.user._id;
+        let { role, categories, reviewStatus, yourStar, limit, page } = req.query;
+        categories = categories ? categories.split(',') : [];
+        limit = Number(limit) || 10;
+        page = Number(page) || 1;
+        if (role === '案主') {
+            query = { 'poster.posterId': userId };
+            if (yourStar) {
+                query['helper.star'] = { $eq: Number(yourStar) };
+            }
+            if (reviewStatus) {
+                query['poster.status'] = reviewStatusReverseMapping[reviewStatus];
+            }
+        } else if (role === '幫手') {
+            query = { 'helper.helpId': userId };
+            if (yourStar) {
+                query['poster.star'] = { $eq: Number(yourStar) };
+            }
+            if (reviewStatus) {
+                query['helper.status'] = reviewStatusReverseMapping[reviewStatus];
+            }
+        } else {
+            return next(appError(400, '40102', '缺少角色參數'));
+        }
+        const reviews = await Review.find(query)
+                                   .populate({
+                                    path: 'taskId',
+                                    select: 'title category salary imgUrls time location ',
+                                }).populate({
+                                    path: 'poster.posterId',
+                                    select: 'lastName firstName'
+                                }).populate({
+                                    path: 'helper.helperId',
+                                    select: 'lastName firstName'
+                                }).limit(limit)
+                                .skip((page - 1) * limit);
+        const formattedReviews = reviews.map(review => {
+            return {
+                yourStar: review.helper.star || null,
+                category: review.taskId.category,
+                title: review.taskId.title,
+                address: review.taskId.location.address,
+                salary: review.taskId.salary,
+                name: review.helper.helperId ? `${review.helper.helperId.lastName}${review.helper.helperId.firstName}` : '',
+                publishedAt: review.taskId.time.publishedAt,
+                helperReview: {
+                    star: review.helper.star,
+                    status: reviewStatusMapping[review.helper.status],
+                    comment: review.helper.comment
+                },
+                posterReview: {
+                    star: review.poster.star,
+                    status: reviewStatusMapping[review.poster.status],
+                    comment: review.poster.comment
+                },
+                taskId: review.taskId._id
+            };
+        });
+        const filterCategory = categories.length > 0 ? categories : null;
+        const filteredReviews = filterCategory
+            ? formattedReviews.filter(review => filterCategory.includes(review.category))
+            : formattedReviews;
+        res.status(200).json(
+            getHttpResponse({
+                message: '取得成功',
+                data: filteredReviews,
             }),
         );
     }),
