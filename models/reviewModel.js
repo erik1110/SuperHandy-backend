@@ -6,6 +6,11 @@ const reviewSchema = new mongoose.Schema({
         required: true,
     },
     helper: {
+        helperId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: false,
+        },
         status: {
             type: String,
             required: false,
@@ -24,6 +29,11 @@ const reviewSchema = new mongoose.Schema({
         },
     },
     poster: {
+        posterId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: false,
+        },
         status: {
             type: String,
             required: false,

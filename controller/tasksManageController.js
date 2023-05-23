@@ -457,6 +457,7 @@ const tasks = {
                 reviewCreate = await Review.create({
                     taskId: taskId,
                     poster: {
+                        posterId: userId,
                         status: 'completed',
                         star: req.body.star,
                         comment: req.body.comment
@@ -476,6 +477,7 @@ const tasks = {
                 reviewCreate = await Review.create({
                     taskId: taskId,
                     helper: {
+                        helperId: userId,
                         status: 'completed',
                         star: req.body.star,
                         comment: req.body.comment
@@ -511,6 +513,7 @@ const tasks = {
                         $set: {
                             status: 'completed',
                             poster: {
+                                posterId: userId,
                                 status: 'completed',
                                 star: req.body.star,
                                 comment: req.body.comment
@@ -534,6 +537,7 @@ const tasks = {
                         $set: {
                             status: 'completed',
                             helper: {
+                                helperId: userId,
                                 status: 'completed',
                                 star: req.body.star,
                                 comment: req.body.comment
