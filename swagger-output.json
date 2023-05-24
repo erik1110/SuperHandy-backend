@@ -3490,7 +3490,7 @@
           "items": {
             "type": "object",
             "properties": {
-              "name": {
+              "lastName": {
                 "type": "string",
                 "example": "王"
               },
