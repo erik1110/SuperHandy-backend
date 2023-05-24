@@ -167,20 +167,34 @@ const tasks = {
                 sortBy = { salary: -1 };
                 break;
             case 'mostEnquiries':
-                sortBy = { 'task.helpers.length': -1 };
+                sortBy = { helperCount: -1 };
                 break;
             default:
                 sortBy = { 'time.publishedAt': -1 };
         }
+
         //find all tasks
-        const tasks = await Task.find({
-            status: 'published',
-        })
-            .populate({
-                path: 'userId',
-                select: 'lastName firstName phone email',
-            })
-            .sort(sortBy);
+        const tasks = await Task.aggregate([
+            {
+                $match: { status: 'published' }, // 添加匹配条件
+            },
+            {
+                $lookup: {
+                    from: 'users', // 用户表的集合名
+                    localField: 'userId',
+                    foreignField: '_id',
+                    as: 'user',
+                },
+            },
+            {
+                $addFields: {
+                    helperCount: { $size: '$helpers' }, // 添加一个新的字段helperCount，表示helpers数组的长度
+                },
+            },
+            {
+                $sort: sortBy, // 按照helperCount字段降序排序
+            },
+        ]);
 
         if (!tasks) {
             return next(appError(404, '40210', '查無資料'));
@@ -230,7 +244,7 @@ const tasks = {
 
         //format tasks
         const formattedTasks = pagingTasks.map((task) => {
-            const posterName = `${task.userId?.lastName}**`;
+            const posterName = `${task.user[0].lastName}**`;
             return {
                 taskId: task._id,
                 publishedAt: task.time.publishedAt,
