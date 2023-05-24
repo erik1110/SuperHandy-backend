@@ -154,23 +154,23 @@ const tasks = {
         );
     }),
     findTaskListGeneral: handleErrorAsync(async (req, res, next) => {
-        let { city, dist, isUrgent, sortby, keyword, services, limit, page } = req.query;
+        let { city, dist, isUrgent, sortBy, keyword, services, limit, page } = req.query;
         isUrgent = isUrgent === 'true' ? true : false;
         services = services ? services.split(',') : [];
         limit = Number(limit) || 10;
         page = Number(page) || 1;
-        switch (sortby) {
+        switch (sortBy) {
             case 'newest':
-                sortby = { 'time.publishedAt': -1 };
+                sortBy = { 'time.publishedAt': -1 };
                 break;
             case 'highestSalary':
-                sortby = { salary: -1 };
+                sortBy = { salary: -1 };
                 break;
             case 'mostEnquiries':
-                sortby = { 'task.helpers.length': -1 };
+                sortBy = { 'task.helpers.length': -1 };
                 break;
             default:
-                sortby = { 'time.publishedAt': -1 };
+                sortBy = { 'time.publishedAt': -1 };
         }
         //find all tasks
         const tasks = await Task.find({
@@ -180,7 +180,7 @@ const tasks = {
                 path: 'userId',
                 select: 'lastName firstName phone email',
             })
-            .sort(sortby);
+            .sort(sortBy);
 
         if (!tasks) {
             return next(appError(404, '40210', '查無資料'));
