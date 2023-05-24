@@ -1210,6 +1210,122 @@
         }
       }
     },
+    "/general/upload-image": {
+      "post": {
+        "tags": [
+          "General"
+        ],
+        "summary": "上傳圖片 (Upload image)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "required": true,
+            "type": "file",
+            "description": "圖片檔案"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "上傳成功",
+            "schema": {
+              "$ref": "#/definitions/uploadImage"
+            }
+          },
+          "400": {
+            "description": "無檔案或格式不正確、上傳圖片失敗",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40106,40401]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "無檔案或格式不正確、上傳圖片失敗",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "File too large"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "MulterError"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "File too large"
+                    },
+                    "code": {
+                      "type": "string",
+                      "example": "LIMIT_FILE_SIZE"
+                    },
+                    "field": {
+                      "type": "string",
+                      "example": "file"
+                    },
+                    "storageErrors": {
+                      "type": "array",
+                      "example": [],
+                      "items": {}
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 500
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/find-task/detail/{taskId}": {
       "get": {
         "tags": [
@@ -5006,6 +5122,28 @@
         "message": {
           "type": "string",
           "example": "取得成功"
+        }
+      }
+    },
+    "uploadImage": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "imgUrl": {
+              "type": "string",
+              "example": "https://storage.googleapis.com"
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "圖片上傳成功"
         }
       }
     }
