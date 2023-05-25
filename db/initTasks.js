@@ -27,9 +27,9 @@ const initTasks = async () => {
                 email: userCase1.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '信義區',
-                address: '台北市信義區松智路17號',
+                address: '臺北市信義區松智路17號',
                 longitude: 121.53868,
                 latitude: 25.02697,
             },
@@ -81,7 +81,7 @@ const initTasks = async () => {
                 email: userCase1.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '信義區',
                 address: '松智路17號',
                 longitude: 121.53868,
@@ -130,9 +130,9 @@ const initTasks = async () => {
                 email: userCase1.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '松山區',
-                address: '台北市松山區復興北路15號',
+                address: '臺北市松山區復興北路15號',
                 longitude: 121.53868,
                 latitude: 25.02697,
             },
@@ -184,9 +184,9 @@ const initTasks = async () => {
                 email: userCase2.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '松山區',
-                address: '台北市松山區羅斯福路四段1號',
+                address: '臺北市松山區羅斯福路四段1號',
                 longitude: 121.537369,
                 latitude: 25.017503,
             },
@@ -351,9 +351,9 @@ const initTasks = async () => {
                 email: userCase5.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '中正區',
-                address: '台北市中正區信義路1號',
+                address: '臺北市中正區信義路1號',
                 longitude: 121.564534,
                 latitude: 25.033903,
             },
@@ -409,7 +409,7 @@ const initTasks = async () => {
                 email: userCase1.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '中山區',
                 address: '忠孝東路二段100號',
                 longitude: 121.53512,
@@ -454,7 +454,7 @@ const initTasks = async () => {
                 email: userCase1.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '大安區',
                 address: '忠孝東路三段200號',
                 longitude: 121.53494,
@@ -503,7 +503,7 @@ const initTasks = async () => {
                 email: userCase1.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '內湖區',
                 address: '成功路100號',
                 longitude: 121.60601,
@@ -513,6 +513,10 @@ const initTasks = async () => {
             helpers: [
                 {
                     helperId: userCase5._id,
+                    status: 'waiting',
+                },
+                {
+                    helperId: userCase4._id,
                     status: 'waiting',
                 },
                 {
@@ -526,15 +530,15 @@ const initTasks = async () => {
             ],
             time: {
                 createdAt: new Date(new Date().setDate(new Date().getDate() - 10)),
-                updatedAt: new Date(new Date().setDate(new Date().getDate() - 10)),
-                publishedAt: new Date(new Date().setDate(new Date().getDate() - 8)),
+                updatedAt: new Date(new Date().setDate(new Date().getDate() - 5)),
+                publishedAt: new Date(new Date().setDate(new Date().getDate() - 5)),
                 unpublishedAt: null,
                 deletedAt: null,
                 inProgressAt: null,
                 submittedAt: null,
                 confirmedAt: null,
                 completedAt: null,
-                expiredAt: new Date(new Date().setDate(new Date().getDate() + 20)),
+                expiredAt: new Date(new Date().setDate(new Date().getDate() + 25)),
             },
         },
         {
@@ -552,7 +556,7 @@ const initTasks = async () => {
                 email: userCase1.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '士林區',
                 address: '文林路50號',
                 longitude: 121.52388,
@@ -575,15 +579,15 @@ const initTasks = async () => {
             ],
             time: {
                 createdAt: new Date(new Date().setDate(new Date().getDate() - 10)),
-                updatedAt: new Date(new Date().setDate(new Date().getDate() - 10)),
-                publishedAt: new Date(new Date().setDate(new Date().getDate() - 8)),
+                updatedAt: new Date(new Date().setDate(new Date().getDate() - 3)),
+                publishedAt: new Date(new Date().setDate(new Date().getDate() - 3)),
                 unpublishedAt: null,
                 deletedAt: null,
                 inProgressAt: null,
                 submittedAt: null,
                 confirmedAt: null,
                 completedAt: null,
-                expiredAt: new Date(new Date().setDate(new Date().getDate() + 20)),
+                expiredAt: new Date(new Date().setDate(new Date().getDate() + 27)),
             },
         },
         {
@@ -601,7 +605,7 @@ const initTasks = async () => {
                 email: userCase3.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '中正區',
                 address: '中山南路100號',
                 longitude: 121.51752,

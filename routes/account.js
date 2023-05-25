@@ -47,7 +47,7 @@ router.patch('/info-form', async function (req, res, next) {
         'lastName': 'Chen',
         'email': 'erik@gmail.com',
         'phone': '0912345678',
-        'address': '台北市',
+        'address': '臺北市',
         'posterIntro': '我是海報人',
         'helperIntro': '我是幫手人',
         'helperSkills':['人力派遣','市場調查'],
@@ -239,14 +239,14 @@ router.post('/points/cashback', function (req, res, next) {
 
 /* 查看評論的歷史紀錄 */
 router.get('/comments', function (req, res, next) {
-  /**
+    /**
 * #swagger.tags = ['Account']
 * #swagger.summary = '查看評論的歷史紀錄 (Get review history)'
 * #swagger.security = [{
     "Bearer": []
   }]
 */
-/**
+    /**
   #swagger.parameters['role'] = {
       in: 'query',
       description: '角色',
@@ -294,19 +294,19 @@ router.get('/comments', function (req, res, next) {
   schema: { $ref: '#/definitions/Error500' }
 }
 */
-  accountController.getReviewHistory(req, res, next);
+    accountController.getReviewHistory(req, res, next);
 });
 
 /* 查看評論的歷史紀錄 */
 router.get('/comments', function (req, res, next) {
-  /**
+    /**
 * #swagger.tags = ['Account']
 * #swagger.summary = '查看評論的歷史紀錄 (Get review history)'
 * #swagger.security = [{
     "Bearer": []
   }]
 */
-/**
+    /**
   #swagger.parameters['role'] = {
       in: 'query',
       description: '角色',
@@ -362,19 +362,19 @@ router.get('/comments', function (req, res, next) {
   schema: { $ref: '#/definitions/Error500' }
 }
 */
-  accountController.getReviewHistory(req, res, next);
+    accountController.getReviewHistory(req, res, next);
 });
 
 /* 在評價頁面查看星星記數 */
 router.get('/comments/starCounts', function (req, res, next) {
-  /**
+    /**
 * #swagger.tags = ['Account']
 * #swagger.summary = '在評價頁面查看星星記數 (View star counts on the review page)'
 * #swagger.security = [{
     "Bearer": []
   }]
 */
-/**
+    /**
   #swagger.parameters['role'] = {
       in: 'query',
       description: '角色',
@@ -404,7 +404,7 @@ router.get('/comments/starCounts', function (req, res, next) {
   schema: { $ref: '#/definitions/Error500' }
 }
 */
-  accountController.getStarCounts(req, res, next);
+    accountController.getStarCounts(req, res, next);
 });
 
 module.exports = router;

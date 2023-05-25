@@ -13,7 +13,7 @@ router.get('/check-location', async function (req, res, next) {
     #swagger.parameters['address'] = {
       in: 'query',
       description: '完整地址',
-      default:  '台北市信義區市府路45號'
+      default:  '臺北市信義區市府路45號'
     },    
     #swagger.responses[200] = {
       description: 'OK',

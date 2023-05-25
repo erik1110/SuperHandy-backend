@@ -41,7 +41,7 @@ router.get('/list/query', async function (req, res, next) {
  * #swagger.summary = '取得未媒合之任務列表(列表模式)'
  * /
 /**
-  #swagger.parameters['city'] = {in: 'query',description: '篩選縣市',default:  '台北市'}, 
+  #swagger.parameters['city'] = {in: 'query',description: '篩選縣市',default:  '臺北市'}, 
   #swagger.parameters['dist'] = {in: 'query',description: '篩選地區',default:  '信義區'}, 
   #swagger.parameters['isUrgent'] = {in: 'query',description: '是否為急件',default:  'true'}, 
   #swagger.parameters['sortBy'] = {
@@ -86,7 +86,7 @@ router.get('/map/query', async function (req, res, next) {
 /**
 #swagger.parameters['longitude'] = {in: 'query',description: '經度(中心點)',default:  '121.5654268'}, 
 #swagger.parameters['latitude'] = {in: 'query',description: '緯度(中心點)',default:  '25.0329636'}, 
-#swagger.parameters['city'] = {in: 'query',description: '縣市(中心點)',default:  '台北市'}, 
+#swagger.parameters['city'] = {in: 'query',description: '縣市(中心點)',default:  '臺北市'}, 
 #swagger.parameters['dist'] = {in: 'query',description: '地區(中心點)',default:  '信義區'}, 
 #swagger.parameters['radius'] = {in: 'query',description: '半徑(預設3公里)',default:  '3'}, 
 #swagger.parameters['isUrgent'] = {in: 'query',description: '是否為急件',default:  'true'}, 

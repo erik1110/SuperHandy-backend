@@ -344,7 +344,7 @@ const tasks = {
                 address: `${task.location.city}${task.location.dist}`,
                 category: task.category,
                 description: task.description,
-                imgUrls: task.imgUrls,
+                location: task.location,
                 viewerCount: task.viewers.length,
                 helperCount: task.helpers.length,
                 posterName: posterName,
