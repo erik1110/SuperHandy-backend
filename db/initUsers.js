@@ -74,7 +74,7 @@ const initUsers = async () => {
                 lastName: '林',
                 phone: '0912775678',
                 nickname: '小佳',
-                address: '台北市大安區敦化南路二段',
+                address: '臺北市大安區敦化南路二段',
                 posterIntro: '我是一名設計師，擅長UI/UX設計。',
                 helperIntro: '我是一名網頁工程師，熟悉Vue框架。',
                 thirdPartyId: '1234567890',
