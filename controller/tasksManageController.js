@@ -102,7 +102,7 @@ const tasks = {
         const isTaskOwner = task.userId._id.toString() === userId.toString();
         const isTaskHelper = task.helpers.some((helper) => {
             const isMatchingHelper = helper.helperId._id.toString() === userId.toString();
-            const isMatchingStatus = helper.status === 'paired';
+            const isMatchingStatus = helper.status === 'paired' || helper.status === 'waiting';
             return isMatchingHelper && isMatchingStatus;
         });
         const helper = task.helpers.find((helper) => helper.status === 'paired');
@@ -172,13 +172,6 @@ const tasks = {
             );
         } else if (isTaskHelper) {
             role = '幫手';
-            formatHelpers = task.helpers
-                .filter((helper) => helper.status === 'paired')
-                .map((helper) => ({
-                    helperId: helper.helperId._id,
-                    status: statusMapping.helperStatusMapping[helper.status],
-                    lastName: helper.helperId.lastName,
-                }));
         } else {
             return next(appError(400, '40302', '沒有權限'));
         }
@@ -203,7 +196,7 @@ const tasks = {
             category: task.category,
             description: task.description,
             imgUrls: task.imgUrls,
-            helpers: formatHelpers,
+            helpers: formatHelpers || null,
             contactInfo: task.contactInfo,
             submittedInfo: task.submittedInfo
         };
