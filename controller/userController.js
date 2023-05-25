@@ -210,7 +210,7 @@ const users = {
         }).select('+password');
         const compare = await bcrypt.compare(oldPassword, users.password);
         if (!compare) {
-            return next(appError(400, '40216', '您的舊密碼不正確!'));
+            return next(appError(400, '40218', '您的舊密碼不正確!'));
         }
 
         users.password = null;
