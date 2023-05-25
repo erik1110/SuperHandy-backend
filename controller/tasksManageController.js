@@ -120,7 +120,7 @@ const tasks = {
                   const numOfTasks = await Task.countDocuments({
                     helpers: { $elemMatch: { helperId: helper.helperId._id, status: 'paired' }},
                   });
-                  const completionRate = (completedTasks / numOfTasks) * 100 || 0
+                  const completionRate = (completedTasks / numOfTasks) * 100 || 0;
                   const helperData = await Task.find({
                         helpers: {
                             $elemMatch: { helperId: helper.helperId._id, status: 'paired' },
@@ -321,6 +321,19 @@ const tasks = {
             desc: ['薪水'],
             role: '幫手',
         });
+        // 初始化評價
+        const reviewCreate = await Review.create({
+            taskId: taskId,
+            poster: {
+                posterId: userId,
+            },
+            helper: {
+                helperId: helperId,
+            },
+            status: 'waiting',
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
+        });
         // 更新任務狀態為`已完成 (confirmed)`
         await Task.findOneAndUpdate(
             { _id: taskId },
@@ -442,23 +455,28 @@ const tasks = {
             return next(appError(400, '40302', '沒有權限'));
         }
         const pairedHelpers = task.helpers.filter((helper) => helper.status === "paired");
+        const posterId = task.userId;
         const helperId = pairedHelpers.map((helper) => helper.helperId)[0];
         const review = await Review.findOne({ taskId: taskId })
-        let reviewCreate; 
-        if (!review) {
+        let reviewUpdate; 
+        if (review.poster.status==='waiting' || review.helper.status==='waiting' ) {
             if (role==='案主') {
-                reviewCreate = await Review.create({
-                    taskId: taskId,
-                    poster: {
-                        posterId: userId,
-                        status: 'completed',
-                        star: req.body.star,
-                        comment: req.body.comment
-                    },
-                    status: 'waiting',
-                    createdAt: Date.now(),
-                    updatedAt: Date.now(),
-                });
+                reviewUpdate = await Review.findOneAndUpdate(
+                                { taskId: taskId },
+                                {
+                                    $set: {
+                                        status: 'waiting',
+                                        poster: {
+                                            posterId: userId,
+                                            status: 'completed',
+                                            star: req.body.star,
+                                            comment: req.body.comment
+                                        },
+                                        updatedAt: Date.now(),
+                                    },
+                                },
+                                { new: true },
+                            );
                 await Notify.create({
                     userId: helperId,
                     tag: '幫手通知',
@@ -467,88 +485,33 @@ const tasks = {
                     createdAt: Date.now(),
                 });
             } else {
-                reviewCreate = await Review.create({
-                    taskId: taskId,
-                    helper: {
-                        helperId: userId,
-                        status: 'completed',
-                        star: req.body.star,
-                        comment: req.body.comment
-                    },
-                    status: 'waiting',
-                    createdAt: Date.now(),
-                    updatedAt: Date.now(),
-                });
+                reviewUpdate = await Review.findOneAndUpdate(
+                                { taskId: taskId },
+                                {
+                                    $set: {
+                                        status: 'completed',
+                                        helper: {
+                                            helperId: userId,
+                                            status: 'completed',
+                                            star: req.body.star,
+                                            comment: req.body.comment
+                                        },
+                                        updatedAt: Date.now(),
+                                    },
+                                },
+                                { new: true },
+                            );
                 await Notify.create({
-                    userId: helperId,
+                    userId: posterId,
                     tag: '案主通知',
                     description: `您的任務：「${task.title} 」，幫手給您評價囉！`,
                     taskId: taskId,
                     createdAt: Date.now(),
                 });
             }
-            // 寫入 reviewId
-            await Task.findOneAndUpdate(
-                { _id: taskId },
-                {
-                    $set: {
-                        reviews: reviewCreate._id,
-                        'time.updatedAt': Date.now(),
-                    },
-                },
-                { new: true },
-            );
-        } else {
-            if (role==='案主') {
-                await Review.findOneAndUpdate(
-                    { taskId: taskId },
-                    {
-                        $set: {
-                            status: 'completed',
-                            poster: {
-                                posterId: userId,
-                                status: 'completed',
-                                star: req.body.star,
-                                comment: req.body.comment
-                            },
-                            updatedAt: Date.now(),
-                        },
-                    },
-                    { new: true },
-                );
-                await Notify.create({
-                    userId: helperId,
-                    tag: '幫手通知',
-                    description: `您的任務：「${task.title} 」，案主給您評價囉！`,
-                    taskId: taskId,
-                    createdAt: Date.now(),
-                });
-            } else {
-                await Review.findOneAndUpdate(
-                    { taskId: taskId },
-                    {
-                        $set: {
-                            status: 'completed',
-                            helper: {
-                                helperId: userId,
-                                status: 'completed',
-                                star: req.body.star,
-                                comment: req.body.comment
-                            },
-                            updatedAt: Date.now(),
-                        },
-                    },
-                    { new: true },
-                );
-                await Notify.create({
-                    userId: helperId,
-                    tag: '案主通知',
-                    description: `您的任務：「${task.title} 」，幫手給您評價囉！`,
-                    taskId: taskId,
-                    createdAt: Date.now(),
-                });
-            }
-            // 更新任務狀態為`已完成 (completed)`
+        }
+        // 更新任務狀態為`已完成 (completed)`
+        if (reviewUpdate.poster.status==='completed' && reviewUpdate.helper.status==='completed' ) {
             await Task.findOneAndUpdate(
                 { _id: taskId },
                 {
