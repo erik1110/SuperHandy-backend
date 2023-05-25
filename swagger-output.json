@@ -2805,6 +2805,32 @@
         ]
       }
     },
+    "/notifications/all-read": {
+      "patch": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "全部已讀 (Mark ａll notifications as read)",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "已讀通知成功"
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/tasks/management/poster": {
       "get": {
         "tags": [
@@ -3606,7 +3632,7 @@
           "items": {
             "type": "object",
             "properties": {
-              "name": {
+              "lastName": {
                 "type": "string",
                 "example": "王"
               },

@@ -9,7 +9,7 @@ const initReviews = async () => {
     const userCase4 = await User.findOne({ email: 'yunshan@example.com' }).select('lastName firstName phone');
     const userCase5 = await User.findOne({ email: 'weiyu@example.com' }).select('lastName firstName phone');
     const tasks = await Task.find().select('userId title');
-    // const taskCase1 = tasks.find((task) => task.title === '急！幫忙代購王國之淚');
+    const taskCase1 = tasks.find((task) => task.title === '急！幫忙代購王國之淚');
     // const taskCase2 = tasks.find((task) => task.title === '幫忙打王國之淚的Boss');
     const taskCase3 = tasks.find((task) => task.title === '陪我家狗玩');
     const taskCase4 = tasks.find((task) => task.title === '幫忙做畢業專題');
@@ -17,6 +17,18 @@ const initReviews = async () => {
     const taskCase6 = tasks.find((task) => task.title === '陪我練習開車');
     const taskCase7 = tasks.find((task) => task.title === 'Notion 教學');
     const reviews = [
+        {
+            taskId: taskCase1._id,
+            helper: {
+                helperId: userCase2._id,
+                status: 'waiting',
+            },
+            poster: {
+                posterId: userCase1._id,
+                status: 'waiting',
+            },
+            status: 'waiting',
+        },
         {
             taskId: taskCase3._id,
             helper: {

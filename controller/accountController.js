@@ -311,7 +311,7 @@ const accounts = {
                 title: review.taskId.title,
                 address: review.taskId.location.address,
                 salary: review.taskId.salary,
-                name: review.helper.helperId ? `${review.helper.helperId.lastName}${review.helper.helperId.firstName}` : '',
+                helper: review.helper.helperId ? `${review.helper.helperId.lastName}${review.helper.helperId.firstName}` : '',
                 publishedAt: review.taskId.time.publishedAt,
                 helperReview: {
                     star: review.helper.star,
