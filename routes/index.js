@@ -6,7 +6,7 @@ const postTaskRouter = require('./postTask');
 const findTaskRouter = require('./findTask');
 const notifyRouter = require('./notify');
 const tasksRouter = require('./tasksManage');
-const { isAuth, isMember } = require('../middleware/auth');
+const { isAuth } = require('../middleware/auth');
 /** 生成 Swagger 套件 */
 const swaggerUI = require('swagger-ui-express');
 const swaggerFile = require('../swagger-output.json');

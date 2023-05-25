@@ -393,23 +393,23 @@ const getTaskDetails = {
             },
         ],
         contactInfo: {
-            name: "翁文方",
-            phone: "0932345678",
-            email: ""
+            name: '翁文方',
+            phone: '0932345678',
+            email: '',
         },
         submittedInfo: {
-            imgUrls: []
-        }
+            imgUrls: [],
+        },
     },
     message: '取得成功',
 };
 
 const uploadAcceptanceReq = {
     submittedInfo: {
-        imgUrls: ["http://example.com/1.jpg"],
-        comment: '好多人好難排，但我拿到了'
-    }
-}
+        imgUrls: ['http://example.com/1.jpg'],
+        comment: '好多人好難排，但我拿到了',
+    },
+};
 const findTaskDetails = {
     status: 'success',
     data: {
@@ -514,49 +514,57 @@ const findTaskListHighlight = {
 };
 const ratingAndReviewReq = {
     star: 4,
-    comment: '幫手表現超棒der'
-}
+    comment: '幫手表現超棒der',
+};
 
 const getCommentsHist = {
-    status: "success",
+    status: 'success',
     data: [
-      {
-        yourStar: 5,
-        category: "寵物陪伴",
-        title: "陪我家狗玩",
-        address: "台北市松山區復興北路15號",
-        salary: 300,
-        name: "陳瑋宇",
-        publishedAt: "2022-02-15T05:34:56.000Z",
-        helperReview: {
-          star: 5,
-          status: "已評價",
-          comment: "案主態度好，狗好很帶"
+        {
+            yourStar: 5,
+            category: '寵物陪伴',
+            title: '陪我家狗玩',
+            address: '台北市松山區復興北路15號',
+            salary: 300,
+            name: '陳瑋宇',
+            publishedAt: '2022-02-15T05:34:56.000Z',
+            helperReview: {
+                star: 5,
+                status: '已評價',
+                comment: '案主態度好，狗好很帶',
+            },
+            posterReview: {
+                star: 4,
+                status: '已評價',
+                comment: '早上八點有點遲到，讓我等了十分鐘',
+            },
+            taskId: '646c280234ecc5e9e7aef1ce',
         },
-        posterReview: {
-          star: 4,
-          status: "已評價",
-          comment: "早上八點有點遲到，讓我等了十分鐘"
-        },
-        taskId: "646c280234ecc5e9e7aef1ce"
-      }
     ],
-    message: "取得成功"
-}
+    message: '取得成功',
+};
 const getStarCounts = {
-    status: "success",
+    status: 'success',
     data: {
-      1: 0,
-      2: 0,
-      3: 0,
-      4: 1,
-      5: 2,
-      null: 0,
-      avg: 4.67,
-      totalCount: 3
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 1,
+        5: 2,
+        null: 0,
+        avg: 4.67,
+        totalCount: 3,
     },
-    message: "取得成功"
-}
+    message: '取得成功',
+};
+
+const uploadImage = {
+    status: 'success',
+    data: {
+        imgUrl: 'https://storage.googleapis.com',
+    },
+    message: '圖片上傳成功',
+};
 
 module.exports = {
     Success,
@@ -597,4 +605,5 @@ module.exports = {
     ratingAndReviewReq,
     getCommentsHist,
     getStarCounts,
+    uploadImage,
 };
