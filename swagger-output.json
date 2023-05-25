@@ -4732,9 +4732,9 @@
             "posterInfo": {
               "type": "object",
               "properties": {
-                "name": {
+                "lastName": {
                   "type": "string",
-                  "example": "陳**"
+                  "example": "陳"
                 },
                 "phone": {
                   "type": "string",

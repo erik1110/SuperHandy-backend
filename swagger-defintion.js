@@ -432,7 +432,7 @@ const findTaskDetails = {
         imgUrls: ['https://example.com/dog.jpg'],
         viewerCount: 1,
         posterInfo: {
-            name: '陳**',
+            lastName: '陳',
             phone: '0919******',
             email: '*****@********',
         },
