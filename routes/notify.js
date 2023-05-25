@@ -37,5 +37,22 @@ router.patch('/read/:notifyId', function (req, res, next) {
 */
     notifyController.markRead(req, res, next);
 });
+/* 全部已讀 */
+router.patch('/all-read', function (req, res, next) {
+  /**
+   * #swagger.tags = ['Notifications']
+   * #swagger.summary = '全部已讀 (Mark ａll notifications as read)'
+   * #swagger.security=[{"Bearer": []}]
+  /**
+   #swagger.responses[200] = {
+      description: '已讀通知成功'
+  }
+  #swagger.responses[500] = {
+      description: '系統錯誤',
+      schema: { $ref: '#/definitions/Error500' }
+  }
+*/
+  notifyController.markAllRead(req, res, next);
+});
 
 module.exports = router;
