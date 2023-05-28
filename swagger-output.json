@@ -1516,7 +1516,7 @@
           "Find-tasks"
         ],
         "summary": "取得未媒合之任務列表(地圖模式)",
-        "description": "經緯度和地址擇一填寫即可(都填寫時，以經緯度為優先)",
+        "description": "有填寫縣市地區時，僅顯示該區任務(不使用半徑); 使用經緯度時，顯示該半徑內任務。",
         "parameters": [
           {
             "name": "longitude",
@@ -1549,7 +1549,7 @@
           {
             "name": "radius",
             "in": "query",
-            "description": "半徑(預設3公里)",
+            "description": "半徑0~10公里(不包含0，預設3公里)",
             "default": "3",
             "type": "string"
           },
@@ -1583,7 +1583,7 @@
             }
           },
           "400": {
-            "description": "請輸入經緯度或縣市區域、找不到該地址、查無資料",
+            "description": "請輸入經緯度或縣市區域、找不到該地址、查無資料、無檔案或格式不正確(半徑必須大於0)",
             "schema": {
               "type": "object",
               "properties": {
@@ -1600,7 +1600,7 @@
                   "properties": {
                     "name": {
                       "type": "string",
-                      "example": "[40105, 40400, 40210]"
+                      "example": "[40105, 40400, 40210, 40106]"
                     },
                     "statusCode": {
                       "type": "number",
