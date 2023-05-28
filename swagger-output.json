@@ -2831,6 +2831,109 @@
         ]
       }
     },
+    "/linepay/payment": {
+      "post": {
+        "tags": [
+          "Money"
+        ],
+        "summary": "建立 LinePay 訂單 (Create alinePay payment)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "money": {
+                  "type": "number",
+                  "example": 500
+                }
+              },
+              "required": [
+                "money"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "建立 linepay 訂單成功",
+            "schema": {
+              "$ref": "#/definitions/paymentRequest"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
+    "/linepay/confirm": {
+      "get": {
+        "tags": [
+          "Money"
+        ],
+        "summary": "LinePay 確認支付，本支是給 LinePay (Confirm payment for LinePay)",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "linepay 交易成功"
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/linepay/payment/{orderId}": {
+      "get": {
+        "tags": [
+          "Money"
+        ],
+        "summary": "確認消費者是否支付 LinePay 款項 (Check payment)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得成功",
+            "schema": {
+              "$ref": "#/definitions/paymentConfirm"
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/tasks/management/poster": {
       "get": {
         "tags": [
@@ -5195,6 +5298,49 @@
         "message": {
           "type": "string",
           "example": "圖片上傳成功"
+        }
+      }
+    },
+    "paymentRequest": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "redirectURL": {
+              "type": "string",
+              "example": "https://sandbox-web-pay.line.me/web/payment/wait?transactionReserveId=b2VkZGFnZzk3MUo0a3dUY1VLeGs2QVFvalpvellOKzBnZWU1amRlSWlUUi8zSW40M21JelUwU29sQU5TOTRwQw"
+            },
+            "orderId": {
+              "type": "string",
+              "example": "6472c92c0234f38138f4c23e-1685244464"
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "建立 linepay 訂單成功"
+        }
+      }
+    },
+    "paymentConfirm": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "string",
+          "example": "交易完成"
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
         }
       }
     }

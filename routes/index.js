@@ -4,6 +4,7 @@ const homeRouter = require('./home');
 const generalRouter = require('./general');
 const postTaskRouter = require('./postTask');
 const findTaskRouter = require('./findTask');
+const linepayRouter = require('./linepay');
 const notifyRouter = require('./notify');
 const tasksRouter = require('./tasksManage');
 const { isAuth } = require('../middleware/auth');
@@ -19,6 +20,7 @@ module.exports = (app) => {
     app.use('/find-task', findTaskRouter);
     app.use('/post-task', isAuth, postTaskRouter);
     app.use('/notifications', isAuth, notifyRouter);
+    app.use('/linepay', linepayRouter);
     app.use('/tasks/management', isAuth, tasksRouter);
     app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
 };
