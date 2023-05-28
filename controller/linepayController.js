@@ -111,7 +111,6 @@ const linepay = {
         const linePayRes = await axios.post(url, linePayBody, { headers });
         // 請求成功...
         if (linePayRes?.data?.returnCode === '0000') {
-            console.log('交易成功')
             await UserTrans.findOneAndUpdate(
                 { 'linepay.orderId': orderId },
                 { $set: { 'linepay.status': '交易完成' } },
@@ -123,7 +122,6 @@ const linepay = {
                 }),
             );
         } else {
-            console.log(linePayRes.data)
             await UserTrans.findOneAndUpdate(
                 { 'linepay.orderId': orderId },
                 { $set: { 'linepay.status': '交易失敗' } },
@@ -131,6 +129,17 @@ const linepay = {
             );
             return next(appError(400, '40402', 'linePay 交易失敗'));
         }
+    }),
+    paymentStatus: handleErrorAsync(async (req, res, next) => {
+        const orderId = req.params.orderId;
+        console.log(orderId)
+        const userTrans = await UserTrans.findOne({ 'linepay.orderId': orderId });
+        res.status(200).json(
+            getHttpResponse({
+                message: '取得成功',
+                data: userTrans.linepay.status,
+            }),
+        );
     }),
 };
 

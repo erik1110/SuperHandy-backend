@@ -33,6 +33,14 @@ const userTransSchema = new mongoose.Schema({
             type: String,
         },
     },
+    linepay: {
+        orderId: {
+            type: String,
+        },
+        status: {
+            type: String,
+        },
+    },
     createdAt: {
         type: Date,
         default: Date.now,
