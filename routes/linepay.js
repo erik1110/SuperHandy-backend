@@ -22,8 +22,8 @@ router.post('/payment', isAuth, function (req, res, next) {
     */
     /**
     #swagger.responses[200] = {
-      description: '取得成功',
-      schema: { $ref: '#/definitions/getCompletedCasesSuccess' }
+      description: '建立 linepay 訂單成功',
+      schema: { $ref: '#/definitions/paymentRequest' }
     }
     #swagger.responses[500] = {
       description: '系統錯誤',
@@ -40,8 +40,7 @@ router.get('/confirm', function (req, res, next) {
     */
     /**
   #swagger.responses[200] = {
-    description: '取得成功',
-    schema: { $ref: '#/definitions/getSuperhandyReviewSuccess' }
+    description: 'linepay 交易成功',
   }
   #swagger.responses[500] = {
     description: '系統錯誤',
@@ -63,14 +62,14 @@ router.get('/payment/:orderId', isAuth, function (req, res, next) {
     /**
   #swagger.responses[200] = {
     description: '取得成功',
-    schema: { $ref: '#/definitions/getTaskStatsSuccess' }
+    schema: { $ref: '#/definitions/paymentConfirm' }
   }
   #swagger.responses[500] = {
     description: '系統錯誤',
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-    linepayController.getTaskStats(req, res, next);
+    linepayController.paymentStatus(req, res, next);
 });
 
 module.exports = router;

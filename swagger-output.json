@@ -2858,9 +2858,9 @@
         ],
         "responses": {
           "200": {
-            "description": "取得成功",
+            "description": "建立 linepay 訂單成功",
             "schema": {
-              "$ref": "#/definitions/getCompletedCasesSuccess"
+              "$ref": "#/definitions/paymentRequest"
             }
           },
           "500": {
@@ -2887,10 +2887,7 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "取得成功",
-            "schema": {
-              "$ref": "#/definitions/getSuperhandyReviewSuccess"
-            }
+            "description": "linepay 交易成功"
           },
           "500": {
             "description": "系統錯誤",
@@ -2920,7 +2917,7 @@
           "200": {
             "description": "取得成功",
             "schema": {
-              "$ref": "#/definitions/getTaskStatsSuccess"
+              "$ref": "#/definitions/paymentConfirm"
             }
           },
           "500": {
@@ -5301,6 +5298,49 @@
         "message": {
           "type": "string",
           "example": "圖片上傳成功"
+        }
+      }
+    },
+    "paymentRequest": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "redirectURL": {
+              "type": "string",
+              "example": "https://sandbox-web-pay.line.me/web/payment/wait?transactionReserveId=b2VkZGFnZzk3MUo0a3dUY1VLeGs2QVFvalpvellOKzBnZWU1amRlSWlUUi8zSW40M21JelUwU29sQU5TOTRwQw"
+            },
+            "orderId": {
+              "type": "string",
+              "example": "6472c92c0234f38138f4c23e-1685244464"
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "建立 linepay 訂單成功"
+        }
+      }
+    },
+    "paymentConfirm": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "string",
+          "example": "交易完成"
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
         }
       }
     }
