@@ -35,7 +35,7 @@ const initTransactions = async () => {
                 role: '案主',
             },
             {
-                taskId: taskCase1._id,
+                taskId: taskCase2._id,
                 userId: userCase1._id,
                 tag: '刊登任務',
                 salary: 500,

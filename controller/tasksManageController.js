@@ -259,6 +259,23 @@ const tasks = {
             },
             { new: true },
         );
+        // 退款
+        const taskTrans = await TaskTrans.findOne({ 'taskId': taskId , 'tag': '刊登任務'});
+        await TaskTrans.create({
+            taskId: taskId,
+            userId: userId,
+            tag: '任務刪除',
+            salary: Math.abs(taskTrans.salary),
+            exposurePlan: 0,
+            platform: 0,
+            superCoin: Math.abs(taskTrans.superCoin),
+            helperCoin: 0,
+            desc: ['退完薪水'],
+            role: '案主',
+        });
+        const user = await User.findOne({ _id: userId });
+        user.superCoin += Math.abs(taskTrans.superCoin);
+        await user.save();
         res.status(200).json(
             getHttpResponse({
                 message: '刪除成功'
