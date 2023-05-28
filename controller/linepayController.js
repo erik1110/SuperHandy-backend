@@ -1,14 +1,10 @@
 const axios = require('axios');
-const mongoose = require('mongoose');
 const { appError, handleErrorAsync } = require('../utils/errorHandler');
 const { createLinePayBody, createSignature } = require('../service/linePay.js');
-const Task = require('../models/taskModel');
-const TaskTrans = require('../models/taskTransModel');
 const User = require('../models/userModel');
 const UserTrans = require('../models/userTransModel');
 const moneyValidator = require('../service/moneyValidator');
 const getHttpResponse = require('../utils/successHandler');
-const { reviewStatusMapping, reviewStatusReverseMapping } = require('../service/statusMapping');
 
 // 環境變數
 const {
