@@ -285,12 +285,12 @@ const tasks = {
             radius = Number(radius) > 10 ? 10 : Number(radius);
         }
 
-        const 有縣市地區 = !!city && !!dist;
-        const 有經緯度 = !!centerLongitude && !!centerLatitude;
-        if (!有縣市地區 && !有經緯度) {
+        const hasCityLocation = !!city && !!dist;
+        const hasGPS = !!centerLongitude && !!centerLatitude;
+        if (!hasCityLocation && !hasGPS) {
             return next(appError(400, '40105', '請輸入經緯度或縣市區域'));
         }
-        if (有縣市地區) {
+        if (hasCityLocation) {
             const geocodingResult = await geocoding(`${city}${dist}`);
             if (geocodingResult.status !== 'OK') {
                 return next(appError(400, '40400', '找不到該地址'));
@@ -336,7 +336,7 @@ const tasks = {
             const isValidCityDist = task.location.city === city && task.location.dist === dist;
             const isValidDistance = validDistance(centerLongitude, centerLatitude, task.location.longitude, task.location.latitude, radius);
             // 如果有使用縣市地區作為條件，則檢查是否符合縣市地區條件。使用經緯度作為條件，則檢查是否符合距離條件
-            if (有縣市地區) {
+            if (hasCityLocation) {
                 // 檢查是否有吻合縣市地區
                 if (!isValidCityDist) {
                     return false;
