@@ -301,8 +301,7 @@ const accounts = {
                                 }).populate({
                                     path: 'helper.helperId',
                                     select: 'lastName firstName'
-                                }).limit(limit)
-                                .skip((page - 1) * limit);
+                                });
         const formattedReviews = reviews.map(review => {
             const yourStar = role === '案主' ? review.helper.star : review.poster.star;
             return {
@@ -323,17 +322,26 @@ const accounts = {
                     status: reviewStatusMapping[review.poster.status],
                     comment: review.poster.comment
                 },
-                taskId: review.taskId._id
+                taskId: review.taskId._id,
+
             };
         });
         const filterCategory = categories.length > 0 ? categories : null;
         const filteredReviews = filterCategory
             ? formattedReviews.filter(review => filterCategory.includes(review.category))
             : formattedReviews;
+        const reviewss = filteredReviews.slice((page - 1) * limit, page * limit);
+        const totalCount = filteredReviews.length;
+        const totalPages = Math.ceil(totalCount / limit);
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',
-                data: filteredReviews,
+                data: {
+                        reviews: reviewss,
+                        totalPages: totalPages,
+                        totalCount: totalCount,
+                }
+
             }),
         );
     }),
