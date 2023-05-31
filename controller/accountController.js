@@ -330,14 +330,14 @@ const accounts = {
         const filteredReviews = filterCategory
             ? formattedReviews.filter(review => filterCategory.includes(review.category))
             : formattedReviews;
-        const reviewss = filteredReviews.slice((page - 1) * limit, page * limit);
+        const filteredReviewSlice = filteredReviews.slice((page - 1) * limit, page * limit);
         const totalCount = filteredReviews.length;
         const totalPages = Math.ceil(totalCount / limit);
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',
                 data: {
-                        reviews: reviewss,
+                        reviews: filteredReviewSlice,
                         totalPages: totalPages,
                         totalCount: totalCount,
                 }
