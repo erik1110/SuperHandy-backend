@@ -138,7 +138,7 @@ const initTransactions = async () => {
             {
                 taskId: taskCase5._id,
                 userId: userCase1._id,
-                tag: '刊登任務',
+                tag: '完成任務',
                 salary: 666,
                 exposurePlan: 0,
                 platform: 67,
@@ -150,7 +150,7 @@ const initTransactions = async () => {
             {
                 taskId: taskCase6._id,
                 userId: userCase1._id,
-                tag: '刊登任務',
+                tag: '完成任務',
                 salary: 567,
                 exposurePlan: 0,
                 platform: 57,
@@ -162,7 +162,7 @@ const initTransactions = async () => {
             {
                 taskId: taskCase7._id,
                 userId: userCase2._id,
-                tag: '刊登任務',
+                tag: '完成任務',
                 salary: 999,
                 exposurePlan: 0,
                 platform: 100,
