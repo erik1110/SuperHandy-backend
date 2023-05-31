@@ -208,7 +208,7 @@ const draftTaskDetail = {
     description: '',
     salary: 1000,
     exposurePlan: '一般曝光',
-    imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
+    imgUrls: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
     contactInfo: {
         name: '王小明',
         phone: '0912345678',
@@ -230,7 +230,7 @@ const publishTaskDetail = {
     },
     salary: 1000,
     exposurePlan: '一般曝光',
-    imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
+    imgUrls: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
     contactInfo: {
         name: '王小明',
         phone: '0912345678',
@@ -281,7 +281,7 @@ const getDraftResponse = {
 const unpublishEditDetail = {
     category: '到府驅蟲',
     description: '這個任務非常困難',
-    imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
+    imgUrls: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
     contactInfo: {
         name: '王小明',
         phone: '0912345678',
