@@ -5,7 +5,7 @@ const categoryNames = categories.categories.map((cat) => cat.name);
 const getexposurePlanPrices = require('../service/exposurePlan');
 
 module.exports = class TaskValidator {
-    static checkDraft({ title, category, description, salary, exposurePlan, imagesUrl, contactInfo, location }) {
+    static checkDraft({ title, category, description, salary, exposurePlan, imgUrls, contactInfo, location }) {
         if (!title) {
             return {
                 status: false,
@@ -36,7 +36,7 @@ module.exports = class TaskValidator {
                 msg: '任務曝光計畫錯誤!',
             };
         }
-        if (imagesUrl && !Array.isArray(imagesUrl)) {
+        if (imgUrls && !Array.isArray(imgUrls)) {
             return {
                 status: false,
                 msg: '圖片路徑格式錯誤!',
@@ -81,7 +81,7 @@ module.exports = class TaskValidator {
             msg: 'success',
         };
     }
-    static checkPublish({ title, category, description, taskTrans, salary, exposurePlan, imagesUrl, contactInfo, location }) {
+    static checkPublish({ title, category, description, taskTrans, salary, exposurePlan, imgUrls, contactInfo, location }) {
         if (!category || !categoryNames.includes(category)) {
             return {
                 status: false,
@@ -153,7 +153,7 @@ module.exports = class TaskValidator {
                 msg: '地址資訊格式錯誤!',
             };
         }
-        if (!imagesUrl || !Array.isArray(imagesUrl)) {
+        if (!imgUrls || !Array.isArray(imgUrls)) {
             return {
                 status: false,
                 msg: '圖片路徑格式錯誤!',
@@ -164,7 +164,7 @@ module.exports = class TaskValidator {
             msg: 'success',
         };
     }
-    static checkUnpublishEdit({ title, category, description, imagesUrl, contactInfo, location }) {
+    static checkUnpublishEdit({ title, category, description, imgUrls, contactInfo, location }) {
         if (!category || !categoryNames.includes(category)) {
             return {
                 status: false,
@@ -207,7 +207,7 @@ module.exports = class TaskValidator {
                 msg: '地址資訊格式錯誤!',
             };
         }
-        if (!imagesUrl || !Array.isArray(imagesUrl)) {
+        if (!imgUrls || !Array.isArray(imgUrls)) {
             return {
                 status: false,
                 msg: '圖片路徑格式錯誤!',

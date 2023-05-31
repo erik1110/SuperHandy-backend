@@ -35,7 +35,7 @@ const tasks = {
             description: req.body.description || null,
             salary: req.body.salary || null,
             exposurePlan: req.body.exposurePlan || null,
-            imagesUrl: req.body.imagesUrl || null,
+            imgUrls: req.body.imgUrls || null,
             contactInfo: req.body.contactInfo || null,
             location: req.body.location || null,
             time: {
@@ -58,7 +58,7 @@ const tasks = {
         if (!validatorResult.status) {
             return next(appError(400, '40102', validatorResult.msg));
         }
-        const { title, category, taskTrans, description, salary, exposurePlan, imagesUrl, contactInfo, location } = req.body;
+        const { title, category, taskTrans, description, salary, exposurePlan, imgUrls, contactInfo, location } = req.body;
         const userId = req.user._id;
         const taskId = req.params.taskId;
         const address = location.address;
@@ -133,7 +133,7 @@ const tasks = {
                 description: description,
                 salary: salary,
                 exposurePlan: exposurePlan,
-                imagesUrl: imagesUrl,
+                imgUrls: imgUrls,
                 contactInfo: contactInfo,
                 location: locationFormat,
                 time: {
@@ -207,7 +207,7 @@ const tasks = {
                     description: req.body.description || null,
                     salary: req.body.salary || null,
                     exposurePlan: req.body.exposurePlan || null,
-                    imagesUrl: req.body.imagesUrl || null,
+                    imgUrls: req.body.imgUrls || null,
                     contactInfo: req.body.contactInfo || null,
                     location: req.body.location || null,
                     'time.updatedAt': Date.now(),
@@ -259,7 +259,7 @@ const tasks = {
         if (!validatorResult.status) {
             return next(appError(400, '40102', validatorResult.msg));
         }
-        const { title, category, taskTrans, description, salary, exposurePlan, imagesUrl, contactInfo, location } = req.body;
+        const { title, category, taskTrans, description, salary, exposurePlan, imgUrls, contactInfo, location } = req.body;
         const userId = req.user._id;
         const address = location.address;
         const user = await User.findOne({ _id: userId });
@@ -303,7 +303,7 @@ const tasks = {
             description: description,
             salary: salary,
             exposurePlan: exposurePlan,
-            imagesUrl: imagesUrl,
+            imgUrls: imgUrls,
             contactInfo: contactInfo,
             location: locationFormat,
             time: {
@@ -355,7 +355,7 @@ const tasks = {
         if (task.status !== 'unpublished') {
             return next(appError(405, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
-        const { category, description, imagesUrl, contactInfo, location } = req.body;
+        const { category, description, imgUrls, contactInfo, location } = req.body;
         const address = location.address;
         const geocodingResult = await geocoding(address);
         if (geocodingResult.status !== 'OK') {
@@ -374,7 +374,7 @@ const tasks = {
                 $set: {
                     category: category,
                     description: description,
-                    imagesUrl: imagesUrl,
+                    imgUrls: imgUrls,
                     contactInfo: contactInfo,
                     location: locationFormat,
                     'time.updatedAt': Date.now(),

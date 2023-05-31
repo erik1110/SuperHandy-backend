@@ -130,6 +130,42 @@ router.post('/confirm-acceptance/:taskId', function (req, res, next) {
     tasksManageController.confirmAcceptance(req, res, next);
 });
 
+/* 案主退回驗收 */
+router.post('/refuse-acceptance/:taskId', function (req, res, next) {
+  /**
+ * #swagger.tags = ['Tasks']
+ * #swagger.summary = '案主退回驗收 (Refuse acceptance)'
+ * #swagger.security=[{"Bearer": []}]
+  /**
+    #swagger.parameters['parameter_name'] = {
+    in: 'body',
+    description: '上傳內容',
+    schema: {$ref: "#/definitions/refuseAcceptanceReq"}
+    },
+/**
+ #swagger.responses[200] = {
+    description: '退回成功'
+}
+#swagger.responses[400] = {
+  description: 'Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限、該幫手未申請或不存在',
+  schema: {
+    'status': 'false',
+    'message': '錯誤訊息',
+    'error': {
+      'name': '[40104, 40214, 40212, 40302, 40215]',
+      'statusCode': 400,
+      'isOperational': true
+    }
+  }
+}
+#swagger.responses[500] = {
+    description: '系統錯誤',
+    schema: { $ref: '#/definitions/Error500' }
+}
+*/
+  tasksManageController.refuseAcceptance(req, res, next);
+});
+
 /* 幫手上傳驗收內容 */
 router.post('/upload-acceptance/:taskId', function (req, res, next) {
     /**

@@ -3213,6 +3213,83 @@
         ]
       }
     },
+    "/tasks/management/refuse-acceptance/{taskId}": {
+      "post": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "案主退回驗收 (Refuse acceptance)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "上傳內容",
+            "schema": {
+              "$ref": "#/definitions/refuseAcceptanceReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "退回成功"
+          },
+          "400": {
+            "description": "Id 格式錯誤、任務狀態錯誤、查無此任務、沒有權限、該幫手未申請或不存在",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "false"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "錯誤訊息"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "[40104, 40214, 40212, 40302, 40215]"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": []
+          }
+        ]
+      }
+    },
     "/tasks/management/upload-acceptance/{taskId}": {
       "post": {
         "tags": [
@@ -3949,7 +4026,7 @@
                   "type": "string",
                   "example": "臺北市"
                 },
-                "district": {
+                "dist": {
                   "type": "string",
                   "example": "中正區"
                 },
@@ -4063,7 +4140,7 @@
           "type": "string",
           "example": "一般曝光"
         },
-        "imagesUrl": {
+        "imgUrls": {
           "type": "array",
           "example": [
             "https://example.com/image1.jpg",
@@ -4145,7 +4222,7 @@
           "type": "string",
           "example": "一般曝光"
         },
-        "imagesUrl": {
+        "imgUrls": {
           "type": "array",
           "example": [
             "https://example.com/image1.jpg",
@@ -4334,7 +4411,7 @@
           "type": "string",
           "example": "這個任務非常困難"
         },
-        "imagesUrl": {
+        "imgUrls": {
           "type": "array",
           "example": [
             "https://example.com/image1.jpg",
@@ -4675,9 +4752,22 @@
               "type": "number",
               "example": 300
             },
-            "address": {
-              "type": "string",
-              "example": "臺北市松山區復興北路15號"
+            "location": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string",
+                  "example": "臺北市"
+                },
+                "dist": {
+                  "type": "string",
+                  "example": "松山區"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "復興北路15號"
+                }
+              }
             },
             "category": {
               "type": "string",
@@ -4769,6 +4859,29 @@
             "comment": {
               "type": "string",
               "example": "好多人好難排，但我拿到了"
+            }
+          }
+        }
+      }
+    },
+    "refuseAcceptanceReq": {
+      "type": "object",
+      "properties": {
+        "submittedInfo": {
+          "type": "object",
+          "properties": {
+            "imgUrls": {
+              "type": "array",
+              "example": [
+                "http://example.com/1.jpg"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "comment": {
+              "type": "string",
+              "example": "你給的有瑕疵不能玩啊"
             }
           }
         }

@@ -162,7 +162,7 @@ const tasks = {
                     status: statusMapping.helperStatusMapping[helper.status],
                     lastName: helper.helperId.lastName,
                     completedTasks: completedTasks,
-                    completionRate: completionRate,
+                    completionRate: Number(completionRate.toFixed(2)),
                     rating: {
                         overall: averageStar,
                         categories: topThreeCategories,
@@ -192,7 +192,11 @@ const tasks = {
             title: task.title,
             isUrgent: task.isUrgent,
             salary: task.salary,
-            address: `${task.location.city}${task.location.dist}${task.location.address}`,
+            location: {
+                city: task.location.city,
+                dist: task.location.dist,
+                address: task.location.address,
+            },
             category: task.category,
             description: task.description,
             imgUrls: task.imgUrls,
@@ -264,7 +268,7 @@ const tasks = {
         await TaskTrans.create({
             taskId: taskId,
             userId: userId,
-            tag: '任務刪除',
+            tag: '刪除任務',
             salary: Math.abs(taskTrans.salary),
             exposurePlan: 0,
             platform: 0,
@@ -369,6 +373,71 @@ const tasks = {
             }),
         );
     }),
+    refuseAcceptance: handleErrorAsync(async (req, res, next) => {
+        const validatorResult = TaskValidator.checkUploadAcceptance(req.body);
+        if (!validatorResult.status) {
+            return next(appError(400, '40102', validatorResult.msg));
+        }
+        const submittedInfo = req.body.submittedInfo;
+        submittedInfo.role = "案主";
+        const userId = req.user._id;
+        const taskId = req.params.taskId;
+        if (!mongoose.isValidObjectId(taskId)) {
+            return next(appError(400, '40104', 'Id 格式錯誤'));
+        }
+        const task = await Task.findOne({ _id: taskId });
+        if (!task) {
+            return next(appError(400, '40212', '查無此任務'));
+        }
+        if (task.userId.toString() !== userId.toString()) {
+            return next(appError(400, '40302', '沒有權限'));
+        }
+        if (task.status!=='submitted') {
+            if (task.status === 'inProgress'){
+                return next(appError(400, '40214', `任務狀態錯誤： 幫手尚未上傳驗收內容`));
+            } else {
+                return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
+            }
+        }
+        const pairedHelpers = task.helpers.filter((helper) => helper.status === "paired");
+        const helperId = pairedHelpers.map((helper) => helper.helperId)[0];
+        // 推播通知
+        await Notify.create({
+            userId: userId,
+            tag: '案主通知',
+            description: `您的任務：「${task.title} 」已退回驗收`,
+            taskId: taskId,
+            createdAt: Date.now(),
+        });
+        await Notify.create({
+            userId: helperId,
+            tag: '幫手通知',
+            description: `您的任務：「${task.title} 」案主已退回驗收，請重新申請驗收`,
+            taskId: taskId,
+            createdAt: Date.now(),
+        });
+        // 更新任務狀態為`進行中 (inProgress)`
+        await Task.findOneAndUpdate(
+            { _id: taskId },
+            {
+                $set: {
+                    status: 'inProgress',
+                    'time.submittedAt': '',
+                    'time.inProgressAt': Date.now(),
+                    'time.updatedAt': Date.now(),
+                },
+                $push: {
+                    submittedInfo: submittedInfo
+                },
+            },
+            { new: true },
+        );
+        res.status(200).json(
+            getHttpResponse({
+                message: '退回成功',
+            }),
+        );
+    }),
     uploadAcceptance: handleErrorAsync(async (req, res, next) => {
         const validatorResult = TaskValidator.checkUploadAcceptance(req.body);
         if (!validatorResult.status) {
@@ -377,6 +446,7 @@ const tasks = {
         const helperId = req.user._id;
         const taskId = req.params.taskId;
         const submittedInfo = req.body.submittedInfo;
+        submittedInfo.role = "幫手";
         if (!mongoose.isValidObjectId(taskId)) {
             return next(appError(400, '40104', 'Id 格式錯誤'));
         }
@@ -420,9 +490,11 @@ const tasks = {
             {
                 $set: {
                     status: 'submitted',
-                    submittedInfo: submittedInfo,
                     'time.submittedAt': Date.now(),
                     'time.updatedAt': Date.now(),
+                },
+                $push: {
+                    submittedInfo: submittedInfo
                 },
             },
             { new: true },

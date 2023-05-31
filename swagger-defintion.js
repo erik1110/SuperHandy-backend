@@ -212,7 +212,7 @@ const draftTaskDetail = {
     description: '',
     salary: 1000,
     exposurePlan: '一般曝光',
-    imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
+    imgUrls: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
     contactInfo: {
         name: '王小明',
         phone: '0912345678',
@@ -234,7 +234,7 @@ const publishTaskDetail = {
     },
     salary: 1000,
     exposurePlan: '一般曝光',
-    imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
+    imgUrls: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
     contactInfo: {
         name: '王小明',
         phone: '0912345678',
@@ -285,7 +285,7 @@ const getDraftResponse = {
 const unpublishEditDetail = {
     category: '到府驅蟲',
     description: '這個任務非常困難',
-    imagesUrl: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
+    imgUrls: ['https://example.com/image1.jpg', 'https://example.com/mage2.jpg'],
     contactInfo: {
         name: '王小明',
         phone: '0912345678',
@@ -385,7 +385,11 @@ const getTaskDetails = {
         title: '陪我家狗玩',
         isUrgent: true,
         salary: 300,
-        address: '臺北市松山區復興北路15號',
+        location: {
+            city: '臺北市',
+            dist: '松山區',
+            address: '復興北路15號',
+        },
         category: '寵物陪伴',
         description: '我家有黃金獵犬，但我這禮拜很忙，請幫我 2/20 早上 8 點來歌唱大樓找我，並帶他去附近公園陪他散步',
         imgUrls: ['https://example.com/dog.jpg'],
@@ -412,6 +416,12 @@ const uploadAcceptanceReq = {
     submittedInfo: {
         imgUrls: ['http://example.com/1.jpg'],
         comment: '好多人好難排，但我拿到了',
+    },
+};
+const refuseAcceptanceReq = {
+    submittedInfo: {
+        imgUrls: ['http://example.com/1.jpg'],
+        comment: '你給的有瑕疵不能玩啊',
     },
 };
 const findTaskDetails = {
@@ -625,6 +635,7 @@ module.exports = {
     getAppliedTasksHist,
     getTaskDetails,
     uploadAcceptanceReq,
+    refuseAcceptanceReq,
     findTaskDetails,
     findTaskListGeneral,
     findTaskListMap,
