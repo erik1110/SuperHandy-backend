@@ -294,7 +294,7 @@ const accounts = {
         const reviews = await Review.find(query)
                                    .populate({
                                     path: 'taskId',
-                                    select: 'title category salary imgUrls time location imgUrls',
+                                    select: 'title category salary time location imgUrls',
                                 }).populate({
                                     path: 'poster.posterId',
                                     select: 'lastName firstName'

@@ -335,6 +335,7 @@ const initTasks = async () => {
                 expiredAt: new Date('2023-06-02T18:00:00'),
             },
             submittedInfo: [{
+                role: "幫手",
                 imgUrls: ['https://example.com/images/report8.jpg', 'https://example.com/images/report9.jpg', 'https://example.com/images/report10.jpg'],
                 comment: '學生學得很快，很有耐心。',
                 createAt: new Date('2023-04-17T09:00:00'),
