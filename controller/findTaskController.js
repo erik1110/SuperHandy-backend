@@ -278,20 +278,33 @@ const tasks = {
     }),
     findTaskListMap: handleErrorAsync(async (req, res, next) => {
         let { longitude: centerLongitude, latitude: centerLatitude, city, dist, radius, isUrgent, keyword, services } = req.query;
-        if (!centerLongitude || !centerLatitude) {
-            if (!city || !dist) {
-                return next(appError(400, '40105', '請輸入經緯度或縣市區域'));
-            }
+        // 限制搜尋半徑最大為10公里，預設為3公里，0公里表示不使用半徑作為條件
+        if (!radius) {
+            radius = 3;
+        } else {
+            radius = Number(radius) > 10 ? 10 : Number(radius);
+        }
+
+        const hasCityLocation = !!city && !!dist;
+        const hasGPS = !!centerLongitude && !!centerLatitude;
+        if (!hasCityLocation && !hasGPS) {
+            return next(appError(400, '40105', '請輸入經緯度或縣市區域'));
+        }
+        if (hasCityLocation) {
             const geocodingResult = await geocoding(`${city}${dist}`);
             if (geocodingResult.status !== 'OK') {
                 return next(appError(400, '40400', '找不到該地址'));
             }
             centerLongitude = geocodingResult.location.lng;
             centerLatitude = geocodingResult.location.lat;
+        } else {
+            if (radius <= 0) {
+                return next(appError(400, '40106', '無檔案或格式不正確(半徑必須大於0)'));
+            }
         }
         isUrgent = isUrgent === 'true' ? true : false;
         services = services ? services.split(',') : [];
-        radius = Number(radius) || 3; //km
+
         //find all tasks
         const tasks = await Task.find({
             status: 'published',
@@ -320,10 +333,19 @@ const tasks = {
                 return false;
             }
 
-            // 檢查是否符合經緯度條件
+            const isValidCityDist = task.location.city === city && task.location.dist === dist;
             const isValidDistance = validDistance(centerLongitude, centerLatitude, task.location.longitude, task.location.latitude, radius);
-            if (!isValidDistance) {
-                return false;
+            // 如果有使用縣市地區作為條件，則檢查是否符合縣市地區條件。使用經緯度作為條件，則檢查是否符合距離條件
+            if (hasCityLocation) {
+                // 檢查是否有吻合縣市地區
+                if (!isValidCityDist) {
+                    return false;
+                }
+            } else {
+                // 檢查是否符合經緯度條件
+                if (!isValidDistance) {
+                    return false;
+                }
             }
 
             // 全數條件通關，則返回 true

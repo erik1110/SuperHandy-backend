@@ -573,6 +573,21 @@ const uploadImage = {
     message: '圖片上傳成功',
 };
 
+const paymentRequest = {
+    status: "success",
+    data: {
+      redirectURL: "https://sandbox-web-pay.line.me/web/payment/wait?transactionReserveId=b2VkZGFnZzk3MUo0a3dUY1VLeGs2QVFvalpvellOKzBnZWU1amRlSWlUUi8zSW40M21JelUwU29sQU5TOTRwQw",
+      orderId: "6472c92c0234f38138f4c23e-1685244464"
+    },
+    message: "建立 linepay 訂單成功"
+};
+
+const paymentConfirm = {
+    status: "success",
+    data: "交易完成",
+    message: "取得成功"
+};
+
 module.exports = {
     Success,
     Error400,
@@ -613,4 +628,6 @@ module.exports = {
     getCommentsHist,
     getStarCounts,
     uploadImage,
+    paymentRequest,
+    paymentConfirm
 };
