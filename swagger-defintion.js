@@ -180,7 +180,11 @@ const getInfoFormSuccess = {
         lastName: '翁',
         phone: '0932345678',
         avatarPath: '',
-        address: '',
+        location: {
+            city: '臺北市',
+            dist: '中正區',
+            address: '中正區重慶南路一段122號',
+        },
         posterIntro: '我是公正黨文宣部副主任兼黨部發言人。',
         helperIntro: '',
         helperSkills: [],
@@ -580,18 +584,19 @@ const uploadImage = {
 };
 
 const paymentRequest = {
-    status: "success",
+    status: 'success',
     data: {
-      redirectURL: "https://sandbox-web-pay.line.me/web/payment/wait?transactionReserveId=b2VkZGFnZzk3MUo0a3dUY1VLeGs2QVFvalpvellOKzBnZWU1amRlSWlUUi8zSW40M21JelUwU29sQU5TOTRwQw",
-      orderId: "6472c92c0234f38138f4c23e-1685244464"
+        redirectURL:
+            'https://sandbox-web-pay.line.me/web/payment/wait?transactionReserveId=b2VkZGFnZzk3MUo0a3dUY1VLeGs2QVFvalpvellOKzBnZWU1amRlSWlUUi8zSW40M21JelUwU29sQU5TOTRwQw',
+        orderId: '6472c92c0234f38138f4c23e-1685244464',
     },
-    message: "建立 linepay 訂單成功"
+    message: '建立 linepay 訂單成功',
 };
 
 const paymentConfirm = {
-    status: "success",
-    data: "交易完成",
-    message: "取得成功"
+    status: 'success',
+    data: '交易完成',
+    message: '取得成功',
 };
 
 module.exports = {
@@ -636,5 +641,5 @@ module.exports = {
     getStarCounts,
     uploadImage,
     paymentRequest,
-    paymentConfirm
+    paymentConfirm,
 };
