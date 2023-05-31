@@ -540,9 +540,22 @@
                   "type": "string",
                   "example": "0912345678"
                 },
-                "address": {
-                  "type": "string",
-                  "example": "臺北市"
+                "location": {
+                  "type": "object",
+                  "properties": {
+                    "city": {
+                      "type": "string",
+                      "example": "臺北市"
+                    },
+                    "dist": {
+                      "type": "string",
+                      "example": "中正區"
+                    },
+                    "address": {
+                      "type": "string",
+                      "example": "忠孝東路一段1號"
+                    }
+                  }
                 },
                 "posterIntro": {
                   "type": "string",
@@ -3929,9 +3942,22 @@
               "type": "string",
               "example": ""
             },
-            "address": {
-              "type": "string",
-              "example": ""
+            "location": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string",
+                  "example": "臺北市"
+                },
+                "district": {
+                  "type": "string",
+                  "example": "中正區"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "中正區重慶南路一段122號"
+                }
+              }
             },
             "posterIntro": {
               "type": "string",

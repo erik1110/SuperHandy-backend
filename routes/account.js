@@ -47,7 +47,11 @@ router.patch('/info-form', async function (req, res, next) {
         'lastName': 'Chen',
         'email': 'erik@gmail.com',
         'phone': '0912345678',
-        'address': '臺北市',
+        'location': {
+          'city': '臺北市',
+          'dist': '中正區',
+          'address': '忠孝東路一段1號'
+        },
         'posterIntro': '我是海報人',
         'helperIntro': '我是幫手人',
         'helperSkills':['人力派遣','市場調查'],
