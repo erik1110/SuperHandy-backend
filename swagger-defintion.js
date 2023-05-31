@@ -436,7 +436,11 @@ const findTaskDetails = {
         title: '陪我家狗玩',
         isUrgent: true,
         salary: 300,
-        address: '臺北市松山區復興北路15號',
+        location: {
+            city: '臺北市',
+            dist: '松山區',
+            address: '復興北路15號',
+        },
         category: '寵物陪伴',
         description: '我家有黃金獵犬，但我這禮拜很忙，請幫我 2/20 早上 8 點來歌唱大樓找我，並帶他去附近公園陪他散步',
         imgUrls: ['https://example.com/dog.jpg'],

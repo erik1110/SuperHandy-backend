@@ -192,7 +192,11 @@ const tasks = {
             title: task.title,
             isUrgent: task.isUrgent,
             salary: task.salary,
-            address: `${task.location.city}${task.location.dist}${task.location.address}`,
+            location: {
+                city: task.location.city,
+                dist: task.location.dist,
+                address: task.location.address,
+            },
             category: task.category,
             description: task.description,
             imgUrls: task.imgUrls,

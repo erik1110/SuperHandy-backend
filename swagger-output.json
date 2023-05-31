@@ -4026,7 +4026,7 @@
                   "type": "string",
                   "example": "臺北市"
                 },
-                "district": {
+                "dist": {
                   "type": "string",
                   "example": "中正區"
                 },
@@ -4140,7 +4140,7 @@
           "type": "string",
           "example": "一般曝光"
         },
-        "imagesUrl": {
+        "imgUrls": {
           "type": "array",
           "example": [
             "https://example.com/image1.jpg",
@@ -4222,7 +4222,7 @@
           "type": "string",
           "example": "一般曝光"
         },
-        "imagesUrl": {
+        "imgUrls": {
           "type": "array",
           "example": [
             "https://example.com/image1.jpg",
@@ -4411,7 +4411,7 @@
           "type": "string",
           "example": "這個任務非常困難"
         },
-        "imagesUrl": {
+        "imgUrls": {
           "type": "array",
           "example": [
             "https://example.com/image1.jpg",
@@ -4933,9 +4933,22 @@
               "type": "number",
               "example": 300
             },
-            "address": {
-              "type": "string",
-              "example": "臺北市松山區復興北路15號"
+            "location": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string",
+                  "example": "臺北市"
+                },
+                "dist": {
+                  "type": "string",
+                  "example": "松山區"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "復興北路15號"
+                }
+              }
             },
             "category": {
               "type": "string",
