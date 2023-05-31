@@ -410,6 +410,12 @@ const uploadAcceptanceReq = {
         comment: '好多人好難排，但我拿到了',
     },
 };
+const refuseAcceptanceReq = {
+    submittedInfo: {
+        imgUrls: ['http://example.com/1.jpg'],
+        comment: '你給的有瑕疵不能玩啊',
+    },
+};
 const findTaskDetails = {
     status: 'success',
     data: {
@@ -620,6 +626,7 @@ module.exports = {
     getAppliedTasksHist,
     getTaskDetails,
     uploadAcceptanceReq,
+    refuseAcceptanceReq,
     findTaskDetails,
     findTaskListGeneral,
     findTaskListMap,

@@ -151,17 +151,23 @@ const taskSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Review',
     },
-    submittedInfo: {
-        imgUrls: {
-            type: [String],
-        },
-        comment: {
-            type: String,
-        },
-        createAt: {
-            type: Date,
-        },
-    },
+    submittedInfo: [
+        {
+            role: {
+                type: String,
+            },
+            imgUrls: {
+                type: [String],
+            },
+            comment: {
+                type: String,
+            },
+            createAt: {
+                type: Date,
+                default: Date.now()
+            },
+        }
+    ],
 });
 
 const Task = mongoose.model('Task', taskSchema);
