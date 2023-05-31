@@ -19,6 +19,11 @@ const initTransactions = async () => {
         const taskCase5 = tasks.find((task) => task.title === '協助居家清潔');
         const taskCase6 = tasks.find((task) => task.title === '陪我練習開車');
         const taskCase7 = tasks.find((task) => task.title === 'Notion 教學');
+        const taskCase8 = tasks.find((task) => task.title === '兼職家教數學');
+        const taskCase9 = tasks.find((task) => task.title === '需求短期家庭清潔工');
+        const taskCase10 = tasks.find((task) => task.title === '需要網頁設計師');
+        const taskCase11 = tasks.find((task) => task.title === '需求運動教練');
+        const taskCase12 = tasks.find((task) => task.title === '需要翻譯人員');
         await TaskTrans.deleteMany({});
         await UserTrans.deleteMany({});
         const taskTransactions = [
@@ -133,7 +138,7 @@ const initTransactions = async () => {
             {
                 taskId: taskCase5._id,
                 userId: userCase1._id,
-                tag: '刊登任務',
+                tag: '完成任務',
                 salary: 666,
                 exposurePlan: 0,
                 platform: 67,
@@ -145,7 +150,7 @@ const initTransactions = async () => {
             {
                 taskId: taskCase6._id,
                 userId: userCase1._id,
-                tag: '刊登任務',
+                tag: '完成任務',
                 salary: 567,
                 exposurePlan: 0,
                 platform: 57,
@@ -157,7 +162,7 @@ const initTransactions = async () => {
             {
                 taskId: taskCase7._id,
                 userId: userCase2._id,
-                tag: '刊登任務',
+                tag: '完成任務',
                 salary: 999,
                 exposurePlan: 0,
                 platform: 100,
@@ -165,6 +170,66 @@ const initTransactions = async () => {
                 helperCoin: 0,
                 desc: ['薪資'],
                 role: '幫手',
+            },
+            {
+                taskId: taskCase8._id,
+                userId: userCase2._id,
+                tag: '刊登任務',
+                salary: 400,
+                exposurePlan: 50,
+                platform: 0,
+                superCoin: -400,
+                helperCoin: -50,
+                desc: ['預扣薪水', '黃金曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase9._id,
+                userId: userCase1._id,
+                tag: '刊登任務',
+                salary: 350,
+                exposurePlan: 50,
+                platform: 0,
+                superCoin: -350,
+                helperCoin: -50,
+                desc: ['預扣薪水', '黃金曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase10._id,
+                userId: userCase1._id,
+                tag: '刊登任務',
+                salary: 600,
+                exposurePlan: 50,
+                platform: 0,
+                superCoin: -600,
+                helperCoin: -50,
+                desc: ['預扣薪水', '黃金曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase11._id,
+                userId: userCase1._id,
+                tag: '刊登任務',
+                salary: 450,
+                exposurePlan: 70,
+                platform: 0,
+                superCoin: -450,
+                helperCoin: -70,
+                desc: ['預扣薪水', '限時黃金曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase12._id,
+                userId: userCase3._id,
+                tag: '刊登任務',
+                salary: 1550,
+                exposurePlan: 30,
+                platform: 0,
+                superCoin: -1550,
+                helperCoin: -30,
+                desc: ['預扣薪水', '限時曝光'],
+                role: '案主',
             },
         ];
         const userTransactions = [

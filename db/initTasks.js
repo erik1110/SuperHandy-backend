@@ -30,8 +30,8 @@ const initTasks = async () => {
                 city: '臺北市',
                 dist: '信義區',
                 address: '臺北市信義區松智路17號',
-                longitude: 121.53868,
-                latitude: 25.02697,
+                longitude: 121.5659555,
+                latitude: 25.0343073,
             },
             isUrgent: true,
             helpers: [
@@ -83,9 +83,9 @@ const initTasks = async () => {
             location: {
                 city: '臺北市',
                 dist: '信義區',
-                address: '松智路17號',
-                longitude: 121.53868,
-                latitude: 25.02697,
+                address: '基隆路300號',
+                longitude: 121.5644267,
+                latitude: 25.0412214,
             },
             isUrgent: true,
             helpers: [
@@ -133,8 +133,8 @@ const initTasks = async () => {
                 city: '臺北市',
                 dist: '松山區',
                 address: '臺北市松山區復興北路15號',
-                longitude: 121.53868,
-                latitude: 25.02697,
+                longitude: 121.5442703,
+                latitude: 25.0486251,
             },
             isUrgent: true,
             helpers: [
@@ -187,8 +187,8 @@ const initTasks = async () => {
                 city: '臺北市',
                 dist: '松山區',
                 address: '臺北市松山區羅斯福路四段1號',
-                longitude: 121.537369,
-                latitude: 25.017503,
+                longitude: 121.5339903,
+                latitude: 25.0184919,
             },
             isUrgent: true,
             helpers: [
@@ -242,8 +242,8 @@ const initTasks = async () => {
                 dist: '板橋區',
                 address: '新北市板橋區新站路20號',
                 landmark: '板橋火車站',
-                longitude: 121.462966,
-                latitude: 25.012422,
+                longitude: 121.4663595,
+                latitude: 25.0132041,
             },
             isUrgent: false,
             helpers: [
@@ -296,8 +296,8 @@ const initTasks = async () => {
                 city: '台中市',
                 dist: '南區',
                 address: '台中市南區復興南路二段240號',
-                longitude: 120.637803,
-                latitude: 24.178145,
+                longitude: 120.6624117,
+                latitude: 24.1208445,
             },
             isUrgent: false,
             helpers: [
@@ -354,8 +354,8 @@ const initTasks = async () => {
                 city: '臺北市',
                 dist: '中正區',
                 address: '臺北市中正區信義路1號',
-                longitude: 121.564534,
-                latitude: 25.033903,
+                longitude: 121.5748662,
+                latitude: 25.0219844,
             },
             isUrgent: false,
             helpers: [
@@ -412,8 +412,8 @@ const initTasks = async () => {
                 city: '臺北市',
                 dist: '中山區',
                 address: '忠孝東路二段100號',
-                longitude: 121.53512,
-                latitude: 25.04942,
+                longitude: 121.5304479,
+                latitude: 25.042823,
             },
             isUrgent: false,
             helpers: [
@@ -457,8 +457,8 @@ const initTasks = async () => {
                 city: '臺北市',
                 dist: '大安區',
                 address: '忠孝東路三段200號',
-                longitude: 121.53494,
-                latitude: 25.04198,
+                longitude: 121.5395262,
+                latitude: 25.0414373,
             },
             isUrgent: false,
             helpers: [
@@ -505,9 +505,9 @@ const initTasks = async () => {
             location: {
                 city: '臺北市',
                 dist: '內湖區',
-                address: '成功路100號',
-                longitude: 121.60601,
-                latitude: 25.06828,
+                address: '瑞光路581號',
+                longitude: 121.5681287,
+                latitude: 25.0799209,
             },
             isUrgent: false,
             helpers: [
@@ -557,10 +557,10 @@ const initTasks = async () => {
             },
             location: {
                 city: '臺北市',
-                dist: '士林區',
-                address: '文林路50號',
-                longitude: 121.52388,
-                latitude: 25.08973,
+                dist: '大安區',
+                address: '光復南路300號',
+                longitude: 121.5574241,
+                latitude: 25.0391323,
             },
             isUrgent: true,
             helpers: [
@@ -606,10 +606,10 @@ const initTasks = async () => {
             },
             location: {
                 city: '臺北市',
-                dist: '中正區',
-                address: '中山南路100號',
-                longitude: 121.51752,
-                latitude: 25.04589,
+                dist: '大安區',
+                address: '忠孝東路四段216巷38號',
+                longitude: 121.5528545,
+                latitude: 25.0395291,
             },
             isUrgent: true,
             helpers: [

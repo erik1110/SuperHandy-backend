@@ -39,10 +39,22 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
-    address: {
-        type: String,
-        trim: true,
-        default: '',
+    location: {
+        city: {
+            type: String,
+            required: false,
+            default: '',
+        },
+        dist: {
+            type: String,
+            required: false,
+            default: '',
+        },
+        address: {
+            type: String,
+            required: false,
+            default: '',
+        },
     },
     posterIntro: {
         type: String,

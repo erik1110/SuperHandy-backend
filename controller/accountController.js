@@ -25,7 +25,7 @@ const accounts = {
     }),
     getInfoForm: handleErrorAsync(async (req, res, next) => {
         const userInfoForm = await User.findOne({ _id: req.user._id }).select(
-            'firstName lastName nickname email posterIntro helperIntro avatarPath address phone helperSkills -_id',
+            'firstName lastName nickname email posterIntro helperIntro avatarPath location phone helperSkills -_id',
         );
         if (!userInfoForm) {
             return next(appError(404, '40200', '查詢不到此用戶'));
@@ -39,7 +39,7 @@ const accounts = {
     }),
     updateInfoForm: handleErrorAsync(async (req, res, next) => {
         const updateFields = {};
-        const acceptedFields = ['firstName', 'lastName', 'nickname', 'address', 'posterIntro', 'helperIntro', 'helperSkills'];
+        const acceptedFields = ['firstName', 'lastName', 'nickname', 'location', 'posterIntro', 'helperIntro', 'helperSkills'];
         const checkField = (field) => {
             if (req.body.hasOwnProperty(field)) {
                 updateFields[field] = req.body[field];
@@ -80,8 +80,8 @@ const accounts = {
             userId: req.user._id,
         });
         const numOfCompletedTasks = await Task.countDocuments({
-            helpers: { $elemMatch: { helperId: user._id, status: 'paired' }},
-            status: 'completed'
+            helpers: { $elemMatch: { helperId: user._id, status: 'paired' } },
+            status: 'completed',
         });
         const posterData = await Task.find({
             userId: req.user._id,
@@ -91,16 +91,16 @@ const accounts = {
             select: 'helper.star',
         });
 
-        let ratingPoster
+        let ratingPoster;
         if (posterData.length === 0) {
             ratingPoster = null;
         } else {
-        const totalStars = posterData.reduce((sum, task) => {
-            if (task.reviews && task.reviews.helper && task.reviews.helper.star) {
-            return sum + task.reviews.helper.star;
-            }
-            return sum;
-        }, 0);
+            const totalStars = posterData.reduce((sum, task) => {
+                if (task.reviews && task.reviews.helper && task.reviews.helper.star) {
+                    return sum + task.reviews.helper.star;
+                }
+                return sum;
+            }, 0);
             ratingPoster = Number((totalStars / posterData.length).toFixed(2));
         }
         const helperData = await Task.find({
@@ -112,16 +112,16 @@ const accounts = {
             path: 'reviews',
             select: 'poster.star',
         });
-        let ratingHelper
+        let ratingHelper;
         if (helperData.length === 0) {
             ratingHelper = null;
         } else {
-        const totalStars = helperData.reduce((sum, task) => {
-            if (task.reviews && task.reviews.helper && task.reviews.poster.star) {
-            return sum + task.reviews.poster.star;
-            }
-            return sum;
-        }, 0);
+            const totalStars = helperData.reduce((sum, task) => {
+                if (task.reviews && task.reviews.helper && task.reviews.poster.star) {
+                    return sum + task.reviews.poster.star;
+                }
+                return sum;
+            }, 0);
             ratingHelper = Number((totalStars / helperData.length).toFixed(2));
         }
         res.status(200).json(
@@ -292,18 +292,21 @@ const accounts = {
             }
         }
         const reviews = await Review.find(query)
-                                   .populate({
-                                    path: 'taskId',
-                                    select: 'title category salary imgUrls time location ',
-                                }).populate({
-                                    path: 'poster.posterId',
-                                    select: 'lastName firstName'
-                                }).populate({
-                                    path: 'helper.helperId',
-                                    select: 'lastName firstName'
-                                }).limit(limit)
-                                .skip((page - 1) * limit);
-        const formattedReviews = reviews.map(review => {
+            .populate({
+                path: 'taskId',
+                select: 'title category salary imgUrls time location ',
+            })
+            .populate({
+                path: 'poster.posterId',
+                select: 'lastName firstName',
+            })
+            .populate({
+                path: 'helper.helperId',
+                select: 'lastName firstName',
+            })
+            .limit(limit)
+            .skip((page - 1) * limit);
+        const formattedReviews = reviews.map((review) => {
             const yourStar = role === '案主' ? review.helper.star : review.poster.star;
             return {
                 yourStar: yourStar || null,
@@ -316,20 +319,18 @@ const accounts = {
                 helperReview: {
                     star: review.helper.star,
                     status: reviewStatusMapping[review.helper.status],
-                    comment: review.helper.comment
+                    comment: review.helper.comment,
                 },
                 posterReview: {
                     star: review.poster.star,
                     status: reviewStatusMapping[review.poster.status],
-                    comment: review.poster.comment
+                    comment: review.poster.comment,
                 },
-                taskId: review.taskId._id
+                taskId: review.taskId._id,
             };
         });
         const filterCategory = categories.length > 0 ? categories : null;
-        const filteredReviews = filterCategory
-            ? formattedReviews.filter(review => filterCategory.includes(review.category))
-            : formattedReviews;
+        const filteredReviews = filterCategory ? formattedReviews.filter((review) => filterCategory.includes(review.category)) : formattedReviews;
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',
@@ -347,16 +348,16 @@ const accounts = {
                 {
                     $group: {
                         _id: '$helper.star',
-                        count: { $sum: 1 }
-                    }
+                        count: { $sum: 1 },
+                    },
                 },
                 {
                     $project: {
                         _id: 0,
                         star: '$_id',
-                        count: 1
-                    }
-                }
+                        count: 1,
+                    },
+                },
             ];
             const starCounts = await Review.aggregate(aggregateQuery);
             // 轉換成以星星數為鍵、計數為值的物件
@@ -370,19 +371,19 @@ const accounts = {
                 {
                     $group: {
                         _id: '$poster.star',
-                        count: { $sum: 1 }
-                    }
+                        count: { $sum: 1 },
+                    },
                 },
                 {
                     $project: {
                         _id: 0,
                         star: '$_id',
-                        count: 1
-                    }
-                }
+                        count: 1,
+                    },
+                },
             ];
             const starCounts = await Review.aggregate(aggregateQuery);
-            console.log(starCounts)
+            console.log(starCounts);
             // 轉換成以星星數為鍵、計數為值的物件
             starCountMap = starCounts.reduce((acc, { star, count }) => {
                 acc[star] = count;
