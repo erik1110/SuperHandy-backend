@@ -294,7 +294,7 @@ const accounts = {
         const reviews = await Review.find(query)
                                    .populate({
                                     path: 'taskId',
-                                    select: 'title category salary imgUrls time location ',
+                                    select: 'title category salary imgUrls time location imgUrls',
                                 }).populate({
                                     path: 'poster.posterId',
                                     select: 'lastName firstName'
@@ -323,7 +323,7 @@ const accounts = {
                     comment: review.poster.comment
                 },
                 taskId: review.taskId._id,
-
+                imgUrls: review.taskId.imgUrls || null,
             };
         });
         const filterCategory = categories.length > 0 ? categories : null;
