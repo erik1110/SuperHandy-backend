@@ -4752,9 +4752,22 @@
               "type": "number",
               "example": 300
             },
-            "address": {
-              "type": "string",
-              "example": "臺北市松山區復興北路15號"
+            "location": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string",
+                  "example": "臺北市"
+                },
+                "dist": {
+                  "type": "string",
+                  "example": "松山區"
+                },
+                "address": {
+                  "type": "string",
+                  "example": "復興北路15號"
+                }
+              }
             },
             "category": {
               "type": "string",
@@ -4933,22 +4946,9 @@
               "type": "number",
               "example": 300
             },
-            "location": {
-              "type": "object",
-              "properties": {
-                "city": {
-                  "type": "string",
-                  "example": "臺北市"
-                },
-                "dist": {
-                  "type": "string",
-                  "example": "松山區"
-                },
-                "address": {
-                  "type": "string",
-                  "example": "復興北路15號"
-                }
-              }
+            "address": {
+              "type": "string",
+              "example": "臺北市松山區復興北路15號"
             },
             "category": {
               "type": "string",
