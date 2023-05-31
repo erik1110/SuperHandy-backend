@@ -12,7 +12,7 @@ const taskTransSchema = new mongoose.Schema({
     },
     tag: {
         type: String,
-        enum: ['刊登任務', '完成任務', '任務刪除'],
+        enum: ['刊登任務', '完成任務', '刪除任務'],
     },
     salary: {
         type: Number,

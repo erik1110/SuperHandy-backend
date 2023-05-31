@@ -264,7 +264,7 @@ const tasks = {
         await TaskTrans.create({
             taskId: taskId,
             userId: userId,
-            tag: '任務刪除',
+            tag: '刪除任務',
             salary: Math.abs(taskTrans.salary),
             exposurePlan: 0,
             platform: 0,
