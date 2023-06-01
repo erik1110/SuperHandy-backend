@@ -39,7 +39,7 @@ router.patch('/read/:notifyId', function (req, res, next) {
 });
 /* 全部已讀 */
 router.patch('/all-read', function (req, res, next) {
-  /**
+    /**
    * #swagger.tags = ['Notifications']
    * #swagger.summary = '全部已讀 (Mark ａll notifications as read)'
    * #swagger.security=[{"Bearer": []}]
@@ -52,7 +52,7 @@ router.patch('/all-read', function (req, res, next) {
       schema: { $ref: '#/definitions/Error500' }
   }
 */
-  notifyController.markAllRead(req, res, next);
+    notifyController.markAllRead(req, res, next);
 });
 
 module.exports = router;

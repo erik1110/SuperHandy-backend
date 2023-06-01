@@ -292,17 +292,19 @@ const accounts = {
             }
         }
         const reviews = await Review.find(query)
-                                   .populate({
-                                    path: 'taskId',
-                                    select: 'title category salary time location imgUrls',
-                                }).populate({
-                                    path: 'poster.posterId',
-                                    select: 'lastName firstName'
-                                }).populate({
-                                    path: 'helper.helperId',
-                                    select: 'lastName firstName'
-                                });
-        const formattedReviews = reviews.map(review => {
+            .populate({
+                path: 'taskId',
+                select: 'title category salary time location imgUrls',
+            })
+            .populate({
+                path: 'poster.posterId',
+                select: 'lastName firstName',
+            })
+            .populate({
+                path: 'helper.helperId',
+                select: 'lastName firstName',
+            });
+        const formattedReviews = reviews.map((review) => {
             const yourStar = role === '案主' ? review.helper.star : review.poster.star;
             return {
                 yourStar: yourStar || null,
@@ -315,21 +317,19 @@ const accounts = {
                 helperReview: {
                     star: review.helper.star,
                     status: reviewStatusMapping[review.helper.status],
-                    comment: review.helper.comment
+                    comment: review.helper.comment,
                 },
                 posterReview: {
                     star: review.poster.star,
                     status: reviewStatusMapping[review.poster.status],
-                    comment: review.poster.comment
+                    comment: review.poster.comment,
                 },
                 taskId: review.taskId._id,
                 imgUrls: review.taskId.imgUrls || null,
             };
         });
         const filterCategory = categories.length > 0 ? categories : null;
-        const filteredReviews = filterCategory
-            ? formattedReviews.filter(review => filterCategory.includes(review.category))
-            : formattedReviews;
+        const filteredReviews = filterCategory ? formattedReviews.filter((review) => filterCategory.includes(review.category)) : formattedReviews;
         const filteredReviewSlice = filteredReviews.slice((page - 1) * limit, page * limit);
         const totalCount = filteredReviews.length;
         const totalPages = Math.ceil(totalCount / limit);
@@ -337,11 +337,10 @@ const accounts = {
             getHttpResponse({
                 message: '取得成功',
                 data: {
-                        reviews: filteredReviewSlice,
-                        totalPages: totalPages,
-                        totalCount: totalCount,
-                }
-
+                    reviews: filteredReviewSlice,
+                    totalPages: totalPages,
+                    totalCount: totalCount,
+                },
             }),
         );
     }),

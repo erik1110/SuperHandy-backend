@@ -13,7 +13,7 @@ const helperStatusMapping = {
     waiting: '等待媒合中',
     paired: '媒合成功',
     unpaired: '媒合失敗',
-    dropped: '取消媒合'
+    dropped: '取消媒合',
 };
 
 const reviewStatusMapping = {
@@ -22,12 +22,12 @@ const reviewStatusMapping = {
 };
 
 const reviewStatusReverseMapping = {
-    '待評價': 'waiting',
-    '已評價': 'completed',
+    待評價: 'waiting',
+    已評價: 'completed',
 };
 module.exports = {
     taskStatusMapping,
     helperStatusMapping,
     reviewStatusMapping,
-    reviewStatusReverseMapping
+    reviewStatusReverseMapping,
 };

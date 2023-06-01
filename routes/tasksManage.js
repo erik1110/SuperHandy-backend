@@ -132,7 +132,7 @@ router.post('/confirm-acceptance/:taskId', function (req, res, next) {
 
 /* 案主退回驗收 */
 router.post('/refuse-acceptance/:taskId', function (req, res, next) {
-  /**
+    /**
  * #swagger.tags = ['Tasks']
  * #swagger.summary = '案主退回驗收 (Refuse acceptance)'
  * #swagger.security=[{"Bearer": []}]
@@ -163,7 +163,7 @@ router.post('/refuse-acceptance/:taskId', function (req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
 }
 */
-  tasksManageController.refuseAcceptance(req, res, next);
+    tasksManageController.refuseAcceptance(req, res, next);
 });
 
 /* 幫手上傳驗收內容 */
@@ -203,7 +203,7 @@ router.post('/upload-acceptance/:taskId', function (req, res, next) {
 
 /* 評分與留言 */
 router.post('/comment/:taskId', function (req, res, next) {
-  /**
+    /**
  * #swagger.tags = ['Tasks']
  * #swagger.description = '會看 userId 決定是幫手還是案主，前端無需帶此參數'
  * #swagger.summary = '評分與留言 (Rating and Review)'
@@ -234,7 +234,7 @@ router.post('/comment/:taskId', function (req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
 }
 */
-  tasksManageController.ratingAndReview(req, res, next);
+    tasksManageController.ratingAndReview(req, res, next);
 });
 
 /* 案主確認幫手人選 */
