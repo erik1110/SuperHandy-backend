@@ -192,6 +192,7 @@ const tasks = {
             title: task.title,
             isUrgent: task.isUrgent,
             salary: task.salary,
+            exposurePlan: task.exposurePlan,
             location: {
                 city: task.location.city,
                 dist: task.location.dist,

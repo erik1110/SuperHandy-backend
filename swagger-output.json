@@ -4752,6 +4752,10 @@
               "type": "number",
               "example": 300
             },
+            "exposurePlan": {
+              "type": "string",
+              "example": "黃金曝光"
+            },
             "location": {
               "type": "object",
               "properties": {

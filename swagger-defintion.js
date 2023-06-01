@@ -385,6 +385,7 @@ const getTaskDetails = {
         title: '陪我家狗玩',
         isUrgent: true,
         salary: 300,
+        exposurePlan: '黃金曝光',
         location: {
             city: '臺北市',
             dist: '松山區',
