@@ -148,8 +148,8 @@ const taskSchema = new mongoose.Schema({
         },
     },
     reviews: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Review',
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Review',
     },
     submittedInfo: [
         {
@@ -164,9 +164,9 @@ const taskSchema = new mongoose.Schema({
             },
             createAt: {
                 type: Date,
-                default: Date.now()
+                default: Date.now(),
             },
-        }
+        },
     ],
 });
 

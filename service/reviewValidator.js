@@ -8,7 +8,7 @@ module.exports = class reviewValidator {
      * @param {Next} next
      * @returns {status,msg}
      */
-    static checkReview({ role, categories, reviewStatus, yourStar}) {
+    static checkReview({ role, categories, reviewStatus, yourStar }) {
         if (!role) {
             return {
                 status: false,
@@ -16,7 +16,7 @@ module.exports = class reviewValidator {
             };
         }
         categories = categories ? categories.split(',') : [];
-        if (categories && categories.some(category => !categoryNames.includes(category))) {
+        if (categories && categories.some((category) => !categoryNames.includes(category))) {
             return {
                 status: false,
                 msg: '不存在的服務類別',

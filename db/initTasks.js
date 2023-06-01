@@ -60,12 +60,14 @@ const initTasks = async () => {
                 completedAt: null,
                 expiredAt: new Date('2023-06-12T12:34:56'),
             },
-            submittedInfo: [{
-                role: "幫手",
-                imgUrls: ['https://example.com/images/report1.jpg', 'https://example.com/images/report2.jpg'],
-                comment: '這個任務簡單啦',
-                createAt: new Date('2022-05-17T13:55:56'),
-            }],
+            submittedInfo: [
+                {
+                    role: '幫手',
+                    imgUrls: ['https://example.com/images/report1.jpg', 'https://example.com/images/report2.jpg'],
+                    comment: '這個任務簡單啦',
+                    createAt: new Date('2022-05-17T13:55:56'),
+                },
+            ],
         },
         {
             userId: userCase1._id,
@@ -164,12 +166,14 @@ const initTasks = async () => {
                 completedAt: new Date('2022-02-23T08:19:50'),
                 expiredAt: new Date('2023-03-01T12:34:56'),
             },
-            submittedInfo: [{
-                role: "幫手",
-                imgUrls: ['https://example.com/images/report1.jpg', 'https://example.com/images/report2.jpg'],
-                comment: '你家的狗很乖很聽話',
-                createAt: new Date('2022-02-17T13:55:56'),
-            }],
+            submittedInfo: [
+                {
+                    role: '幫手',
+                    imgUrls: ['https://example.com/images/report1.jpg', 'https://example.com/images/report2.jpg'],
+                    comment: '你家的狗很乖很聽話',
+                    createAt: new Date('2022-02-17T13:55:56'),
+                },
+            ],
         },
         {
             userId: userCase2._id,
@@ -219,12 +223,14 @@ const initTasks = async () => {
                 completedAt: new Date('2023-05-16T09:00:00'),
                 expiredAt: new Date('2023-06-01T09:00:00'),
             },
-            submittedInfo: [{
-                role: "幫手",
-                imgUrls: ['https://example.com/images/report3.jpg', 'https://example.com/images/report4.jpg'],
-                comment: '這份報告有夠難做，NLP 難啊',
-                createAt: new Date('2023-04-13T09:00:00'),
-            }],
+            submittedInfo: [
+                {
+                    role: '幫手',
+                    imgUrls: ['https://example.com/images/report3.jpg', 'https://example.com/images/report4.jpg'],
+                    comment: '這份報告有夠難做，NLP 難啊',
+                    createAt: new Date('2023-04-13T09:00:00'),
+                },
+            ],
         },
         {
             userId: userCase3._id,
@@ -275,12 +281,14 @@ const initTasks = async () => {
                 completedAt: new Date('2023-04-19T09:00:00'),
                 expiredAt: new Date('2023-04-09T18:00:00'),
             },
-            submittedInfo: [{
-                role: "幫手",
-                imgUrls: ['https://example.com/images/report5.jpg', 'https://example.com/images/report6.jpg', 'https://example.com/images/report7.jpg'],
-                comment: '這份工作比想像中還要累，但收穫也很多。',
-                createAt: new Date('2023-04-17T09:00:00'),
-            }],
+            submittedInfo: [
+                {
+                    role: '幫手',
+                    imgUrls: ['https://example.com/images/report5.jpg', 'https://example.com/images/report6.jpg', 'https://example.com/images/report7.jpg'],
+                    comment: '這份工作比想像中還要累，但收穫也很多。',
+                    createAt: new Date('2023-04-17T09:00:00'),
+                },
+            ],
         },
         {
             userId: userCase4._id,
@@ -334,12 +342,14 @@ const initTasks = async () => {
                 completedAt: new Date('2023-05-19T09:00:00'),
                 expiredAt: new Date('2023-06-02T18:00:00'),
             },
-            submittedInfo: [{
-                role: "幫手",
-                imgUrls: ['https://example.com/images/report8.jpg', 'https://example.com/images/report9.jpg', 'https://example.com/images/report10.jpg'],
-                comment: '學生學得很快，很有耐心。',
-                createAt: new Date('2023-04-17T09:00:00'),
-            }],
+            submittedInfo: [
+                {
+                    role: '幫手',
+                    imgUrls: ['https://example.com/images/report8.jpg', 'https://example.com/images/report9.jpg', 'https://example.com/images/report10.jpg'],
+                    comment: '學生學得很快，很有耐心。',
+                    createAt: new Date('2023-04-17T09:00:00'),
+                },
+            ],
         },
         {
             userId: userCase5._id,
@@ -393,12 +403,14 @@ const initTasks = async () => {
                 completedAt: new Date('2023-06-01T10:00:00'),
                 expiredAt: new Date('2023-06-03T18:00:00'),
             },
-            submittedInfo: [{
-                role: "幫手",
-                imgUrls: ['https://example.com/images/report11.jpg', 'https://example.com/images/report12.jpg', 'https://example.com/images/report13.jpg'],
-                comment: '',
-                createAt: new Date('2023-04-17T09:00:00'),
-            }],
+            submittedInfo: [
+                {
+                    role: '幫手',
+                    imgUrls: ['https://example.com/images/report11.jpg', 'https://example.com/images/report12.jpg', 'https://example.com/images/report13.jpg'],
+                    comment: '',
+                    createAt: new Date('2023-04-17T09:00:00'),
+                },
+            ],
         },
         {
             userId: userCase2._id,

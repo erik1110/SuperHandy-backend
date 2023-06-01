@@ -15,7 +15,7 @@ const {
     LINEPAY_CHANNEL_SECRET_KEY,
     LINEPAY_RETURN_CONFIRM_URL,
     LINEPAY_RETURN_CANCEL_URL,
-  } = process.env;
+} = process.env;
 
 const linepay = {
     paymentRequest: handleErrorAsync(async (req, res, next) => {
@@ -36,19 +36,19 @@ const linepay = {
             currency: 'TWD',
             orderId: orderId,
             packages: [
-              {
-                id: 'products_1',
-                amount: money,
-                products: [
-                  {
-                    name: '儲值超人幣',
-                    quantity: 1,
-                    price: money
-                  }
-                ]
-              }
-            ]
-          }
+                {
+                    id: 'products_1',
+                    amount: money,
+                    products: [
+                        {
+                            name: '儲值超人幣',
+                            quantity: 1,
+                            price: money,
+                        },
+                    ],
+                },
+            ],
+        };
         // 建立 LINE Pay 請求規定的資料格式
         const linePayBody = createLinePayBody(order);
         // CreateSignature 建立加密內容
@@ -87,7 +87,6 @@ const linepay = {
                 }),
             );
         } else {
-            console.log(linePayRes.data)
             return next(appError(400, '40402', 'linePay 訂單不存在'));
         }
     }),
@@ -99,7 +98,7 @@ const linepay = {
         const linePayBody = {
             amount: userTrans.superCoin,
             currency: 'TWD',
-        }
+        };
         // CreateSignature 建立加密內容
         const headers = createSignature(uri, linePayBody);
         // API 位址
@@ -107,28 +106,19 @@ const linepay = {
         const linePayRes = await axios.post(url, linePayBody, { headers });
         // 請求成功...
         if (linePayRes?.data?.returnCode === '0000') {
-            await UserTrans.findOneAndUpdate(
-                { 'linepay.orderId': orderId },
-                { $set: { 'linepay.status': '交易完成' } },
-                { new: true }
-            );
+            await UserTrans.findOneAndUpdate({ 'linepay.orderId': orderId }, { $set: { 'linepay.status': '交易完成' } }, { new: true });
             res.status(200).json(
                 getHttpResponse({
                     message: 'linepay 交易成功',
                 }),
             );
         } else {
-            await UserTrans.findOneAndUpdate(
-                { 'linepay.orderId': orderId },
-                { $set: { 'linepay.status': '交易失敗' } },
-                { new: true }
-            );
+            await UserTrans.findOneAndUpdate({ 'linepay.orderId': orderId }, { $set: { 'linepay.status': '交易失敗' } }, { new: true });
             return next(appError(400, '40402', 'linePay 交易失敗'));
         }
     }),
     paymentStatus: handleErrorAsync(async (req, res, next) => {
         const orderId = req.params.orderId;
-        console.log(orderId)
         const userTrans = await UserTrans.findOne({ 'linepay.orderId': orderId });
         res.status(200).json(
             getHttpResponse({

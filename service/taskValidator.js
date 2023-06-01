@@ -43,13 +43,13 @@ module.exports = class TaskValidator {
             };
         }
         if (contactInfo) {
-            if (contactInfo.name && typeof contactInfo.name !== 'string' ) {
+            if (contactInfo.name && typeof contactInfo.name !== 'string') {
                 return {
                     status: false,
                     msg: '聯絡人資訊名稱格式不正確!',
                 };
             }
-            if (contactInfo.phone && typeof contactInfo.phone !== 'string' ) {
+            if (contactInfo.phone && typeof contactInfo.phone !== 'string') {
                 return {
                     status: false,
                     msg: '聯絡人資訊手機格式不正確!',
@@ -220,27 +220,27 @@ module.exports = class TaskValidator {
     }
     static checkUploadAcceptance({ submittedInfo }) {
         if (!submittedInfo) {
-          return {
-            status: false,
-            msg: '未提交資訊',
-          };
+            return {
+                status: false,
+                msg: '未提交資訊',
+            };
         }
         const { imgUrls, comment } = submittedInfo;
         if (!imgUrls || !Array.isArray(imgUrls)) {
-          return {
-            status: false,
-            msg: '圖片路徑格式錯誤',
-          };
+            return {
+                status: false,
+                msg: '圖片路徑格式錯誤',
+            };
         }
         if (!comment) {
-          return {
-            status: false,
-            msg: '未提交留言',
-          };
+            return {
+                status: false,
+                msg: '未提交留言',
+            };
         }
         return {
-          status: true,
-          msg: 'success',
+            status: true,
+            msg: 'success',
         };
     }
 };

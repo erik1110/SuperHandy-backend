@@ -45,7 +45,7 @@ const tasks = {
         const tasks = await Task.find({
             helpers: {
                 $elemMatch: {
-                    helperId: userId
+                    helperId: userId,
                 },
             },
         }).populate({
@@ -54,7 +54,7 @@ const tasks = {
         });
         const formattedTasks = tasks.map((task) => {
             const posterName = task.userId ? `${task.userId.lastName}${task.userId.firstName}` : null;
-            const filteredHelper = task.helpers.find(helper => helper.helperId.toString() === userId.toString());
+            const filteredHelper = task.helpers.find((helper) => helper.helperId.toString() === userId.toString());
             return {
                 taskId: task._id,
                 title: task.title,
@@ -96,7 +96,7 @@ const tasks = {
         if (!task) {
             return next(appError(404, '40212', '查無此任務'));
         }
-        if (task.status==='draft') {
+        if (task.status === 'draft') {
             return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
         const isTaskOwner = task.userId._id.toString() === userId.toString();
@@ -113,62 +113,62 @@ const tasks = {
             role = '案主';
             formatHelpers = await Promise.all(
                 task.helpers.map(async (helper) => {
-                  const completedTasks = await Task.countDocuments({
-                    helpers: { $elemMatch: { helperId: helper.helperId._id, status: 'paired' }},
-                    status: 'completed'
-                  });
-                  const numOfTasks = await Task.countDocuments({
-                    helpers: { $elemMatch: { helperId: helper.helperId._id, status: 'paired' }},
-                  });
-                  const completionRate = (completedTasks / numOfTasks) * 100 || 0;
-                  const helperData = await Task.find({
+                    const completedTasks = await Task.countDocuments({
+                        helpers: { $elemMatch: { helperId: helper.helperId._id, status: 'paired' } },
+                        status: 'completed',
+                    });
+                    const numOfTasks = await Task.countDocuments({
+                        helpers: { $elemMatch: { helperId: helper.helperId._id, status: 'paired' } },
+                    });
+                    const completionRate = (completedTasks / numOfTasks) * 100 || 0;
+                    const helperData = await Task.find({
                         helpers: {
                             $elemMatch: { helperId: helper.helperId._id, status: 'paired' },
                         },
                         status: 'completed',
-                     }).populate({
+                    }).populate({
                         path: 'reviews',
                         select: 'poster.star',
-                  });
-                  const categories = helperData.reduce((acc, task) => {
-                    const existingCategory = acc.find((category) => category.name === task.category);
-                    if (existingCategory) {
-                      existingCategory.star += task.reviews.poster.star || 0;
-                      existingCategory.totalReviews++;
-                    } else {
-                      acc.push({
-                        name: task.category,
-                        star: task.reviews.poster.star || 0,
-                        totalReviews: 1,
-                      });
-                    }
-                    return acc;
-                  }, []);
-                  categories.forEach((category) => {
+                    });
+                    const categories = helperData.reduce((acc, task) => {
+                        const existingCategory = acc.find((category) => category.name === task.category);
+                        if (existingCategory) {
+                            existingCategory.star += task.reviews.poster.star || 0;
+                            existingCategory.totalReviews++;
+                        } else {
+                            acc.push({
+                                name: task.category,
+                                star: task.reviews.poster.star || 0,
+                                totalReviews: 1,
+                            });
+                        }
+                        return acc;
+                    }, []);
+                    categories.forEach((category) => {
                         category.star = category.star / category.totalReviews;
-                  });
-                  const sortedCategories = categories.sort((a, b) => b.star - a.star);
-                  const topThreeCategories = sortedCategories.slice(0, 3);
-                  let totalStars = 0;
-                  let totalCount = 0;
+                    });
+                    const sortedCategories = categories.sort((a, b) => b.star - a.star);
+                    const topThreeCategories = sortedCategories.slice(0, 3);
+                    let totalStars = 0;
+                    let totalCount = 0;
 
-                  for (const category of categories) {
-                    totalStars += category.star * category.totalReviews;
-                    totalCount += category.totalReviews;
-                  }
-                  const averageStar = totalStars / totalCount;
-                  return {
-                    helperId: helper.helperId._id,
-                    status: statusMapping.helperStatusMapping[helper.status],
-                    lastName: helper.helperId.lastName,
-                    completedTasks: completedTasks,
-                    completionRate: Number(completionRate.toFixed(2)),
-                    rating: {
-                        overall: averageStar,
-                        categories: topThreeCategories,
+                    for (const category of categories) {
+                        totalStars += category.star * category.totalReviews;
+                        totalCount += category.totalReviews;
                     }
-                  };
-                })
+                    const averageStar = totalStars / totalCount;
+                    return {
+                        helperId: helper.helperId._id,
+                        status: statusMapping.helperStatusMapping[helper.status],
+                        lastName: helper.helperId.lastName,
+                        completedTasks: completedTasks,
+                        completionRate: Number(completionRate.toFixed(2)),
+                        rating: {
+                            overall: averageStar,
+                            categories: topThreeCategories,
+                        },
+                    };
+                }),
             );
         } else if (isTaskHelper) {
             role = '幫手';
@@ -192,6 +192,7 @@ const tasks = {
             title: task.title,
             isUrgent: task.isUrgent,
             salary: task.salary,
+            exposurePlan: task.exposurePlan,
             location: {
                 city: task.location.city,
                 dist: task.location.dist,
@@ -202,7 +203,7 @@ const tasks = {
             imgUrls: task.imgUrls,
             helpers: formatHelpers || null,
             contactInfo: task.contactInfo,
-            submittedInfo: task.submittedInfo
+            submittedInfo: task.submittedInfo,
         };
         res.status(200).json(
             getHttpResponse({
@@ -224,7 +225,7 @@ const tasks = {
         if (task.userId.toString() !== userId.toString()) {
             return next(appError(400, '40302', '沒有權限'));
         }
-        if (!["published", "unpublished"].includes(task.status)) {
+        if (!['published', 'unpublished'].includes(task.status)) {
             return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
         // 推播通知
@@ -264,7 +265,7 @@ const tasks = {
             { new: true },
         );
         // 退款
-        const taskTrans = await TaskTrans.findOne({ 'taskId': taskId , 'tag': '刊登任務'});
+        const taskTrans = await TaskTrans.findOne({ taskId: taskId, tag: '刊登任務' });
         await TaskTrans.create({
             taskId: taskId,
             userId: userId,
@@ -282,7 +283,7 @@ const tasks = {
         await user.save();
         res.status(200).json(
             getHttpResponse({
-                message: '刪除成功'
+                message: '刪除成功',
             }),
         );
     }),
@@ -299,14 +300,14 @@ const tasks = {
         if (task.userId.toString() !== userId.toString()) {
             return next(appError(400, '40302', '沒有權限'));
         }
-        if (task.status!=='submitted') {
-            if (task.status === 'inProgress'){
+        if (task.status !== 'submitted') {
+            if (task.status === 'inProgress') {
                 return next(appError(400, '40214', `任務狀態錯誤： 幫手尚未上傳驗收內容`));
             } else {
                 return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
             }
         }
-        const pairedHelpers = task.helpers.filter((helper) => helper.status === "paired");
+        const pairedHelpers = task.helpers.filter((helper) => helper.status === 'paired');
         const helperId = pairedHelpers.map((helper) => helper.helperId)[0];
         // 推播通知
         await Notify.create({
@@ -325,8 +326,8 @@ const tasks = {
         });
         // 更新使用者點數：撥款給幫手
         const user = await User.findOne({ _id: helperId });
-        const realSalary = Math.round(task.salary * 0.9)
-        const platformFee = task.salary - realSalary
+        const realSalary = Math.round(task.salary * 0.9);
+        const platformFee = task.salary - realSalary;
         user.superCoin += realSalary;
         await user.save();
         // 新增一筆交易資訊
@@ -379,7 +380,7 @@ const tasks = {
             return next(appError(400, '40102', validatorResult.msg));
         }
         const submittedInfo = req.body.submittedInfo;
-        submittedInfo.role = "案主";
+        submittedInfo.role = '案主';
         const userId = req.user._id;
         const taskId = req.params.taskId;
         if (!mongoose.isValidObjectId(taskId)) {
@@ -392,14 +393,14 @@ const tasks = {
         if (task.userId.toString() !== userId.toString()) {
             return next(appError(400, '40302', '沒有權限'));
         }
-        if (task.status!=='submitted') {
-            if (task.status === 'inProgress'){
+        if (task.status !== 'submitted') {
+            if (task.status === 'inProgress') {
                 return next(appError(400, '40214', `任務狀態錯誤： 幫手尚未上傳驗收內容`));
             } else {
                 return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
             }
         }
-        const pairedHelpers = task.helpers.filter((helper) => helper.status === "paired");
+        const pairedHelpers = task.helpers.filter((helper) => helper.status === 'paired');
         const helperId = pairedHelpers.map((helper) => helper.helperId)[0];
         // 推播通知
         await Notify.create({
@@ -427,7 +428,7 @@ const tasks = {
                     'time.updatedAt': Date.now(),
                 },
                 $push: {
-                    submittedInfo: submittedInfo
+                    submittedInfo: submittedInfo,
                 },
             },
             { new: true },
@@ -446,7 +447,7 @@ const tasks = {
         const helperId = req.user._id;
         const taskId = req.params.taskId;
         const submittedInfo = req.body.submittedInfo;
-        submittedInfo.role = "幫手";
+        submittedInfo.role = '幫手';
         if (!mongoose.isValidObjectId(taskId)) {
             return next(appError(400, '40104', 'Id 格式錯誤'));
         }
@@ -454,8 +455,8 @@ const tasks = {
         if (!task) {
             return next(appError(400, '40212', '查無此任務'));
         }
-        if (task.status!=='inProgress') {
-            if (task.status === 'submitted'){
+        if (task.status !== 'inProgress') {
+            if (task.status === 'submitted') {
                 return next(appError(400, '40214', `任務狀態錯誤：幫手已完成上傳驗收`));
             } else {
                 return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
@@ -466,7 +467,7 @@ const tasks = {
             const isMatchingStatus = helper.status === 'paired';
             return isMatchingHelper && isMatchingStatus;
         });
-        if (!isTaskHelper){
+        if (!isTaskHelper) {
             return next(appError(400, '40302', '沒有權限'));
         }
         // 推播通知
@@ -494,7 +495,7 @@ const tasks = {
                     'time.updatedAt': Date.now(),
                 },
                 $push: {
-                    submittedInfo: submittedInfo
+                    submittedInfo: submittedInfo,
                 },
             },
             { new: true },
@@ -524,10 +525,10 @@ const tasks = {
         if (!task) {
             return next(appError(404, '40212', '查無此任務'));
         }
-        if (task.status === 'completed'){
+        if (task.status === 'completed') {
             return next(appError(400, '40214', `任務狀態錯誤：任務已完成 (completed)`));
         }
-        if (task.status!=='confirmed') {
+        if (task.status !== 'confirmed') {
             return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
         const isTaskOwner = task.userId._id.toString() === userId.toString();
@@ -543,29 +544,29 @@ const tasks = {
         } else {
             return next(appError(400, '40302', '沒有權限'));
         }
-        const pairedHelpers = task.helpers.filter((helper) => helper.status === "paired");
+        const pairedHelpers = task.helpers.filter((helper) => helper.status === 'paired');
         const posterId = task.userId;
         const helperId = pairedHelpers.map((helper) => helper.helperId)[0];
-        const review = await Review.findOne({ taskId: taskId })
-        let reviewUpdate; 
-        if (review.poster.status==='waiting' || review.helper.status==='waiting' ) {
-            if (role==='案主') {
+        const review = await Review.findOne({ taskId: taskId });
+        let reviewUpdate;
+        if (review.poster.status === 'waiting' || review.helper.status === 'waiting') {
+            if (role === '案主') {
                 reviewUpdate = await Review.findOneAndUpdate(
-                                { taskId: taskId },
-                                {
-                                    $set: {
-                                        status: 'waiting',
-                                        poster: {
-                                            posterId: userId,
-                                            status: 'completed',
-                                            star: req.body.star,
-                                            comment: req.body.comment
-                                        },
-                                        updatedAt: Date.now(),
-                                    },
-                                },
-                                { new: true },
-                            );
+                    { taskId: taskId },
+                    {
+                        $set: {
+                            status: 'waiting',
+                            poster: {
+                                posterId: userId,
+                                status: 'completed',
+                                star: req.body.star,
+                                comment: req.body.comment,
+                            },
+                            updatedAt: Date.now(),
+                        },
+                    },
+                    { new: true },
+                );
                 await Notify.create({
                     userId: helperId,
                     tag: '幫手通知',
@@ -575,21 +576,21 @@ const tasks = {
                 });
             } else {
                 reviewUpdate = await Review.findOneAndUpdate(
-                                { taskId: taskId },
-                                {
-                                    $set: {
-                                        status: 'completed',
-                                        helper: {
-                                            helperId: userId,
-                                            status: 'completed',
-                                            star: req.body.star,
-                                            comment: req.body.comment
-                                        },
-                                        updatedAt: Date.now(),
-                                    },
-                                },
-                                { new: true },
-                            );
+                    { taskId: taskId },
+                    {
+                        $set: {
+                            status: 'completed',
+                            helper: {
+                                helperId: userId,
+                                status: 'completed',
+                                star: req.body.star,
+                                comment: req.body.comment,
+                            },
+                            updatedAt: Date.now(),
+                        },
+                    },
+                    { new: true },
+                );
                 await Notify.create({
                     userId: posterId,
                     tag: '案主通知',
@@ -600,7 +601,7 @@ const tasks = {
             }
         }
         // 更新任務狀態為`已完成 (completed)`
-        if (reviewUpdate.poster.status==='completed' && reviewUpdate.helper.status==='completed' ) {
+        if (reviewUpdate.poster.status === 'completed' && reviewUpdate.helper.status === 'completed') {
             await Task.findOneAndUpdate(
                 { _id: taskId },
                 {
@@ -633,14 +634,14 @@ const tasks = {
         if (task.userId.toString() !== userId.toString()) {
             return next(appError(400, '40302', '沒有權限'));
         }
-        if (task.status!=='published') {
+        if (task.status !== 'published') {
             return next(appError(400, '40214', `任務狀態錯誤： ${statusMapping.taskStatusMapping[task.status]}`));
         }
         const isTaskHelper = task.helpers.some((helper) => {
             const isMatchingHelper = helper.helperId.toString() === helperId.toString();
             return isMatchingHelper;
         });
-        if (!isTaskHelper){
+        if (!isTaskHelper) {
             return next(appError(400, '40215', '該幫手未申請或不存在'));
         }
         // 更新任務狀態為`進行中 (inProgress)`
@@ -652,7 +653,7 @@ const tasks = {
                     helpers: task.helpers.map((helper) => ({
                         helperId: helper.helperId,
                         status: helper.helperId.toString() === helperId.toString() ? 'paired' : 'unpaired',
-                      })),
+                    })),
                     'time.inProgressAt': Date.now(),
                     'time.updatedAt': Date.now(),
                 },
@@ -664,7 +665,7 @@ const tasks = {
         let descriptionNew;
         const notifications = helpers.map((helper) => {
             const helpId = helper.helperId;
-            const status = (helper.helperId.toString() === helperId.toString()) ? 'paired' : 'unpaired';
+            const status = helper.helperId.toString() === helperId.toString() ? 'paired' : 'unpaired';
             if (status === 'paired') {
                 descriptionNew = `您待媒合的任務：「${task.title}」媒合成功，您可以進行任務囉！`;
             } else if (status === 'unpaired') {
@@ -673,11 +674,11 @@ const tasks = {
                 return next(appError(500, '50001', `系統錯誤`));
             }
             return {
-              userId: helpId,
-              tag: '幫手通知',
-              description: descriptionNew,
-              taskId: taskId,
-              createdAt: Date.now(),
+                userId: helpId,
+                tag: '幫手通知',
+                description: descriptionNew,
+                taskId: taskId,
+                createdAt: Date.now(),
             };
         });
         await Notify.insertMany(notifications);

@@ -37,7 +37,7 @@ router.get('/confirm', function (req, res, next) {
     /**
      * #swagger.tags = ['Money']
      * #swagger.summary = 'LinePay 確認支付，本支是給 LinePay (Confirm payment for LinePay)'
-    */
+     */
     /**
   #swagger.responses[200] = {
     description: 'linepay 交易成功',

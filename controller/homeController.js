@@ -8,10 +8,8 @@ const statusMapping = require('../service/statusMapping');
 
 const home = {
     getCompeletedCases: handleErrorAsync(async (req, res, next) => {
-        const tasks = await Task.find({ status: 'completed' }, 'title status salary time location')
-            .populate('location', 'address longitude latitude')
-            .lean();
-        const formattedTasks = tasks.map(task => ({
+        const tasks = await Task.find({ status: 'completed' }, 'title status salary time location').populate('location', 'address longitude latitude').lean();
+        const formattedTasks = tasks.map((task) => ({
             title: task.title,
             status: statusMapping.taskStatusMapping[task.status],
             salary: task.salary,
@@ -21,7 +19,7 @@ const home = {
                 address: task.location.address,
                 longitude: task.location.longitude,
                 latitude: task.location.latitude,
-            }
+            },
         }));
         res.status(200).json(
             getHttpResponse({
