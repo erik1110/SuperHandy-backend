@@ -87,7 +87,6 @@ const linepay = {
                 }),
             );
         } else {
-            console.log(linePayRes.data);
             return next(appError(400, '40402', 'linePay 訂單不存在'));
         }
     }),
