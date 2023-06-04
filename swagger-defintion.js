@@ -603,6 +603,37 @@ const paymentConfirm = {
     data: '交易完成',
     message: '取得成功',
 };
+const getChatRoomList = {
+    status: 'success',
+    data: {
+        taskId: '647a926ba395c8322f620164',
+        role: 'helper',
+        poster: {
+            firstName: '文芳',
+            lastName: '翁',
+            nickname: '小文',
+            avatarPath: 'https://storage.googleapis.com/images/231432424.jpg',
+        },
+        helper: {
+            firstName: '冠伶',
+            lastName: '都',
+            nickname: '滴妹',
+            avatarPath: 'https://storage.googleapis.com/images/231432425.jpg',
+        },
+        time: '2021-09-27T07:00:00.000Z',
+    },
+    message: '取得聊天室列表成功',
+};
+const getChatHistory = {
+    status: 'success',
+    data: {
+        taskId: '647a926ba395c8322f620164',
+        role: 'helper',
+        message: '罐頭訊息，罐頭罐頭...',
+        createdAt: '2021-09-27T07:00:00.000Z',
+    },
+    message: '取得聊天室歷史訊息成功',
+};
 
 module.exports = {
     Success,
@@ -647,4 +678,6 @@ module.exports = {
     uploadImage,
     paymentRequest,
     paymentConfirm,
+    getChatRoomList,
+    getChatHistory,
 };
