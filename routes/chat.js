@@ -7,7 +7,7 @@ router.get('/list', function (req, res, next) {
     /**
      * #swagger.tags = ['Chat']
      * #swagger.summary = '取得聊天室列表 (Get all chatRoom list)'
-     * #swagger.description = '使用taskId作為聊天室的id'
+     * #swagger.description = '使用taskId作為聊天室的id。time表示最後一則訊息的時間。(無訊息時為null))'
      * #swagger.security=[{"Bearer": []}]
      */
 
@@ -28,13 +28,12 @@ router.get('/history', function (req, res, next) {
     /**
      * #swagger.tags = ['Chat']
      * #swagger.summary = '取得聊天室歷史訊息 (Get chat history by taskId)'
-     * #swagger.description = '每次查詢20筆最新訊息，使用lastChatId作為最後一筆訊息的id'
+     * #swagger.description = '查詢該聊天室的全部訊息'
      * #swagger.security=[{"Bearer": []}]
      */
 
     /**
      #swagger.parameters['taskId'] = {in: 'query',description: '使用taskId作為聊天d'}
-     #swagger.parameters['lastChatId'] = {in: 'query',description: '最後一筆聊天訊息的id'}
      #swagger.responses[200] = {
        description: '取得聊天室歷史訊息成功',
        schema: { $ref: '#/definitions/getChatHistory' }

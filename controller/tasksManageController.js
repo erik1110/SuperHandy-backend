@@ -8,6 +8,7 @@ const Task = require('../models/taskModel');
 const TaskTrans = require('../models/taskTransModel');
 const TaskValidator = require('../service/taskValidator');
 const statusMapping = require('../service/statusMapping');
+const { emitNotification } = require('../utils/websocket');
 
 const tasks = {
     getPostedTasksHist: handleErrorAsync(async (req, res, next) => {
@@ -674,6 +675,7 @@ const tasks = {
             } else {
                 return next(appError(500, '50001', `系統錯誤`));
             }
+            emitNotification(helpId, descriptionNew);
             return {
                 userId: helpId,
                 tag: '幫手通知',
@@ -690,6 +692,8 @@ const tasks = {
             taskId: taskId,
             createdAt: Date.now(),
         });
+        emitNotification(req.user._id, `您待媒合的任務：「${task.title} 」媒合成功，幫手可以進行任務囉！`);
+
         res.status(200).json(
             getHttpResponse({
                 message: '確認成功',
