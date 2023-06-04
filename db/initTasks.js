@@ -140,6 +140,7 @@ const initTasks = async () => {
                 latitude: 25.0486251,
             },
             isUrgent: true,
+            currentHelperId: userCase5._id,
             helpers: [
                 {
                     helperId: userCase5._id,
@@ -197,6 +198,7 @@ const initTasks = async () => {
                 latitude: 25.0184919,
             },
             isUrgent: true,
+            currentHelperId: userCase1._id,
             helpers: [
                 {
                     helperId: userCase1._id,
@@ -255,6 +257,7 @@ const initTasks = async () => {
                 latitude: 25.0132041,
             },
             isUrgent: false,
+            currentHelperId: userCase1._id,
             helpers: [
                 {
                     helperId: userCase1._id,
@@ -312,6 +315,7 @@ const initTasks = async () => {
                 latitude: 24.1208445,
             },
             isUrgent: false,
+            currentHelperId: userCase1._id,
             helpers: [
                 {
                     helperId: userCase1._id,
@@ -373,6 +377,7 @@ const initTasks = async () => {
                 latitude: 25.0219844,
             },
             isUrgent: false,
+            currentHelperId: userCase2._id,
             helpers: [
                 {
                     helperId: userCase2._id,
