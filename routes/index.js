@@ -7,6 +7,7 @@ const findTaskRouter = require('./findTask');
 const linepayRouter = require('./linepay');
 const notifyRouter = require('./notify');
 const tasksRouter = require('./tasksManage');
+const chatRouter = require('./chat');
 const { isAuth } = require('../middleware/auth');
 /** 生成 Swagger 套件 */
 const swaggerUI = require('swagger-ui-express');
@@ -23,4 +24,5 @@ module.exports = (app) => {
     app.use('/linepay', linepayRouter);
     app.use('/tasks/management', isAuth, tasksRouter);
     app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
+    app.use('/chat', isAuth, chatRouter);
 };
