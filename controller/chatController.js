@@ -71,6 +71,9 @@ const chatController = {
                 query = query.where({ read: false });
             }
         } else {
+            if (!mongoose.isValidObjectId(lastChatId)) {
+                return next(appError(400, '40104', 'Id 格式錯誤'));
+            }
             // 如果提供了lastChatId，則僅查詢_id小於lastChatId的數據
             query = query.where('_id').lt(lastChatId).sort({ _id: -1 }).limit(20);
         }
