@@ -650,6 +650,7 @@ const tasks = {
             {
                 $set: {
                     status: 'inProgress',
+                    currentHelperId: helperId,
                     helpers: task.helpers.map((helper) => ({
                         helperId: helper.helperId,
                         status: helper.helperId.toString() === helperId.toString() ? 'paired' : 'unpaired',

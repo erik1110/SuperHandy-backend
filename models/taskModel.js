@@ -100,6 +100,10 @@ const taskSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    currentHelperId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    },
     helpers: {
         type: [
             {
