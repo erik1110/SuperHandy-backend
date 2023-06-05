@@ -598,11 +598,6 @@ const paymentRequest = {
     message: '建立 linepay 訂單成功',
 };
 
-const paymentConfirm = {
-    status: 'success',
-    data: '交易完成',
-    message: '取得成功',
-};
 const getChatRoomList = {
     status: 'success',
     data: {
@@ -678,7 +673,6 @@ module.exports = {
     getStarCounts,
     uploadImage,
     paymentRequest,
-    paymentConfirm,
     getChatRoomList,
     getChatHistory,
 };
