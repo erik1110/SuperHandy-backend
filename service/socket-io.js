@@ -1,12 +1,13 @@
 const socketIO = require('socket.io');
+const mongoose = require('mongoose');
 const Task = require('../models/taskModel');
 const User = require('../models/userModel');
 const Chat = require('../models/chatModel');
 const jwt = require('jsonwebtoken');
+const userSockets = require('../utils/userSockets');
 
 function connectSocketIO(server) {
     const io = new socketIO.Server(server);
-    const userSockets = {};
 
     io.use(async (socket, next) => {
         try {
@@ -92,6 +93,42 @@ function connectSocketIO(server) {
             } catch (error) {
                 console.log('發送訊息失敗', error);
                 emitErrorMsg(socket, '發送訊息失敗');
+            }
+        });
+
+        // 監聽read狀態更新事件
+        socket.on('read', async (data) => {
+            try {
+                const { taskId, chatId } = data;
+                //驗證taskId和chatId是否符合格式
+                if (!mongoose.isValidObjectId(taskId) || !mongoose.isValidObjectId(chatId)) {
+                    emitErrorMsg(socket, 'Id 格式錯誤');
+                    return;
+                }
+
+                // 根據taskId尋找該任務
+                const task = await Task.findById(taskId);
+                if (!task || !task.currentHelperId) {
+                    emitErrorMsg(socket, 'Task not found');
+                    return;
+                }
+
+                // 尋找所有的對應且未讀的Chat記錄並將其標記為已讀
+                await Chat.updateMany({ taskId: taskId, _id: { $lte: chatId }, read: false }, { read: true });
+
+                // 發送訊息給任務相關的用戶
+                const posterId = task.userId._id.toString();
+                const helperId = task.currentHelperId._id.toString();
+                // 確保這兩個用戶都在線並已連接
+                if (userSockets[posterId]) {
+                    io.to(userSockets[posterId]).emit('read', { status: 'success', message: '已成功標記為已讀' });
+                }
+                if (userSockets[helperId]) {
+                    io.to(userSockets[helperId]).emit('read', { status: 'success', message: '已成功標記為已讀' });
+                }
+            } catch (error) {
+                console.log('標記訊息為已讀失敗', error);
+                emitErrorMsg(socket, '標記訊息為已讀失敗');
             }
         });
 
