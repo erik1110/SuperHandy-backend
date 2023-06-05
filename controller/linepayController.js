@@ -59,7 +59,7 @@ const linepay = {
         const linePayRes = await axios.post(url, linePayBody, { headers });
         // 請求成功...
         if (linePayRes?.data?.returnCode === '0000') {
-            let desc = ['購買點數'];
+            let desc = ['linepay 購買點數'];
             const purchasePlan = { 100: 0, 500: 50, 1000: 200 };
             if (purchasePlan[money] > 0) {
                 desc.push('點數贈送');
@@ -106,7 +106,12 @@ const linepay = {
         const linePayRes = await axios.post(url, linePayBody, { headers });
         // 請求成功...
         if (linePayRes?.data?.returnCode === '0000') {
-            await UserTrans.findOneAndUpdate({ 'linepay.orderId': orderId }, { $set: { 'linepay.status': '交易完成' } }, { new: true });
+            const trans = await UserTrans.findOneAndUpdate({ 'linepay.orderId': orderId }, { $set: { 'linepay.status': '交易完成' } }, { new: true });
+            // 更新使用者點數
+            const user = await User.findOne({ _id: req.user._id });
+            user.superCoin += trans.superCoin;
+            user.helperCoin += trans.helperCoin;
+            await user.save();
             res.status(200).json(
                 getHttpResponse({
                     message: 'linepay 交易成功',

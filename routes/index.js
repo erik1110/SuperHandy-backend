@@ -21,7 +21,7 @@ module.exports = (app) => {
     app.use('/find-task', findTaskRouter);
     app.use('/post-task', isAuth, postTaskRouter);
     app.use('/notifications', isAuth, notifyRouter);
-    app.use('/linepay', linepayRouter);
+    app.use('/linepay', isAuth, linepayRouter);
     app.use('/tasks/management', isAuth, tasksRouter);
     app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile));
     app.use('/chat', isAuth, chatRouter);

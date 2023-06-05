@@ -2895,7 +2895,7 @@
         "tags": [
           "Money"
         ],
-        "summary": "LinePay 確認支付，本支是給 LinePay (Confirm payment for LinePay)",
+        "summary": "LinePay 確認支付",
         "description": "",
         "parameters": [],
         "responses": {
@@ -2909,42 +2909,6 @@
             }
           }
         }
-      }
-    },
-    "/linepay/payment/{orderId}": {
-      "get": {
-        "tags": [
-          "Money"
-        ],
-        "summary": "確認消費者是否支付 LinePay 款項 (Check payment)",
-        "description": "",
-        "parameters": [
-          {
-            "name": "orderId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "取得成功",
-            "schema": {
-              "$ref": "#/definitions/paymentConfirm"
-            }
-          },
-          "500": {
-            "description": "系統錯誤",
-            "schema": {
-              "$ref": "#/definitions/Error500"
-            }
-          }
-        },
-        "security": [
-          {
-            "Bearer": []
-          }
-        ]
       }
     },
     "/tasks/management/poster": {
@@ -5546,23 +5510,6 @@
         "message": {
           "type": "string",
           "example": "建立 linepay 訂單成功"
-        }
-      }
-    },
-    "paymentConfirm": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "example": "success"
-        },
-        "data": {
-          "type": "string",
-          "example": "交易完成"
-        },
-        "message": {
-          "type": "string",
-          "example": "取得成功"
         }
       }
     },
