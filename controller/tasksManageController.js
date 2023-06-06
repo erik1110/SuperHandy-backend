@@ -8,7 +8,7 @@ const Task = require('../models/taskModel');
 const TaskTrans = require('../models/taskTransModel');
 const TaskValidator = require('../service/taskValidator');
 const statusMapping = require('../service/statusMapping');
-const { emitNotification } = require('../utils/websocket');
+const { emitNotification, emitCreateNewChat } = require('../utils/websocket');
 
 const tasks = {
     getPostedTasksHist: handleErrorAsync(async (req, res, next) => {
@@ -662,6 +662,31 @@ const tasks = {
             },
             { new: true },
         );
+        //建立newChatObj for websocket emit 'createNewChat'
+        const poster = await User.findById(task.userId);
+        const helper = await User.findById(helperId);
+        let newChatObj = {
+            taskId: task._id,
+            title: task.title,
+            selfRole: '',
+            partnerRole: '',
+            poster: {
+                firstName: poster.firstName,
+                lastName: poster.lastName,
+                nickname: poster.nickname,
+                avatarPath: poster.avatarPath,
+            },
+            helper: {
+                firstName: helper.firstName,
+                lastName: helper.lastName,
+                nickname: helper.nickname,
+                avatarPath: helper.avatarPath,
+            },
+            unreadCount: 0,
+            time: null,
+        };
+        emitCreateNewChat(task.userId, { ...newChatObj, selfRole: 'poster', partnerRole: 'helper' });
+        emitCreateNewChat(helperId, { ...newChatObj, selfRole: 'helper', partnerRole: 'poster' });
         // 推播通知
         const helpers = task.helpers;
         let descriptionNew;
@@ -692,6 +717,7 @@ const tasks = {
             taskId: taskId,
             createdAt: Date.now(),
         });
+
         emitNotification(req.user._id, `您待媒合的任務：「${task.title} 」媒合成功，幫手可以進行任務囉！`);
 
         res.status(200).json(
