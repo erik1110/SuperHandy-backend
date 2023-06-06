@@ -2911,6 +2911,48 @@
         }
       }
     },
+    "/auth/google": {
+      "get": {
+        "tags": [
+          "Sign-in"
+        ],
+        "summary": "第三方登入 google",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "第三方登入 google"
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/auth/google/callback": {
+      "get": {
+        "tags": [
+          "Sign-in"
+        ],
+        "summary": "第三方登入 google callback",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "第三方登入 google callback"
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
     "/tasks/management/poster": {
       "get": {
         "tags": [
