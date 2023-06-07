@@ -11,7 +11,7 @@ const chatController = {
             {
                 $and: [{ currentHelperId: { $exists: true } }, { $or: [{ userId: userId }, { currentHelperId: userId }] }],
             },
-            '_id userId currentHelperId time',
+            '_id title userId currentHelperId time',
         )
             .populate('userId', '_id firstName lastName nickname avatarPath')
             .populate('currentHelperId', '_id firstName lastName nickname avatarPath');
@@ -26,9 +26,13 @@ const chatController = {
                 } else {
                     time = null;
                 }
+                const selfRole = task.userId._id.toString() === userId.toString() ? 'poster' : 'helper';
+                const partnerRole = selfRole === 'poster' ? 'helper' : 'poster';
                 return {
                     taskId: task._id,
-                    role: task.userId._id.toString() === userId.toString() ? 'poster' : 'helper',
+                    title: task.title,
+                    selfRole,
+                    partnerRole,
                     poster: {
                         firstName: task.userId.firstName,
                         lastName: task.userId.lastName,
