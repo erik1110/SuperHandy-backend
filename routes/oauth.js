@@ -28,6 +28,7 @@ router.get('/google/callback', function (req, res, next) {
     /**
   #swagger.responses[200] = {
     description: '第三方登入 - 取得 google 資訊',
+    schema: { $ref: '#/definitions/googleCallback' }
   }
   #swagger.responses[500] = {
     description: '系統錯誤',
@@ -55,6 +56,7 @@ router.post('/google/sign-in/:userId', function (req, res, next) {
   }
   #swagger.responses[200] = {
     description: '第三方登入 google - 註冊',
+    schema: { $ref: '#/definitions/googleSignUp' }
   }
   #swagger.responses[500] = {
     description: '系統錯誤',

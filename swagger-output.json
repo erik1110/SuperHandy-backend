@@ -2942,7 +2942,10 @@
         "parameters": [],
         "responses": {
           "200": {
-            "description": "第三方登入 - 取得 google 資訊"
+            "description": "第三方登入 - 取得 google 資訊",
+            "schema": {
+              "$ref": "#/definitions/googleCallback"
+            }
           },
           "500": {
             "description": "系統錯誤",
@@ -2997,7 +3000,10 @@
         ],
         "responses": {
           "200": {
-            "description": "第三方登入 google - 註冊"
+            "description": "第三方登入 google - 註冊",
+            "schema": {
+              "$ref": "#/definitions/googleSignUp"
+            }
           },
           "500": {
             "description": "系統錯誤",
@@ -5717,6 +5723,66 @@
         "message": {
           "type": "string",
           "example": "取得聊天室歷史訊息成功"
+        }
+      }
+    },
+    "googleCallback": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "oauth_register": {
+              "type": "boolean",
+              "example": true
+            },
+            "token": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODAwOGYxMDc4ZmMxYWEyZDNlNjU3OSIsImlhdCI6MTY4NjExMzY5MSwiZXhwIjoxNjg2NzE4NDkxfQ.MzuEB6mU7VOVeTIx9In7EYKPKbIwimKZd1eN7bEC9UE"
+            },
+            "userId": {
+              "type": "string",
+              "example": "648008f1078fc1aa2d3e6579"
+            },
+            "nickname": {
+              "type": "string",
+              "example": "小明"
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "第三方登入 - 取得google 資訊"
+        }
+      }
+    },
+    "googleSignUp": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "object",
+          "properties": {
+            "token": {
+              "type": "string",
+              "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODAwOGYxMDc4ZmMxYWEyZDNlNjU3OSIsImlhdCI6MTY4NjExMzY5MSwiZXhwIjoxNjg2NzE4NDkxfQ.MzuEB6mU7VOVeTIx9In7EYKPKbIwimKZd1eN7bEC9UE"
+            },
+            "userId": {
+              "type": "string",
+              "example": "648008f1078fc1aa2d3e6579"
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "第三方登入 google - 註冊"
         }
       }
     }
