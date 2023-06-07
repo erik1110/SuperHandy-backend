@@ -2916,12 +2916,12 @@
         "tags": [
           "Sign-in"
         ],
-        "summary": "第三方登入 - google轉向同意頁",
+        "summary": "第三方登入 - google 轉向同意頁",
         "description": "",
         "parameters": [],
         "responses": {
           "302": {
-            "description": "第三方登入 - google轉向同意頁"
+            "description": "第三方登入 - google 轉向同意頁"
           },
           "500": {
             "description": "系統錯誤",
@@ -2937,12 +2937,12 @@
         "tags": [
           "Sign-in"
         ],
-        "summary": "第三方登入 - 取得google 資訊",
+        "summary": "第三方登入 - 取得 google 資訊",
         "description": "",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "第三方登入 - 取得google 資訊"
+            "description": "第三方登入 - 取得 google 資訊"
           },
           "500": {
             "description": "系統錯誤",

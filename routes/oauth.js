@@ -6,11 +6,11 @@ const oauthController = require('../controller/oauthController');
 router.get('/google', function (req, res, next) {
     /**
      * #swagger.tags = ['Sign-in']
-     * #swagger.summary = '第三方登入 - google轉向同意頁'
+     * #swagger.summary = '第三方登入 - google 轉向同意頁'
     */
     /**
     #swagger.responses[302] = {
-      description: '第三方登入 - google轉向同意頁',
+      description: '第三方登入 - google 轉向同意頁',
     }
     #swagger.responses[500] = {
       description: '系統錯誤',
@@ -23,11 +23,11 @@ router.get('/google', function (req, res, next) {
 router.get('/google/callback', function (req, res, next) {
     /**
      * #swagger.tags = ['Sign-in']
-     * #swagger.summary = '第三方登入 - 取得google 資訊'
+     * #swagger.summary = '第三方登入 - 取得 google 資訊'
      */
     /**
   #swagger.responses[200] = {
-    description: '第三方登入 - 取得google 資訊',
+    description: '第三方登入 - 取得 google 資訊',
   }
   #swagger.responses[500] = {
     description: '系統錯誤',

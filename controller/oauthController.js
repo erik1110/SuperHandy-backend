@@ -13,7 +13,6 @@ const {
     GOOGLE_CALLBACK_URL,
 } = process.env;
 
-
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_OAUTH_CLIENT_ID,
     clientSecret: GOOGLE_OAUTH_CLIENT_SECRET,
@@ -86,15 +85,17 @@ const oauth = {
               return next(appError(400, '40300', 'token 建立失敗'));
           }
         }
-        res.send({
-            status: true,
-            data: {
+        res.status(200).json(
+          getHttpResponse({
+              message: '第三方登入 - 取得 google 資訊',
+              data: {
                 oauth_register: oauth_register,
                 token: token || null,
                 userId: _id,
                 nickname: googleUser.displayName,
-            },
-        });
+             },
+          }),
+        );
     }),
     oauthSignUp: handleErrorAsync(async (req, res, next) => {
       const userId = req.params.userId;
@@ -130,13 +131,13 @@ const oauth = {
         if (token.length === 0) {
             return next(appError(400, '40300', 'token 建立失敗'));
         }
-        const data = {
-            token,
-            id: userId,
-        };
         res.status(200).json(
             getHttpResponse({
-                data,
+                message: '第三方登入 google - 註冊',
+                data: {
+                  token,
+                  id: userId,
+                },
             }),
         );
     }),
