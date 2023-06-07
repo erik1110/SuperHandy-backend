@@ -7,7 +7,7 @@ router.get('/list', function (req, res, next) {
     /**
      * #swagger.tags = ['Chat']
      * #swagger.summary = '取得聊天室列表 (Get all chatRoom list)'
-     * #swagger.description = '使用taskId作為聊天室的id。time表示最後一則訊息的時間。(無訊息時為null))'
+     * #swagger.description = '使用taskId作為聊天室的id。time表示最後一則訊息的時間。(無訊息時為null)'
      * #swagger.security=[{"Bearer": []}]
      */
 
