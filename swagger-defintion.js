@@ -633,6 +633,26 @@ const getChatHistory = {
     message: '取得聊天室歷史訊息成功',
 };
 
+const googleCallback = {
+    status: 'success',
+    data: {
+        oauth_register: true,
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODAwOGYxMDc4ZmMxYWEyZDNlNjU3OSIsImlhdCI6MTY4NjExMzY5MSwiZXhwIjoxNjg2NzE4NDkxfQ.MzuEB6mU7VOVeTIx9In7EYKPKbIwimKZd1eN7bEC9UE',
+        userId: '648008f1078fc1aa2d3e6579',
+        nickname: '小明',
+    },
+    message: '第三方登入 - 取得google 資訊',
+};
+
+const googleSignUp = {
+    status: 'success',
+    data: {
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODAwOGYxMDc4ZmMxYWEyZDNlNjU3OSIsImlhdCI6MTY4NjExMzY5MSwiZXhwIjoxNjg2NzE4NDkxfQ.MzuEB6mU7VOVeTIx9In7EYKPKbIwimKZd1eN7bEC9UE',
+        userId: '648008f1078fc1aa2d3e6579',
+    },
+    message: '第三方登入 google - 註冊',
+};
+
 module.exports = {
     Success,
     Error400,
@@ -677,4 +697,6 @@ module.exports = {
     paymentRequest,
     getChatRoomList,
     getChatHistory,
+    googleCallback,
+    googleSignUp,
 };

@@ -185,4 +185,22 @@ module.exports = class Validator {
             msg: 'success',
         };
     }
+    static oauthSignUp({ firstName, lastName, phone }) {
+        if (!firstName || !lastName || !phone) {
+            return {
+                status: false,
+                msg: '欄位未填寫正確!',
+            };
+        }
+        if (!validator.isMobilePhone(phone, 'zh-TW')) {
+            return {
+                status: false,
+                msg: '電話號碼不正確!',
+            };
+        }
+        return {
+            status: true,
+            msg: 'success',
+        };
+    }
 };

@@ -140,7 +140,7 @@ const accounts = {
     }),
     getPointsHistory: handleErrorAsync(async (req, res, next) => {
         let userTrans = await UserTrans.find({ userId: req.user._id });
-        userTrans = userTrans.filter(trans => {
+        userTrans = userTrans.filter((trans) => {
             return trans.linepay && trans.linepay.status === '交易完成';
         });
         const taskTrans = await TaskTrans.find({ userId: req.user._id });
