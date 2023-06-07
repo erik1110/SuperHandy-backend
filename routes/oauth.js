@@ -7,7 +7,7 @@ router.get('/google', function (req, res, next) {
     /**
      * #swagger.tags = ['Sign-in']
      * #swagger.summary = '第三方登入 - google 轉向同意頁'
-    */
+     */
     /**
     #swagger.responses[302] = {
       description: '第三方登入 - google 轉向同意頁',
@@ -40,11 +40,11 @@ router.get('/google/callback', function (req, res, next) {
 
 /* 第三方登入 - 註冊 */
 router.post('/google/sign-in/:userId', function (req, res, next) {
-  /**
-   * #swagger.tags = ['Sign-in']
-   * #swagger.summary = '第三方登入 - 註冊'
-   */
-  /**
+    /**
+     * #swagger.tags = ['Sign-in']
+     * #swagger.summary = '第三方登入 - 註冊'
+     */
+    /**
   #swagger.parameters['parameter_name'] = {
     in: 'body',
     description: '請將 /google/callback 回傳資訊提供到這支 api',
@@ -63,8 +63,7 @@ router.post('/google/sign-in/:userId', function (req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
 */
-  oauthController.oauthSignUp(req, res, next);
+    oauthController.oauthSignUp(req, res, next);
 });
-
 
 module.exports = router;
