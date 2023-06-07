@@ -8,27 +8,26 @@ const userSchema = new mongoose.Schema({
         select: false,
         trim: true,
     },
+    googleId: {
+        type: String,
+        unique: true,
+    },
     password: {
         type: String,
-        required: [true, 'Please enter your password.'],
         minlength: 8,
         select: false,
         trim: true,
     },
     firstName: {
         type: String,
-        required: [true, 'Please enter your first name.'],
         trim: true,
     },
     lastName: {
         type: String,
-        required: [true, 'Please enter your last name.'],
         trim: true,
     },
     phone: {
         type: String,
-        required: [true, 'Please enter your phone.'],
-        unique: true,
         trim: true,
     },
     avatarPath: {

@@ -1,8 +1,11 @@
+const mongoose = require('mongoose');
 const passport = require('passport');
 const GoogleStrategy = require( 'passport-google-oauth20' ).Strategy;
 const { appError, handleErrorAsync } = require('../utils/errorHandler');
 const getHttpResponse = require('../utils/successHandler');
 const User = require('../models/userModel');
+const Validator = require('../service/userValidator');
+const { generateJwtToken } = require('../middleware/auth');
 
 const {
     GOOGLE_OAUTH_CLIENT_ID,
@@ -16,10 +19,8 @@ passport.use(new GoogleStrategy({
     clientSecret: GOOGLE_OAUTH_CLIENT_SECRET,
     callbackURL: GOOGLE_CALLBACK_URL,
   },
-  function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return cb(err, user);
-    });
+  (accessToken, refreshToken, profile, cb) => {
+    return cb(null, profile);
   }
 ));
 
@@ -30,26 +31,115 @@ const oauth = {
         })(req, res, next);
     }),
     authenticateCallback: handleErrorAsync(async (req, res, next) => {
-        passport.authenticate('google', { session: false }, (err, user) => {
-          if (err) {
-            // 处理错误情况
-            return next(err);
+        const authenticate = () => {
+          return new Promise((resolve, reject) => {
+            passport.authenticate('google', { session: false }, (error, user) => {
+              if (error) {
+                return reject({
+                  status: 500,
+                  message: 'Passport authentication error',
+                });
+              }
+              if (!user) {
+                return reject({
+                  status: 401,
+                  message: 'Passport authentication failed',
+                });
+              }
+              resolve(user);
+            })(req, res, next);
+          });
+        };
+        let googleUser;
+        googleUser = await authenticate();
+        let newUser;
+        let oauth_register;
+        let _id;
+        let token;
+        const user = await User.findOne({ googleId: { $exists: true, $eq: googleUser.id } });
+        if (!user) {
+          oauth_register = false;
+          try {
+              newUser = await User.create({
+                  email: googleUser._json.email,
+                  googleId: googleUser.id,
+                  nickname: googleUser.displayName,
+                  avatarPath: googleUser._json.picture,
+                  isVerifiedEmail: true,
+              });
+              _id = newUser._id;
+          } catch (error) {
+              console.log(error)
+              if (error.code === 11000) {
+                  const field = Object.keys(error.keyPattern)[0];
+                  return next(appError(400, '40204', `此 ${field} 已被註冊`));
+              } else if (error.message.includes('ValidationError')) {
+                  return next(appError(400, '40101', '格式錯誤'));
+              }
+              return next(appError(400, '40205', '不明錯誤'));
           }
-          if (!user) {
-            // 用户不存在或未通过验证
-            return res.status(401).json({ status: false, message: 'Unauthorized' });
+        } else {
+          oauth_register = true;
+          _id = user._id;
+          token = await generateJwtToken(_id);
+          if (token.length === 0) {
+              return next(appError(400, '40300', 'token 建立失敗'));
           }
-          // 用户已通过验证
-          res.send({
+        }
+        res.send({
             status: true,
             data: {
-              id: req.user.id,
-              name: req.user.displayName
-            }
-          });
-        })(req, res, next);
+                oauth_register: oauth_register,
+                token: token || null,
+                userId: _id,
+                nickname: googleUser.displayName,
+            },
+        });
     }),
-      
+    oauthSignUp: handleErrorAsync(async (req, res, next) => {
+      const userId = req.params.userId;
+      if (!mongoose.isValidObjectId(userId)) {
+        return next(appError(400, '40104', 'Id 格式錯誤'));
+      }
+      const validatorResult = Validator.oauthSignUp(req.body);
+      if (!validatorResult.status) {
+          return next(appError(400, '40102', validatorResult.msg));
+      }
+      const { firstName, lastName, phone } = req.body;
+      const user = await User.findOne({ _id: userId });
+      if (user) {
+        try {
+          await User.findByIdAndUpdate(user._id, { 
+            firstName,
+            lastName,
+            phone
+          });
+        } catch (error) {
+            if (error.code === 11000) {
+                const field = Object.keys(error.keyPattern)[0];
+                return next(appError(400, '40204', `此 ${field} 已被註冊`));
+            } else if (error.message.includes('ValidationError')) {
+                return next(appError(400, '40101', '格式錯誤'));
+            }
+            return next(appError(400, '40205', '不明錯誤'));
+        }
+      } else {
+        return next(appError(400, '40201', '尚未註冊'));
+      }
+      const token = await generateJwtToken(userId);
+        if (token.length === 0) {
+            return next(appError(400, '40300', 'token 建立失敗'));
+        }
+        const data = {
+            token,
+            id: userId,
+        };
+        res.status(200).json(
+            getHttpResponse({
+                data,
+            }),
+        );
+    }),
 };
 
 module.exports = oauth;

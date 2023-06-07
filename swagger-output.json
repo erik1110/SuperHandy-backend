@@ -2916,12 +2916,12 @@
         "tags": [
           "Sign-in"
         ],
-        "summary": "第三方登入 google",
+        "summary": "第三方登入 - google轉向同意頁",
         "description": "",
         "parameters": [],
         "responses": {
-          "200": {
-            "description": "第三方登入 google"
+          "302": {
+            "description": "第三方登入 - google轉向同意頁"
           },
           "500": {
             "description": "系統錯誤",
@@ -2937,12 +2937,67 @@
         "tags": [
           "Sign-in"
         ],
-        "summary": "第三方登入 google callback",
+        "summary": "第三方登入 - 取得google 資訊",
         "description": "",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "第三方登入 google callback"
+            "description": "第三方登入 - 取得google 資訊"
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
+      }
+    },
+    "/auth/google/sign-in/{userId}": {
+      "post": {
+        "tags": [
+          "Sign-in"
+        ],
+        "summary": "第三方登入 - 註冊",
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "parameter_name",
+            "in": "body",
+            "description": "請將 /google/callback 回傳資訊提供到這支 api",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "phone": {
+                  "type": "string",
+                  "example": "0912345678"
+                },
+                "firstName": {
+                  "type": "string",
+                  "example": "小明"
+                },
+                "lastName": {
+                  "type": "string",
+                  "example": "王"
+                }
+              },
+              "required": [
+                "phone",
+                "firstName",
+                "lastName"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "第三方登入 google - 註冊"
           },
           "500": {
             "description": "系統錯誤",
