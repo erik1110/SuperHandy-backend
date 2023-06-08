@@ -618,7 +618,8 @@ const getChatRoomList = {
             avatarPath: 'https://storage.googleapis.com/images/231432425.jpg',
         },
         unreadCount: 0,
-        time: '2021-09-27T07:00:00.000Z',
+        lastMessage: '最後一則訊息',
+        updatedAt: '2021-09-27T07:00:00.000Z',
     },
     message: '取得聊天室列表成功',
 };
