@@ -46,6 +46,7 @@ const chatController = {
                         avatarPath: task.currentHelperId.avatarPath,
                     },
                     unreadCount,
+                    lastMessage: lastChat ? lastChat.message : null,
                     updatedAt: time,
                 };
             }),
