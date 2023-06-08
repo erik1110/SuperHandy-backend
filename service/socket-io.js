@@ -76,25 +76,27 @@ function connectSocketIO(server) {
                 const posterId = task.userId._id.toString();
                 const helperId = task.currentHelperId._id.toString();
                 const role = currentUser === posterId ? 'poster' : 'helper';
-                const createAt = new Date();
+                const createdAt = new Date();
+                const read = false;
                 // 將訊息儲存到資料庫
                 const chat = new Chat({
                     userId: currentUser,
                     taskId,
                     message,
-                    createAt,
+                    createdAt,
+                    read,
                 });
                 await chat.save();
 
                 // 確保這兩個用戶都在線並已連接
                 if (userSockets[posterId]) {
                     userSockets[posterId].forEach((socketId) => {
-                        io.to(socketId).emit('message', { message, taskId, role, createAt });
+                        io.to(socketId).emit('message', { message, taskId, role, read, createdAt });
                     });
                 }
                 if (userSockets[helperId]) {
                     userSockets[helperId].forEach((socketId) => {
-                        io.to(socketId).emit('message', { message, taskId, role, createAt });
+                        io.to(socketId).emit('message', { message, taskId, role, read, createdAt });
                     });
                 }
             } catch (error) {
