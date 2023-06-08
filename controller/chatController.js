@@ -46,7 +46,7 @@ const chatController = {
                         avatarPath: task.currentHelperId.avatarPath,
                     },
                     unreadCount,
-                    time,
+                    updatedAt: time,
                 };
             }),
         );
