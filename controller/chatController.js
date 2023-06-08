@@ -75,7 +75,7 @@ const chatController = {
         }
 
         //查詢所有與此taskId相關的聊天訊息
-        let query = Chat.find({ taskId: taskId }).sort({ _id: -1 });
+        let query = Chat.find({ taskId: taskId }).sort({ _id: 1 });
 
         let chatHistory = await query.populate('taskId', '_id userId');
 

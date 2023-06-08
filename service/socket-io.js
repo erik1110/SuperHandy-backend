@@ -56,7 +56,10 @@ function connectSocketIO(server) {
         const currentUser = socket.user.id.toString();
         // console.log('check point socket', socket);
         // 將用戶的 socket.id 保存下來
-        userSockets[currentUser] = socket.id;
+        if (!userSockets[currentUser]) {
+            userSockets[currentUser] = [];
+        }
+        userSockets[currentUser].push(socket.id);
 
         // 監聽訊息事件
         socket.on('message', async (data) => {
@@ -85,10 +88,14 @@ function connectSocketIO(server) {
 
                 // 確保這兩個用戶都在線並已連接
                 if (userSockets[posterId]) {
-                    io.to(userSockets[posterId]).emit('message', { message, taskId, role, createAt });
+                    userSockets[posterId].forEach((socketId) => {
+                        io.to(socketId).emit('message', { message, taskId, role, createAt });
+                    });
                 }
                 if (userSockets[helperId]) {
-                    io.to(userSockets[helperId]).emit('message', { message, taskId, role, createAt });
+                    userSockets[helperId].forEach((socketId) => {
+                        io.to(socketId).emit('message', { message, taskId, role, createAt });
+                    });
                 }
             } catch (error) {
                 console.log('發送訊息失敗', error);
@@ -121,10 +128,14 @@ function connectSocketIO(server) {
                 const helperId = task.currentHelperId._id.toString();
                 // 確保這兩個用戶都在線並已連接
                 if (userSockets[posterId]) {
-                    io.to(userSockets[posterId]).emit('read', { status: 'success', message: '已成功標記為已讀' });
+                    userSockets[posterId].forEach((socketId) => {
+                        io.to(socketId).emit('read', { status: 'success', message: '已成功標記為已讀' });
+                    });
                 }
                 if (userSockets[helperId]) {
-                    io.to(userSockets[helperId]).emit('read', { status: 'success', message: '已成功標記為已讀' });
+                    userSockets[helperId].forEach((socketId) => {
+                        io.to(socketId).emit('read', { status: 'success', message: '已成功標記為已讀' });
+                    });
                 }
             } catch (error) {
                 console.log('標記訊息為已讀失敗', error);
@@ -134,7 +145,16 @@ function connectSocketIO(server) {
 
         // 當用戶斷開連接時，從使用者列表中移除
         socket.on('disconnect', () => {
-            if (socket.user && socket.user.id) {
+            if (!socket.user || !socket.user.id) return;
+
+            const userSocketIds = userSockets[socket.user.id];
+            if (!userSocketIds) return;
+
+            const index = userSocketIds.indexOf(socket.id);
+            if (index > -1) {
+                userSocketIds.splice(index, 1);
+            }
+            if (userSocketIds.length === 0) {
                 delete userSockets[socket.user.id];
             }
         });

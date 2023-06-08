@@ -3,13 +3,17 @@ const userSockets = require('./userSockets');
 
 function emitNotification(userId, message) {
     if (userSockets[userId.toString()]) {
-        io.to(userSockets[userId.toString()]).emit('notification', message);
+        userSockets[userId.toString()].forEach((socketId) => {
+            io.to(socketId).emit('notification', message);
+        });
     }
 }
 
 function emitCreateNewChat(userId, newChatObj) {
     if (userSockets[userId.toString()]) {
-        io.to(userSockets[userId.toString()]).emit('createNewChat', newChatObj);
+        userSockets[userId.toString()].forEach((socketId) => {
+            io.to(socketId).emit('createNewChat', newChatObj);
+        });
     }
 }
 
