@@ -55,7 +55,8 @@ router.patch('/info-form', async function (req, res, next) {
         'posterIntro': '我是海報人',
         'helperIntro': '我是幫手人',
         'helperSkills':['人力派遣','市場調查'],
-        'updatedAt': '2021-05-20T08:00:00.000Z'
+        'updatedAt': '2021-05-20T08:00:00.000Z',
+        'avatarPath': 'https://i.imgur.com/3Z4nZCY.jpg'
       }
     }
     #swagger.responses[200] = {

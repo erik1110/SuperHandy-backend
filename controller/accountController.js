@@ -39,7 +39,7 @@ const accounts = {
     }),
     updateInfoForm: handleErrorAsync(async (req, res, next) => {
         const updateFields = {};
-        const acceptedFields = ['firstName', 'lastName', 'nickname', 'location', 'posterIntro', 'helperIntro', 'helperSkills'];
+        const acceptedFields = ['firstName', 'lastName', 'nickname', 'location', 'posterIntro', 'helperIntro', 'helperSkills', 'avatarPath'];
         const checkField = (field) => {
             if (req.body.hasOwnProperty(field)) {
                 updateFields[field] = req.body[field];
