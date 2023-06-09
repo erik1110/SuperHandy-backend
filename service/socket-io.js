@@ -93,16 +93,17 @@ function connectSocketIO(server) {
                     read,
                 });
                 await chat.save();
+                const chatId = chat._id.toString();
 
                 // 確保這兩個用戶都在線並已連接
                 if (userSockets[posterId]) {
                     userSockets[posterId].forEach((socketId) => {
-                        io.to(socketId).emit('message', { message, taskId, role, read, unreadCount: posterUnreadCount, createdAt });
+                        io.to(socketId).emit('message', { chatId, message, taskId, role, read, unreadCount: posterUnreadCount, createdAt });
                     });
                 }
                 if (userSockets[helperId]) {
                     userSockets[helperId].forEach((socketId) => {
-                        io.to(socketId).emit('message', { message, taskId, role, read, unreadCount: helperUnreadCount, createdAt });
+                        io.to(socketId).emit('message', { chatId, message, taskId, role, read, unreadCount: helperUnreadCount, createdAt });
                     });
                 }
             } catch (error) {
