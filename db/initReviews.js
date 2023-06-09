@@ -5,9 +5,9 @@ const User = require('../models/userModel');
 const initReviews = async () => {
     const userCase1 = await User.findOne({ email: 'user1@example.com' }).select('lastName firstName phone');
     const userCase2 = await User.findOne({ email: 'user2@example.com' }).select('lastName firstName phone');
-    const userCase3 = await User.findOne({ email: 'chiayu@example.com' }).select('lastName firstName phone');
-    const userCase4 = await User.findOne({ email: 'yunshan@example.com' }).select('lastName firstName phone');
-    const userCase5 = await User.findOne({ email: 'weiyu@example.com' }).select('lastName firstName phone');
+    const userCase3 = await User.findOne({ email: 'user4@example.com' }).select('lastName firstName phone');
+    const userCase4 = await User.findOne({ email: 'user5@example.com' }).select('lastName firstName phone');
+    const userCase5 = await User.findOne({ email: 'user6@example.com' }).select('lastName firstName phone');
     const tasks = await Task.find().select('userId title');
     const taskCase1 = tasks.find((task) => task.title === '急！幫忙代購王國之淚');
     // const taskCase2 = tasks.find((task) => task.title === '幫忙打王國之淚的Boss');

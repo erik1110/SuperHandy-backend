@@ -9,9 +9,9 @@ const initTransactions = async () => {
         const tasks = await Task.find().select('userId title');
         const userCase1 = users.find((user) => user.email === 'user1@example.com');
         const userCase2 = users.find((user) => user.email === 'user2@example.com');
-        const userCase3 = users.find((user) => user.email === 'chiayu@example.com');
-        const userCase4 = users.find((user) => user.email === 'yunshan@example.com');
-        const userCase5 = users.find((user) => user.email === 'weiyu@example.com');
+        const userCase3 = users.find((user) => user.email === 'user4@example.com');
+        const userCase4 = users.find((user) => user.email === 'user5@example.com');
+        const userCase5 = users.find((user) => user.email === 'user6@example.com');
         const taskCase1 = tasks.find((task) => task.title === '急！幫忙代購王國之淚');
         const taskCase2 = tasks.find((task) => task.title === '幫忙打王國之淚的Boss');
         const taskCase3 = tasks.find((task) => task.title === '陪我家狗玩');
@@ -24,9 +24,191 @@ const initTransactions = async () => {
         const taskCase10 = tasks.find((task) => task.title === '需要網頁設計師');
         const taskCase11 = tasks.find((task) => task.title === '需求運動教練');
         const taskCase12 = tasks.find((task) => task.title === '需要翻譯人員');
+        const taskCase13 = tasks.find((task) => task.title === '好想吃南部粽');
+        const taskCase14 = tasks.find((task) => task.title === '李多慧後援會');
+        const taskCase15 = tasks.find((task) => task.title === '蘋果發表會的產品試用心得');
+        const taskCase16 = tasks.find((task) => task.title === '羽球教練');
+        const taskCase17 = tasks.find((task) => task.title === '居家風水');
+        const taskCase18 = tasks.find((task) => task.title === '幫忙洗車');
+        const taskCase19 = tasks.find((task) => task.title === '吉他伴奏');
+        const taskCase20 = tasks.find((task) => task.title === '日文家教');
+        const taskCase21 = tasks.find((task) => task.title === 'line貼圖');
+        const taskCase22 = tasks.find((task) => task.title === '一起唱歌');
+        const taskCase23 = tasks.find((task) => task.title === '吃大餐');
+        const taskCase24 = tasks.find((task) => task.title === '媽媽想學鋼琴');
+        const taskCase25 = tasks.find((task) => task.title === '總統大選隨機詢問');
+        const taskCase26 = tasks.find((task) => task.title === '烘焙證照');
         await TaskTrans.deleteMany({});
         await UserTrans.deleteMany({});
         const taskTransactions = [
+            {
+                taskId: taskCase13._id,
+                userId: userCase3._id,
+                tag: '刊登任務',
+                salary: 1000,
+                exposurePlan: 30,
+                platform: 0,
+                superCoin: -1000,
+                helperCoin: -30,
+                desc: ['預扣薪水', '限時曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase14._id,
+                userId: userCase2._id,
+                tag: '刊登任務',
+                salary: 5000,
+                exposurePlan: 30,
+                platform: 0,
+                superCoin: -5030,
+                helperCoin: 0,
+                desc: ['預扣薪水', '限時曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase15._id,
+                userId: userCase2._id,
+                tag: '刊登任務',
+                salary: 3000,
+                exposurePlan: 30,
+                platform: 0,
+                superCoin: -3000,
+                helperCoin: -30,
+                desc: ['預扣薪水', '限時曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase16._id,
+                userId: userCase2._id,
+                tag: '刊登任務',
+                salary: 3600,
+                exposurePlan: 30,
+                platform: 0,
+                superCoin: -3600,
+                helperCoin: -30,
+                desc: ['預扣薪水', '限時曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase17._id,
+                userId: userCase2._id,
+                tag: '刊登任務',
+                salary: 2000,
+                exposurePlan: 30,
+                platform: 0,
+                superCoin: -2000,
+                helperCoin: -30,
+                desc: ['預扣薪水', '限時曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase18._id,
+                userId: userCase2._id,
+                tag: '刊登任務',
+                salary: 2500,
+                exposurePlan: 70,
+                platform: 0,
+                superCoin: -2500,
+                helperCoin: -70,
+                desc: ['預扣薪水', '限時黃金曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase19._id,
+                userId: userCase5._id,
+                tag: '刊登任務',
+                salary: 2500,
+                exposurePlan: 70,
+                platform: 0,
+                superCoin: -2500,
+                helperCoin: -70,
+                desc: ['預扣薪水', '限時黃金曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase20._id,
+                userId: userCase5._id,
+                tag: '刊登任務',
+                salary: 3300,
+                exposurePlan: 70,
+                platform: 0,
+                superCoin: -3300,
+                helperCoin: -70,
+                desc: ['預扣薪水', '限時黃金曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase21._id,
+                userId: userCase5._id,
+                tag: '刊登任務',
+                salary: 1800,
+                exposurePlan: 70,
+                platform: 0,
+                superCoin: -1800,
+                helperCoin: -70,
+                desc: ['預扣薪水', '限時黃金曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase22._id,
+                userId: userCase5._id,
+                tag: '刊登任務',
+                salary: 3000,
+                exposurePlan: 70,
+                platform: 0,
+                superCoin: -3000,
+                helperCoin: -70,
+                desc: ['預扣薪水', '限時黃金曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase23._id,
+                userId: userCase5._id,
+                tag: '刊登任務',
+                salary: 6666,
+                exposurePlan: 70,
+                platform: 0,
+                superCoin: -6666,
+                helperCoin: -70,
+                desc: ['預扣薪水', '限時黃金曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase24._id,
+                userId: userCase5._id,
+                tag: '刊登任務',
+                salary: 6666,
+                exposurePlan: 70,
+                platform: 0,
+                superCoin: -6666,
+                helperCoin: -70,
+                desc: ['預扣薪水', '限時黃金曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase25._id,
+                userId: userCase5._id,
+                tag: '刊登任務',
+                salary: 5555,
+                exposurePlan: 20,
+                platform: 0,
+                superCoin: -5555,
+                helperCoin: -20,
+                desc: ['預扣薪水', '一般曝光'],
+                role: '案主',
+            },
+            {
+                taskId: taskCase26._id,
+                userId: userCase2._id,
+                tag: '刊登任務',
+                salary: 600,
+                exposurePlan: 20,
+                platform: 0,
+                superCoin: -600,
+                helperCoin: -20,
+                desc: ['預扣薪水', '一般曝光'],
+                role: '案主',
+            },
             {
                 taskId: taskCase1._id,
                 userId: userCase1._id,
