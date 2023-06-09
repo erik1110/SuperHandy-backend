@@ -5714,7 +5714,11 @@
               "type": "number",
               "example": 0
             },
-            "time": {
+            "lastMessage": {
+              "type": "string",
+              "example": "最後一則訊息"
+            },
+            "updatedAt": {
               "type": "string",
               "example": "2021-09-27T07:00:00.000Z"
             }

@@ -72,29 +72,35 @@ function connectSocketIO(server) {
                     emitErrorMsg(socket, 'Task not found');
                     return;
                 }
+
+                //計算未讀訊息數量
+                const unreadCount = await Chat.countDocuments({ taskId: taskId, userId: { $ne: currentUser }, read: false });
+
                 // 發送消息給任務相關的用戶
                 const posterId = task.userId._id.toString();
                 const helperId = task.currentHelperId._id.toString();
                 const role = currentUser === posterId ? 'poster' : 'helper';
-                const createAt = new Date();
+                const createdAt = new Date();
+                const read = false;
                 // 將訊息儲存到資料庫
                 const chat = new Chat({
                     userId: currentUser,
                     taskId,
                     message,
-                    createAt,
+                    createdAt,
+                    read,
                 });
                 await chat.save();
 
                 // 確保這兩個用戶都在線並已連接
                 if (userSockets[posterId]) {
                     userSockets[posterId].forEach((socketId) => {
-                        io.to(socketId).emit('message', { message, taskId, role, createAt });
+                        io.to(socketId).emit('message', { message, taskId, role, read, unreadCount, createdAt });
                     });
                 }
                 if (userSockets[helperId]) {
                     userSockets[helperId].forEach((socketId) => {
-                        io.to(socketId).emit('message', { message, taskId, role, createAt });
+                        io.to(socketId).emit('message', { message, taskId, role, read, unreadCount, createdAt });
                     });
                 }
             } catch (error) {
