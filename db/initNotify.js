@@ -9,8 +9,8 @@ const initNotify = async () => {
         const tasks = await Task.find().select('userId');
         const userCase1 = await User.findOne({ email: 'user1@example.com' }).select('lastName firstName phone');
         const userCase2 = await User.findOne({ email: 'user2@example.com' }).select('lastName firstName phone');
-        const userCase3 = await User.findOne({ email: 'chiayu@example.com' }).select('lastName firstName phone');
-        const userCase5 = await User.findOne({ email: 'weiyu@example.com' }).select('lastName firstName phone');
+        const userCase3 = await User.findOne({ email: 'user4@example.com' }).select('lastName firstName phone');
+        const userCase5 = await User.findOne({ email: 'user6@example.com' }).select('lastName firstName phone');
         const taskCase1 = tasks.find((task) => task.userId._id.equals(userCase1._id));
 
         const notify = [
