@@ -320,19 +320,16 @@ const tasks = {
         const filteredTasks = tasks.filter((task) => {
             // 檢查是否存在急件條件
             if (isUrgent === true && task.isUrgent !== isUrgent) {
-                console.log('check point A', task.title);
                 return false;
             }
 
             // 檢查是否存在關鍵字條件
             if (keyword && !(task.title.includes(keyword) || task.description.includes(keyword))) {
-                console.log('check point B', task.title);
                 return false;
             }
 
             // 檢查是否存在服務類別條件
             if (services.length > 0 && !services.some((service) => task.category.includes(service))) {
-                console.log('check point C', task.title);
                 return false;
             }
 
@@ -340,22 +337,16 @@ const tasks = {
             const isValidDistance = validDistance(centerLongitude, centerLatitude, task.location.longitude, task.location.latitude, radius);
             // 如果有使用縣市地區作為條件，則檢查是否符合縣市地區條件。使用經緯度作為條件，則檢查是否符合距離條件
             if (hasCityLocation) {
-                console.log('check point D', task.title);
                 // 檢查是否有吻合縣市地區
                 if (!isValidCityDist) {
-                    console.log('check point D1', task.title);
-                    console.log(task.location.city, city, task.location.dist, dist);
                     return false;
                 }
             } else {
-                console.log('check point E', task.title);
                 // 檢查是否符合經緯度條件
                 if (!isValidDistance) {
-                    console.log('check point E1', task.title);
                     return false;
                 }
             }
-            console.log('check point F', task.title);
             // 全數條件通關，則返回 true
             return true;
         });
