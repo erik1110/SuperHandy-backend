@@ -5,9 +5,10 @@ const User = require('../models/userModel');
 const Chat = require('../models/chatModel');
 const jwt = require('jsonwebtoken');
 const userSockets = require('../utils/userSockets');
+let io;
 
 function connectSocketIO(server) {
-    const io = new socketIO.Server(server);
+    io = new socketIO.Server(server);
 
     io.use(async (socket, next) => {
         try {
@@ -170,6 +171,12 @@ function connectSocketIO(server) {
     });
     return io;
 }
+function getIO() {
+    if (!io) {
+        throw new Error('Socket.io not initialized!');
+    }
+    return io;
+}
 
 function emitConnectStatus(socket, user) {
     socket.emit('connectStatus', {
@@ -185,4 +192,4 @@ function emitErrorMsg(socket, message) {
     });
 }
 
-module.exports = connectSocketIO;
+module.exports = { connectSocketIO, getIO };
