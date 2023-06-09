@@ -168,6 +168,7 @@ function connectSocketIO(server) {
             }
         });
     });
+    return io;
 }
 
 function emitConnectStatus(socket, user) {
