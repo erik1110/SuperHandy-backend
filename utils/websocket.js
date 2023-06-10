@@ -1,18 +1,20 @@
-const io = require('socket.io');
+const socket = require('../service/socket-io.js');
 const userSockets = require('./userSockets');
 
 function emitNotification(userId, message) {
+    const io = socket.getIO();
     if (userSockets[userId.toString()]) {
         userSockets[userId.toString()].forEach((socketId) => {
-            io.to(socketId).emit('notification', message);
+            io.sockets.to(socketId).emit('notification', message);
         });
     }
 }
 
 function emitCreateNewChat(userId, newChatObj) {
+    const io = socket.getIO();
     if (userSockets[userId.toString()]) {
         userSockets[userId.toString()].forEach((socketId) => {
-            io.to(socketId).emit('createNewChat', newChatObj);
+            io.sockets.to(socketId).emit('createNewChat', newChatObj);
         });
     }
 }

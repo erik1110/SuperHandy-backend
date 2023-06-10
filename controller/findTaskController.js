@@ -203,7 +203,7 @@ const tasks = {
         //filter tasks by city, dist, urgent, keyword, services
         const filteredTasks = tasks.filter((task) => {
             // 檢查是否存在縣市條件
-            if (city && task.location.city !== city) {
+            if (city && task.location.city.replace('台', '臺') !== city.replace('台', '臺')) {
                 return false;
             }
 
@@ -333,7 +333,7 @@ const tasks = {
                 return false;
             }
 
-            const isValidCityDist = task.location.city === city && task.location.dist === dist;
+            const isValidCityDist = task.location.city.replace('台', '臺') === city.replace('台', '臺') && task.location.dist === dist;
             const isValidDistance = validDistance(centerLongitude, centerLatitude, task.location.longitude, task.location.latitude, radius);
             // 如果有使用縣市地區作為條件，則檢查是否符合縣市地區條件。使用經緯度作為條件，則檢查是否符合距離條件
             if (hasCityLocation) {
@@ -347,7 +347,6 @@ const tasks = {
                     return false;
                 }
             }
-
             // 全數條件通關，則返回 true
             return true;
         });
