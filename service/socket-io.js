@@ -5,9 +5,10 @@ const User = require('../models/userModel');
 const Chat = require('../models/chatModel');
 const jwt = require('jsonwebtoken');
 const userSockets = require('../utils/userSockets');
+let io;
 
 function connectSocketIO(server) {
-    const io = new socketIO.Server(server);
+    io = new socketIO.Server(server);
 
     io.use(async (socket, next) => {
         try {
@@ -74,7 +75,9 @@ function connectSocketIO(server) {
                 }
 
                 //計算未讀訊息數量
-                const unreadCount = await Chat.countDocuments({ taskId: taskId, userId: { $ne: currentUser }, read: false });
+                // const unreadCount = await Chat.countDocuments({ taskId: taskId, userId: { $ne: currentUser }, read: false });
+                const helperUnreadCount = await Chat.countDocuments({ taskId: taskId, userId: task.userId._id, read: false });
+                const posterUnreadCount = await Chat.countDocuments({ taskId: taskId, userId: task.currentHelperId._id, read: false });
 
                 // 發送消息給任務相關的用戶
                 const posterId = task.userId._id.toString();
@@ -96,12 +99,12 @@ function connectSocketIO(server) {
                 // 確保這兩個用戶都在線並已連接
                 if (userSockets[posterId]) {
                     userSockets[posterId].forEach((socketId) => {
-                        io.to(socketId).emit('message', { chatId, message, taskId, role, read, unreadCount, createdAt });
+                        io.to(socketId).emit('message', { chatId, message, taskId, role, read, unreadCount: posterUnreadCount, createdAt });
                     });
                 }
                 if (userSockets[helperId]) {
                     userSockets[helperId].forEach((socketId) => {
-                        io.to(socketId).emit('message', { chatId, message, taskId, role, read, unreadCount, createdAt });
+                        io.to(socketId).emit('message', { chatId, message, taskId, role, read, unreadCount: helperUnreadCount, createdAt });
                     });
                 }
             } catch (error) {
@@ -166,6 +169,13 @@ function connectSocketIO(server) {
             }
         });
     });
+    return io;
+}
+function getIO() {
+    if (!io) {
+        throw new Error('Socket.io not initialized!');
+    }
+    return io;
 }
 
 function emitConnectStatus(socket, user) {
@@ -182,4 +192,4 @@ function emitErrorMsg(socket, message) {
     });
 }
 
-module.exports = connectSocketIO;
+module.exports = { connectSocketIO, getIO };

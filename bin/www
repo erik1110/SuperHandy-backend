@@ -30,8 +30,8 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 // Socket.io
-const connectSocketIO = require('../service/socket-io.js');
-connectSocketIO(server);
+const socket = require('../service/socket-io.js');
+socket.connectSocketIO(server);
 
 /**
  * Normalize a port into a number, string, or false.
