@@ -5,7 +5,7 @@ const initReviews = async () => {
     const users = await User.find().select('email');
     const userCase1 = users.find((user) => user.email === 'user1@example.com');
     const userCase2 = users.find((user) => user.email === 'user2@example.com');
-    const userCase3 = users.find((user) => user.email === 'chiayu@example.com');
+    const userCase3 = users.find((user) => user.email === 'user4@example.com');
     const superhandyReviews = [
         {
             userId: userCase1._id,

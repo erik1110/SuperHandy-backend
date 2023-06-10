@@ -5,12 +5,12 @@ const initTasks = async () => {
     const userCase1 = await User.findOne({ email: 'user1@example.com' }).select('lastName firstName phone email');
     const userCase2 = await User.findOne({ email: 'user2@example.com' }).select('lastName firstName phone email');
     const userCase3 = await User.findOne({
-        email: 'chiayu@example.com',
+        email: 'user4@example.com',
     }).select('lastName firstName phone email');
     const userCase4 = await User.findOne({
-        email: 'yunshan@example.com',
+        email: 'user5@example.com',
     }).select('lastName firstName phone email');
-    const userCase5 = await User.findOne({ email: 'weiyu@example.com' }).select('lastName firstName phone email');
+    const userCase5 = await User.findOne({ email: 'user6@example.com' }).select('lastName firstName phone email');
     const tasks = [
         {
             userId: userCase1._id,
@@ -931,7 +931,7 @@ const initTasks = async () => {
             title: '日文家教',
             category: '家教陪讀',
             description: '家中小女想學日文，希望有N2以上來教他五十音',
-            salary: 2500,
+            salary: 3300,
             exposurePlan: '限時黃金曝光',
             imgUrls: ['https://storage.googleapis.com/superhandy.appspot.com/images/891b2c57-fd92-48de-aeb6-0957b70430b4.jpeg?GoogleAccessId=firebase-adminsdk-xlymb%40superhandy.iam.gserviceaccount.com&Expires=16756646400&Signature=WpvexHxinkMaVdJy3HVieZU0YBAe%2BsrbWDSMME0FTdQem9nTj2jopnS2fMAkTYPChgIH878E4ec0bTYlePl91%2BAikGsV93TFUKtGEmn3BZApmp4EhTN1w5b3ikg7NNaK%2Bylf1koyfHvQgLbcGQP0FDPWAnEWQzqNEzse5rTZ17HPRQSaDUmfRVrjjCcr9IVKv6QyO6mAjVkKFB00iNxIaAToRJCK%2BA7KSHX9BpC9zlOzEknF2LnYwfoMpo9tY6B9IB6PkjInqa12VdllS%2FWaLHnJKAbIUduK9xuS940ZqvL%2F%2Bj9QV4gGajNlfj21nH5ZyCchW7eIVDUVtEnSAo7knw%3D%3D'],
             contactInfo: {
@@ -1072,7 +1072,7 @@ const initTasks = async () => {
         {
             userId: userCase5._id,
             status: 'published',
-            title: '吃大餐',
+            title: '媽媽想學鋼琴',
             category: '家教陪讀',
             description: '我媽媽想學鋼琴，想找音樂老師教學',
             salary: 6666,
