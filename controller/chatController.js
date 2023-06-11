@@ -52,6 +52,18 @@ const chatController = {
             }),
         );
 
+        chatRooms.sort((a, b) => {
+            if (a.updatedAt && b.updatedAt) {
+                return b.updatedAt - a.updatedAt; // If both have updatedAt, sort by updatedAt in descending order
+            } else if (a.updatedAt) {
+                return -1; // If only a has updatedAt, a comes first
+            } else if (b.updatedAt) {
+                return 1; // If only b has updatedAt, b comes first
+            } else {
+                return a.taskId < b.taskId ? -1 : 1; // If neither has updatedAt, sort by taskId
+            }
+        });
+
         res.status(200).json(
             getHttpResponse({
                 message: '取得聊天室列表成功',
