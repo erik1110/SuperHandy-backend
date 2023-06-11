@@ -4778,6 +4778,16 @@
               "helper": {
                 "type": "string",
                 "example": "張亞靜"
+              },
+              "imgUrls": {
+                "type": "array",
+                "example": [
+                  "https://example.com/image1.jpg",
+                  "https://example.com/mage2.jpg"
+                ],
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }
@@ -4843,6 +4853,16 @@
               "poster": {
                 "type": "string",
                 "example": "張亞靜"
+              },
+              "imgUrls": {
+                "type": "array",
+                "example": [
+                  "https://example.com/image1.jpg",
+                  "https://example.com/mage2.jpg"
+                ],
+                "items": {
+                  "type": "string"
+                }
               }
             }
           }

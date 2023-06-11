@@ -31,6 +31,7 @@ const tasks = {
                 publishedAt: task.time.publishedAt || null,
                 expiredAt: task.time.expiredAt || null,
                 helper: helperName,
+                imgUrls: task.imgUrls,
             };
         });
         formattedTasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -68,6 +69,7 @@ const tasks = {
                 publishedAt: task.time.publishedAt || null,
                 expiredAt: task.time.expiredAt || null,
                 poster: posterName,
+                imgUrls: task.imgUrls,
             };
         });
         formattedTasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
