@@ -131,7 +131,7 @@ function connectSocketIO(server) {
                 }
 
                 // 尋找所有的對應且未讀的Chat記錄並將其標記為已讀
-                await Chat.updateMany({ taskId: taskId, _id: { $lte: chatId }, read: false }, { read: true });
+                await Chat.updateMany({ taskId: taskId, _id: { $lte: chatId }, userId: { $ne: currentUser }, read: false }, { read: true });
 
                 // 發送訊息給任務相關的用戶
                 const posterId = task.userId._id.toString();
