@@ -203,7 +203,7 @@ const accounts = {
             desc.push('點數贈送');
         }
         // 更新使用者點數
-        user.superCoin += money + purchasePlan[money];
+        user.superCoin += money;
         user.helperCoin += purchasePlan[money];
         await user.save();
         // 新增一筆交易資訊
