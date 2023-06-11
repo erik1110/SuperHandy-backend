@@ -333,10 +333,10 @@ const tasks = {
                 return false;
             }
 
-            const isValidCityDist = task.location.city.replace('台', '臺') === city.replace('台', '臺') && task.location.dist === dist;
             const isValidDistance = validDistance(centerLongitude, centerLatitude, task.location.longitude, task.location.latitude, radius);
             // 如果有使用縣市地區作為條件，則檢查是否符合縣市地區條件。使用經緯度作為條件，則檢查是否符合距離條件
             if (hasCityLocation) {
+                const isValidCityDist = task.location.city.replace('台', '臺') === city.replace('台', '臺') && task.location.dist === dist;
                 // 檢查是否有吻合縣市地區
                 if (!isValidCityDist) {
                     return false;
