@@ -86,6 +86,9 @@ const tasks = {
         if (geocodingResult.status !== 'OK') {
             return next(appError(400, '40400', '找不到該地址'));
         }
+        const currentDate = Date.now();
+        const plan = await Plan.findOne({title: exposurePlan}, { _id: 0, title: 1, price: 1, expireDay: 1, isUrgent: 1 });
+        const expiredAt = new Date(currentDate + plan.expireDay * 24 * 60 * 60 * 1000);
         // 更新使用者點數
         user.superCoin -= taskTrans.superCoin;
         user.helperCoin -= taskTrans.helperCoin;
@@ -110,9 +113,6 @@ const tasks = {
             longitude: geocodingResult.location.lng,
             latitude: geocodingResult.location.lat,
         };
-        const currentDate = Date.now();
-        const plan = await Plan.findOne({title: exposurePlan}, { _id: 0, title: 1, price: 1, expireDay: 1, isUrgent: 1 });
-        const expiredAt = new Date(currentDate + plan.expireDay * 24 * 60 * 60 * 1000);
         // 將草稿更新為正式發佈
         await Task.findByIdAndUpdate(
             {
