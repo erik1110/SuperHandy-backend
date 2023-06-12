@@ -127,6 +127,7 @@ const tasks = {
             category: task.category,
             description: task.description,
             imgUrls: task.imgUrls,
+            helperCount: task.helpers.length,
             viewerCount: task.viewers.length,
             posterInfo: {
                 lastName: task.userId.lastName,
@@ -386,12 +387,12 @@ const tasks = {
         );
     }),
     findTaskListHighlight: handleErrorAsync(async (req, res, next) => {
-        //find all tasks sort by viewerCount and limit 5
+        //find all tasks sort by viewerCount and limit 8
         const tasks = await Task.find({ status: 'published' }).sort({ 'viewers.length': -1 }).select('_id title imgUrls category');
         if (!tasks) {
             return next(appError(404, '40210', '查無資料'));
         }
-        const randomIndexList = getRandomIndexList(tasks.length, 5);
+        const randomIndexList = getRandomIndexList(tasks.length, 8);
         //format tasks
         let formattedTasks = [];
         tasks.forEach((task, index) => {
