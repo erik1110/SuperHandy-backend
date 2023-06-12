@@ -585,8 +585,8 @@ const tasks = {
         });
         // 更新使用者點數：撥款給幫手
         const user = await User.findOne({ _id: helperId });
-        const realSalary = Math.round(task.salary * 0.9);
-        const platformFee = task.salary - realSalary;
+        const platformFee = Math.floor(task.salary * 0.1);
+        const realSalary = task.salary - platformFee;
         user.superCoin += realSalary;
         await user.save();
         // 新增一筆交易資訊
