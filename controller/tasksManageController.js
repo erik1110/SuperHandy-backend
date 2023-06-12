@@ -282,7 +282,7 @@ const tasks = {
             role: '案主',
         });
         const user = await User.findOne({ _id: userId });
-        user.superCoin += Math.abs(taskTrans.superCoin);
+        user.superCoin += Math.abs(taskTrans.salary);
         await user.save();
         res.status(200).json(
             getHttpResponse({
