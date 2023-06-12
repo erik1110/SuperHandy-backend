@@ -25,7 +25,7 @@ router.get('/poster/query', async function (req, res, next) {
     default:  'newest'},
   #swagger.parameters['keyword'] = {in: 'query',description: '關鍵字查詢(任務標題、任務說明)',default: ''},
   #swagger.parameters['services'] = {in: 'query',description: '服務類別，可複選(使用,區隔)',default: ''},
-  #swagger.parameters['limit'] = {in: 'query',description: '每一頁的資料筆數(default:10)',default: '6'},
+  #swagger.parameters['limit'] = {in: 'query',description: '每一頁的資料筆數(default:10)',default: '10'},
   #swagger.parameters['page'] = {in: 'query',description: '第幾頁(default:1)',default:  '1'},
   #swagger.responses[200] = {
     description: '取得成功',
@@ -72,9 +72,9 @@ router.get('/helper/query', async function (req, res, next) {
     in: 'query',
     description: '排序依據(newest,highestSalary,mostEnquiries)(最新刊登 最高薪資 最高詢問度)',
     default:  'newest'}, 
-  #swagger.parameters['keyword'] = {in: 'query',description: '關鍵字查詢(任務標題、任務說明)',default:  ''}, 
-  #swagger.parameters['services'] = {in: 'query',description: '服務類別，可複選(使用,區隔)',default:  ''}, 
-  #swagger.parameters['limit'] = {in: 'query',description: '每一頁的資料筆數(default:10)',default:  '6'}, 
+  #swagger.parameters['keyword'] = {in: 'query',description: '關鍵字查詢(任務標題、任務說明)',default: ''},
+  #swagger.parameters['services'] = {in: 'query',description: '服務類別，可複選(使用,區隔)',default: ''},
+  #swagger.parameters['limit'] = {in: 'query',description: '每一頁的資料筆數(default:10)',default: '10'},
   #swagger.parameters['page'] = {in: 'query',description: '第幾頁(default:1)',default:  '1'}, 
   #swagger.responses[200] = {
     description: '取得成功',

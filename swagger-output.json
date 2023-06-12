@@ -3088,7 +3088,7 @@
             "name": "limit",
             "in": "query",
             "description": "每一頁的資料筆數(default:10)",
-            "default": "6",
+            "default": "10",
             "type": "string"
           },
           {
@@ -3225,7 +3225,7 @@
             "name": "limit",
             "in": "query",
             "description": "每一頁的資料筆數(default:10)",
-            "default": "6",
+            "default": "10",
             "type": "string"
           },
           {
