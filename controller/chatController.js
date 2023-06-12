@@ -24,7 +24,7 @@ const chatController = {
                 if (lastChat) {
                     time = lastChat.createdAt;
                 } else {
-                    time = null;
+                    time = task.time.inProgressAt;
                 }
                 const selfRole = task.userId._id.toString() === userId.toString() ? 'poster' : 'helper';
                 const partnerRole = selfRole === 'poster' ? 'helper' : 'poster';
