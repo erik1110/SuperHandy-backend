@@ -656,6 +656,30 @@ const googleSignUp = {
     message: '第三方登入 google - 註冊',
 };
 
+const getPointsHistory =    {
+    status: 'success',
+    data: [{
+        tag: "刊登任務",
+        taskId: "64869b36f50efe405623a154",
+        taskTitle: "需求短期家庭清潔工",
+        money: {
+        "salary": 350,
+        "exposurePlan": 50,
+        "platform": 0,
+        "superCoin": -350,
+        "helperCoin": -50
+        },
+        desc: [
+        "預扣薪水",
+        "黃金曝光"
+        ],
+        role: "案主",
+        createdAt: "2023-06-12T04:12:38.764Z"
+      }
+    ],
+    message: '取得成功',
+}
+
 module.exports = {
     Success,
     Error400,
@@ -702,4 +726,5 @@ module.exports = {
     getChatHistory,
     googleCallback,
     googleSignUp,
+    getPointsHistory,
 };

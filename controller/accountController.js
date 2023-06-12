@@ -146,7 +146,7 @@ const accounts = {
             }
             return true;
         });
-        const taskTrans = await TaskTrans.find({ userId: req.user._id });
+        const taskTrans = await TaskTrans.find({ userId: req.user._id }).populate('taskId', 'title');
         const formattedUserTrans = userTrans.map((trans) => {
             return {
                 tag: trans.tag,
@@ -167,8 +167,8 @@ const accounts = {
         const formattedTaskTrans = taskTrans.map((trans) => {
             return {
                 tag: trans.tag,
-                taskId: trans.taskId,
-                taskName: trans.taskName,
+                taskId: trans.taskId._id,
+                taskTitle: trans.taskId.title,
                 money: {
                     salary: trans.salary || 0,
                     exposurePlan: trans.exposurePlan || 0,

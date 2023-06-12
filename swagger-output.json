@@ -711,7 +711,7 @@
           "200": {
             "description": "取得成功",
             "schema": {
-              "$ref": "#/definitions/getProfileStats"
+              "$ref": "#/definitions/getPointsHistory"
             }
           },
           "400": {
@@ -6116,6 +6116,82 @@
         "message": {
           "type": "string",
           "example": "第三方登入 google - 註冊"
+        }
+      }
+    },
+    "getPointsHistory": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "example": "success"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tag": {
+                "type": "string",
+                "example": "刊登任務"
+              },
+              "taskId": {
+                "type": "string",
+                "example": "64869b36f50efe405623a154"
+              },
+              "taskTitle": {
+                "type": "string",
+                "example": "需求短期家庭清潔工"
+              },
+              "money": {
+                "type": "object",
+                "properties": {
+                  "salary": {
+                    "type": "number",
+                    "example": 350
+                  },
+                  "exposurePlan": {
+                    "type": "number",
+                    "example": 50
+                  },
+                  "platform": {
+                    "type": "number",
+                    "example": 0
+                  },
+                  "superCoin": {
+                    "type": "number",
+                    "example": -350
+                  },
+                  "helperCoin": {
+                    "type": "number",
+                    "example": -50
+                  }
+                }
+              },
+              "desc": {
+                "type": "array",
+                "example": [
+                  "預扣薪水",
+                  "黃金曝光"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              },
+              "role": {
+                "type": "string",
+                "example": "案主"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2023-06-12T04:12:38.764Z"
+              }
+            }
+          }
+        },
+        "message": {
+          "type": "string",
+          "example": "取得成功"
         }
       }
     }
