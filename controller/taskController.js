@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const getHttpResponse = require('../utils/successHandler');
 const { appError, handleErrorAsync } = require('../utils/errorHandler');
+const Plan = require('../models/planModel');
 const User = require('../models/userModel');
 const Task = require('../models/taskModel');
 const TaskTrans = require('../models/taskTransModel');
 const TaskValidator = require('../service/taskValidator');
 const Notify = require('../models/notifyModel');
-const getexposurePlanPrices = require('../service/exposurePlan');
 const geocoding = require('../utils/geocoding');
 const statusMapping = require('../service/statusMapping');
 
@@ -86,6 +86,9 @@ const tasks = {
         if (geocodingResult.status !== 'OK') {
             return next(appError(400, '40400', '找不到該地址'));
         }
+        const currentDate = Date.now();
+        const plan = await Plan.findOne({title: exposurePlan}, { _id: 0, title: 1, price: 1, expireDay: 1, isUrgent: 1 });
+        const expiredAt = new Date(currentDate + plan.expireDay * 24 * 60 * 60 * 1000);
         // 更新使用者點數
         user.superCoin -= taskTrans.superCoin;
         user.helperCoin -= taskTrans.helperCoin;
@@ -96,7 +99,7 @@ const tasks = {
             userId: userId,
             tag: '刊登任務',
             salary: salary,
-            exposurePlan: getexposurePlanPrices(exposurePlan),
+            exposurePlan: plan.price,
             platform: 0,
             superCoin: -taskTrans.superCoin,
             helperCoin: -taskTrans.helperCoin,
@@ -110,16 +113,6 @@ const tasks = {
             longitude: geocodingResult.location.lng,
             latitude: geocodingResult.location.lat,
         };
-        const currentDate = Date.now();
-        let expiredAt;
-        if (exposurePlan === '一般曝光' || exposurePlan === '黃金曝光') {
-            expiredAt = new Date(currentDate + 30 * 24 * 60 * 60 * 1000); // 30 天後
-        } else if (exposurePlan === '限時曝光' || exposurePlan === '限時黃金曝光') {
-            expiredAt = new Date(currentDate + 7 * 24 * 60 * 60 * 1000); // 7 天後
-        } else {
-            // 預設為 1 天後
-            expiredAt = new Date(currentDate + 1 * 24 * 60 * 60 * 1000);
-        }
         // 將草稿更新為正式發佈
         await Task.findByIdAndUpdate(
             {
@@ -141,6 +134,7 @@ const tasks = {
                     publishedAt: currentDate,
                     expiredAt: expiredAt,
                 },
+                isUrgent: plan.isUrgent,
             },
         );
         res.status(200).json(
@@ -285,15 +279,8 @@ const tasks = {
         user.helperCoin -= taskTrans.helperCoin;
         await user.save();
         const currentDate = Date.now();
-        let expiredAt;
-        if (exposurePlan === '一般曝光' || exposurePlan === '黃金曝光') {
-            expiredAt = new Date(currentDate + 30 * 24 * 60 * 60 * 1000); // 30 天後
-        } else if (exposurePlan === '限時曝光' || exposurePlan === '限時黃金曝光') {
-            expiredAt = new Date(currentDate + 7 * 24 * 60 * 60 * 1000); // 7 天後
-        } else {
-            // 預設為 1 天後
-            expiredAt = new Date(currentDate + 1 * 24 * 60 * 60 * 1000);
-        }
+        const plan = await Plan.findOne({title: exposurePlan}, { _id: 0, title: 1, price: 1, expireDay: 1, isUrgent: 1 });
+        const expiredAt = new Date(currentDate + plan.expireDay * 24 * 60 * 60 * 1000);
         // 正式發佈
         const publishTask = await Task.create({
             userId: userId,
@@ -312,6 +299,7 @@ const tasks = {
                 publishedAt: currentDate,
                 expiredAt: expiredAt,
             },
+            isUrgent: plan.isUrgent,
         });
         // 新增一筆交易資訊
         await TaskTrans.create({
@@ -319,7 +307,7 @@ const tasks = {
             userId: userId,
             tag: '刊登任務',
             salary: salary,
-            exposurePlan: getexposurePlanPrices(exposurePlan),
+            exposurePlan: plan.price,
             platform: 0,
             superCoin: -taskTrans.superCoin,
             helperCoin: -taskTrans.helperCoin,

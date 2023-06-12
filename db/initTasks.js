@@ -36,7 +36,7 @@ const initTasks = async () => {
                 longitude: 121.5659555,
                 latitude: 25.0343073,
             },
-            isUrgent: true,
+            isUrgent: false,
             helpers: [
                 {
                     helperId: userCase2._id,
@@ -53,7 +53,7 @@ const initTasks = async () => {
             ],
             time: {
                 createdAt: new Date('2023-05-12T12:34:56'),
-                updatedAt: new Date('2023-06-12T08:19:50'),
+                updatedAt: new Date('2023-05-19T19:15:50'),
                 publishedAt: new Date('2023-05-13T13:34:56'),
                 unpublishedAt: null,
                 deletedAt: null,
@@ -61,7 +61,7 @@ const initTasks = async () => {
                 submittedAt: new Date('2023-05-17T13:55:56'),
                 confirmedAt: new Date('2023-05-19T19:15:50'),
                 completedAt: null,
-                expiredAt: new Date('2023-06-12T12:34:56'),
+                expiredAt: new Date('2023-06-13T13:34:56'),
             },
             submittedInfo: [
                 {
@@ -99,7 +99,7 @@ const initTasks = async () => {
                 longitude: 121.5644267,
                 latitude: 25.0412214,
             },
-            isUrgent: true,
+            isUrgent: false,
             helpers: [
                 {
                     helperId: userCase5._id,
@@ -115,16 +115,16 @@ const initTasks = async () => {
                 },
             ],
             time: {
-                createdAt: new Date('2023-04-30T12:34:56'),
-                updatedAt: new Date('2023-05-12T08:19:50'),
-                publishedAt: new Date('2023-05-10T13:34:56'),
+                createdAt: new Date(),
+                updatedAt: new Date(),
+                publishedAt: new Date(),
                 unpublishedAt: null,
                 deletedAt: null,
                 inProgressAt: null,
                 submittedAt: null,
                 confirmedAt: null,
                 completedAt: null,
-                expiredAt: new Date('2023-05-30T12:34:56'),
+                expiredAt: new Date(new Date().setDate(new Date().getDate() + 7)),
             },
         },
         {
@@ -151,7 +151,7 @@ const initTasks = async () => {
                 longitude: 121.5442703,
                 latitude: 25.0486251,
             },
-            isUrgent: true,
+            isUrgent: false,
             currentHelperId: userCase5._id,
             helpers: [
                 {
@@ -177,7 +177,7 @@ const initTasks = async () => {
                 submittedAt: new Date('2023-02-17T13:55:56'),
                 confirmedAt: new Date('2023-02-19T19:15:50'),
                 completedAt: new Date('2023-02-23T08:19:50'),
-                expiredAt: new Date('2023-03-01T12:34:56'),
+                expiredAt: new Date('2023-03-15T13:34:56'),
             },
             submittedInfo: [
                 {
@@ -231,15 +231,15 @@ const initTasks = async () => {
             ],
             time: {
                 createdAt: new Date('2023-05-01T09:00:00'),
-                updatedAt: new Date('2023-05-16T09:00:00'),
-                publishedAt: new Date('2023-05-01T09:00:00'),
+                updatedAt: new Date('2023-05-06T09:00:00'),
+                publishedAt: new Date('2023-05-01T11:00:00'),
                 unpublishedAt: null,
                 deletedAt: null,
-                inProgressAt: new Date('2023-05-12T09:00:00'),
-                submittedAt: new Date('2023-05-13T09:00:00'),
-                confirmedAt: new Date('2023-05-14T09:00:00'),
-                completedAt: new Date('2023-05-16T09:00:00'),
-                expiredAt: new Date('2023-06-01T09:00:00'),
+                inProgressAt: new Date('2023-05-03T09:00:00'),
+                submittedAt: new Date('2023-05-04T09:00:00'),
+                confirmedAt: new Date('2023-05-05T09:00:00'),
+                completedAt: new Date('2023-05-06T09:00:00'),
+                expiredAt: new Date('2023-05-08T11:00:00'),
             },
             submittedInfo: [
                 {
@@ -248,7 +248,7 @@ const initTasks = async () => {
                         'https://storage.googleapis.com/superhandy.appspot.com/images/3234e78e-7bff-4be8-854f-8ce28866892d.jpeg?GoogleAccessId=firebase-adminsdk-xlymb%40superhandy.iam.gserviceaccount.com&Expires=16756646400&Signature=TC0LWwaA0INclWGIvqip3h5y5Bget8WQQE76NfEPE4jkw%2BIk9btuvnTYUz%2FYaKqOBPjBW%2FmrtQUDErNCN9PqlZTE2NoUxpkphgsBF%2FFqxLaSWhPKVHE%2BnUibAPONCGW3KWa2Ga4ryL0BMPhe1VrawXZ4j25mH5xBMY8wORThdrmhMI0Qq5%2Br1RXIW%2BOXLWLO6EFrktNUOhthSj62opeLekbiBIzbUzSRQz5PNPYBZ5dKLE4Y%2F8YzPg4hj%2F5RTS%2F5loP8UsnDh7nRII%2FezRV29yJ2KHResrc%2BtBhxA1snfSqNcLRQNfbNQ0tIe2XkdOy4X7N3jJdZpVpnV9D5MaxT2w%3D%3D',
                     ],
                     comment: '這份報告有夠難做，NLP 難啊',
-                    createAt: new Date('2023-04-13T09:00:00'),
+                    createAt: new Date('2023-05-04T09:00:00'),
                 },
             ],
         },
@@ -302,7 +302,7 @@ const initTasks = async () => {
                 submittedAt: new Date('2023-04-17T09:00:00'),
                 confirmedAt: new Date('2023-04-18T09:00:00'),
                 completedAt: new Date('2023-04-19T09:00:00'),
-                expiredAt: new Date('2023-04-09T18:00:00'),
+                expiredAt: new Date('2023-05-02T20:00:00'),
             },
             submittedInfo: [
                 {
@@ -360,15 +360,15 @@ const initTasks = async () => {
             ],
             time: {
                 createdAt: new Date('2023-05-02T18:00:00'),
-                updatedAt: new Date('2023-05-17T09:00:00'),
-                publishedAt: new Date('2023-05-02T20:00:00'),
+                updatedAt: new Date('2023-05-03T09:00:00'),
+                publishedAt: new Date('2023-05-04T20:00:00'),
                 unpublishedAt: null,
                 deletedAt: null,
                 inProgressAt: new Date('2023-05-13T09:00:00'),
                 submittedAt: new Date('2023-05-17T09:00:00'),
                 confirmedAt: new Date('2023-05-18T09:00:00'),
                 completedAt: new Date('2023-05-19T09:00:00'),
-                expiredAt: new Date('2023-06-02T18:00:00'),
+                expiredAt: new Date('2023-05-11T18:00:00'),
             },
             submittedInfo: [
                 {
@@ -377,7 +377,7 @@ const initTasks = async () => {
                         'https://storage.googleapis.com/superhandy.appspot.com/images/7df19da5-cbcf-4b71-8a5e-62a318a864da.jpeg?GoogleAccessId=firebase-adminsdk-xlymb%40superhandy.iam.gserviceaccount.com&Expires=16756646400&Signature=hl2TIsZQMu5IXz4SMH9o7PIYkZ2xbcrgrh7iBH6sm2L7B%2Fj4G3MT97IUD30GAEqM8XzgWupO9j8y%2BHP6Mr0NQ0Sw1HpWRIrjKDlAz%2FVlHiYGlMM1WOjzphKga2STrGWGBEPF1c8Hlh3bkjt%2BQ%2BP%2BOFUGw%2B2zamJYRbB1Qc0XAA4AygCvgvCUWTruQCf6sErjCjOK3q21a8z8NnR6BZes6h%2BDtZ8xQt63B1rJ%2BgNCMaiLtqOLHTnYmZBhA4KJaiWUt%2Bad9qZ6QXlP%2F4%2BD6N9eTj9t5QDBim4LkcX9%2BBKT7m%2BxMQme2MPNElDXvkj3Gh7pMOiaLXikFh1WckpKy%2BT6vg%3D%3D',
                     ],
                     comment: '學生學得很快，很有耐心。',
-                    createAt: new Date('2023-04-17T09:00:00'),
+                    createAt: new Date('2023-05-17T09:00:00'),
                 },
             ],
         },
@@ -430,11 +430,11 @@ const initTasks = async () => {
                 publishedAt: new Date('2023-05-02T20:00:00'),
                 unpublishedAt: null,
                 deletedAt: null,
-                inProgressAt: new Date('2023-05-27T09:00:00'),
-                submittedAt: new Date('2023-05-29T05:00:00'),
-                confirmedAt: new Date('2023-06-01T09:00:00'),
-                completedAt: new Date('2023-06-01T10:00:00'),
-                expiredAt: new Date('2023-06-03T18:00:00'),
+                inProgressAt: new Date('2023-05-10T09:00:00'),
+                submittedAt: new Date('2023-05-12T05:00:00'),
+                confirmedAt: new Date('2023-05-13T09:00:00'),
+                completedAt: new Date('2023-05-16T10:00:00'),
+                expiredAt: new Date('2023-05-09T20:00:00'),
             },
             submittedInfo: [
                 {
@@ -443,7 +443,7 @@ const initTasks = async () => {
                         'https://storage.googleapis.com/superhandy.appspot.com/images/938c5135-1286-4c3b-b6b5-a2d7d134602f.png?GoogleAccessId=firebase-adminsdk-xlymb%40superhandy.iam.gserviceaccount.com&Expires=16756646400&Signature=oYMU6KiwmNT68yWvTmdHWSIJTilHbjwWODqYbUZ1CagffUJfdX7S6JWfMAyqLGFccWxeOuvs8mM0SIqtkvPV%2Bi3gkY55XE%2FNi%2BElLEqrLZda8R0ngu6SElP9SFyD%2BLTcfH6Y7y%2Bayza2HaBoxINntEa94d40cDw5fDYFkumTWafqDGmXjiWGQHmaPZK0v2t0qKGKPB%2By6ZJUOJ0DMwlyVECVgV0u4Lcr9r609tSkzmbNyc4jSEhfaE1eUUo4L1HE4CNCEBFycCPMy7gpIDF7HRS04TL0foIt%2BLqv9nM8dy1y7CaXrbkTeWv%2B6vHa3QrRH0haqRx%2Ffo5CIJJ%2Bb2HHgg%3D%3D',
                     ],
                     comment: '',
-                    createAt: new Date('2023-04-17T09:00:00'),
+                    createAt: new Date('2023-05-12T05:00:00'),
                 },
             ],
         },

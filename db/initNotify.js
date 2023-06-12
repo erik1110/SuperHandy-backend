@@ -98,13 +98,6 @@ const initNotify = async () => {
                 userId: userCase1._id,
                 tag: '系統通知',
                 read: false,
-                description: '端午節點數大贈送，點我了解更多',
-                createdAt: new Date('2023-05-15T08:19:50'),
-            },
-            {
-                userId: userCase1._id,
-                tag: '系統通知',
-                read: false,
                 description: '系統儲值成功',
                 createdAt: new Date('2023-05-01T08:19:50'),
             },

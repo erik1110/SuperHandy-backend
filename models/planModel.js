@@ -9,6 +9,12 @@ const planSchema = new mongoose.Schema({
     items: {
         type: Array,
     },
+    expireDay: {
+        type: Number,
+    },
+    isUrgent: {
+        type: Boolean,
+    },
     createdAt: {
         type: Date,
         default: Date.now,

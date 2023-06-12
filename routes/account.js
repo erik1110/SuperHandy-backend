@@ -145,7 +145,7 @@ router.get('/points/history', function (req, res, next) {
     /**
     #swagger.responses[200] = {
       description: '取得成功',
-      schema: { $ref: '#/definitions/getProfileStats' }
+      schema: { $ref: '#/definitions/getPointsHistory' }
     }
     #swagger.responses[400] = {
       description: 'Token 失敗',
