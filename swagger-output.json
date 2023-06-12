@@ -3165,6 +3165,21 @@
         "description": "",
         "parameters": [
           {
+            "name": "status",
+            "in": "query",
+            "description": "篩選狀態",
+            "default": "全部",
+            "enum": [
+              "全部",
+              "媒合中",
+              "進行中",
+              "已完成",
+              "已下架",
+              "未成立"
+            ],
+            "type": "string"
+          },
+          {
             "name": "city",
             "in": "query",
             "description": "篩選縣市",

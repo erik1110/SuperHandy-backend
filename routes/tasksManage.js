@@ -59,6 +59,12 @@ router.get('/helper/query', async function (req, res, next) {
   * #swagger.security=[{"Bearer": []}]
   * /
   /**
+  #swagger.parameters['status'] = {
+    in: 'query',
+    description: '篩選狀態',
+    default: '全部',
+    enum: ['全部', '媒合中', '進行中', '已完成', '已下架', '未成立']
+  };
   #swagger.parameters['city'] = {in: 'query',description: '篩選縣市',default:  '臺北市'}, 
   #swagger.parameters['dist'] = {in: 'query',description: '篩選地區',default:  '信義區'}, 
   #swagger.parameters['isUrgent'] = {in: 'query',description: '是否為急件',default:  'true'}, 
@@ -91,7 +97,7 @@ router.get('/helper/query', async function (req, res, next) {
     schema: { $ref: '#/definitions/Error500' }
   }
   */
-  tasks.findTaskListGeneral(req, res, next);
+  tasksManageController.getAppliedTasksHistQuery(req, res, next);
 });
 
 
