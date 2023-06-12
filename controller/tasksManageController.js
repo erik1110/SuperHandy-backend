@@ -11,6 +11,132 @@ const statusMapping = require('../service/statusMapping');
 const { emitNotification, emitCreateNewChat } = require('../utils/websocket');
 
 const tasks = {
+    getPostedTasksHistQuery: handleErrorAsync(async (req, res, next) => {
+        const userId = req.user._id;
+        let { status, city, dist, isUrgent, sortBy, keyword, services, limit, page } = req.query;
+        isUrgent = isUrgent === 'true' ? true : false;
+        services = services ? services.split(',') : [];
+        limit = Number(limit) || 10;
+        page = Number(page) || 1;
+        switch (sortBy) {
+            case 'newest':
+                sortBy = { 'time.publishedAt': -1 };
+                break;
+            case 'highestSalary':
+                sortBy = { salary: -1 };
+                break;
+            case 'mostEnquiries':
+                sortBy = { helperCount: -1 };
+                break;
+            default:
+                sortBy = { 'time.publishedAt': -1 };
+        }
+
+        //find all tasks
+        const tasks = await Task.aggregate([
+            {
+                $match: { userId: userId},
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'userId',
+                    foreignField: '_id',
+                    as: 'user',
+                },
+            },
+            {
+                $addFields: {
+                    helperCount: { $size: '$helpers' },
+                },
+            },
+            {
+                $sort: sortBy,
+            },
+        ]);
+
+        if (!tasks) {
+            return next(appError(404, '40210', '查無資料'));
+        }
+
+        //filter tasks by city, dist, urgent, keyword, services
+        const filteredTasks = tasks.filter((task) => {
+            // 檢查狀態過件
+            if (status && !(statusMapping.taskStatusMappingRev[status].includes(task.status))) {
+                return false;
+            }
+            // 檢查是否存在縣市條件
+            if (city && task.location.city.replace('台', '臺') !== city.replace('台', '臺')) {
+                return false;
+            }
+
+            // 檢查是否存在區域條件
+            if (dist && task.location.dist !== dist) {
+                return false;
+            }
+
+            // 檢查是否存在急件條件
+            console.log("isUrgent:", isUrgent)
+            if (isUrgent === true && task.isUrgent !== isUrgent) {
+                console.log('急件')
+                return false;
+            }
+
+            // 檢查是否存在關鍵字條件
+            if (keyword && !(task.title.includes(keyword) || task.description.includes(keyword))) {
+                return false;
+            }
+
+            // 檢查是否存在服務類別條件
+            if (services.length > 0 && !services.some((service) => task.category.includes(service))) {
+                return false;
+            }
+
+            // 如果沒有任何條件，則返回 true
+            return true;
+        });
+        const total_tasks = filteredTasks.length;
+        const total_pages = Math.ceil(total_tasks / limit);
+        if (page > total_pages) {
+            page = total_pages;
+        }
+        const pagingTasks = filteredTasks.filter((task, index) => {
+            if (index >= (page - 1) * limit && index < page * limit) {
+                return task;
+            }
+        });
+        const formattedTasks = pagingTasks.map((task) => {
+            const posterName = `${task.user[0].lastName}${task.user[0].firstName}`;
+            return {
+                taskId: task._id,
+                publishedAt: task.time.publishedAt,
+                status: statusMapping.taskStatusMapping[task.status] || '',
+                title: task.title,
+                isUrgent: task.isUrgent,
+                salary: task.salary,
+                address: `${task.location.city}${task.location.dist}`,
+                category: task.category,
+                description: task.description,
+                imgUrls: task.imgUrls,
+                viewerCount: task.viewers.length,
+                helperCount: task.helpers.length,
+                posterName: posterName,
+                contactName: `${task.contactInfo.name}`,
+            };
+        });
+        res.status(200).json(
+            getHttpResponse({
+                message: '取得成功',
+                data: {
+                    tasks: formattedTasks,
+                    page: page,
+                    limit,
+                    total_pages,
+                    total_tasks,
+                },
+            }),
+        );
+    }),
     getPostedTasksHist: handleErrorAsync(async (req, res, next) => {
         const userId = req.user._id;
         const tasks = await Task.find({ userId: userId }).populate({

@@ -9,6 +9,16 @@ const taskStatusMapping = {
     deleted: '未成立',
 };
 
+const taskStatusMappingRev = {
+    全部: ['draft', 'published', 'inProgress', 'submitted', 'confirmed', 'completed', 'unpublished', 'deleted'],
+    草稿: ['draft'],
+    媒合中: ['published'],
+    進行中: ['inProgress', 'submitted'],
+    已完成: ['completed', 'confirmed'],
+    已下架: ['unpublished'],
+    未成立: ['deleted'],
+};
+
 const helperStatusMapping = {
     waiting: '等待媒合中',
     paired: '媒合成功',
@@ -30,4 +40,5 @@ module.exports = {
     helperStatusMapping,
     reviewStatusMapping,
     reviewStatusReverseMapping,
+    taskStatusMappingRev,
 };
