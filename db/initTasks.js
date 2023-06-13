@@ -32,7 +32,7 @@ const initTasks = async () => {
             location: {
                 city: '臺北市',
                 dist: '信義區',
-                address: '臺北市信義區松智路17號',
+                address: '松智路17號',
                 longitude: 121.5659555,
                 latitude: 25.0343073,
             },
@@ -147,7 +147,7 @@ const initTasks = async () => {
             location: {
                 city: '臺北市',
                 dist: '松山區',
-                address: '臺北市松山區復興北路15號',
+                address: '復興北路15號',
                 longitude: 121.5442703,
                 latitude: 25.0486251,
             },
@@ -209,7 +209,7 @@ const initTasks = async () => {
             location: {
                 city: '臺北市',
                 dist: '松山區',
-                address: '臺北市松山區羅斯福路四段1號',
+                address: '羅斯福路四段1號',
                 longitude: 121.5339903,
                 latitude: 25.0184919,
             },
@@ -271,7 +271,7 @@ const initTasks = async () => {
             location: {
                 city: '新北市',
                 dist: '板橋區',
-                address: '新北市板橋區新站路20號',
+                address: '新站路20號',
                 landmark: '板橋火車站',
                 longitude: 121.4663595,
                 latitude: 25.0132041,
@@ -332,9 +332,9 @@ const initTasks = async () => {
                 email: userCase4.email,
             },
             location: {
-                city: '台中市',
+                city: '臺中市',
                 dist: '南區',
-                address: '台中市南區復興南路二段240號',
+                address: '復興南路二段240號',
                 longitude: 120.6624117,
                 latitude: 24.1208445,
             },
@@ -400,7 +400,7 @@ const initTasks = async () => {
             location: {
                 city: '臺北市',
                 dist: '中正區',
-                address: '臺北市中正區信義路1號',
+                address: '信義路1號',
                 longitude: 121.5748662,
                 latitude: 25.0219844,
             },
@@ -797,7 +797,7 @@ const initTasks = async () => {
                 email: userCase2.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '中山區',
                 address: '南京西路15號',
                 longitude: 121.52067266187575,
@@ -840,7 +840,7 @@ const initTasks = async () => {
                 email: userCase2.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '松山區',
                 address: '南京東路四段10號',
                 longitude: 121.55215931468928,
@@ -878,7 +878,7 @@ const initTasks = async () => {
                 email: userCase2.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '中正區',
                 address: '忠孝東路一段108號',
                 longitude: 121.52456874597381,
@@ -916,7 +916,7 @@ const initTasks = async () => {
                 email: userCase2.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '中正區',
                 address: '忠孝東路三段300號',
                 longitude: 121.54283503941396,
@@ -954,7 +954,7 @@ const initTasks = async () => {
                 email: userCase5.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '大同區',
                 address: '華亭街8號',
                 longitude: 121.51279429847479,
@@ -992,7 +992,7 @@ const initTasks = async () => {
                 email: userCase5.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '萬華區',
                 address: '莒光路248號',
                 longitude: 121.49408320833884,
@@ -1068,7 +1068,7 @@ const initTasks = async () => {
                 email: userCase5.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '中山區',
                 address: '錦州街19號',
                 longitude: 121.5249984979749,
@@ -1106,7 +1106,7 @@ const initTasks = async () => {
                 email: userCase5.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '大安區',
                 address: '忠孝東路四段40巷13號',
                 longitude: 121.54478247162169,
@@ -1144,7 +1144,7 @@ const initTasks = async () => {
                 email: userCase5.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '文山區',
                 address: '興隆路三段112巷2弄13號',
                 longitude: 121.55693088112557,
@@ -1182,7 +1182,7 @@ const initTasks = async () => {
                 email: userCase5.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '大安區',
                 address: '羅斯福路四段1號',
                 longitude: 121.53967613653329,
@@ -1220,7 +1220,7 @@ const initTasks = async () => {
                 email: userCase2.email,
             },
             location: {
-                city: '台北市',
+                city: '臺北市',
                 dist: '大安區',
                 address: '敦化南路二段265巷13號',
                 longitude: 121.54885394229228,
@@ -1258,7 +1258,7 @@ const initTasks = async () => {
                 email: userCase2.email,
             },
             location: {
-                city: '台中市',
+                city: '臺中市',
                 dist: '西屯區',
                 address: '國安一路168號',
                 longitude: 120.61229956605048,
@@ -1296,7 +1296,7 @@ const initTasks = async () => {
                 email: userCase2.email,
             },
             location: {
-                city: '台中市',
+                city: '臺中市',
                 dist: '北區',
                 address: '錦新街40號',
                 longitude: 120.6874116831491,
@@ -1334,7 +1334,7 @@ const initTasks = async () => {
                 email: userCase2.email,
             },
             location: {
-                city: '台中市',
+                city: '臺中市',
                 dist: '南區',
                 address: '復興路一段359號',
                 longitude: 120.65399059014922,
@@ -1360,7 +1360,7 @@ const initTasks = async () => {
             status: 'published',
             title: '徵韓國伴遊',
             category: '活動支援',
-            description: '我們團都不會韓文，需要一位導遊一起去首爾5天4夜，從台中機場開始接送哦～',
+            description: '我們團都不會韓文，需要一位導遊一起去首爾5天4夜，從臺中機場開始接送哦～',
             salary: 31200,
             exposurePlan: '黃金曝光',
             imgUrls: [
@@ -1372,7 +1372,7 @@ const initTasks = async () => {
                 email: userCase2.email,
             },
             location: {
-                city: '台中市',
+                city: '臺中市',
                 dist: '沙鹿區',
                 address: '中航路一段168號',
                 longitude: 120.5995155997547,
@@ -1410,7 +1410,7 @@ const initTasks = async () => {
                 email: userCase2.email,
             },
             location: {
-                city: '台中市',
+                city: '臺中市',
                 dist: '南屯區',
                 address: '春安路56巷25號',
                 longitude: 120.60941110616464,
@@ -1448,7 +1448,7 @@ const initTasks = async () => {
                 email: userCase2.email,
             },
             location: {
-                city: '台中市',
+                city: '臺中市',
                 dist: '中區',
                 address: '市府路14號',
                 longitude: 120.67997853833619,
@@ -1486,7 +1486,7 @@ const initTasks = async () => {
                 email: userCase2.email,
             },
             location: {
-                city: '台中市',
+                city: '臺中市',
                 dist: '南屯區',
                 address: '大墩路311號',
                 longitude: 120.64958188399346,
