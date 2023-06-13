@@ -83,7 +83,7 @@ const initTransactions = async () => {
             },
         ];
         // 假交易資料，刊登用迴圈方式建立
-        const taskCasesOther = [];
+        const taskCasesPublish = [];
         const taskCases = tasks;
         for (let i = 0; i < taskCases.length; i++) {
             const taskCase = taskCases[i];
@@ -99,7 +99,7 @@ const initTransactions = async () => {
                 desc: ['預扣薪水', taskCase.exposurePlan],
                 role: '案主',
             };
-            taskCasesOther.push(taskData);
+            taskCasesPublish.push(taskData);
         }
         const userTransactions = [
             {
@@ -148,7 +148,7 @@ const initTransactions = async () => {
         await TaskTrans.deleteMany({});
         await UserTrans.deleteMany({});
         await TaskTrans.insertMany(taskTransactions);
-        await TaskTrans.insertMany(taskCasesOther);
+        await TaskTrans.insertMany(taskCasesPublish);
         await UserTrans.insertMany(userTransactions);
         console.log('交易資料初始化成功');
     } catch (err) {
