@@ -316,7 +316,7 @@ const accounts = {
                 yourStar: yourStar || null,
                 category: review.taskId.category,
                 title: review.taskId.title,
-                address: review.taskId.location.address,
+                address: review.taskId.location.city + review.taskId.location.dist + review.taskId.location.address,
                 salary: review.taskId.salary,
                 helper: review.helper.helperId ? `${review.helper.helperId.lastName}${review.helper.helperId.firstName}` : '',
                 publishedAt: review.taskId.time.publishedAt,
