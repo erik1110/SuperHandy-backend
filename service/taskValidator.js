@@ -2,7 +2,7 @@ const categories = require('../db/initCategories');
 const validator = require('validator');
 
 const categoryNames = categories.categories.map((cat) => cat.name);
-const getexposurePlanPrices = require('../service/exposurePlan');
+const getExposurePlanPrices = require('../service/exposurePlan');
 
 module.exports = class TaskValidator {
     static checkDraft({ title, category, description, salary, exposurePlan, imgUrls, contactInfo, location }) {
@@ -113,7 +113,7 @@ module.exports = class TaskValidator {
             };
         }
         if (salary && exposurePlan) {
-            const exposurePlanPrice = getexposurePlanPrices(exposurePlan);
+            const exposurePlanPrice = getExposurePlanPrices(exposurePlan);
             const totalPay = salary + exposurePlanPrice;
             const totalCoins = taskTrans.superCoin + taskTrans.helperCoin;
             if (totalPay !== totalCoins) {
