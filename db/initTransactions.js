@@ -22,90 +22,6 @@ const initTransactions = async () => {
         const taskCase7 = tasks.find((task) => task.title === 'Notion 教學');
         const taskTransactions = [
             {
-                taskId: taskCase1._id,
-                userId: userCase1._id,
-                tag: '刊登任務',
-                salary: 300,
-                exposurePlan: 50,
-                platform: 0,
-                superCoin: -300,
-                helperCoin: -50,
-                desc: ['預扣薪水', '黃金曝光'],
-                role: '案主',
-            },
-            {
-                taskId: taskCase2._id,
-                userId: userCase1._id,
-                tag: '刊登任務',
-                salary: 500,
-                exposurePlan: 50,
-                platform: 0,
-                superCoin: -500,
-                helperCoin: -50,
-                desc: ['預扣薪水', '黃金曝光'],
-                role: '案主',
-            },
-            {
-                taskId: taskCase3._id,
-                userId: userCase1._id,
-                tag: '刊登任務',
-                salary: 300,
-                exposurePlan: 50,
-                platform: 0,
-                superCoin: -300,
-                helperCoin: -50,
-                desc: ['預扣薪水', '黃金曝光'],
-                role: '案主',
-            },
-            {
-                taskId: taskCase4._id,
-                userId: userCase2._id,
-                tag: '刊登任務',
-                salary: 1300,
-                exposurePlan: 70,
-                platform: 0,
-                superCoin: -1300,
-                helperCoin: -70,
-                desc: ['預扣薪水', '限時黃金曝光'],
-                role: '案主',
-            },
-            {
-                taskId: taskCase5._id,
-                userId: userCase3._id,
-                tag: '刊登任務',
-                salary: 666,
-                exposurePlan: 20,
-                platform: 0,
-                superCoin: -666,
-                helperCoin: -20,
-                desc: ['預扣薪水', '一般曝光'],
-                role: '案主',
-            },
-            {
-                taskId: taskCase6._id,
-                userId: userCase4._id,
-                tag: '刊登任務',
-                salary: 567,
-                exposurePlan: 50,
-                platform: 0,
-                superCoin: -617,
-                helperCoin: 0,
-                desc: ['預扣薪水', '限時曝光'],
-                role: '案主',
-            },
-            {
-                taskId: taskCase7._id,
-                userId: userCase5._id,
-                tag: '刊登任務',
-                salary: 999,
-                exposurePlan: 70,
-                platform: 0,
-                superCoin: -1069,
-                helperCoin: 0,
-                desc: ['預扣薪水', '限時黃金曝光'],
-                role: '案主',
-            },
-            {
                 taskId: taskCase3._id,
                 userId: userCase5._id,
                 tag: '完成任務',
@@ -166,10 +82,10 @@ const initTransactions = async () => {
                 role: '幫手',
             },
         ];
-        // 其餘新增的假資料，僅限媒合中 (從第8筆開始)
+        // 假交易資料，刊登用迴圈方式建立
         const taskCasesOther = [];
-        const taskCases = tasks.slice(7);
-        for (let i = 7; i < taskCases.length; i++) {
+        const taskCases = tasks;
+        for (let i = 0; i < taskCases.length; i++) {
             const taskCase = taskCases[i];
             const taskData = {
                 taskId: taskCase._id,
