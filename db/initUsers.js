@@ -38,8 +38,7 @@ const initUsers = async () => {
                 firstName: '亞靜',
                 lastName: '張',
                 phone: '0923556789',
-                avatarPath:
-                    'https://storage.googleapis.com/superhandy.appspot.com/images/a0645e56-60cc-4b0b-9464-69073ac48270.jpeg?GoogleAccessId=firebase-adminsdk-xlymb%40superhandy.iam.gserviceaccount.com&Expires=16756646400&Signature=ndjFGggxcuwu4PInOIyiLb4ZqvX8smo7NQwP%2B2qwCqY8BgN%2BoMxLR9j4zb%2FGYkm2UAR%2F2qryq4IubLpY978htXtx7%2FOnMaH5TDTY6FtefjmR4SIr%2FZpcy0Liv6%2F%2F4vII54LRMRtscAqnuc%2BFGXoxtz%2B%2FL%2FnxkmPOc6Aji9oUbc82B9I4yGrQ4w9Af6Ialuf3NEbAcZnq74JSqQxYAAiAlfbK0lTOq1MQYeFLvev%2FCvlRtUN4eOFoQi7uwthf9lDB7JNUSR8QsulwpflTfZvi%2BaIODHqQSEpVOpnnMo%2B9ljRs0Ol279bkxjxgPwtJagKq55rNyurCNz2pDmCAJ31xoA%3D%3D',
+                avatarPath: 'https://storage.googleapis.com/superhandy.appspot.com/images/f4f43a27-9be9-4787-9bd8-7006dbbd45d7.jpeg?GoogleAccessId=firebase-adminsdk-xlymb%40superhandy.iam.gserviceaccount.com&Expires=16756646400&Signature=PeUiR1CzkJFKWB6vJmCVJVBVhU25olJT1MVd8qncdzS%2Bi0hBplBT64UgDKd%2F0v4JXAMIHEJPqpNiVch4wGN0oUVfyXsARGCTwPjGqAI7Auxyob2ALEnKw1CppiOTwM5F5Xq%2B%2Fu9Z%2BkOU0rc1QM01h0dN9hARItWQIAQ2PJKsEQb0OD67RmJAC%2Fr4kOKNGDU8HZgGMwFCZiymC1dJdL4mjU%2B8s418621YlISKWeccQ8azol5kUEMZU3v83KvJcHa2MFSoj0P3iMI8wnehXqOLg3ltIPHmoeKknGfjHo4TXMPzfpJ9IYylZqcndDRnZXhzS%2Fd0DKoKTftS0vJODbQsrQ%3D%3D',
                 nickname: '',
                 location: {
                     city: '臺北市',

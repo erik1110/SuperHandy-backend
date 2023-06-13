@@ -67,7 +67,6 @@ const oauth = {
                 });
                 _id = newUser._id;
             } catch (error) {
-                console.log(error);
                 if (error.code === 11000) {
                     const field = Object.keys(error.keyPattern)[0];
                     return next(appError(400, '40204', `此 ${field} 已被註冊`));
@@ -76,6 +75,9 @@ const oauth = {
                 }
                 return next(appError(400, '40205', '不明錯誤'));
             }
+        } else if (!user.phone || !user.fullName || !user.lastName) {
+            oauth_register = false;
+            _id = user._id;
         } else {
             oauth_register = true;
             _id = user._id;
