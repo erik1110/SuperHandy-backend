@@ -75,6 +75,12 @@ const tasks = {
             .populate({
                 path: 'reviews',
             });
+        let relation = null;
+        if (task.userId._id.toString() === userId.toString()) {
+            relation = 'poster';
+        } else if (task.currentHelperId && task.currentHelperId.toString() === userId.toString()) {
+            relation = 'helper';
+        }
         let reviewRank = {};
         let totalStars = [];
         let categories = [];
@@ -146,6 +152,7 @@ const tasks = {
                 phone: task.contactInfo.phone,
                 email: task.contactInfo.email,
             },
+            relation,
         };
         res.status(200).json(
             getHttpResponse({
@@ -388,7 +395,9 @@ const tasks = {
     }),
     findTaskListHighlight: handleErrorAsync(async (req, res, next) => {
         //find all tasks sort by viewerCount and limit 8
-        const tasks = await Task.find({ status: 'published' }).sort({ 'viewers.length': -1 }).select('_id title imgUrls category');
+        const tasks = await Task.find({ status: 'published', exposurePlan: { $in: ['限時黃金曝光', '黃金曝光'] } })
+            .sort({ 'viewers.length': -1 })
+            .select('_id title imgUrls category');
         if (!tasks) {
             return next(appError(404, '40210', '查無資料'));
         }
@@ -437,14 +446,23 @@ const tasks = {
         if (task.userId._id.toString() == userId.toString()) {
             return next(appError(400, '40216', '無法應徵自己的任務'));
         }
-        if (task.helpers.some((helper) => helper.helperId._id.toString() == userId.toString())) {
-            return next(appError(400, '40217', '已應徵過此任務'));
+
+        const helperIndex = task.helpers.findIndex((helper) => helper.helperId._id.toString() == userId.toString());
+
+        if (helperIndex !== -1) {
+            if (task.helpers[helperIndex].status === 'waiting') {
+                return next(appError(400, '40217', '已應徵過此任務'));
+            } else {
+                task.helpers[helperIndex].status = 'waiting';
+            }
+        } else {
+            const helper = {
+                helperId: userId,
+                status: 'waiting',
+            };
+            task.helpers.push(helper);
         }
-        const helper = {
-            helperId: userId,
-            status: 'waiting',
-        };
-        task.helpers.push(helper);
+
         await task.save();
 
         const currentTime = Date.now();
