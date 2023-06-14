@@ -75,7 +75,7 @@ const oauth = {
                 }
                 return next(appError(400, '40205', '不明錯誤'));
             }
-        } else if (!user.phone || !user.fullName || !user.lastName) {
+        } else if (!user.phone || !user.firstName || !user.lastName) {
             oauth_register = false;
             _id = user._id;
         } else {
