@@ -4,6 +4,6 @@ const exposurePlanPrices = {
     黃金曝光: 50,
     限時黃金曝光: 70,
 };
-const getexposurePlanPrices = (type) => exposurePlanPrices[type] || 0;
+const getExposurePlanPrices = (type) => exposurePlanPrices[type] || 0;
 
-module.exports = getexposurePlanPrices;
+module.exports = getExposurePlanPrices;
