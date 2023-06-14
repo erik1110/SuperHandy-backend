@@ -21,7 +21,7 @@ const notifySchema = new mongoose.Schema({
         trim: true,
     },
     taskId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: false,
     },
     createdAt: {
