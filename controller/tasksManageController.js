@@ -438,6 +438,7 @@ const tasks = {
             taskId: task._id,
             role: role,
             publishedAt: task.time.publishedAt,
+            expiredAt: task.time.expiredAt,
             status: statusMapping.taskStatusMapping[task.status] || '',
             helper: helperName,
             poster: posterName,
