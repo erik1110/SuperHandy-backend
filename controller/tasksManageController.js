@@ -354,7 +354,7 @@ const tasks = {
         const task = await Task.findOne({ _id: taskId })
             .populate({
                 path: 'helpers.helperId',
-                select: 'lastName firstName',
+                select: 'lastName firstName helperSkills',
             })
             .populate({
                 path: 'userId',
@@ -426,6 +426,7 @@ const tasks = {
                     const averageStar = totalStars / totalCount;
                     return {
                         helperId: helper.helperId._id,
+                        helperSkills: helper.helperId.helperSkills || null,
                         status: statusMapping.helperStatusMapping[helper.status],
                         lastName: helper.helperId.lastName,
                         completedTasks: completedTasks,
