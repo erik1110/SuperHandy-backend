@@ -37,6 +37,7 @@ const initTasks = async () => {
                 latitude: 25.0343073,
             },
             isUrgent: false,
+            currentHelperId: userCase2._id,
             helpers: [
                 {
                     helperId: userCase2._id,

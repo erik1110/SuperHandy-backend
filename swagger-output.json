@@ -5303,6 +5303,10 @@
                   "items": {}
                 }
               }
+            },
+            "relation": {
+              "type": "string",
+              "example": "poster"
             }
           }
         },
