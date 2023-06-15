@@ -103,16 +103,19 @@ const tasks = {
                 return task;
             }
         });
-        const formattedTasks = pagingTasks.map((task) => {
+        let formattedTasks = pagingTasks.map((task) => {
             const posterName = `${task.user[0].lastName}${task.user[0].firstName}`;
             return {
                 taskId: task._id,
-                publishedAt: task.time.publishedAt,
+                createdAt: task.time.createdAt,
+                publishedAt: task.time.publishedAt || null,
+                expiredAt: task.time.expiredAt || null,
+                updatedAt: task.time.updatedAt,
                 status: statusMapping.taskStatusMapping[task.status] || '',
                 title: task.title,
                 isUrgent: task.isUrgent,
                 salary: task.salary,
-                address: `${task.location.city}${task.location.dist}`,
+                address: `${task.location.city}${task.location.dist}${task.location.address}`,
                 category: task.category,
                 description: task.description,
                 imgUrls: task.imgUrls,
@@ -122,6 +125,7 @@ const tasks = {
                 contactName: `${task.contactInfo.name}`,
             };
         });
+        formattedTasks = formattedTasks.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',
@@ -235,16 +239,19 @@ const tasks = {
                 return task;
             }
         });
-        const formattedTasks = pagingTasks.map((task) => {
+        let formattedTasks = pagingTasks.map((task) => {
             const posterName = `${task.user[0].lastName}${task.user[0].firstName}`;
             return {
                 taskId: task._id,
-                publishedAt: task.time.publishedAt,
+                createdAt: task.time.createdAt,
+                publishedAt: task.time.publishedAt || null,
+                expiredAt: task.time.expiredAt || null,
+                updatedAt: task.time.updatedAt,
                 status: statusMapping.taskStatusMapping[task.status] || '',
                 title: task.title,
                 isUrgent: task.isUrgent,
                 salary: task.salary,
-                address: `${task.location.city}${task.location.dist}`,
+                address: `${task.location.city}${task.location.dist}${task.location.address}`,
                 category: task.category,
                 description: task.description,
                 imgUrls: task.imgUrls,
@@ -254,6 +261,7 @@ const tasks = {
                 contactName: `${task.contactInfo.name}`,
             };
         });
+        formattedTasks = formattedTasks.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',
@@ -346,7 +354,7 @@ const tasks = {
         const task = await Task.findOne({ _id: taskId })
             .populate({
                 path: 'helpers.helperId',
-                select: 'lastName firstName',
+                select: 'lastName firstName helperSkills',
             })
             .populate({
                 path: 'userId',
@@ -418,6 +426,7 @@ const tasks = {
                     const averageStar = totalStars / totalCount;
                     return {
                         helperId: helper.helperId._id,
+                        helperSkills: helper.helperId.helperSkills || null,
                         status: statusMapping.helperStatusMapping[helper.status],
                         lastName: helper.helperId.lastName,
                         completedTasks: completedTasks,
@@ -438,6 +447,7 @@ const tasks = {
             taskId: task._id,
             role: role,
             publishedAt: task.time.publishedAt,
+            expiredAt: task.time.expiredAt,
             status: statusMapping.taskStatusMapping[task.status] || '',
             helper: helperName,
             poster: posterName,
@@ -534,7 +544,7 @@ const tasks = {
             platform: 0,
             superCoin: Math.abs(taskTrans.superCoin),
             helperCoin: 0,
-            desc: ['退完薪水'],
+            desc: ['退還薪水'],
             role: '案主',
         });
         const user = await User.findOne({ _id: userId });

@@ -320,6 +320,7 @@ const accounts = {
                 salary: review.taskId.salary,
                 helper: review.helper.helperId ? `${review.helper.helperId.lastName}${review.helper.helperId.firstName}` : '',
                 publishedAt: review.taskId.time.publishedAt,
+                confirmedAt: review.taskId.time.confirmedAt,
                 helperReview: {
                     star: review.helper.star,
                     status: reviewStatusMapping[review.helper.status],
@@ -336,9 +337,11 @@ const accounts = {
         });
         const filterCategory = categories.length > 0 ? categories : null;
         const filteredReviews = filterCategory ? formattedReviews.filter((review) => filterCategory.includes(review.category)) : formattedReviews;
-        const filteredReviewSlice = filteredReviews.slice((page - 1) * limit, page * limit);
+        let filteredReviewSlice = filteredReviews.slice((page - 1) * limit, page * limit);
+        filteredReviewSlice = filteredReviewSlice.sort((a, b) => new Date(b.confirmedAt) - new Date(a.confirmedAt));
         const totalCount = filteredReviews.length;
         const totalPages = Math.ceil(totalCount / limit);
+
         res.status(200).json(
             getHttpResponse({
                 message: '取得成功',

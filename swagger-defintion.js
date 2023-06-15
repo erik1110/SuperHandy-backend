@@ -329,6 +329,43 @@ const getNotifyList = {
     },
     message: '取得通知成功',
 };
+
+const getTaskQuery = {
+  status: "success",
+  data: {
+    tasks: [
+      {
+        taskId: "648a7db8ecd4a693f8e551da",
+        createdAt: "2023-06-15T02:55:52.574Z",
+        publishedAt: "2023-06-15T02:55:52.574Z",
+        expiredAt: "2023-06-22T02:55:52.574Z",
+        updatedAt: "2023-06-15T02:55:52.574Z",
+        status: "媒合中",
+        title: "幫忙打王國之淚的Boss",
+        isUrgent: false,
+        salary: 500,
+        address: "臺北市信義區基隆路300號",
+        category: "人力派遣",
+        description: "Boss 好難打，急徵高手幫忙，不可以花我太多素材，意者私聊",
+        imgUrls: [
+          "https://storage.googleapis.com/superhandy.appspot.com/images/27cf2428-96dc-48ec-bb50-a14c59b44a5e.jpeg?GoogleAccessId=firebase-adminsdk-xlymb%40superhandy.iam.gserviceaccount.com&Expires=16756646400&Signature=Ev8Mgk1SCQ8CeLj47jlDNJ6M4PU0FJ8LcZk9TMvVPPkFo6KAyod%2B2q8zaV4Hyg7tpKiKKORYxRN0%2FdA7vPMBBzKINxJYpVxMHVg94HmPx1pG28VREk%2FvyHuLiBpHtIfG8gEXFeJbY7%2FJqtLW%2FQDbCK8kKTLwkPRXFlFiAtDl%2BW1KQTu2l%2Bv%2BLvBPpUGYYdR40Wcd%2FYs0tN%2F8kd%2BL7UkKg8iNy3AxPohVlakv5xmHM32VvXWJWoxQ3wuy4FVPZ%2Fpebz7uwkjht5c9YHWol5GddRK%2BPHs5IcpecUvMitIMy%2Fr4tRiouq2Xahv6NqAN317GmsSvxWdKYvxhemNgpbzPKA%3D%3D",
+          "https://storage.googleapis.com/superhandy.appspot.com/images/655c362d-9b8c-4e2f-b289-f75917177525.jpeg?GoogleAccessId=firebase-adminsdk-xlymb%40superhandy.iam.gserviceaccount.com&Expires=16756646400&Signature=kQz1YDHpwhIix8633VWCcYpssme3ldDH3TN5U9hM07Q2zzHy4LMwQEJ8akGegGpAv8vY%2BBGV4aYZ1hY4MiNWNHkafEwR7Wk8VYRMMYFcdeU7NRbv6U%2B5GUJKEFaZFs0xcajp1AJxsIYkuIc4JxqQZnBnhZH7jVBjnaMtWB%2B5WrNLcoRRpdzf64Ngf48KfCUoa7W8xAmTt51OblVX%2FzY1RxY9Q9v8n2PNBAn7Ge2JOLsCYQ%2B9QDMhkxhRefH9aXUkeEkZycstJWxEnm9rpKnmCpkpkrJeSmvw%2BdD42gFA5RVN8UVN%2Fag%2FS1AyRzR2M9RIXMAyVM1wtuX8fhAxRd1oFg%3D%3D",
+          "https://storage.googleapis.com/superhandy.appspot.com/images/5853640a-267a-4a0d-b3d8-30af4785643b.jpeg?GoogleAccessId=firebase-adminsdk-xlymb%40superhandy.iam.gserviceaccount.com&Expires=16756646400&Signature=oIRETi1rIiaNhZUPJTdfvT5CbCYiRjYkZFqIm4pr7L7k%2FkamWokiuN4u42JXW7ud%2Fr%2BotSbU%2BzXbpRt4g9JzZqbA4ax85JZyoSQRKWsyWrx3CI5fexnLlf1u9q8uE2VLAjQyyJqOJol6fcBrzuhAjh25jDyPBwriZiAIOo4pYmdPGfSV1S9jUBgFXqAtZHvA%2BfQtLBc3cyE6viGJv4L5n%2FaZfynMwTZAsb2%2F56bo1z2xJ8guEm4ItjN%2BPLKyZg%2BZENiFoCA5zJ7aihMn%2BzWaPYB1Qkb1RiJakW8xLjEmSvdlLjpl9WaloXwXVQUftjrxuD%2Bm4qvH4pfNy3UsBEWSNA%3D%3D"
+        ],
+        viewerCount: 0,
+        helperCount: 3,
+        posterName: "翁文方",
+        contactName: "翁文方"
+      },
+    ],
+    page: 1,
+    limit: 10,
+    total_pages: 1,
+    total_tasks: 6
+  },
+  message: "取得成功"
+}
+
 const getPostedTasksHist = {
     status: 'success',
     data: [
@@ -374,6 +411,7 @@ const getTaskDetails = {
         taskId: '646431446cac1cf0dd5acaee',
         role: '案主',
         publishedAt: '2022-02-15T05:34:56.000Z',
+        expiredAt: "2023-03-15T02:55:52.574Z",
         status: '已完成',
         helper: '陳瑋宇',
         poster: '翁文方',
@@ -398,20 +436,35 @@ const getTaskDetails = {
         imgUrls: ['https://example.com/dog.jpg'],
         helpers: [
             {
-                helperId: '646431446cac1cf0dd5acae6',
-                status: '媒合成功',
-                lastName: '陳',
+                helperId: "648a7db8ecd4a693f8e551cd",
+                helperSkills: [
+                  "居家服務",
+                  "清潔外包"
+                ],
+                status: "等待媒合中",
+                lastName: "翁",
+                completedTasks: 1,
+                completionRate: 100,
+                rating: {
+                  overall: 4,
+                  categories: [
+                    {
+                      name: "寵物陪伴",
+                      star: 4,
+                      totalReviews: 1
+                    }
+                  ]
+                }
             },
         ],
         contactInfo: {
             name: '翁文方',
             phone: '0932345678',
-            email: '',
+            email: 'user1@example.com',
         },
         submittedInfo: {
             imgUrls: [],
         },
-        relation: 'poster',
     },
     message: '取得成功',
 };
@@ -459,6 +512,7 @@ const findTaskDetails = {
             phone: '0919694069',
             email: '',
         },
+        relation: "poster"
     },
     message: '取得成功',
 };
@@ -553,6 +607,7 @@ const getCommentsHist = {
             salary: 300,
             name: '陳瑋宇',
             publishedAt: '2022-02-15T05:34:56.000Z',
+            confirmedAt: "2023-05-19T11:15:50.000Z",
             helperReview: {
                 star: 5,
                 status: '已評價',
@@ -707,6 +762,7 @@ module.exports = {
     purchasePoints,
     cashbackPoints,
     getNotifyList,
+    getTaskQuery,
     getPostedTasksHist,
     getAppliedTasksHist,
     getTaskDetails,

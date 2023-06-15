@@ -29,7 +29,7 @@ router.get('/poster/query', async function (req, res, next) {
   #swagger.parameters['page'] = {in: 'query',description: '第幾頁(default:1)',default:  '1'},
   #swagger.responses[200] = {
     description: '取得成功',
-    schema: { $ref: '#/definitions/findTaskListGeneral' }
+    schema: { $ref: '#/definitions/getTaskQuery' }
   }
   #swagger.responses[400] = {
   description: 'Id 格式錯誤、任務狀態錯誤、查無此任務',
@@ -78,7 +78,7 @@ router.get('/helper/query', async function (req, res, next) {
   #swagger.parameters['page'] = {in: 'query',description: '第幾頁(default:1)',default:  '1'}, 
   #swagger.responses[200] = {
     description: '取得成功',
-    schema: { $ref: '#/definitions/findTaskListGeneral' }
+    schema: { $ref: '#/definitions/getTaskQuery' }
   }
   #swagger.responses[400] = {
   description: 'Id 格式錯誤、任務狀態錯誤、查無此任務',

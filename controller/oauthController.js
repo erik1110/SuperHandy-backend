@@ -54,13 +54,14 @@ const oauth = {
         let oauth_register;
         let _id;
         let token;
-        const user = await User.findOne({ googleId: { $exists: true, $eq: googleUser.id } });
+        const user = await User.findOne({ thirdPartyId: { $exists: true, $eq: googleUser.id } });
         if (!user) {
             oauth_register = false;
             try {
                 newUser = await User.create({
                     email: googleUser._json.email,
-                    googleId: googleUser.id,
+                    thirdPartyId: googleUser.id,
+                    thirdPartyType: 'google',
                     nickname: googleUser.displayName,
                     avatarPath: googleUser._json.picture,
                     isVerifiedEmail: true,
