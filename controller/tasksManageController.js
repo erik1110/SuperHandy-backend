@@ -534,7 +534,7 @@ const tasks = {
             platform: 0,
             superCoin: Math.abs(taskTrans.superCoin),
             helperCoin: 0,
-            desc: ['退完薪水'],
+            desc: ['退還薪水'],
             role: '案主',
         });
         const user = await User.findOne({ _id: userId });
