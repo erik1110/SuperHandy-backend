@@ -78,7 +78,7 @@ const tasks = {
         let relation = null;
         if (userId && task.userId._id.toString() === userId.toString()) {
             relation = 'poster';
-        } else if (userId && task.helpers && task.helpers.find((helper) => helper.helperId.toString() === userId.toString()) >= 0) {
+        } else if (userId && task.helpers && task.helpers.findIndex((helper) => helper.helperId._id.toString() === userId.toString()) >= 0) {
             relation = 'helper';
         }
         let reviewRank = {};
