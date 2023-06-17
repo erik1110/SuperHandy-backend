@@ -1022,7 +1022,7 @@ const tasks = {
                     createdAt: currentTime,
                 });
                 task.status = 'deleted';
-                await Task.findByIdAndUpdate(task._id, { $set: { status: 'deleted' }});
+                await Task.findByIdAndUpdate(task._id, { $set: { status: 'deleted', 'time.updatedAt': Date.now() }});
                 count++;
                 console.log(count)
             }
