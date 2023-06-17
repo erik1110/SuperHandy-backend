@@ -15,6 +15,7 @@ const doc = {
         { name: 'Account', description: '我的帳號' },
         { name: 'Sign-in', description: '登入相關' },
         { name: 'Tasks', description: '任務管理' },
+        { name: 'Scheduler', description: '排程' },
         { name: 'Notifications', description: '系統通知' },
         { name: 'Chat', description: '聊天室' },
         { name: 'Money', description: '金流相關' },
