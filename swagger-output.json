@@ -32,6 +32,10 @@
       "description": "任務管理"
     },
     {
+      "name": "Scheduler",
+      "description": "排程"
+    },
+    {
       "name": "Notifications",
       "description": "系統通知"
     },
@@ -3863,6 +3867,27 @@
             "Bearer": []
           }
         ]
+      }
+    },
+    "/tasks/scheduler/check-expired-tasks": {
+      "post": {
+        "tags": [
+          "Scheduler"
+        ],
+        "summary": "過期任務檢查 (Check Expired Tasks)",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "確認成功"
+          },
+          "500": {
+            "description": "系統錯誤",
+            "schema": {
+              "$ref": "#/definitions/Error500"
+            }
+          }
+        }
       }
     },
     "/chat/list": {

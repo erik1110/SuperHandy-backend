@@ -994,6 +994,46 @@ const tasks = {
             }),
         );
     }),
+    checkExpiredTasks: handleErrorAsync(async (req, res, next) => {
+        let tasks = await Task.find({}).select('title status time helpers userId');
+        const currentTime = Date.now();
+        let count = 0
+        for (const task of tasks) {
+            if (task.status === 'published' && task.time.expiredAt < currentTime) {
+                // 推播通知
+                if (task.helpers && task.helpers.length > 0) {
+                    task.helpers.forEach(async (helper) => {
+                    if (helper.status === 'waiting') {
+                        await Notify.create({
+                            userId: helper.helperId,
+                            tag: '幫手通知',
+                            description: `您待媒合的任務：「${task.title} 」已過期，本任務已自動下架！`,
+                            taskId: task._id,
+                            createdAt: currentTime,
+                        });
+                    }
+                    });
+                }
+                await Notify.create({
+                    userId: task.userId,
+                    tag: '案主通知',
+                    description: `您的任務：「${task.title} 」已過期，本任務已自動下架！`,
+                    taskId: task._id,
+                    createdAt: currentTime,
+                });
+                task.status = 'deleted';
+                await Task.findByIdAndUpdate(task._id, { $set: { status: 'deleted', 'time.updatedAt': Date.now() }});
+                count++;
+                console.log(count)
+            }
+        };
+        res.status(200).json(
+            getHttpResponse({
+                message: '確認成功',
+                data: `本次共有 ${count} 個任務過期`
+            }),
+        );
+    }),
 };
 
 module.exports = tasks;
