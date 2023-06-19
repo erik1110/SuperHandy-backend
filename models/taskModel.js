@@ -10,7 +10,7 @@ const taskSchema = new mongoose.Schema({
         required: true,
         enum: ['draft', 'published', 'unpublished', 'deleted', 'inProgress', 'submitted', 'confirmed', 'completed', 'expired'],
     },
-    status_reason: {
+    statusReason: {
         type: String,
         required: false,
         default: '',

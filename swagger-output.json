@@ -5320,7 +5320,7 @@
               "type": "string",
               "example": "已完成"
             },
-            "status_reason": {
+            "statusReason": {
               "type": "string",
               "example": ""
             },
