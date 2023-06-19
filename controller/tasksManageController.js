@@ -449,6 +449,7 @@ const tasks = {
             publishedAt: task.time.publishedAt,
             expiredAt: task.time.expiredAt,
             status: statusMapping.taskStatusMapping[task.status] || '',
+            status_reason: task.status_reason || '',
             helper: helperName,
             poster: posterName,
             progressBar: {
@@ -523,6 +524,7 @@ const tasks = {
             {
                 $set: {
                     status: 'deleted',
+                    status_reason: '案主自行刪除任務',
                     helpers: task.helpers.map((helper) => ({
                         helperId: helper.helperId,
                         status: 'dropped',
@@ -1021,8 +1023,10 @@ const tasks = {
                     taskId: task._id,
                     createdAt: currentTime,
                 });
-                task.status = 'deleted';
-                await Task.findByIdAndUpdate(task._id, { $set: { status: 'deleted', 'time.updatedAt': Date.now() }});
+                await Task.findByIdAndUpdate(task._id, { $set: { status: 'deleted',
+                                                                 status_reason: '系統下架已過期任務',
+                                                                 'time.deletedAt': Date.now(),
+                                                                 'time.updatedAt': Date.now() }});
                 count++;
                 console.log(count)
             }
