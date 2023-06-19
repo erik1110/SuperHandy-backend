@@ -413,6 +413,7 @@ const getTaskDetails = {
         publishedAt: '2022-02-15T05:34:56.000Z',
         expiredAt: "2023-03-15T02:55:52.574Z",
         status: '已完成',
+        statusReason: '',
         helper: '陳瑋宇',
         poster: '翁文方',
         progressBar: {

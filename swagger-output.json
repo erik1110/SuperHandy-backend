@@ -5320,6 +5320,10 @@
               "type": "string",
               "example": "已完成"
             },
+            "statusReason": {
+              "type": "string",
+              "example": ""
+            },
             "helper": {
               "type": "string",
               "example": "陳瑋宇"
