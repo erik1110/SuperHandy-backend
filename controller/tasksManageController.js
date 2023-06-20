@@ -397,20 +397,25 @@ const tasks = {
                         path: 'reviews',
                         select: 'poster.star',
                     });
+                    console.log("------helperData------")
+                    console.log(helperData)
                     const categories = helperData.reduce((acc, task) => {
+                        console.log("------task.reviews-----")
+                        console.log(task.reviews)
                         const existingCategory = acc.find((category) => category.name === task.category);
                         if (existingCategory) {
-                            existingCategory.star += task.reviews.poster.star || 0;
+                            existingCategory.star += task.reviews.poster && task.reviews.poster.star ? task.reviews.poster.star : 0;
                             existingCategory.totalReviews++;
                         } else {
                             acc.push({
                                 name: task.category,
-                                star: task.reviews.poster.star || 0,
+                                star: task.reviews.poster && task.reviews.poster.star ? task.reviews.poster.star : 0,
                                 totalReviews: 1,
                             });
                         }
                         return acc;
                     }, []);
+                    
                     categories.forEach((category) => {
                         category.star = category.star / category.totalReviews;
                     });
