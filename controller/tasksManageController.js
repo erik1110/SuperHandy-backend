@@ -1025,7 +1025,6 @@ const tasks = {
                 });
                 await Task.findByIdAndUpdate(task._id, { $set: { status: 'deleted',
                                                                  statusReason: '系統下架已過期任務',
-                                                                 'time.deletedAt': Date.now(),
                                                                  'time.updatedAt': Date.now() }});
                 count++;
                 console.log(count)
