@@ -398,11 +398,7 @@ const tasks = {
                         path: 'reviews',
                         select: 'poster.star',
                     });
-                    console.log("------helperData------")
-                    console.log(helperData)
                     const categories = helperData.reduce((acc, task) => {
-                        console.log("------task.reviews-----")
-                        console.log(task.reviews)
                         const existingCategory = acc.find((category) => category.name === task.category);
                         if (existingCategory) {
                             existingCategory.star += task.reviews?.poster?.star || 0;
@@ -886,6 +882,7 @@ const tasks = {
                         status: 'completed',
                         'time.completedAt': Date.now(),
                         'time.updatedAt': Date.now(),
+                        reviews: reviewUpdate._id,
                     },
                 },
                 { new: true },
