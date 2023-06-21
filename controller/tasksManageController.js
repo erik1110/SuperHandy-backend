@@ -169,6 +169,7 @@ const tasks = {
                     helpers: {
                         $elemMatch: {
                             helperId: userId,
+                            status: 'paired',
                         },
                     },
                 },
