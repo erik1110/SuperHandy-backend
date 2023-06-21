@@ -383,7 +383,7 @@ const tasks = {
                 task.helpers.map(async (helper) => {
                     const completedTasks = await Task.countDocuments({
                         helpers: { $elemMatch: { helperId: helper.helperId._id, status: 'paired' } },
-                        status: 'completed',
+                        $or: [{ status: 'completed' }, { status: 'confirmed' }],
                     });
                     const numOfTasks = await Task.countDocuments({
                         helpers: { $elemMatch: { helperId: helper.helperId._id, status: 'paired' } },
@@ -1031,7 +1031,11 @@ const tasks = {
                 });
                 await Task.findByIdAndUpdate(task._id, { $set: { status: 'deleted',
                                                                  statusReason: '系統下架已過期任務',
-                                                                 'time.updatedAt': Date.now() }});
+                                                                 helpers: task.helpers.map((helper) => ({
+                                                                    helperId: helper.helperId,
+                                                                    status: 'dropped',
+                                                                })),
+                                                                'time.updatedAt': Date.now() }});
                 count++;
                 console.log(count)
             }
