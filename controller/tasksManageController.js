@@ -169,6 +169,7 @@ const tasks = {
                     helpers: {
                         $elemMatch: {
                             helperId: userId,
+                            status: 'paired',
                         },
                     },
                 },
@@ -382,7 +383,7 @@ const tasks = {
                 task.helpers.map(async (helper) => {
                     const completedTasks = await Task.countDocuments({
                         helpers: { $elemMatch: { helperId: helper.helperId._id, status: 'paired' } },
-                        status: 'completed',
+                        $or: [{ status: 'completed' }, { status: 'confirmed' }],
                     });
                     const numOfTasks = await Task.countDocuments({
                         helpers: { $elemMatch: { helperId: helper.helperId._id, status: 'paired' } },
@@ -397,11 +398,7 @@ const tasks = {
                         path: 'reviews',
                         select: 'poster.star',
                     });
-                    console.log("------helperData------")
-                    console.log(helperData)
                     const categories = helperData.reduce((acc, task) => {
-                        console.log("------task.reviews-----")
-                        console.log(task.reviews)
                         const existingCategory = acc.find((category) => category.name === task.category);
                         if (existingCategory) {
                             existingCategory.star += task.reviews?.poster?.star || 0;
@@ -885,6 +882,7 @@ const tasks = {
                         status: 'completed',
                         'time.completedAt': Date.now(),
                         'time.updatedAt': Date.now(),
+                        reviews: reviewUpdate._id,
                     },
                 },
                 { new: true },
@@ -1030,7 +1028,11 @@ const tasks = {
                 });
                 await Task.findByIdAndUpdate(task._id, { $set: { status: 'deleted',
                                                                  statusReason: '系統下架已過期任務',
-                                                                 'time.updatedAt': Date.now() }});
+                                                                 helpers: task.helpers.map((helper) => ({
+                                                                    helperId: helper.helperId,
+                                                                    status: 'dropped',
+                                                                })),
+                                                                'time.updatedAt': Date.now() }});
                 count++;
                 console.log(count)
             }
