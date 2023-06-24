@@ -112,6 +112,7 @@ const tasks = {
                 expiredAt: task.time.expiredAt || null,
                 updatedAt: task.time.updatedAt,
                 status: statusMapping.taskStatusMapping[task.status] || '',
+                statusReason: task.statusReason || '',
                 title: task.title,
                 isUrgent: task.isUrgent,
                 salary: task.salary,
