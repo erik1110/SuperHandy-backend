@@ -13,9 +13,13 @@
 
 "Our mission is to empower individuals with superhuman abilities in their daily lives. This philosophy represents our commitment to providing a platform that makes it easy for users to find tasks they need help with, while also inspiring them to feel like superheroes who have the power to help others and increase their own self-worth."
 
-## Summary
-
+## Features
+1. Map GPS location search
+2. Chat room function
+3. Skill rating system
+4. Provide value-added services for members' points
 ## System Architecture
+<img src="./image/system-structure.png">
 
 ## Getting Started
 
