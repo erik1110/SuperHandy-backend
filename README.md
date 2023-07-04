@@ -41,7 +41,7 @@
 <img src="./image/notifications.png">
 
 4. Transaction
-<img src="./image/save-money.png">
+<img src="./image/save-money.png" width=400px height=200px>
 <img src="./image/transaction.png">
 
 ## System Architecture
