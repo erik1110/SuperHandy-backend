@@ -16,13 +16,14 @@
 ## Preview
 [Launch Live Preview](https://superhandy-frontend-fork.herokuapp.com/)
 
+<img src="./image/home.png">
+
+## System Architecture
 This project adopts a frontend-backend separation approach. The frontend is developed using Vue.js with the Nuxt.js framework, while the backend is built with Node.js and MongoDB.
 
 You can check more [Frontend-Repo](https://github.com/erik1110/SuperHandy-frontend).
 
-<img src="./image/home.png">
 
-## System Architecture
 <img src="./image/system-structure.png">
 
 ## Special Features
