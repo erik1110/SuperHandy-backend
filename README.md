@@ -14,39 +14,30 @@
 "Our mission is to empower individuals with superhuman abilities in their daily lives. This philosophy represents our commitment to providing a platform that makes it easy for users to find tasks they need help with, while also inspiring them to feel like superheroes who have the power to help others and increase their own self-worth."
 
 ## Special Features
-- 1. Map GPS location search
-
+1. Map GPS location search
 <img src="./image/maps.png">
 
-- 2. Chat room function
-
+2. Chat room function
 <img src="./image/chat.png">
 
-- 3. Skill rating system
-
+3. Skill rating system
 <img src="./image/rating.png">
 
-- 4. Provide value-added services for members' points
-
+4. Provide value-added services for members' points
 <img src="./image/points.png">
 
 ## Other Features
-- 1. Find Tasks
-
+1. Find Tasks
 <img src="./image/find-tasks.png">
 
-- 2. Tasks Management
-
+2. Tasks Management
 <img src="./image/tasks-management.png">
 
-- 3. Notifications
-
+3. Notifications
 <img src="./image/notifications.png">
 
-- 4. Transaction
-
+4. Transaction
 <img src="./image/save-money.png">
-
 <img src="./image/transaction.png">
 
 ## System Architecture
