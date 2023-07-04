@@ -14,12 +14,13 @@
 "Our mission is to empower individuals with superhuman abilities in their daily lives. This philosophy represents our commitment to providing a platform that makes it easy for users to find tasks they need help with, while also inspiring them to feel like superheroes who have the power to help others and increase their own self-worth."
 
 ## Preview
+[Launch Live Preview](https://superhandy-frontend-fork.herokuapp.com/)
 
 This project adopts a frontend-backend separation approach. The frontend is developed using Vue.js with the Nuxt.js framework, while the backend is built with Node.js and MongoDB.
-[Frontend-Repo](https://github.com/erik1110/SuperHandy-frontend)
+
+You can check more [Frontend-Repo](https://github.com/erik1110/SuperHandy-frontend).
 
 <img src="./image/home.png">
-[Launch Live Preview](https://superhandy-frontend-fork.herokuapp.com/)
 
 ## System Architecture
 <img src="./image/system-structure.png">
