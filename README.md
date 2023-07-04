@@ -13,6 +13,10 @@
 
 "Our mission is to empower individuals with superhuman abilities in their daily lives. This philosophy represents our commitment to providing a platform that makes it easy for users to find tasks they need help with, while also inspiring them to feel like superheroes who have the power to help others and increase their own self-worth."
 
+## Preview
+<img src="./image/home.png">
+[Launch Live Preview](https://superhandy-frontend-fork.herokuapp.com/)
+
 ## Special Features
 1. Map GPS location search
 <img src="./image/maps.png">
