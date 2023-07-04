@@ -14,8 +14,15 @@
 "Our mission is to empower individuals with superhuman abilities in their daily lives. This philosophy represents our commitment to providing a platform that makes it easy for users to find tasks they need help with, while also inspiring them to feel like superheroes who have the power to help others and increase their own self-worth."
 
 ## Preview
+
+This project adopts a frontend-backend separation approach. The frontend is developed using Vue.js with the Nuxt.js framework, while the backend is built with Node.js and MongoDB.
+[Frontend-Repo](https://github.com/erik1110/SuperHandy-frontend)
+
 <img src="./image/home.png">
 [Launch Live Preview](https://superhandy-frontend-fork.herokuapp.com/)
+
+## System Architecture
+<img src="./image/system-structure.png">
 
 ## Special Features
 1. Map GPS location search
@@ -44,15 +51,12 @@
 <img src="./image/save-money.png" width=400px height=200px>
 <img src="./image/transaction.png">
 
-## System Architecture
-<img src="./image/system-structure.png">
-
 ## Getting Started
 
 -   (1) Create the `config.env`. (You can get copy from `example.env`)
--   (2) Run the npm install.
+-   (2) Run the `npm install`.
 -   (3) Depends on your environment and follow the script below.
--   (4) You can get [swagger-doc](http://localhost:3000/api-doc/).
+-   (4) You can get [swagger-doc](http://localhost:3000/api-doc/) on 3000 port.
 
 ```
 // development
