@@ -112,6 +112,7 @@ const tasks = {
                 expiredAt: task.time.expiredAt || null,
                 updatedAt: task.time.updatedAt,
                 status: statusMapping.taskStatusMapping[task.status] || '',
+                statusReason: task.statusReason || '',
                 title: task.title,
                 isUrgent: task.isUrgent,
                 salary: task.salary,
@@ -169,6 +170,7 @@ const tasks = {
                     helpers: {
                         $elemMatch: {
                             helperId: userId,
+                            status: 'paired',
                         },
                     },
                 },
@@ -382,7 +384,7 @@ const tasks = {
                 task.helpers.map(async (helper) => {
                     const completedTasks = await Task.countDocuments({
                         helpers: { $elemMatch: { helperId: helper.helperId._id, status: 'paired' } },
-                        status: 'completed',
+                        $or: [{ status: 'completed' }, { status: 'confirmed' }],
                     });
                     const numOfTasks = await Task.countDocuments({
                         helpers: { $elemMatch: { helperId: helper.helperId._id, status: 'paired' } },
@@ -400,17 +402,18 @@ const tasks = {
                     const categories = helperData.reduce((acc, task) => {
                         const existingCategory = acc.find((category) => category.name === task.category);
                         if (existingCategory) {
-                            existingCategory.star += task.reviews.poster.star || 0;
+                            existingCategory.star += task.reviews?.poster?.star || 0;
                             existingCategory.totalReviews++;
                         } else {
                             acc.push({
                                 name: task.category,
-                                star: task.reviews.poster.star || 0,
+                                star: task.reviews?.poster?.star || 0,
                                 totalReviews: 1,
                             });
                         }
                         return acc;
                     }, []);
+                    
                     categories.forEach((category) => {
                         category.star = category.star / category.totalReviews;
                     });
@@ -449,6 +452,7 @@ const tasks = {
             publishedAt: task.time.publishedAt,
             expiredAt: task.time.expiredAt,
             status: statusMapping.taskStatusMapping[task.status] || '',
+            statusReason: task.statusReason || '',
             helper: helperName,
             poster: posterName,
             progressBar: {
@@ -523,6 +527,7 @@ const tasks = {
             {
                 $set: {
                     status: 'deleted',
+                    statusReason: '案主自行刪除任務',
                     helpers: task.helpers.map((helper) => ({
                         helperId: helper.helperId,
                         status: 'dropped',
@@ -878,6 +883,7 @@ const tasks = {
                         status: 'completed',
                         'time.completedAt': Date.now(),
                         'time.updatedAt': Date.now(),
+                        reviews: reviewUpdate._id,
                     },
                 },
                 { new: true },
@@ -1021,8 +1027,13 @@ const tasks = {
                     taskId: task._id,
                     createdAt: currentTime,
                 });
-                task.status = 'deleted';
-                await Task.findByIdAndUpdate(task._id, { $set: { status: 'deleted', 'time.updatedAt': Date.now() }});
+                await Task.findByIdAndUpdate(task._id, { $set: { status: 'deleted',
+                                                                 statusReason: '系統下架已過期任務',
+                                                                 helpers: task.helpers.map((helper) => ({
+                                                                    helperId: helper.helperId,
+                                                                    status: 'dropped',
+                                                                })),
+                                                                'time.updatedAt': Date.now() }});
                 count++;
                 console.log(count)
             }

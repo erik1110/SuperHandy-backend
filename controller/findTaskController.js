@@ -104,7 +104,7 @@ const tasks = {
         categories.sort((a, b) => b.star - a.star);
         if (categories.length > 3) categories.length = 3;
 
-        let completedTaskCount = posterData.filter((task) => task.status === 'completed').length;
+        let completedTaskCount = posterData.filter((task) => task.status === 'completed' || task.status === 'confirmed').length;
         let completedTaskPercent = Math.round((completedTaskCount / posterData.length) * 100);
         let avgStar = Number((totalStars.reduce((sum, star) => sum + star, 0) / totalStars.length).toFixed(1));
 

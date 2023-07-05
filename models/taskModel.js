@@ -10,6 +10,11 @@ const taskSchema = new mongoose.Schema({
         required: true,
         enum: ['draft', 'published', 'unpublished', 'deleted', 'inProgress', 'submitted', 'confirmed', 'completed', 'expired'],
     },
+    statusReason: {
+        type: String,
+        required: false,
+        default: '',
+    },
     title: {
         type: String,
         required: [true, "Please enter your task's title."],
