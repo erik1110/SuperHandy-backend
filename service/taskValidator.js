@@ -88,6 +88,36 @@ module.exports = class TaskValidator {
                 msg: '任務類別錯誤!',
             };
         }
+        const pattern = /^[a-zA-Z0-9\u4e00-\u9fa5，。、！？：；（）【】『』「」“”‘’"'\-—_—+=【】—「」【】《》【】]{1,}$/;
+
+        if (!pattern.test(title)) {
+            return {
+                status: false,
+                msg: '標題包含不正確的符號!',
+            };
+        }
+
+        if (!pattern.test(description)) {
+            return {
+                status: false,
+                msg: '描述包含不正確的符號!',
+            };
+        }
+
+        if (!pattern.test(contactInfo.name) || !pattern.test(contactInfo.phone) || !pattern.test(contactInfo.email)) {
+            return {
+                status: false,
+                msg: '聯絡資訊包含不正確的符號!',
+            };
+        }
+
+        if (!pattern.test(location.city) || !pattern.test(location.dist) ||!pattern.test(location.address)) {
+            return {
+                status: false,
+                msg: '地址名稱包含不正確的符號!',
+            };
+        }
+
         if (!description || typeof description !== 'string') {
             return {
                 status: false,
