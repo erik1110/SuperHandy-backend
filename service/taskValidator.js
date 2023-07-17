@@ -159,6 +159,12 @@ module.exports = class TaskValidator {
                 msg: '圖片路徑格式錯誤!',
             };
         }
+        if (imgUrls.length > 5) {
+            return {
+                status: false,
+                msg: '超過五張圖片!',
+            };
+        }
         return {
             status: true,
             msg: 'success',
