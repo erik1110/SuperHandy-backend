@@ -104,7 +104,7 @@ module.exports = class TaskValidator {
             };
         }
 
-        if (!pattern.test(contactInfo.name) || !pattern.test(contactInfo.phone) || !pattern.test(contactInfo.email)) {
+        if (!pattern.test(contactInfo.name) || !pattern.test(contactInfo.phone)) {
             return {
                 status: false,
                 msg: '聯絡資訊包含不正確的符號!',
