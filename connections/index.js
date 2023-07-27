@@ -12,23 +12,23 @@ const initSuperhandyReviews = require('../db/initSuperhandyReviews');
 const initChats = require('../db/initChats');
 
 const DB = process.env.DATABASE.replace('<password>', process.env.DATABASE_PASSWORD);
-
+const INIT_DB = process.env.INIT_DB === 'true'; 
 mongoose
     .connect(DB)
     .then(async () => {
         console.log('資料庫連接成功');
-        console.log('NODE_ENV:', process.env.NODE_ENV)
-        // if (process.env.NODE_ENV === 'initDB') {
-        await initCategories.initCategories();
-        await initPlans();
-        await initUsers();
-        await initTasks();
-        await initTransactions();
-        await initReviews();
-        await initNotify();
-        await initSuperhandyReviews();
-        await initChats();
-        // }
+        if (INIT_DB) {
+            console.log('初始化 DB');
+            await initCategories.initCategories();
+            await initPlans();
+            await initUsers();
+            await initTasks();
+            await initTransactions();
+            await initReviews();
+            await initNotify();
+            await initSuperhandyReviews();
+            await initChats();
+        }
     })
     .then(() => {
         if (process.env.NODE_ENV === 'dev') {
