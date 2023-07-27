@@ -2,25 +2,18 @@ const nodemailer = require('nodemailer');
 const getHttpResponse = require('./successHandler');
 const { appError } = require('./errorHandler');
 
-const mailer = (res, next, user, token, method) => {
+const mailer = async(res, next, user, token, method) => {
     const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
+        service: 'gmail',
         auth: {
-            type: 'OAuth2',
-            user: process.env.ACCOUNT,
-            clientId: process.env.clientId,
-            clientSecret: process.env.clientSecret,
-            refreshToken: process.env.refreshToken,
-            accessToken: process.env.accessToken,
-        },
-        tls: {
-            rejectUnauthorized: false,
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_PASS,
         },
     });
+    await transporter.verify();
+
     const optionsVerify = {
-        from: process.env.ACCOUNT,
+        from: process.env.GMAIL_USER,
         to: user.email,
         subject: 'SuperHandy - 驗證用戶信箱',
         html: `
@@ -31,14 +24,14 @@ const mailer = (res, next, user, token, method) => {
         <a href="${process.env.FRONTEND_URL}/auth/verify-email?nickname=${user.nickname}&token=${token}&email=${user.email}">驗證連結</a><br />
        驗證連結於一個小時後逾期<br />
        如果你並未要求註冊該網站，你可以略過這則訊息。<br />
-       如果你有任何問題，請聯繫我們：<a href="mailto:${process.env.ACCOUNT}">${process.env.ACCOUNT}</a><br />
+       如果你有任何問題，請聯繫我們：<a href="mailto:${process.env.GMAIL_USER}">${process.env.GMAIL_USER}</a><br />
     </p>
     <p style=color:gray>本郵件請勿直接回覆。</p>
     `,
     };
 
     const optionsForgot = {
-        from: process.env.ACCOUNT,
+        from: process.env.GMAIL_USER,
         to: user.email,
         subject: 'SuperHandy - 忘記密碼',
         html: `
@@ -49,7 +42,7 @@ const mailer = (res, next, user, token, method) => {
         <a href="${process.env.FRONTEND_URL}/auth/reset-password?nickname=${user.nickname}&token=${token}&email=${user.email}">重設密碼連結</a><br />
        驗證連結於一個小時後逾期<br />
        如果你並未提出該請求，請您略過這則訊息。<br />
-       如果你有任何問題，請聯繫我們：<a href="mailto:${process.env.ACCOUNT}">${process.env.ACCOUNT}</a><br />
+       如果你有任何問題，請聯繫我們：<a href="mailto:${process.env.GMAIL_USER}">${process.env.GMAIL_USER}</a><br />
     </p>
     <p style=color:gray>本郵件請勿直接回覆。</p>
     `,
