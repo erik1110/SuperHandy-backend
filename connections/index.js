@@ -11,13 +11,14 @@ const initTransactions = require('../db/initTransactions');
 const initSuperhandyReviews = require('../db/initSuperhandyReviews');
 const initChats = require('../db/initChats');
 
-const DB = process.env.DATABASE.replace('<password>', process.env.DATABASE_PASSWORD);
-
+const DB = process.env.DATABASE
+const INIT_DB = process.env.INIT_DB === 'true'; 
 mongoose
     .connect(DB)
     .then(async () => {
         console.log('資料庫連接成功');
-        if (process.env.NODE_ENV === 'initDB') {
+        if (INIT_DB) {
+            console.log('初始化 DB');
             await initCategories.initCategories();
             await initPlans();
             await initUsers();
