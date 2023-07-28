@@ -14,7 +14,7 @@
 "Our mission is to empower individuals with superhuman abilities in their daily lives. This philosophy represents our commitment to providing a platform that makes it easy for users to find tasks they need help with, while also inspiring them to feel like superheroes who have the power to help others and increase their own self-worth."
 
 ## Preview
-[Launch Live Preview](https://superhandy-frontend-fork.herokuapp.com/)
+[Launch Live Preview](https://superhandy-frontend.zeabur.app/)
 
 <img src="./image/home.png">
 

@@ -13,7 +13,7 @@
 「讓您在生活中擁有超人的力量」。這個理念代表著我們的使命是提供一個平台，讓使用者可以輕鬆地找到需要幫助的任務。同時，我們也希望讓使用者感受到自己像超人一樣有能力去幫助別人解決問題，實現自我價值的提升。
 
 ## 預覽
-[線上環境](https://superhandy-frontend-fork.herokuapp.com/)
+[線上環境](https://superhandy-frontend.zeabur.app/)
 
 <img src="./image/home.png">
 
